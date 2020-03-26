@@ -1,0 +1,12 @@
+{
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "jsdoc": "^3.6.3",
+    "rollup": "^2.2.0",
+    "rollup-plugin-babel": "^4.4.0"
+  }
+}

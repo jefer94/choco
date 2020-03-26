@@ -1,0 +1,11 @@
+{
+  "name": "@services/algorithm",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Jeferson De Freitas",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "express": "^5.0.0-alpha.8"
+  }
+}
