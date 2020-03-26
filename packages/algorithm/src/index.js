@@ -1,7 +1,9 @@
 import express from 'express'
-import dotenv from 'dotenv'
+// import dotenv from 'dotenv'
+import '@services/env'
+import { listProjects } from './routes/index.js'
 
-dotenv.config({ path: '../../.env' })
+// dotenv.config({ path: '../../../.env' })
 
 const app = express()
 const port = process.env.PORT || 3000
@@ -22,4 +24,5 @@ app
   .get('/', (req, res) => {
     res.json({})
   })
+  .get('/projects', listProjects)
   .listen(port)

@@ -1,3 +1,7 @@
+/**
+ * @constant
+ * @description
+ */
 export default {
   id: String,
   userId: String,

@@ -1,0 +1,11 @@
+{
+  "name": "@services/env",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "author": "Jeferson De Freitas",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "dotenv": "^8.2.0"
+  }
+}
