@@ -1,6 +1,6 @@
 export default {
   id: String,
-  userId: String,
+  projectId: String,
   name: String,
   code: String
 }

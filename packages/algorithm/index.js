@@ -18,4 +18,8 @@ const port = process.env.PORT || 3000
  * @todo Tests and docs 
  */
 
-app.listen(port)
+app
+  .get('/', (req, res) => {
+    res.json({})
+  })
+  .listen(port)
