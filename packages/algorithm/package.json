@@ -6,6 +6,13 @@
   "license": "MIT",
   "type": "module",
   "dependencies": {
+    "dotenv": "^8.2.0",
     "express": "^5.0.0-alpha.8"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/plugin-transform-modules-commonjs": "^7.9.0",
+    "@babel/preset-env": "^7.9.0",
+    "babel-jest": "^25.2.0"
   }
 }
