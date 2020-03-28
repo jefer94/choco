@@ -1,6 +1,5 @@
 import { typeError } from '../i18n'
-import keychain from '../keychain'
-
+import keychain from '@choco/keychain'
 
 export const io = {
   show: true,

@@ -1,7 +1,8 @@
 {
   "name": "@choco/algorithm-persistent",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "./dist/cache.cjs.js",
+  "module": "./dist/cache.esm.js",
   "author": "Jeferson De Freitas",
   "license": "MIT",
   "type": "module",

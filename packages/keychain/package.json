@@ -1,7 +1,8 @@
 {
   "name": "@choco/keychain",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "./dist/keychain.cjs.js",
+  "module": "./dist/keychain.esm.js",
   "author": "Jeferson De Freitas",
   "license": "MIT"
 }

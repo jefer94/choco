@@ -1,7 +1,8 @@
 {
   "name": "@choco/env",
   "version": "1.0.0",
-  "main": "src/index.js",
+  "main": "./dist/env.cjs.js",
+  "module": "./dist/env.esm.js",
   "author": "Jeferson De Freitas",
   "license": "MIT",
   "type": "module",

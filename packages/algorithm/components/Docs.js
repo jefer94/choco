@@ -1,6 +1,6 @@
 import React from 'react'
 // import './Docs.sass'1
-// import keychain from '../libs/keychain'
+// import keychain from '@choco/keychain'
 
 /** @module components/Docs */
 

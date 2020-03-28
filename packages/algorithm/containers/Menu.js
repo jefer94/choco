@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
 import { faEdit, faTerminal, faBook } from '@fortawesome/free-solid-svg-icons'
 import { homeRoute, docsRoute, consoleRoute } from '../globals/routes'
-import keychain from '../libs/keychain'
+import keychain from '@choco/keychain'
 import { ThemeContext, MenuContext } from '../contexts'
 import MenuComponent from '../components/Menu'
 

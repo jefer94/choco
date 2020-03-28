@@ -1,7 +1,8 @@
 {
   "name": "@choco/express-common",
   "version": "1.0.0",
-  "main": "src/index.js",
+  "main": "./dist/express-common.cjs.js",
+  "module": "./dist/express-common.esm.js",
   "author": "Jeferson De Freitas",
   "license": "MIT",
   "type": "module",

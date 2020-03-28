@@ -9,7 +9,7 @@ import varsReducer from '../reducers/variables'
 import useTabs from '../hooks/useTabs'
 import Menu from '../containers/Menu'
 import { io, write as writeInConsole, read as readInConsole } from '../libs/algorithm/io'
-import keychain from '../libs/keychain'
+import keychain from '@choco/keychain'
 import { ThemeContext } from '../contexts'
 import ConsoleComponent from '../components/Console'
 

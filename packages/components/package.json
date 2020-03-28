@@ -1,7 +1,19 @@
 {
   "name": "@choco/components",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "./dist/components.cjs.js",
+  "module": "./dist/components.esm.js",
   "author": "Jeferson De Freitas",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.0",
+    "@babel/preset-react": "^7.9.4",
+    "rollup": "^2.2.0",
+    "rollup-plugin-babel": "^4.4.0"
+  },
+  "dependencies": {
+    "react": "^16.13.1",
+    "styled-components": "^5.0.1"
+  }
 }
