@@ -1,7 +1,14 @@
 import dotenv from 'dotenv'
 import * as path from 'path'
 
-const { error, parsed } = dotenv.config({ path: path.join(process.cwd(), '../../.env'), debug: false })
+/** @module @services/env */
+
+/**
+ * @example
+ * import '@services/env'
+ */
+dotenv.config({ path: path.join(process.cwd(), '../../.env'), debug: false })
+// const { error, parsed } = dotenv.config({ path: path.join(process.cwd(), '../../.env'), debug: false })
 
 // // was there an error?
 // console.error(error)

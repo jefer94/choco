@@ -1,0 +1,19 @@
+{
+  "name": "@choco/algorithm-persistent",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Jeferson De Freitas",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.9.6"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/plugin-transform-modules-commonjs": "^7.9.0",
+    "@babel/preset-env": "^7.9.0",
+    "babel-jest": "^25.2.0"
+  }
+}

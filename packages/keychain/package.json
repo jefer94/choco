@@ -1,0 +1,7 @@
+{
+  "name": "@choco/keychain",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Jeferson De Freitas",
+  "license": "MIT"
+}

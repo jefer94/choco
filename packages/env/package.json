@@ -1,5 +1,5 @@
 {
-  "name": "@services/env",
+  "name": "@choco/env",
   "version": "1.0.0",
   "main": "src/index.js",
   "author": "Jeferson De Freitas",

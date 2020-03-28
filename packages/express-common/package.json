@@ -1,5 +1,5 @@
 {
-  "name": "@services/express-common",
+  "name": "@choco/express-common",
   "version": "1.0.0",
   "main": "src/index.js",
   "author": "Jeferson De Freitas",
