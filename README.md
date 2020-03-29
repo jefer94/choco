@@ -62,6 +62,7 @@ yarn start
 | [@choco/algorithm-transpiler][choco-transpiler] | Algorithm to Javascript transpiler.                          |
 | [@choco/css-utils][choco-css]                   | Handle CSS variables.                                        |
 | [@choco/env][choco-env]                         | Load .env for monorepos.                                     |
+| [@choco/i18n][choco-i18n]                       | Load dynamically our string, in we language.                 |
 | [@choco/express-common][choco-express]          | Common Middlewares used in Express.                          |
 | [@choco/keychain][choco-keychain]               | Unique key generator for React, prevent unnecessary renders. |
 
