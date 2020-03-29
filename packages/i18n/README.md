@@ -11,6 +11,15 @@
 [![dev-deps][dev-deps]][dev-deps-url]
 [![chat][chat]][chat-url]
 
+[deps]: https://david-dm.org/jefer94/choco.svg
+[deps-url]: https://david-dm.org/jefer94/choco
+
+[dev-deps]: https://david-dm.org/jefer94/choco/dev-status.svg
+[dev-deps-url]: https://david-dm.org/jefer94/choco
+
+[chat]: https://badges.gitter.im/jefer94/choco.svg
+[chat-url]: https://gitter.im/jefer94/choco
+
   <br>
   <h1>@choco/i18n</h1>
   <p>
@@ -51,12 +60,3 @@ locale.one('cow') // returns 'cow'
      </tr>
   </tbody>
 </table>
-
-[deps]: https://david-dm.org/jefer94/algorithm.svg
-[deps-url]: https://david-dm.org/jefer94/algorithm
-
-[dev-deps]: https://david-dm.org/jefer94/algorithm/dev-status.svg
-[dev-deps-url]: https://david-dm.org/jefer94/algorithm
-
-[chat]: https://badges.gitter.im/jefer94/algorithm.svg
-[chat-url]: https://gitter.im/jefer94/algorithm
