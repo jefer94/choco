@@ -2,14 +2,27 @@
   <br>
   <br>
 
-<a href="https://github.com/jefer94/algorithm">
-    <img width="400"
-      src="https://img.shields.io/badge/choco-algorithm-green.svg?style=for-the-badge&colorA=21252b&colorB=568af2">
+  <a href="https://github.com/jefer94/choco">
+    <img
+      width="400"
+      src="https://img.shields.io/badge/choco-algorithm-green.svg?style=for-the-badge&colorA=21252b&colorB=568af2"
+    />
   </a>
 
 [![deps][deps]][deps-url]
 [![dev-deps][dev-deps]][dev-deps-url]
 [![chat][chat]][chat-url]
+
+
+[deps]: https://david-dm.org/jefer94/choco.svg
+[deps-url]: https://david-dm.org/jefer94/choco
+
+[dev-deps]: https://david-dm.org/jefer94/choco/dev-status.svg
+[dev-deps-url]: https://david-dm.org/jefer94/choco
+
+[chat]: https://badges.gitter.im/jefer94/choco.svg
+[chat-url]: https://gitter.im/jefer94/choco
+
 
   <br>
   <h1>@choco/algorithm</h1>
@@ -102,11 +115,8 @@ yarn start
   </tbody>
 </table>
 
-[deps]: https://david-dm.org/jefer94/algorithm.svg
-[deps-url]: https://david-dm.org/jefer94/algorithm
-
-[dev-deps]: https://david-dm.org/jefer94/algorithm/dev-status.svg
-[dev-deps-url]: https://david-dm.org/jefer94/algorithm
-
-[chat]: https://badges.gitter.im/jefer94/algorithm.svg
-[chat-url]: https://gitter.im/jefer94/algorithm
+<style>
+table {
+    width:100%;
+}
+</style>
