@@ -1,14 +1,12 @@
 import React, { useReducer, useState, useEffect, useContext } from 'react'
 import Head from 'next/head'
 // import _ from 'lodash'
-// import { addVarAction, resetVarAction } from '../actions'
+import { addVarAction, resetVarAction } from '../actions'
 // import store from '../reducers'
-import { setDispatch, setTabs, toJS } from '../libs/algorithm'
-import vector from '../libs/vector'
+import { setDispatch, setTabs, toJS, Vector as vector, io, write as writeInConsole, read as readInConsole } from '@choco/algorithm-transpiler'
 import varsReducer from '../reducers/variables'
 import useTabs from '../hooks/useTabs'
 import Menu from '../containers/Menu'
-import { io, write as writeInConsole, read as readInConsole } from '../libs/algorithm/io'
 import keychain from '@choco/keychain'
 import { ThemeContext } from '../contexts'
 import ConsoleComponent from '../components/Console'
@@ -42,7 +40,10 @@ export default function () {
 
 
   /* non-existent code for name of algorithm */
-  setDispatch(dispatch)
+  setDispatch({
+    varAdd: (value, key) => dispatch(addVarAction(value, key)),
+    varReset: () => dispatch(resetVarAction())
+  })
   setTabs(tabs)
 
   useEffect(() => {

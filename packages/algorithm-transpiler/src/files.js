@@ -1,4 +1,6 @@
-import { algorithmWord } from '../i18n'
+import locale from '@choco/i18n'
+
+const { algorithmWord } = locale.all()
 
 /** @module libs/algorithm/files */
 

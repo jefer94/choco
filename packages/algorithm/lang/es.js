@@ -1,25 +1,30 @@
-export const algorithmWord = 'algoritmo'
-export const begin = 'inicio'
-export const end = 'fin'
-export const forWord = 'para'
-export const toWord = 'hasta'
-export const trueWord = 'verdadero'
-export const falseWord = 'falso'
+import locale from '@choco/i18n'
+import { staticTokens } from './common'
 
-export const tokens = {
+const lang = 'es'
+
+locale.set(lang, 'algorithmWord', 'algoritmo')
+locale.set(lang, 'begin', 'inicio')
+locale.set(lang, 'end', 'fin')
+locale.set(lang, 'forWord', 'para')
+locale.set(lang, 'toWord', 'hasta')
+locale.set(lang, 'trueWord', 'verdadero')
+locale.set(lang, 'falseWord', 'falso')
+
+locale.set(lang, 'tokens', { ...staticTokens, ...{
   // algorithm : js
   o: '||',
   y: '&&',
   no: '!'
-}
+}})
 
-export const variables = [
+locale.set(lang, 'variables', [
   // map
   'variables',
   'var'
-]
+])
 
-export const transpiler = {
+locale.set(lang, 'transpiler', {
   // algorithm : js
   si: 'if',
   sino: '}\nelse {',
@@ -28,15 +33,16 @@ export const transpiler = {
   hasta: '} while',
   para: 'for',
   hacer: 'do'
-}
+})
 
-export const openBracket = [
+locale.set(lang, 'openBracket', [
   // map
   'hacer',
   'entonces'
-]
+])
 
-export const closeBracket = [
+
+locale.set(lang, 'closeBracket', [
   // map
   'finsi',
   'fin_si',
@@ -44,48 +50,50 @@ export const closeBracket = [
   'fin_mientras',
   'finpara',
   'fin_para'
-]
+])
 
-export const write = [
+locale.set(lang, 'write', [
   // map
   'mostrar',
   'escribir',
   'imprimir'
-]
+])
 
-export const read = [
+locale.set(lang, 'read', [
   // map
   'leer'
-]
+])
 
-export const type = {
+locale.set(lang, 'type', {
   // type : algorithm
   int: 'entero',
   double: 'real',
   string: 'carapter',
   bool: 'booleano'
-}
+})
 
-export const typeError = {
+locale.set(lang, 'typeError', {
   // type : string in es
   int: 'ERROR: no es entero',
   double: 'ERROR: no es flotante',
   string: 'ERROR: no es una cadena',
   bool: 'ERROR: no es booleano'
-}
+})
 
-export const error = {
+
+locale.set(lang, 'error', {
   // error name     : string in es
   stringForNumber: 'ERROR: un numero no puede multiplicar a un carapter',
   infinity: 'ERROR: dividir entre 0 causa un numero infinito'
-}
+})
 
-export const menu = 'Menu'
-export const addTab = 'Add tab'
-export const removeTab = 'Remove tab'
-export const editor = 'Editor'
+locale.set(lang, 'menu', 'Menu')
+locale.set(lang, 'addTab', 'Add tab')
+locale.set(lang, 'removeTab', 'Remove tab')
+locale.set(lang, 'editor', 'Editor')
 
-export const code = [
+
+locale.set(lang, 'code', [
   'algoritmo facilito',
   'variables',
   'numero, i, tabla[10]: entero',
@@ -99,29 +107,6 @@ export const code = [
   '    mostrar numero, " * ", i, " = ", numero * i',
   '  finmientras',
   'fin'
-].join('\n')
+].join('\n'))
 
-export default {
-  algorithmWord,
-  begin,
-  end,
-  forWord,
-  toWord,
-  trueWord,
-  falseWord,
-  tokens,
-  variables,
-  transpiler,
-  openBracket,
-  closeBracket,
-  write,
-  read,
-  type,
-  typeError,
-  error,
-  code,
-  menu,
-  addTab,
-  removeTab,
-  editor
-}
+export default lang

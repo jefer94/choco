@@ -1,5 +1,4 @@
 import { read, write, io } from './io'
-// import { type } from '../i18n'
 
 let id = -1
 const type = Object.freeze({

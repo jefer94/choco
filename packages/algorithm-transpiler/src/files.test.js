@@ -1,5 +1,7 @@
-import { code } from '../i18n'
 import files from './files'
+import locale from '@choco/i18n'
+
+const { code } = locale.all()
 
 test('return correct name', () => {
   const expectResult = code.split('\n').slice(1).join('\n')

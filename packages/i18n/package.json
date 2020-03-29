@@ -1,7 +1,8 @@
 {
   "name": "@choco/i18n",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "./dist/i18n.cjs.js",
+  "module": "./dist/i18n.esm.js",
   "author": "Jeferson De Freitas",
   "license": "MIT"
 }

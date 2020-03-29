@@ -1,5 +1,7 @@
-import { begin, end, toWord, tokens, transpiler, openBracket, closeBracket, write,
-  read } from '../i18n'
+import locale from '@choco/i18n'
+
+const { begin, end, toWord, tokens, transpiler, openBracket, closeBracket, write,
+  read } = locale.all()
 
 /** @module libs/algorithm/transform */
 

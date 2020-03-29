@@ -1,6 +1,8 @@
-import { begin, end, variables, type } from '../i18n'
+import locale from '@choco/i18n'
 
-/** @module libs/algorithm/variables */
+const { begin, end, variables, type } = locale.all()
+
+/** @module @choco/algorithm-transpiler/variables */
 
 /**
  * Transform Algorithm variables in Javascript variables.
@@ -133,6 +135,7 @@ function prepareWord(word) {
  * // }
  */
 function reserveVars(store, isA, word) {
+  if (store && store.varAdd)
   switch (isA) {
     case type.int:
       store.varAdd('int', word)

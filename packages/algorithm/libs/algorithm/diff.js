@@ -1,6 +1,8 @@
-import { begin } from '../i18n'
+import locale from '@choco/i18n'
 
-/** @module libs/algorithm/diff */
+const { begin } = locale.all()
+
+/** @module @choco/algorithm-transpiler/diff */
 
 /**
  * Diff between Algorithm code and Javascript code.

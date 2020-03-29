@@ -1,4 +1,3 @@
-import { addVarAction, resetVarAction } from '../../actions'
 import files from './files'
 import vars from './variables'
 import diffAlg from './diff'
@@ -15,11 +14,8 @@ let tabs
 let store
 
 
-export function setDispatch(dispatch) {
-  store = {
-    varAdd: (value, key) => dispatch(addVarAction(value, key)),
-    varReset: () => dispatch(resetVarAction())
-  }
+export function setDispatch({ varAdd, varReset }) {
+  store = { varAdd, varReset }
 }
 
 export function setTabs(externalTabs) {

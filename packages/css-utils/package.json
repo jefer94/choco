@@ -1,7 +1,8 @@
 {
   "name": "@choco/css-utils",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "./dist/css-utils.cjs.js",
+  "module": "./dist/css-utils.esm.js",
   "author": "Jeferson De Freitas",
   "license": "MIT"
 }

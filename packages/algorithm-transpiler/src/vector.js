@@ -1,7 +1,7 @@
 /** @module libs/vector */
 
 /** @classdesc Represent a Array of algorithms. */
-class Vector {
+export class Vector {
   /**
    * Constructor.
    *
@@ -79,5 +79,3 @@ class Vector {
     }
   }
 }
-
-export default Vector

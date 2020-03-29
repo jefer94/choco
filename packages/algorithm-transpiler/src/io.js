@@ -1,5 +1,9 @@
-import { typeError } from '../i18n'
 import keychain from '@choco/keychain'
+import locale from '@choco/i18n'
+
+const { typeError } = locale.all()
+
+/** @module @choco/algorithm-transpiler/io */
 
 export const io = {
   show: true,

@@ -4,7 +4,8 @@
     "packages/*"
   ],
   "scripts": {
-    "test": "jest ./packages/*"
+    "test": "jest ./packages/*",
+    "build": "./scripts/build.sh"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",

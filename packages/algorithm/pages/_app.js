@@ -1,5 +1,6 @@
 import dynamic from 'next/dynamic'
 import Head from 'next/head'
+import '../lang/es'
 
 const Provider = dynamic(() => import('../contexts'), { ssr: false })
 

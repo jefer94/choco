@@ -1,7 +1,9 @@
-import { begin, end, toWord, tokens, transpiler, openBracket, closeBracket, write,
-  read } from '../i18n'
+import locale from '@choco/i18n'
 
-/** @module libs/algorithm/transform */
+const { begin, end, toWord, tokens, transpiler, openBracket, closeBracket, write,
+  read } = locale.all()
+
+/** @module @choco/algorithm-transpiler/transform */
 
 // transform between native languaje and javascipt
 export default function (code) {
