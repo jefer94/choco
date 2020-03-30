@@ -1,12 +1,13 @@
-import React, { useState, memo, lazy, useEffect } from 'react'
+import React, { useState, memo, useEffect } from 'react'
 // import React, { useState, memo, useEffect } from 'react'
 import PropTypes from 'prop-types'
+import Codemirror from './CodemirrorWrapper'
 // import { editor as monaco } from 'monaco-editor/esm/vs/editor/editor.main'
-import register from '../libs/algorithm/monaco'
+// export { ControlledEditor } from '@monaco-editor/react'
+// import { ControlledEditor } from '@monaco-editor/react'
+// import register from '../libs/algorithm/monaco'
 
 /** @module components/Editor */
-
-const ControlledEditor = lazy(() => import(/* webpackPreload: true */ './MonacoWrapper'))
 
 /**
  * Get height less navbar.
@@ -47,11 +48,11 @@ function windowWidth() {
  * }
  * @returns {object} <Editor ... />
  */
-function Editor({ content, onChange }) {
+function Editor({ content, onChange, theme }) {
   const [height, setHeight] = useState(windowHeight())
   const [width, setWidth] = useState(windowWidth())
 
-  useEffect(register, [])
+  // useEffect(register, [])
 
   const loop = setInterval(() => {
     const currentHeight = windowHeight()
@@ -72,7 +73,7 @@ function Editor({ content, onChange }) {
 
   return (
     <main id="content1" className="tab show-content">
-      <ControlledEditor
+      {/* <ControlledEditor
         value={content}
         width={width}
         height={height}
@@ -83,7 +84,8 @@ function Editor({ content, onChange }) {
           fontSize: '14px',
           autoIndent: 'full'
         }}
-      />
+      /> */}
+      <Codemirror height="calc(100vh - 48px)" theme={theme} content={content} />
     </main>
   )
 }
@@ -92,4 +94,4 @@ Editor.propTypes = {
   onChange: PropTypes.func.isRequired
 }
 
-export default memo(Editor)
+export default Editor

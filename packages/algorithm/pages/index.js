@@ -2,13 +2,11 @@ import React, { useState, useEffect, useContext } from 'react'
 import Head from 'next/head'
 import { faPlay } from '@fortawesome/free-solid-svg-icons'
 import useTabs from '../hooks/useTabs'
-import FloatingButton from '../components/FloatingButton'
 import { consoleRoute } from '../globals/routes'
 import { ThemeContext, MenuContext } from '../contexts'
 
-import TabsComponent from '../components/Tabs'
-import EditorComponent from '../components/Editor'
-import Menu from '../containers/Menu'
+import { Tabs as TabsComponent, Editor as EditorComponent, FloatingButton } from '@choco/components'
+// import {Menu from '@choco/containers'
 
 // export const editor = {
 //   getValue() {
@@ -65,11 +63,11 @@ export default function () {
       <Head>
         <title>Algorithm</title>
       </Head>
-      <Menu>
+      {/* <Menu> */}
         <FloatingButton horizontal="right" vertical="bottom" icon={faPlay} url={consoleRoute} />
         <TabsComponent theme={theme} tabs={tabs} add={addTab} change={changeTab} remove={removeTab} menuIsOpen={isOpen} />
         <EditorComponent content={content || ''} onChange={setContent} theme={theme} />
-      </Menu>
+      {/* </Menu> */}
     </>
   )
 }

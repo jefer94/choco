@@ -1,10 +1,41 @@
+import React, { useContext } from 'react'
+import PropTypes from 'prop-types'
+import { faEdit, faTerminal, faBook } from '@fortawesome/free-solid-svg-icons'
+import { homeRoute, docsRoute, consoleRoute } from '../globals/routes'
+import keychain from '@choco/keychain'
+import { ThemeContext, MenuContext } from '../contexts'
+import { Menu as MenuComponent } from '@choco/components'
 import dynamic from 'next/dynamic'
 import Head from 'next/head'
 import '../lang/es'
 
+
+function menuItem(url, name, icon, active) {
+  return { id: keychain('menu'), url, name, icon, active }
+}
+
 const Provider = dynamic(() => import('../contexts'), { ssr: false })
 
-export default function MyApp({ Component, pageProps }) {
+function Menu({ children }) {
+  const { theme } = useContext(ThemeContext)
+  const { isOpen, setIsOpen } = useContext(MenuContext)
+  const items = [
+    menuItem(homeRoute, 'Menu', faEdit, true),
+    menuItem(docsRoute, 'Docs', faBook),
+    menuItem(consoleRoute, 'Console', faTerminal)
+  ]
+
+  return (
+    <MenuComponent items={items} theme={theme} isOpen={isOpen} toggle={setIsOpen}>
+      {children}
+    </MenuComponent>
+  )
+}
+Menu.propTypes = {
+  children: PropTypes.node.isRequired
+}
+
+export default function App({ Component, pageProps }) {
   return (
     <>
       <Head>
@@ -361,7 +392,9 @@ export default function MyApp({ Component, pageProps }) {
         `}</style>
       </Head>
       <Provider>
-        <Component {...pageProps} />
+        <Menu>
+          <Component {...pageProps} />
+        </Menu>
       </Provider>
     </>
   )

@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
+import Link from './Link'
 import styled from 'styled-components' // eslint-disable-line
 import Icon from './Icon'
 
@@ -16,18 +16,20 @@ const BaseStyled = `
   color: #D7DAE0;
 `
 
-function MenuLink({ className, theme, url, name, icon }) {
+function MenuLink({ className, theme, url, icon }) {
+  console.log(icon, 'icon')
   return (
-    <Link className={className} to={url} aria-label={name}>
-      <Icon name={icon} theme={theme} />
-    </Link>
+    <div className={className}>
+      <Link to={url}>
+        <Icon name={icon} theme={theme} />
+      </Link>
+    </div>
   )
 }
 MenuLink.propTypes = {
   theme: PropTypes.objectOf(PropTypes.string).isRequired,
   className: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
   icon: PropTypes.shape({
     icon: PropTypes.array
   }).isRequired
@@ -38,22 +40,25 @@ const MenuLinkStyled = styled(MenuLink)`
   filter: ${(v) => (v.active ? 'brightness(150%)' : 'unset')};
 `
 
-function MenuItem({ className, theme, url, name, icon, active }) {
+function MenuItem({ className, theme, url, icon, active, onClick }) {
+  console.log('click', onClick)
   return (
-    <li className={className}>
-      <MenuLinkStyled url={url} name={name} icon={icon} active={active} theme={theme} />
+    <li className={className} onClick={onClick}>
+      <MenuLinkStyled url={url} icon={icon} active={active} theme={theme} />
     </li>
   )
 }
 MenuItem.propTypes = {
   theme: PropTypes.objectOf(PropTypes.string).isRequired,
   className: PropTypes.string.isRequired,
-  url: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
+  url: PropTypes.string,
   icon: PropTypes.shape({
     icon: PropTypes.array
   }).isRequired,
   active: PropTypes.bool.isRequired
+}
+MenuItem.defaultProps = {
+  url: '#'
 }
 
 export default styled(MenuItem)`

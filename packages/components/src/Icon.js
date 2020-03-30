@@ -1,11 +1,10 @@
-import React, { memo, lazy } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 // import './Icon.sass'
 import styled from 'styled-components'
+import FontAwesomeIcon from './FontAwesomeWrapper'
 
 /** @module components/Icon */
-
-const FontAwesomeIcon = lazy(() => import('./FontAwesomeWrapper'))
 
 /**
  * @typedef {object} IconProps
@@ -29,4 +28,4 @@ Icon.propTypes = {
   }).isRequired
 }
 
-export default memo(styled(Icon)`color: ${(v) => v.theme.white};`)
+export default styled(Icon)`color: ${(v) => v.theme.white};`

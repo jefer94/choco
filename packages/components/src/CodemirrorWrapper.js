@@ -1,3 +1,4 @@
+import React from 'react'
 import styled from 'styled-components'
 import { EditorView } from '@codemirror/next/view/dist'
 import { EditorState } from '@codemirror/next/state/dist'

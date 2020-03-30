@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import PulseLoader from 'react-spinners/PulseLoader'
 // import './Loading.sass'
 import styled from 'styled-components'
-import { darkMode } from '../contexts'
 
 /** @module components/Loading */
 
@@ -14,15 +13,16 @@ import { darkMode } from '../contexts'
  * <Loading />
  * @returns {object} <Loading />
  */
-function Loading({ className }) {
+function Loading({ className, color }) {
   return (
     <div className={className}>
-      <PulseLoader color={darkMode.oracle} loading />
+      <PulseLoader color={color} loading />
     </div>
   )
 }
 Loading.propTypes = {
-  className: PropTypes.string.isRequired
+  className: PropTypes.string.isRequired,
+  color: PropTypes.string.isRequired
 }
 
 const LoadingStyled = styled(Loading)`
@@ -31,7 +31,7 @@ const LoadingStyled = styled(Loading)`
   height: 100vh;
   justify-content: center;
   align-items: center;
-  background-color: ${darkMode.surface}
+  background-color: ${(v) => v.background}
 `
 
-export default memo(LoadingStyled)
+export default LoadingStyled

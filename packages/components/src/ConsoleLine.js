@@ -77,4 +77,4 @@ ConsoleLine.propTypes = {
   lineNumber: PropTypes.number.isRequired
 }
 
-export default memo(ConsoleLine)
+export default ConsoleLine

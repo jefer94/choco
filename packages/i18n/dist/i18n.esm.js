@@ -2,13 +2,31 @@ const cache = {};
 
 /** @module @choco/i18n */
 
-/** @todo strategy to load locale */
-// const locale = window ? window.navigator.language.substr(0, 2) : 'en'
-const EN = 'es';
-const locale = EN;
+/**
+ * @constant
+ * @default
+ */
+const en = 'es';
+let locale = en;
 
-function setLang(langArg) {
-  
+try {
+  locale = window ? window.navigator.language.substr(0, 2) : en;
+}
+catch(e) {
+  /** @todo server rendering support */
+}
+
+/**
+ * Set manually the locales.
+ *
+ * @param {string} lang -  Short locale.
+ * @example
+ * import locale from '@choco/i18n'
+ *
+ * locale.setLang('en')
+ */
+function setLang(lang) {
+  locale = lang;
 }
 
 /**
@@ -16,12 +34,12 @@ function setLang(langArg) {
  * 
  * @example
  * import locale from '@choco/i18n'
+ *
  * locale.all() // returns { ... }
  * @returns {Object.<string, any>} All locales.
  */
 function all() {
-  console.log('all', cache, cache[locale]);
-  return cache[locale] ? cache[locale] : cache[EN]
+  return cache[locale] ? cache[locale] : cache[en]
 }
 
 /**
@@ -29,11 +47,12 @@ function all() {
  * 
  * @example
  * import locale from '@choco/i18n'
+ *
  * locale.one('dog') // returns VALUE
  * @returns {any} One locales.
  */
 function one(key) {
-  return cache[locale] ? cache[locale][key] : cache[EN][key]
+  return cache[locale] ? cache[locale][key] : cache[en][key]
 }
 
 /**
@@ -41,6 +60,7 @@ function one(key) {
  *
  * @example
  * import locale from '@choco/i18n'
+ *
  * locale.set('en', 'dog', 'potato')
  * @param {string} lang - Short locale.
  * @param {string} key - Name of translation.

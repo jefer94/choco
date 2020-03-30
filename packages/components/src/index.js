@@ -6,6 +6,7 @@ import Editor from './Editor'
 import FloatingButton from './FloatingButton'
 import FontAwesomeWrapper from './FontAwesomeWrapper'
 import Icon from './Icon'
+import Link from './Link'
 import Loading from './Loading'
 import Menu from './Menu'
 import MenuItem from './MenuItem'
@@ -23,6 +24,7 @@ export {
   FloatingButton,
   FontAwesomeWrapper,
   Icon,
+  Link,
   Loading,
   Menu,
   MenuItem,

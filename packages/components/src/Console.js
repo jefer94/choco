@@ -48,4 +48,4 @@ Console.propTypes = {
   lines: PropTypes.arrayOf(PropTypes.object).isRequired
 }
 
-export default memo(Console)
+export default Console

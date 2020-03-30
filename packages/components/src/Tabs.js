@@ -1,6 +1,6 @@
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
+import Link from './Link'
 // import { faBars, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { faPlus, faBars } from '@fortawesome/free-solid-svg-icons'
 import Tab from './Tab'
@@ -37,7 +37,7 @@ const SimpleTabButton = styled(TabButton)`
 `
 
 const Nav = styled.nav`
-  width: calc(100vw - 48px);
+  width: ${(v) => v.menuIsOpen ? 'calc(100vw - 48px)' : '100vw'};
   background-color: ${(v) => v.theme.tabSurface};
   display: table;
 `
@@ -93,13 +93,13 @@ AddTabButton.defaultProps = {
  * />
  * @returns {object} <Tabs ... />
  */
-function Tabs({ tabs, add, change, remove, multiTabsFeature, theme }) {
+function Tabs({ tabs, add, change, remove, multiTabsFeature, theme, menuIsOpen }) {
   console.log(add, change, remove, multiTabsFeature)
   return (
-    <Nav theme={theme}>
+    <Nav theme={theme} menuIsOpen={menuIsOpen}>
       <Ul theme={theme}>
         <SimpleButtonLi id="hamburger">
-          <Link to="/console" role="button" aria-label="Menu">
+          <Link to="/console">
             <SimpleTabButton label="Menu" theme={theme}>
               <Icon name={faBars} theme={theme} />
               {' '}
@@ -135,4 +135,4 @@ Tabs.defaultProps = {
   multiTabsFeature: false
 }
 
-export default memo(Tabs)
+export default Tabs

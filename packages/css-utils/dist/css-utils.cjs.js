@@ -6,10 +6,10 @@ Object.defineProperty(exports, '__esModule', { value: true });
  * Get CSS variable.
  *
  * @param {string} key - Key of CSS variable.
- * @param {boolean} camelCaseMoce - Selector in camel case format.
+ * @param {boolean} camelCaseMode - Selector in camel case format.
  */
-function getVar(key, camelCaseMoce = false) {
-  const selector = camelCaseMoce ? camelCaseToCssVariable(key) : key;
+function getVar(key, camelCaseMode) {
+  const selector = camelCaseMode ? camelCaseToCssVariable(key) : key;
   return getComputedStyle(document.documentElement)
     .getPropertyValue(selector)
 }
@@ -19,10 +19,10 @@ function getVar(key, camelCaseMoce = false) {
  *
  * @param {string} key - Key of CSS variable.
  * @param {string} value - Value of CSS variable.
- * @param {boolean} camelCaseMoce - Selector in camel case format.
+ * @param {boolean} camelCaseMode - Selector in camel case format.
  */
-function setVar(key, value, camelCaseMoce) {
-  const selector = camelCaseMoce ? camelCaseToCssVariable(key) : key;
+function setVar(key, value, camelCaseMode) {
+  const selector = camelCaseMode ? camelCaseToCssVariable(key) : key;
   document.documentElement.style.setProperty(selector, value);
 }
 

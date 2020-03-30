@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import Head from 'next/head'
-import DocsComponent from '../components/Docs'
-import Menu from '../containers/Menu'
+import { Docs as DocsComponent } from '@choco/components'
+// import Menu from '../containers/Menu'
 import { ThemeContext } from '../contexts'
 
 /**
@@ -21,9 +21,9 @@ export default function () {
       <Head>
         <title>Algorithm - Docs</title>
       </Head>
-      <Menu theme={theme}>
+      {/* <Menu theme={theme}> */}
         <DocsComponent />
-      </Menu>
+      {/* </Menu> */}
     </>
   )
 }

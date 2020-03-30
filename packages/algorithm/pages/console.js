@@ -6,10 +6,10 @@ import { addVarAction, resetVarAction } from '../actions'
 import { setDispatch, setTabs, toJS, Vector as vector, io, write as writeInConsole, read as readInConsole } from '@choco/algorithm-transpiler'
 import varsReducer from '../reducers/variables'
 import useTabs from '../hooks/useTabs'
-import Menu from '../containers/Menu'
+// import Menu from '../containers/Menu'
 import keychain from '@choco/keychain'
 import { ThemeContext } from '../contexts'
-import ConsoleComponent from '../components/Console'
+import { Console as ConsoleComponent } from '@choco/components'
 
 let cache = []
 
@@ -118,9 +118,9 @@ export default function () {
       <Head>
         <title>Algorithm - Console</title>
       </Head>
-      <Menu theme={theme}>
+      {/* <Menu theme={theme}> */}
         <ConsoleComponent lines={lines} theme={theme} />
-      </Menu>
+      {/* </Menu> */}
     </>
   )
 }

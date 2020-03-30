@@ -1,4 +1,4 @@
-import { memo } from 'react'
+import React, { memo } from 'react'
 import styled from 'styled-components'
 import Button from './Button'
 
@@ -16,4 +16,4 @@ const FloatingButtonStyled = styled(Button)`
   z-index: 255;
 `
 
-export default memo(FloatingButtonStyled)
+export default FloatingButtonStyled

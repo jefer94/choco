@@ -1,4 +1,8 @@
-import { algorithmWord as tabName, code, editor } from '../libs/i18n'
+import locale from '@choco/i18n'
+
+const tabName = locale.one('algorithmWord')
+const code = locale.one('code')
+const editor = locale.one('editor')
 
 /** @module reducers/tabs */
 

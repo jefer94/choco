@@ -1,9 +1,10 @@
 import { useReducer, useEffect, useCallback } from 'react'
-import { code } from '../libs/i18n'
+import locale from '@choco/i18n'
 import tabsReducer from '../reducers/tabs'
 import { addTabAction, removeTabAction, changeTabAction, saveTabAction, defaultsTabsAction } from '../actions/tabs'
 
 const key = '__ALGORITHM_TABS__'
+const code = locale.one('code')
 const defaults = [{
   id: 0,
   name: 'Editor',

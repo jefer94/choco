@@ -1,7 +1,4 @@
 #!/usr/bin/env bash
-# ./scripts/build:cache.sh
-# ./scripts/build:keychain.sh
-# ./scripts/build:components.sh
 
 cd ./packages
 

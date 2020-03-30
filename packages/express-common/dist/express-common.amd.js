@@ -10,7 +10,7 @@ define(['cors', 'helmet', 'morgan'], function (cors, helmet, morgan) { 'use stri
    * @param {object} app - Express app.
    * @example
    * import express from 'express'
-   * import common from '@services/express-common'
+   * import common from '@choco/express-common'
    * 
    * const app = express()
    * 

@@ -2,11 +2,15 @@ import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import MenuItem from './MenuItem'
+import { faBars } from '@fortawesome/free-solid-svg-icons'
+
 // import './Menu.sass'
 
 /** @module components/Menu */
 
 const MenuWrapper = styled.div`
+  transform: ${(v) => v.show ? 'unset' : 'translateX(-64px)'};
+  transition-duration: 0.1s;
   width: 64px;
   height: 100vh;
   display: inline-block;
@@ -25,8 +29,8 @@ const MenuWrapper = styled.div`
 
 const ContentWrapper = styled.div`
   top: 0px;
-  left: 64px;
-  width: calc(100vw - 64px);
+  left: ${(v) => v.menuIsOpen ? '64px' : 'unset'};
+  width: ${(v) => v.menuIsOpen ? 'calc(100vw - 64px)' : '100vw'};
   position: absolute;
   display: inline-block;
   height: 100vh;
@@ -40,18 +44,18 @@ const ContentWrapper = styled.div`
  * @todo Color of tabs menu
  * @todo Hide menu when click an icon
  */
-function Menu({ theme, children, items }) {
-  // function Menu({ theme, children, items, isOpen, toggle }) {
+function Menu({ theme, children, items, isOpen, toggle }) {
   return (
     <>
-      <MenuWrapper theme={theme}>
+      <MenuWrapper theme={theme} show={isOpen}>
         <ul>
-          {items.map(({ id, url, icon, name, active }) => (
-            <MenuItem key={id} url={url} icon={icon} name={name} active={!!active} theme={theme} />
+          <MenuItem icon={faBars} active theme={theme} onClick={(v) => toggle()} />
+          {items.map(({ id, url, icon, active }) => (
+            <MenuItem key={id} url={url} icon={icon} active={!!active} theme={theme} />
           ))}
         </ul>
       </MenuWrapper>
-      <ContentWrapper theme={theme}>
+      <ContentWrapper theme={theme} menuIsOpen={isOpen}>
         {children}
       </ContentWrapper>
     </>
@@ -72,4 +76,4 @@ Menu.propTypes = {
   items: PropTypes.arrayOf(PropTypes.shape(menuShape)).isRequired
 }
 
-export default memo(Menu)
+export default Menu
