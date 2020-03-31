@@ -6,11 +6,11 @@ test('dotenv has been called', async () => {
   await import('./')
   expect(config).toHaveBeenCalled()
   expect(config.mock).toBeTruthy()
-  console.log(config.mock)
-  expect(typeof config.mock).toBe('array')
+  expect(typeof config.mock).toBe('object')
 
-  const [args] = config.mock[0]
+  const [args, ...restOfCalls] = config.mock.calls[0]
 
+  expect(restOfCalls).toHaveLength(0)
   expect(typeof args).toBe('object')
 
   const { path, debug } = args

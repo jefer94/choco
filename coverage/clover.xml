@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1585598683800" clover="3.2.0">
+  <project timestamp="1585598683800" name="All files">
+    <metrics statements="53" coveredstatements="33" conditionals="32" coveredconditionals="11" methods="27" coveredmethods="14" elements="112" coveredelements="58" complexity="0" loc="53" ncloc="53" packages="10" files="13" classes="13"/>
+    <package name="algorithm-persistent.src.models">
+      <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="code.js" path="/mnt/d/development/JefersonCV/choco/packages/algorithm-persistent/src/models/code.js">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      </file>
+      <file name="project.js" path="/mnt/d/development/JefersonCV/choco/packages/algorithm-persistent/src/models/project.js">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      </file>
+    </package>
+    <package name="algorithm-transpiler.src">
+      <metrics statements="15" coveredstatements="0" conditionals="14" coveredconditionals="0" methods="8" coveredmethods="0"/>
+      <file name="vector.js" path="/mnt/d/development/JefersonCV/choco/packages/algorithm-transpiler/src/vector.js">
+        <metrics statements="15" coveredstatements="0" conditionals="14" coveredconditionals="0" methods="8" coveredmethods="0"/>
+        <line num="13" count="0" type="cond" truecount="0" falsecount="4"/>
+        <line num="16" count="0" type="stmt"/>
+        <line num="19" count="0" type="stmt"/>
+        <line num="29" count="0" type="stmt"/>
+        <line num="30" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="31" count="0" type="cond" truecount="0" falsecount="4"/>
+        <line num="32" count="0" type="stmt"/>
+        <line num="42" count="0" type="stmt"/>
+        <line num="43" count="0" type="cond" truecount="0" falsecount="4"/>
+        <line num="44" count="0" type="stmt"/>
+        <line num="55" count="0" type="stmt"/>
+        <line num="60" count="0" type="stmt"/>
+        <line num="66" count="0" type="stmt"/>
+        <line num="72" count="0" type="stmt"/>
+        <line num="78" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="algorithm.actions">
+      <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="7" coveredmethods="7"/>
+      <file name="index.js" path="/mnt/d/development/JefersonCV/choco/packages/algorithm/actions/index.js">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      </file>
+      <file name="tabs.js" path="/mnt/d/development/JefersonCV/choco/packages/algorithm/actions/tabs.js">
+        <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="5" coveredmethods="5"/>
+        <line num="26" count="2" type="stmt"/>
+        <line num="38" count="4" type="stmt"/>
+        <line num="51" count="4" type="stmt"/>
+        <line num="65" count="4" type="stmt"/>
+        <line num="78" count="2" type="stmt"/>
+      </file>
+      <file name="variables.js" path="/mnt/d/development/JefersonCV/choco/packages/algorithm/actions/variables.js">
+        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+        <line num="16" count="7" type="stmt"/>
+        <line num="34" count="3" type="stmt"/>
+      </file>
+    </package>
+    <package name="algorithm.globals">
+      <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="routes.js" path="/mnt/d/development/JefersonCV/choco/packages/algorithm/globals/routes.js">
+        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="algorithm.reducers">
+      <metrics statements="4" coveredstatements="4" conditionals="4" coveredconditionals="4" methods="1" coveredmethods="1"/>
+      <file name="variables.js" path="/mnt/d/development/JefersonCV/choco/packages/algorithm/reducers/variables.js">
+        <metrics statements="4" coveredstatements="4" conditionals="4" coveredconditionals="4" methods="1" coveredmethods="1"/>
+        <line num="14" count="6" type="cond" truecount="3" falsecount="0"/>
+        <line num="16" count="3" type="stmt"/>
+        <line num="19" count="1" type="stmt"/>
+        <line num="22" count="2" type="stmt"/>
+      </file>
+    </package>
+    <package name="components.src">
+      <metrics statements="4" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
+      <file name="Loading.js" path="/mnt/d/development/JefersonCV/choco/packages/components/src/Loading.js">
+        <metrics statements="4" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
+        <line num="17" count="0" type="stmt"/>
+        <line num="23" count="1" type="stmt"/>
+        <line num="28" count="1" type="stmt"/>
+        <line num="34" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="css-utils.src">
+      <metrics statements="5" coveredstatements="2" conditionals="4" coveredconditionals="1" methods="4" coveredmethods="1"/>
+      <file name="css-utils.js" path="/mnt/d/development/JefersonCV/choco/packages/css-utils/src/css-utils.js">
+        <metrics statements="5" coveredstatements="2" conditionals="4" coveredconditionals="1" methods="4" coveredmethods="1"/>
+        <line num="8" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="21" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="22" count="0" type="stmt"/>
+        <line num="31" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="env.src">
+      <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="index.js" path="/mnt/d/development/JefersonCV/choco/packages/env/src/index.js">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="10" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="i18n.src">
+      <metrics statements="10" coveredstatements="10" conditionals="8" coveredconditionals="4" methods="4" coveredmethods="4"/>
+      <file name="index.js" path="/mnt/d/development/JefersonCV/choco/packages/i18n/src/index.js">
+        <metrics statements="10" coveredstatements="10" conditionals="8" coveredconditionals="4" methods="4" coveredmethods="4"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="13" count="1" type="cond" truecount="0" falsecount="2"/>
+        <line num="29" count="2" type="stmt"/>
+        <line num="42" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="55" count="4" type="cond" truecount="1" falsecount="1"/>
+        <line num="70" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="71" count="4" type="stmt"/>
+      </file>
+    </package>
+    <package name="keychain.src">
+      <metrics statements="4" coveredstatements="4" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
+      <file name="index.js" path="/mnt/d/development/JefersonCV/choco/packages/keychain/src/index.js">
+        <metrics statements="4" coveredstatements="4" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="17" count="100" type="cond" truecount="2" falsecount="0"/>
+        <line num="18" count="10" type="stmt"/>
+        <line num="19" count="100" type="stmt"/>
+      </file>
+    </package>
+  </project>
+</coverage>

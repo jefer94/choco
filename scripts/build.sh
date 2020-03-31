@@ -2,15 +2,20 @@
 
 cd ./packages
 
-for i in *; do
-  cd "$i"
-  if [ -d ./src ]; then
-    yarn rollup ./src/index.js --file ./dist/$i.esm.js --format es
-    yarn rollup ./src/index.js --file ./dist/$i.amd.js --format amd
-    yarn rollup ./src/index.js --file ./dist/$i.umd.js --format umd --name "@choco/$i"
-    yarn rollup ./src/index.js --file ./dist/$i.cjs.js --format cjs
+if [ $1 ]; then
+  cd $1
+  if test -f ./rollup.config.js; then
+    yarn rollup -c $2
   fi
   cd ..
-done
+else
+  for i in *; do
+    cd "$i"
+    if test -f ./rollup.config.js; then
+      yarn rollup -c
+    fi
+    cd ..
+  done
+fi
 
 cd ..

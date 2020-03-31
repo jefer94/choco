@@ -8,16 +8,17 @@ define(['dotenv', 'path'], function (dotenv, path) { 'use strict';
 	 * @example
 	 * import '@services/env'
 	 */
-	dotenv.config({ path: path.join(process.cwd(), '../../.env'), debug: false });
-	// const { error, parsed } = dotenv.config({ path: path.join(process.cwd(), '../../.env'), debug: false })
 
+	dotenv.config({
+	  path: path.join(process.cwd(), '../../.env'),
+	  debug: false
+	}); // const { error, parsed } = dotenv.config({ path: path.join(process.cwd(), '../../.env'), debug: false })
 	// // was there an error?
 	// console.error(error)
-
 	// // what was parsed?
 	// console.log(parsed)
-
 	// // compare to process.env
 	// console.dir(process.env)
 
 });
+//# sourceMappingURL=env.amd.js.map

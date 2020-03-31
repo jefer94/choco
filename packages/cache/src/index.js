@@ -1,8 +1,8 @@
 import express from 'express'
 import bodyParser from 'body-parser'
 import redis from 'redis'
-import { promisify } from 'util'
-import common from '@services/express-common'
+// import { promisify } from 'util'
+import common from '@choco/express-common'
 
 const app = express()
 const client = redis.createClient();

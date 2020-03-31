@@ -7,7 +7,6 @@ import keychain from '@choco/keychain'
 
 // remove svg icon
 jest.mock('./Icon')
-Icon.type.mockReturnValue(<></>)
 
 function item(content, variable) {
   return { id: keychain('tab'), var: variable, content }

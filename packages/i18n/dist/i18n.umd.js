@@ -5,22 +5,20 @@
 }(this, (function (exports) { 'use strict';
 
   const cache = {};
-
   /** @module @choco/i18n */
 
   /**
    * @constant
    * @default
    */
+
   const en = 'es';
   let locale = en;
 
   try {
     locale = window ? window.navigator.language.substr(0, 2) : en;
-  }
-  catch(e) {
-    /** @todo server rendering support */
-  }
+  } catch (e) {}
+  /** @todo server rendering support */
 
   /**
    * Set manually the locales.
@@ -31,10 +29,11 @@
    *
    * locale.setLang('en')
    */
+
+
   function setLang(lang) {
     locale = lang;
   }
-
   /**
    * Get all locales.
    * 
@@ -44,10 +43,10 @@
    * locale.all() // returns { ... }
    * @returns {Object.<string, any>} All locales.
    */
-  function all() {
-    return cache[locale] ? cache[locale] : cache[en]
-  }
 
+  function all() {
+    return cache[locale] ? cache[locale] : cache[en];
+  }
   /**
    * Get one locales.
    * 
@@ -57,10 +56,10 @@
    * locale.one('dog') // returns VALUE
    * @returns {any} One locales.
    */
-  function one(key) {
-    return cache[locale] ? cache[locale][key] : cache[en][key]
-  }
 
+  function one(key) {
+    return cache[locale] ? cache[locale][key] : cache[en][key];
+  }
   /**
    * Set a locale key.
    *
@@ -72,12 +71,17 @@
    * @param {string} key - Name of translation.
    * @param {any} value - Value of translation
    */
+
   function set(lang, key, value) {
     if (!cache[lang]) cache[lang] = {};
     cache[lang][key] = value;
   }
-
-  var index = { one, all, set, setLang };
+  var index = {
+    one,
+    all,
+    set,
+    setLang
+  };
 
   exports.all = all;
   exports.default = index;
@@ -88,3 +92,4 @@
   Object.defineProperty(exports, '__esModule', { value: true });
 
 })));
+//# sourceMappingURL=i18n.umd.js.map

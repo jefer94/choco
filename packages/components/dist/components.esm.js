@@ -1030,7 +1030,7 @@ function Tabs(_ref2) {
       multiTabsFeature = _ref2.multiTabsFeature,
       theme = _ref2.theme,
       menuIsOpen = _ref2.menuIsOpen;
-  console.log(add, change, remove, multiTabsFeature);
+  // console.log(add, change, remove, multiTabsFeature)
   return /*#__PURE__*/React.createElement(Nav, {
     theme: theme,
     menuIsOpen: menuIsOpen

@@ -14,11 +14,10 @@ import morgan from 'morgan';
  * 
  * common(app)
  */
+
 function index (app) {
-  app
-    .use(morgan('combined'))
-    .use(helmet())
-    .use(cors());
+  app.use(morgan('combined')).use(helmet()).use(cors());
 }
 
 export default index;
+//# sourceMappingURL=express-common.esm.js.map

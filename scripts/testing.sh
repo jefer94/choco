@@ -1,7 +1,13 @@
 #!/usr/bin/env bash
 
-if [ -z $1 ]; then
-  yarn jest ./packages/$1 --watchAll
+cd ./packages
+
+if [ $1 ]; then
+  cd $1
+  yarn jest ./ --watchAll
+  cd ..
 else
-  yarn jest ./packages --watchAll
+  echo yarn testing package
 fi
+
+cd ..

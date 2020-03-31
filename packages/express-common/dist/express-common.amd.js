@@ -16,13 +16,12 @@ define(['cors', 'helmet', 'morgan'], function (cors, helmet, morgan) { 'use stri
    * 
    * common(app)
    */
+
   function index (app) {
-    app
-      .use(morgan('combined'))
-      .use(helmet())
-      .use(cors());
+    app.use(morgan('combined')).use(helmet()).use(cors());
   }
 
   return index;
 
 });
+//# sourceMappingURL=express-common.amd.js.map

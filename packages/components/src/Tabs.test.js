@@ -1,13 +1,11 @@
 import React from 'react'
 import { render, fireEvent } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
-import Icon from './Icon'
 import Tabs from './Tabs'
 import keychain from '@choco/keychain'
 
 // remove svg icon
 jest.mock('./Icon')
-Icon.type.mockReturnValue(<></>)
 
 function item(name, content, active) {
   return { id: keychain('tab'), name, content, active }

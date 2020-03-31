@@ -94,7 +94,7 @@ AddTabButton.defaultProps = {
  * @returns {object} <Tabs ... />
  */
 function Tabs({ tabs, add, change, remove, multiTabsFeature, theme, menuIsOpen }) {
-  console.log(add, change, remove, multiTabsFeature)
+  // console.log(add, change, remove, multiTabsFeature)
   return (
     <Nav theme={theme} menuIsOpen={menuIsOpen}>
       <Ul theme={theme}>

@@ -8,10 +8,8 @@ define(['exports'], function (exports) { 'use strict';
    */
   function getVar(key, camelCaseMode) {
     const selector = camelCaseMode ? camelCaseToCssVariable(key) : key;
-    return getComputedStyle(document.documentElement)
-      .getPropertyValue(selector)
+    return getComputedStyle(document.documentElement).getPropertyValue(selector);
   }
-
   /**
    * Set CSS variable.
    *
@@ -19,18 +17,19 @@ define(['exports'], function (exports) { 'use strict';
    * @param {string} value - Value of CSS variable.
    * @param {boolean} camelCaseMode - Selector in camel case format.
    */
+
   function setVar(key, value, camelCaseMode) {
     const selector = camelCaseMode ? camelCaseToCssVariable(key) : key;
     document.documentElement.style.setProperty(selector, value);
   }
-
   /**
    * Transform camel case selector to CSS selector.
    *
    * @param {string} s - Selector in camel case format.
    */
+
   function camelCaseToCssVariable(s) {
-    return `-${s.replace(/([A-Z])/g, (v) => `-${v.toLowerCase()}`)}`
+    return `-${s.replace(/([A-Z])/g, v => `-${v.toLowerCase()}`)}`;
   }
 
   exports.camelCaseToCssVariable = camelCaseToCssVariable;
@@ -40,3 +39,4 @@ define(['exports'], function (exports) { 'use strict';
   Object.defineProperty(exports, '__esModule', { value: true });
 
 });
+//# sourceMappingURL=css-utils.amd.js.map

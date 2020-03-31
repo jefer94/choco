@@ -20,13 +20,12 @@
    * 
    * common(app)
    */
+
   function index (app) {
-    app
-      .use(morgan('combined'))
-      .use(helmet())
-      .use(cors());
+    app.use(morgan('combined')).use(helmet()).use(cors());
   }
 
   return index;
 
 })));
+//# sourceMappingURL=express-common.umd.js.map

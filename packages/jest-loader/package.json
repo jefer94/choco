@@ -1,0 +1,8 @@
+{
+  "name": "@choco/jest-loader",
+  "version": "1.0.0",
+  "main": "./dist/jest-loader.cjs.js",
+  "module": "./dist/jest-loader.esm.js",
+  "author": "Jeferson De Freitas",
+  "license": "MIT"
+}

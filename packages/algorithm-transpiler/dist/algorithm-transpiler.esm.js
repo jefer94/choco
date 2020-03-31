@@ -1,8 +1,9 @@
 import locale from '@choco/i18n';
 import keychain from '@choco/keychain';
 
-const { algorithmWord } = locale.all();
-
+const {
+  algorithmWord
+} = locale.all();
 /** @module libs/algorithm/files */
 
 /**
@@ -16,15 +17,20 @@ const { algorithmWord } = locale.all();
  * @returns {Files} Algorithm name and lines but first line
  * return
  */
+
 function files (code) {
   const [firstLine, ...lines] = code.split('\n');
   const [keyword, name, ...restOfWords] = firstLine.split(' ');
-  if (keyword === algorithmWord && name && restOfWords.length === 0) return [name, lines.join('\n')]
-  throw new Error('name is invalid')
+  if (keyword === algorithmWord && name && restOfWords.length === 0) return [name, lines.join('\n')];
+  throw new Error('name is invalid');
 }
 
-const { begin, end, variables, type } = locale.all();
-
+const {
+  begin,
+  end,
+  variables,
+  type
+} = locale.all();
 /** @module @choco/algorithm-transpiler/variables */
 
 /**
@@ -47,30 +53,30 @@ const { begin, end, variables, type } = locale.all();
  * variables(code, store) // return 'var stuff;\n'
  * @returns {string} Javascript variables.
  */
+
 function vars (code, store) {
   const literals = ignoreSentences(code);
   const [firstLine, ...lines] = literals.split('\n');
   const [keyword, ...restOfVarLine] = firstLine.split(' ');
   let result = '';
-  if (isVarsZone(keyword, restOfVarLine)) Object.keys(lines).map(Number).forEach((key) => {
-    const words = lines[key].split(' ');
-    // const i = key + 1
+  if (isVarsZone(keyword, restOfVarLine)) Object.keys(lines).map(Number).forEach(key => {
+    const words = lines[key].split(' '); // const i = key + 1
+
     if (lines[key].search('//') !== -1) {
       const remove = lines[key].substr(lines[key].search('//'), lines[key].length);
       lines[key] = lines[key].replace(remove, '');
     }
-    Object.keys(words).map(Number).forEach((j) => {
+
+    Object.keys(words).map(Number).forEach(j => {
       if (j < words.length - 1) {
         const word = prepareWord(words[j]);
         if (word) result += `var ${word};\n`;
-        if (j !== words.length - 1) reserveVars(store, words[words.length - 1],
-          purgeVarName(words[j]));
+        if (j !== words.length - 1) reserveVars(store, words[words.length - 1], purgeVarName(words[j]));
       }
     });
   });
-  return result.split('\n').filter((v) => v).join('\n')
+  return result.split('\n').filter(v => v).join('\n');
 }
-
 /**
  * Is this line the beginning of the variable area?.
  *
@@ -84,11 +90,10 @@ function vars (code, store) {
  * @see libs/i18n/variables
  * @returns {boolean} Is this line the beginning of the variable area?.
  */
-function isVarsZone(keyword, restOfVarLine) {
-  return variables.indexOf(keyword) !== -1 &&
-    (!restOfVarLine.length || restOfVarLine.every((v) => !v))
-}
 
+function isVarsZone(keyword, restOfVarLine) {
+  return variables.indexOf(keyword) !== -1 && (!restOfVarLine.length || restOfVarLine.every(v => !v));
+}
 /**
  * Purge variable name of tokens.
  *
@@ -103,16 +108,11 @@ function isVarsZone(keyword, restOfVarLine) {
  * purgeVarName('array[10]') // return 'array'
  * @returns {string} Javascript variable without token.
  */
-function purgeVarName(word) {
-  return word
-    .replace(/=/g, ' = ')
-    .replace(/ /g, '')
-    .replace(/\t/g, '')
-    .replace(/,/g, '')
-    .replace(/:/g, '')
-    .replace(/\[[0-9]{1,9}\]/g, '')
-}
 
+
+function purgeVarName(word) {
+  return word.replace(/=/g, ' = ').replace(/ /g, '').replace(/\t/g, '').replace(/,/g, '').replace(/:/g, '').replace(/\[[0-9]{1,9}\]/g, '');
+}
 /**
  * Transform in var section, Algorithm equal, assign type, extra spaces or tabs, separators and
  * vectors to Javascript.
@@ -127,17 +127,11 @@ function purgeVarName(word) {
  * prepareWord('array[10]') // return 'array = new Vector(10)'
  * @returns {string} A Javacript word.
  */
-function prepareWord(word) {
-  return word
-    .replace(/=/g, ' = ')
-    .replace(/ /g, '')
-    .replace(/\t/g, '')
-    .replace(/,/g, '')
-    .replace(/:/g, '')
-    .replace(/\[/g, ' = new Vector(')
-    .replace(/\]/g, ')')
-}
 
+
+function prepareWord(word) {
+  return word.replace(/=/g, ' = ').replace(/ /g, '').replace(/\t/g, '').replace(/,/g, '').replace(/:/g, '').replace(/\[/g, ' = new Vector(').replace(/\]/g, ')');
+}
 /**
  * Reserve vars in the store.
  *
@@ -157,24 +151,27 @@ function prepareWord(word) {
  * //   mid: 'bool'
  * // }
  */
+
+
 function reserveVars(store, isA, word) {
-  if (store && store.varAdd)
-  switch (isA) {
+  if (store && store.varAdd) switch (isA) {
     case type.int:
       store.varAdd('int', word);
-      break
+      break;
+
     case type.double:
       store.varAdd('double', word);
-      break
+      break;
+
     case type.string:
       store.varAdd('string', word);
-      break
+      break;
+
     case type.bool:
       store.varAdd('bool', word);
-      break
+      break;
   }
 }
-
 /**
  * Ignore algorithm body.
  *
@@ -191,12 +188,15 @@ function reserveVars(store, isA, word) {
  * ignoreSentences(code) // return the same code but start ... end block
  * @returns {string} Get the code, less the body (start ... end).
  */
+
+
 function ignoreSentences(code) {
-  return code.replace(code.match(RegExp(`${begin}[\\s\\S]*?${end}$`, 'gm'))[0], '')
+  return code.replace(code.match(RegExp(`${begin}[\\s\\S]*?${end}$`, 'gm'))[0], '');
 }
 
-const { begin: begin$1 } = locale.all();
-
+const {
+  begin: begin$1
+} = locale.all();
 /** @module @choco/algorithm-transpiler/diff */
 
 /**
@@ -213,39 +213,45 @@ const { begin: begin$1 } = locale.all();
  * diff(alg, js) // return 1
  * @returns {number} Diff between codes
  */
+
 function diffAlg (code, js) {
-  const alg = code
-    .split(/\n/);
+  const alg = code.split(/\n/);
   let beginIndex = 1;
+
   while (alg[beginIndex].match(RegExp(begin$1)) === null) beginIndex++;
 
   beginIndex++;
-
-  const localJS = js
-    .split(/\n/);
+  const localJS = js.split(/\n/);
   let jsIndex = 0;
+
   while (/var/.test(localJS[jsIndex])) jsIndex++;
 
-  return beginIndex - jsIndex
+  return beginIndex - jsIndex;
 }
 
-const { begin: begin$2, end: end$1, toWord, tokens, transpiler, openBracket, closeBracket, write,
-  read } = locale.all();
-
+const {
+  begin: begin$2,
+  end: end$1,
+  toWord,
+  tokens,
+  transpiler,
+  openBracket,
+  closeBracket,
+  write,
+  read
+} = locale.all();
 /** @module libs/algorithm/transform */
-
 // transform between native languaje and javascipt
+
 function transform (code) {
   let line = stripCode(code);
-  let js = '';
+  let js = ''; // now the transpiler work
 
-  // now the transpiler work
-  Object.keys(line).map(Number).forEach((i) => {
+  Object.keys(line).map(Number).forEach(i => {
     // ...
     line[i] = purgeComment(line[i]);
-    line[i] = purgeLine(line[i]);
+    line[i] = purgeLine(line[i]); // vector.io(n).add(value)
 
-    // vector.io(n).add(value)
     line[i] = vectorAdd(line[i]);
 
     if (line[i].substr(0, 1) === ' ') {
@@ -254,101 +260,77 @@ function transform (code) {
     }
 
     const length = line[i].length - 1;
+
     while (line[i].substr(length, 1) === ' ') line[i] = line[i].substr(0, length);
 
-    if (line[i] === '') return
+    if (line[i] === '') return; // if (x === y)
 
-    // if (x === y)
-    line = ifIsEqual(line);
+    line = ifIsEqual(line); // for (...)
 
-    // for (...)
-    line[i] = forLoopCondition(line[i]);
+    line[i] = forLoopCondition(line[i]); // do ... while (!...)
 
-    // do ... while (!...)
-    line[i] = doWhileLoopCondition(line[i]);
+    line[i] = doWhileLoopCondition(line[i]); // each word is separated into a array
 
-    // each word is separated into a array
-    const word = line[i].split(' ');
+    const word = line[i].split(' '); // this loop is to search in various dictionaries, and transform that code
 
-    // this loop is to search in various dictionaries, and transform that code
-    Object.keys(word).map(Number).forEach((key) => {
+    Object.keys(word).map(Number).forEach(key => {
       // word[key] = word[key].replace(/=/g, ' === ')
       // dictionaries of words
       // open blackets
-      if (openBracket.indexOf(word[key]) !== -1) js += '{ ';
-      // close brackets
-      else if (closeBracket.indexOf(word[key]) !== -1) js += '}';
-      else if (transpiler[word[key]]) js += `${transpiler[word[key]]} `;
-      // dictionaries of tokens
-      else if (tokens[word[key]]) js += `${tokens[word[key]]} `;
-      // and words not in the dictionary
-      else js += `${word[key]} `;
-    });
-    // console.log('js', js)
-
+      if (openBracket.indexOf(word[key]) !== -1) js += '{ '; // close brackets
+      else if (closeBracket.indexOf(word[key]) !== -1) js += '}';else if (transpiler[word[key]]) js += `${transpiler[word[key]]} `; // dictionaries of tokens
+        else if (tokens[word[key]]) js += `${tokens[word[key]]} `; // and words not in the dictionary
+          else js += `${word[key]} `;
+    }); // console.log('js', js)
     // this fracment of code delete all space in the start of a line
     // with a style like stack, first reverse the array
-    word.reverse();
-    // then in spaceInStart assign the last element in the stack
+
+    word.reverse(); // then in spaceInStart assign the last element in the stack
+
     let spaceInStart = word.pop();
-    const ifNoHaveSpaceInStart = spaceInStart;
-    // while it is equal at ""
+    const ifNoHaveSpaceInStart = spaceInStart; // while it is equal at ""
     // assign at spaceInStart the last element in the stack
-    while (spaceInStart === '') spaceInStart = word.pop();
 
-    // the last element never is ""
-    if (typeof spaceInStart === 'undefined') word.push(ifNoHaveSpaceInStart);
-    else word.push(spaceInStart);
-    // and reverse the array again to finish
+    while (spaceInStart === '') spaceInStart = word.pop(); // the last element never is ""
+
+
+    if (typeof spaceInStart === 'undefined') word.push(ifNoHaveSpaceInStart);else word.push(spaceInStart); // and reverse the array again to finish
+
     word.reverse();
-
     const lastLine = js.split('\n')[js.split('\n').length - 1];
-    if (lastLine.search('{') !== -1 || lastLine.search('}') !== -1) js += '\n';
-
-    else if (write.indexOf(word[0]) !== -1) {
-      js = js.replace(
-        write[write.indexOf(word[0])],
-        'eval(write('
-      );
+    if (lastLine.search('{') !== -1 || lastLine.search('}') !== -1) js += '\n';else if (write.indexOf(word[0]) !== -1) {
+      js = js.replace(write[write.indexOf(word[0])], 'eval(write(');
       js += '));\n';
-    }
-    else if (read.indexOf(word[0]) !== -1) {
-      js = js.replace(
-        read[read.indexOf(word[0])],
-        'eval(read("'
-      );
+    } else if (read.indexOf(word[0]) !== -1) {
+      js = js.replace(read[read.indexOf(word[0])], 'eval(read("');
       js += '"));\n';
-    }
-    else js += ';\n';
+    } else js += ';\n';
   });
-  return js
+  return js;
 }
-
 function forLoopCondition(lineArg) {
   // for (...)
   let line = lineArg;
   const matchCondition = line.match(RegExp(`([\\s\\S]+${toWord}[\\s\\S]+)`));
+
   if (matchCondition) {
     let [conditionsFor] = matchCondition;
     conditionsFor = conditionsFor.split(toWord);
     const ref = matchCondition[0].split(toWord);
     conditionsFor[0] += ';';
     conditionsFor[1] = conditionsFor[1].replace('=', '<=');
-    if (conditionsFor[1].search('reversed') === -1) conditionsFor[1] = conditionsFor[1].replace(')', '; i++)');
-    else conditionsFor[1] = conditionsFor[1].replace(')', '; i--)');
+    if (conditionsFor[1].search('reversed') === -1) conditionsFor[1] = conditionsFor[1].replace(')', '; i++)');else conditionsFor[1] = conditionsFor[1].replace(')', '; i--)');
     line = line.replace(ref[0], conditionsFor[0]);
     line = line.replace(ref[1], conditionsFor[1]);
     line = line.replace(toWord, '');
   }
-  return line
-}
 
+  return line;
+}
 function doWhileLoopCondition(line) {
   // do ... while (!...)
-  if (line.match(RegExp(`${toWord}\\s+([\\s\\S]+)`))) return line.replace('(', '(!(')
-    .replace(/\)\s{0,}$/, '))')
-    .replace(/=/g, '===')
-  return line
+  if (line.match(RegExp(`${toWord}\\s+([\\s\\S]+)`))) return line.replace('(', '(!(').replace(/\)\s{0,}$/, '))').replace(/=/g, '===');
+  return line;
 }
 /**
  * Add assignment in Vector.
@@ -358,20 +340,20 @@ function doWhileLoopCondition(line) {
  * vectorAdd('stuff.io(7) <- 9') // return 'stuff.io(7).add(9)'
  * @returns {string} Line of code.
  */
+
 function vectorAdd(lineArg) {
-  let line = lineArg;
-  // vector.io(n).add(value)
+  let line = lineArg; // vector.io(n).add(value)
+
   while (line.match(/\.io\([0-9a-zA-Z]+\)\s+<-\s+[a-zA-Z0-9 ]/)) {
     line = line.replace(/<-/, '');
     const exp = line.match(/\S+/g);
     line = `${exp[0]}.add(`;
-    if (Number.isNaN(+exp[1])) line += `"${exp[1]}"`;
-    else line += exp[1];
+    if (Number.isNaN(+exp[1])) line += `"${exp[1]}"`;else line += exp[1];
     line += ')';
   }
-  return line
-}
 
+  return line;
+}
 /**
  * Add space to prevent bad transpile, and transform array to class Vector.
  *
@@ -381,15 +363,10 @@ function vectorAdd(lineArg) {
  * purgeLine('array[13]') // return 'array.io(13)'
  * @returns {string} Line of code
  */
-function purgeLine(line) {
-  return line
-    .replace(/\(/g, ' (')
-    .replace(/\)/g, ') ')
-    .replace(/ {2}/g, ' ')
-    .replace(/\[/g, '.io(')
-    .replace(/\]/g, ')')
-}
 
+function purgeLine(line) {
+  return line.replace(/\(/g, ' (').replace(/\)/g, ') ').replace(/ {2}/g, ' ').replace(/\[/g, '.io(').replace(/\]/g, ')');
+}
 /**
  * Purge comments of code.
  *
@@ -399,37 +376,34 @@ function purgeLine(line) {
  * // return 'for (bestADC === \'Tristana\') do '
  * @returns {string} Line of code.
  */
+
 function purgeComment(lineArg) {
   // ...
   let line = lineArg;
+
   if (line.search('//') !== -1) {
     const remove = line.substr(line.search('//'), line.length);
     line = line.replace(remove, '');
   }
-  return line
+
+  return line;
 }
-
-
 function stripCode(codeArg) {
   // good in this space we are going to make a separation between the code
   // and the variables
-  const [code] = codeArg.match(RegExp(`${begin$2}[\\s\\S]*?${end$1}$`, 'gm'));
-  // each line is separated into a array
-  const lines = code.split('\n');
+  const [code] = codeArg.match(RegExp(`${begin$2}[\\s\\S]*?${end$1}$`, 'gm')); // each line is separated into a array
 
-  // the word "fin" is deleted
-  if (lines[lines.length - 1].search(end$1) !== -1) lines.pop();
+  const lines = code.split('\n'); // the word "fin" is deleted
 
-  // reverse the line of array
+  if (lines[lines.length - 1].search(end$1) !== -1) lines.pop(); // reverse the line of array
+
+  lines.reverse(); // the word "inicio" is deleted
+
+  if (lines[lines.length - 1].search(begin$2) !== -1) lines.pop(); // reverse the line of array
+
   lines.reverse();
-  // the word "inicio" is deleted
-  if (lines[lines.length - 1].search(begin$2) !== -1) lines.pop();
-
-  // reverse the line of array
-  lines.reverse();
-  return lines
+  return lines;
 }
-
 /**
  * Parse equal token from Algorithm to Javascript.
  *
@@ -439,16 +413,16 @@ function stripCode(codeArg) {
  * // return ['for (text === \'Not text\') do']
  * @returns {string[]} Lines of code.
  */
+
 function ifIsEqual(linesArg) {
   // if (x === y)
   const lines = linesArg;
-  Object.keys(lines).map(Number).forEach((key) => {
+  Object.keys(lines).map(Number).forEach(key => {
     if (lines[key].match(RegExp(`=(.)+${openBracket[key]}`))) lines[key] = lines[key].replace(/=/g, ' === ');
   });
-  return lines
+  return lines;
 }
 
-// function joinCodes(tabs) {
 //   return tabs
 //     .reverse()
 //     .map((value) => value.content)
@@ -457,28 +431,28 @@ function ifIsEqual(linesArg) {
 
 let tabs;
 let store;
-
-
-function setDispatch({ varAdd, varReset }) {
-  store = { varAdd, varReset };
+function setDispatch({
+  varAdd,
+  varReset
+}) {
+  store = {
+    varAdd,
+    varReset
+  };
 }
-
 function setTabs(externalTabs) {
   tabs = externalTabs;
 }
-
 function toJS() {
-  store.varReset();
-
-  // and execute a interpreter
+  store.varReset(); // and execute a interpreter
   // const codesInString = joinCodes(tabs)
+
   const codesInString = tabs[0].content;
   const [title, codeFromTitle] = files(codesInString);
   const literals = vars(codeFromTitle, store);
   const diff = diffAlg(codesInString, literals);
-  const map = tabs.map((v) => v.content);
+  const map = tabs.map(v => v.content); // show the output
 
-  // show the output
   const code = transform(codeFromTitle);
   return {
     title,
@@ -486,7 +460,7 @@ function toJS() {
     code,
     diff,
     map
-  }
+  };
 }
 
 /** @module libs/vector */
@@ -501,40 +475,40 @@ class Vector {
    * new Vector(10)
    */
   constructor(size) {
-    if (size <= 0 || typeof size !== 'number') throw new Error('ERROR: invalid array argument')
-
+    if (size <= 0 || typeof size !== 'number') throw new Error('ERROR: invalid array argument');
     /** vector size */
-    this.size = size;
 
+    this.size = size;
     /** inner array */
+
     this.array = [];
   }
-
   /**
    * Assign value in vector.
    *
    * @param {any} value - Value to be added.
    * @param {number} index - Index in vector.
    */
+
+
   add(value, index) {
     const fixIndex = index - 1;
-    if (fixIndex === -1) throw new Error('ERROR: array null point')
-    if (fixIndex < this.size && this.size > 0) this.array[fixIndex] = value;
-    else throw new Error('ERROR: array overflow')
+    if (fixIndex === -1) throw new Error('ERROR: array null point');
+    if (fixIndex < this.size && this.size > 0) this.array[fixIndex] = value;else throw new Error('ERROR: array overflow');
   }
-
   /**
    * Get a value of vector.
    *
    * @param {number} index - Index of vector.
    * @returns {any} Value store in index argument.
    */
+
+
   show(index) {
     const start = index - 1;
-    if (start < this.size && start >= 0) return this.array[start]
-    throw new Error('ERROR: array null point')
+    if (start < this.size && start >= 0) return this.array[start];
+    throw new Error('ERROR: array null point');
   }
-
   /**
    * Provide an alternative interface, used in libs/algorithm/transform.
    *
@@ -542,13 +516,15 @@ class Vector {
    * @see {@link transform}
    * @returns {}
    */
+
+
   io(index) {
     return {
       /**
        * Assign value in vector
        * @param {any} value - Value to be added
        */
-      add: (value) => this.add(value, index),
+      add: value => this.add(value, index),
 
       /**
        * Get a value of vector
@@ -567,12 +543,14 @@ class Vector {
        * @returns {boolean}
        */
       isVector: () => true
-    }
+    };
   }
+
 }
 
-const { typeError } = locale.all();
-
+const {
+  typeError
+} = locale.all();
 /** @module @choco/algorithm-transpiler/io */
 
 const io = {
@@ -592,84 +570,89 @@ const io = {
   error() {
     this.show = false;
   }
+
 };
-
 function read$1(toRead, variables, lastLine) {
-  let toReadCopy = toRead;
+  let toReadCopy = toRead; // flags
 
-  // flags
   let isVector = false;
-  let newLastLine;
+  let newLastLine; // clean up unnecessary signs
 
-  // clean up unnecessary signs
   while (toReadCopy.substr(0, 1) === ' ') {
     const length = toReadCopy.length - 1;
     toReadCopy = toReadCopy.substr(1, length);
   }
+
   while (toReadCopy.substr(toReadCopy.length - 1, 1) === ' ') toReadCopy = toReadCopy.substr(0, toReadCopy.length - 1);
+
   let input;
+  if (io.text && io.text !== io.lastRext) input = prompt(io.text);else input = prompt(''); // if var not exist, not work
 
-  if (io.text && io.text !== io.lastRext) input = prompt(io.text);
-  else input = prompt('');
-  // if var not exist, not work
-  if (lastLine && lastLine.var) newLastLine = Object.freeze({ ...lastLine, content: input });
-  else newLastLine = Object.freeze({ ...lastLine, var: input });
+  if (lastLine && lastLine.var) newLastLine = Object.freeze({ ...lastLine,
+    content: input
+  });else newLastLine = Object.freeze({ ...lastLine,
+    var: input
+  });
+  if (typeof toReadCopy === 'object') return readResponse(`${toReadCopy} = ${input};`, newLastLine); // vector
 
-  if (typeof toReadCopy === 'object') return readResponse(`${toReadCopy} = ${input};`, newLastLine)
-  // vector
   if (toReadCopy.search(/\.io\(/) !== -1) {
     isVector = true;
     toReadCopy += `.add(${input})`;
-  }
-  // here in runtime show the mistakes in assignings
+  } // here in runtime show the mistakes in assignings
+
+
   console.log(variables, variables[toReadCopy], 'copy');
+
   switch (variables[toReadCopy]) {
     case 'int':
-      if (Number.isNaN(Number(input)) || +input !== Math.trunc(input)) return readResponse(`write('${typeError.int}'); io.error();`, newLastLine)
-      break
+      if (Number.isNaN(Number(input)) || +input !== Math.trunc(input)) return readResponse(`write('${typeError.int}'); io.error();`, newLastLine);
+      break;
+
     case 'double':
-      if (Number.isNaN(Number(input))) return readResponse(`write('${typeError.double}'); io.error();`, newLastLine)
-      break
+      if (Number.isNaN(Number(input))) return readResponse(`write('${typeError.double}'); io.error();`, newLastLine);
+      break;
+
     case 'string':
-      break
+      break;
+
     case 'bool':
-      if (Number.isNaN(Number(input)) || (input === true || input === false)) return readResponse(`write('${typeError.bool}'); io.error();`, newLastLine)
-      break
+      if (Number.isNaN(Number(input)) || input === true || input === false) return readResponse(`write('${typeError.bool}'); io.error();`, newLastLine);
+      break;
+
     default:
-      throw new Error('Unknow var type')
+      throw new Error('Unknow var type');
   }
 
-  if (variables[toReadCopy] === 'string') return readResponse(`${toReadCopy} = '${input}';`, newLastLine)
-
-  if (isVector) return readResponse(`${toReadCopy};`, newLastLine)
-
-  return readResponse(`${toReadCopy} = ${input};`, newLastLine)
+  if (variables[toReadCopy] === 'string') return readResponse(`${toReadCopy} = '${input}';`, newLastLine);
+  if (isVector) return readResponse(`${toReadCopy};`, newLastLine);
+  return readResponse(`${toReadCopy} = ${input};`, newLastLine);
 }
 
 function readResponse(assign, lastLine) {
   // const id = keychain('line')
-  return Object.freeze({ assign, lastLine })
+  return Object.freeze({
+    assign,
+    lastLine
+  });
 }
 
 function write$1(...args) {
   // var
   let result = '';
   let error;
-  Object.values(args[0]).forEach((text) => {
+  Object.values(args[0]).forEach(text => {
     let textCopy = text;
     if (typeof textCopy === 'object' && textCopy.isVector && textCopy.isVector()) textCopy = textCopy.show();
-
     if (typeof textCopy === 'number' && Number.isNaN(textCopy)) error = `write('${error.stringForNumber}'); io.error();`;
     if (typeof textCopy === 'number' && !Number.isFinite(textCopy)) error = `write('${error.infinity}'); io.error();`;
     result += textCopy;
   });
-
   if (error) return Object.freeze({
     id: keychain('line'),
     error: true,
     content: error
-  })
-  // io.show is a flag, avoids execution after errors
+  }); // io.show is a flag, avoids execution after errors
+
   if (io.show) {
     // if (io.lastText === result)
     //   io.resetLast()
@@ -678,13 +661,15 @@ function write$1(...args) {
       id: keychain('line'),
       error: false,
       content: result
-    })
+    });
   }
+
   return Object.freeze({
     id: keychain('line'),
     error: false,
     content: ''
-  })
+  });
 }
 
 export { Vector, io, read$1 as read, setDispatch, setTabs, toJS, write$1 as write };
+//# sourceMappingURL=algorithm-transpiler.esm.js.map
