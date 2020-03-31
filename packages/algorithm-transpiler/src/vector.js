@@ -1,4 +1,4 @@
-/** @module libs/vector */
+/** @module @choco/algorithm-transpiler/vector */
 
 /** @classdesc Represent a Array of algorithms. */
 export class Vector {

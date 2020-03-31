@@ -1,7 +1,8 @@
 // import { Suspense } from 'react'
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 // import { Loading } from '@choco/components'
-import 'next-offline'
+// import 'next-offline'
+
 class MyDocument extends Document {
   static async getInitialProps(ctx) {
 

@@ -3,9 +3,139 @@ define(['exports', '@choco/i18n', '@choco/keychain'], function (exports, locale,
   locale = locale && Object.prototype.hasOwnProperty.call(locale, 'default') ? locale['default'] : locale;
   keychain = keychain && Object.prototype.hasOwnProperty.call(keychain, 'default') ? keychain['default'] : keychain;
 
-  const {
-    algorithmWord
-  } = locale.all();
+  const staticTokens = {
+    // algorithm : js
+    '<>': '!==',
+    '<=': '<=',
+    '>=': '>=',
+    '<': '<',
+    '>': '>',
+    '<-': '='
+  };
+
+  const lang = 'en';
+  function en () {
+    locale.set(lang, 'algorithmWord', 'algoritmo');
+    locale.set(lang, 'begin', 'inicio');
+    locale.set(lang, 'end', 'fin');
+    locale.set(lang, 'forWord', 'para');
+    locale.set(lang, 'toWord', 'hasta');
+    locale.set(lang, 'trueWord', 'verdadero');
+    locale.set(lang, 'falseWord', 'falso');
+    locale.set(lang, 'tokens', { ...staticTokens,
+      ...{
+        // algorithm : js
+        o: '||',
+        y: '&&',
+        no: '!'
+      }
+    });
+    locale.set(lang, 'variables', [// map
+    'variables', 'var']);
+    locale.set(lang, 'transpiler', {
+      // algorithm : js
+      si: 'if',
+      sino: '}\nelse {',
+      mientras: 'while',
+      repetir: 'do {',
+      hasta: '} while',
+      para: 'for',
+      hacer: 'do'
+    });
+    locale.set(lang, 'openBracket', [// map
+    'hacer', 'entonces']);
+    locale.set(lang, 'closeBracket', [// map
+    'finsi', 'fin_si', 'finmientras', 'fin_mientras', 'finpara', 'fin_para']);
+    locale.set(lang, 'write', [// map
+    'mostrar', 'escribir', 'imprimir']);
+    locale.set(lang, 'read', [// map
+    'leer']);
+    locale.set(lang, 'type', {
+      // type : algorithm
+      int: 'entero',
+      double: 'real',
+      string: 'carapter',
+      bool: 'booleano'
+    });
+    locale.set(lang, 'typeError', {
+      // type : string in es
+      int: 'ERROR: no es entero',
+      double: 'ERROR: no es flotante',
+      string: 'ERROR: no es una cadena',
+      bool: 'ERROR: no es booleano'
+    });
+    locale.set(lang, 'error', {
+      // error name     : string in es
+      stringForNumber: 'ERROR: un numero no puede multiplicar a un carapter',
+      infinity: 'ERROR: dividir entre 0 causa un numero infinito'
+    });
+    locale.set(lang, 'code', ['algoritmo facilito', 'variables', 'numero, i, tabla[10]: entero', 'inicio', '  i <- 0', '  mostrar "Ingrese numero a multiplicar: "', '  leer numero', '  mientras (i < 10) hacer', '    i <- i + 1', '    tabla[i] <- numero * i', '    mostrar numero, " * ", i, " = ", numero * i', '  finmientras', 'fin'].join('\n'));
+  }
+
+  const lang$1 = 'es';
+  function es () {
+    locale.set(lang$1, 'algorithmWord', 'algoritmo');
+    locale.set(lang$1, 'begin', 'inicio');
+    locale.set(lang$1, 'end', 'fin');
+    locale.set(lang$1, 'forWord', 'para');
+    locale.set(lang$1, 'toWord', 'hasta');
+    locale.set(lang$1, 'trueWord', 'verdadero');
+    locale.set(lang$1, 'falseWord', 'falso');
+    locale.set(lang$1, 'tokens', { ...staticTokens,
+      ...{
+        // algorithm : js
+        o: '||',
+        y: '&&',
+        no: '!'
+      }
+    });
+    locale.set(lang$1, 'variables', [// map
+    'variables', 'var']);
+    locale.set(lang$1, 'transpiler', {
+      // algorithm : js
+      si: 'if',
+      sino: '}\nelse {',
+      mientras: 'while',
+      repetir: 'do {',
+      hasta: '} while',
+      para: 'for',
+      hacer: 'do'
+    });
+    locale.set(lang$1, 'openBracket', [// map
+    'hacer', 'entonces']);
+    locale.set(lang$1, 'closeBracket', [// map
+    'finsi', 'fin_si', 'finmientras', 'fin_mientras', 'finpara', 'fin_para']);
+    locale.set(lang$1, 'write', [// map
+    'mostrar', 'escribir', 'imprimir']);
+    locale.set(lang$1, 'read', [// map
+    'leer']);
+    locale.set(lang$1, 'type', {
+      // type : algorithm
+      int: 'entero',
+      double: 'real',
+      string: 'carapter',
+      bool: 'booleano'
+    });
+    locale.set(lang$1, 'typeError', {
+      // type : string in es
+      int: 'ERROR: no es entero',
+      double: 'ERROR: no es flotante',
+      string: 'ERROR: no es una cadena',
+      bool: 'ERROR: no es booleano'
+    });
+    locale.set(lang$1, 'error', {
+      // error name     : string in es
+      stringForNumber: 'ERROR: un numero no puede multiplicar a un carapter',
+      infinity: 'ERROR: dividir entre 0 causa un numero infinito'
+    });
+    locale.set(lang$1, 'code', ['algoritmo facilito', 'variables', 'numero, i, tabla[10]: entero', 'inicio', '  i <- 0', '  mostrar "Ingrese numero a multiplicar: "', '  leer numero', '  mientras (i < 10) hacer', '    i <- i + 1', '    tabla[i] <- numero * i', '    mostrar numero, " * ", i, " = ", numero * i', '  finmientras', 'fin'].join('\n'));
+  }
+
+  function algorithmTranspilerLang() {
+    en();
+    es();
+  } // export default algorithmTranspilerLang
+
   /** @module libs/algorithm/files */
 
   /**
@@ -21,18 +151,15 @@ define(['exports', '@choco/i18n', '@choco/keychain'], function (exports, locale,
    */
 
   function files (code) {
+    const {
+      algorithmWord
+    } = locale.all();
     const [firstLine, ...lines] = code.split('\n');
     const [keyword, name, ...restOfWords] = firstLine.split(' ');
     if (keyword === algorithmWord && name && restOfWords.length === 0) return [name, lines.join('\n')];
     throw new Error('name is invalid');
   }
 
-  const {
-    begin,
-    end,
-    variables,
-    type
-  } = locale.all();
   /** @module @choco/algorithm-transpiler/variables */
 
   /**
@@ -94,6 +221,9 @@ define(['exports', '@choco/i18n', '@choco/keychain'], function (exports, locale,
    */
 
   function isVarsZone(keyword, restOfVarLine) {
+    const {
+      variables
+    } = locale.all();
     return variables.indexOf(keyword) !== -1 && (!restOfVarLine.length || restOfVarLine.every(v => !v));
   }
   /**
@@ -156,6 +286,9 @@ define(['exports', '@choco/i18n', '@choco/keychain'], function (exports, locale,
 
 
   function reserveVars(store, isA, word) {
+    const {
+      type
+    } = locale.all();
     if (store && store.varAdd) switch (isA) {
       case type.int:
         store.varAdd('int', word);
@@ -193,12 +326,13 @@ define(['exports', '@choco/i18n', '@choco/keychain'], function (exports, locale,
 
 
   function ignoreSentences(code) {
+    const {
+      begin,
+      end
+    } = locale.all();
     return code.replace(code.match(RegExp(`${begin}[\\s\\S]*?${end}$`, 'gm'))[0], '');
   }
 
-  const {
-    begin: begin$1
-  } = locale.all();
   /** @module @choco/algorithm-transpiler/diff */
 
   /**
@@ -213,14 +347,17 @@ define(['exports', '@choco/i18n', '@choco/keychain'], function (exports, locale,
    * ].join('\n')
    * js = 'var bestAdc'
    * diff(alg, js) // return 1
-   * @returns {number} Diff between codes
+   * @returns {number} Diff between codes.
    */
 
   function diffAlg (code, js) {
+    const {
+      begin
+    } = locale.all();
     const alg = code.split(/\n/);
     let beginIndex = 1;
 
-    while (alg[beginIndex].match(RegExp(begin$1)) === null) beginIndex++;
+    while (alg[beginIndex].match(RegExp(begin)) === null) beginIndex++;
 
     beginIndex++;
     const localJS = js.split(/\n/);
@@ -231,21 +368,18 @@ define(['exports', '@choco/i18n', '@choco/keychain'], function (exports, locale,
     return beginIndex - jsIndex;
   }
 
-  const {
-    begin: begin$2,
-    end: end$1,
-    toWord,
-    tokens,
-    transpiler,
-    openBracket,
-    closeBracket,
-    write,
-    read
-  } = locale.all();
   /** @module libs/algorithm/transform */
   // transform between native languaje and javascipt
 
   function transform (code) {
+    const {
+      tokens,
+      transpiler,
+      openBracket,
+      closeBracket,
+      write,
+      read
+    } = locale.all();
     let line = stripCode(code);
     let js = ''; // now the transpiler work
 
@@ -311,7 +445,10 @@ define(['exports', '@choco/i18n', '@choco/keychain'], function (exports, locale,
     return js;
   }
   function forLoopCondition(lineArg) {
-    // for (...)
+    const {
+      toWord
+    } = locale.all(); // for (...)
+
     let line = lineArg;
     const matchCondition = line.match(RegExp(`([\\s\\S]+${toWord}[\\s\\S]+)`));
 
@@ -330,7 +467,10 @@ define(['exports', '@choco/i18n', '@choco/keychain'], function (exports, locale,
     return line;
   }
   function doWhileLoopCondition(line) {
-    // do ... while (!...)
+    const {
+      toWord
+    } = locale.all(); // do ... while (!...)
+
     if (line.match(RegExp(`${toWord}\\s+([\\s\\S]+)`))) return line.replace('(', '(!(').replace(/\)\s{0,}$/, '))').replace(/=/g, '===');
     return line;
   }
@@ -391,17 +531,21 @@ define(['exports', '@choco/i18n', '@choco/keychain'], function (exports, locale,
     return line;
   }
   function stripCode(codeArg) {
-    // good in this space we are going to make a separation between the code
+    const {
+      begin,
+      end
+    } = locale.all(); // good in this space we are going to make a separation between the code
     // and the variables
-    const [code] = codeArg.match(RegExp(`${begin$2}[\\s\\S]*?${end$1}$`, 'gm')); // each line is separated into a array
+
+    const [code] = codeArg.match(RegExp(`${begin}[\\s\\S]*?${end}$`, 'gm')); // each line is separated into a array
 
     const lines = code.split('\n'); // the word "fin" is deleted
 
-    if (lines[lines.length - 1].search(end$1) !== -1) lines.pop(); // reverse the line of array
+    if (lines[lines.length - 1].search(end) !== -1) lines.pop(); // reverse the line of array
 
     lines.reverse(); // the word "inicio" is deleted
 
-    if (lines[lines.length - 1].search(begin$2) !== -1) lines.pop(); // reverse the line of array
+    if (lines[lines.length - 1].search(begin) !== -1) lines.pop(); // reverse the line of array
 
     lines.reverse();
     return lines;
@@ -417,7 +561,10 @@ define(['exports', '@choco/i18n', '@choco/keychain'], function (exports, locale,
    */
 
   function ifIsEqual(linesArg) {
-    // if (x === y)
+    const {
+      openBracket
+    } = locale.all(); // if (x === y)
+
     const lines = linesArg;
     Object.keys(lines).map(Number).forEach(key => {
       if (lines[key].match(RegExp(`=(.)+${openBracket[key]}`))) lines[key] = lines[key].replace(/=/g, ' === ');
@@ -465,7 +612,7 @@ define(['exports', '@choco/i18n', '@choco/keychain'], function (exports, locale,
     };
   }
 
-  /** @module libs/vector */
+  /** @module @choco/algorithm-transpiler/vector */
 
   /** @classdesc Represent a Array of algorithms. */
   class Vector {
@@ -550,9 +697,6 @@ define(['exports', '@choco/i18n', '@choco/keychain'], function (exports, locale,
 
   }
 
-  const {
-    typeError
-  } = locale.all();
   /** @module @choco/algorithm-transpiler/io */
 
   const io = {
@@ -574,7 +718,10 @@ define(['exports', '@choco/i18n', '@choco/keychain'], function (exports, locale,
     }
 
   };
-  function read$1(toRead, variables, lastLine) {
+  function read(toRead, variables, lastLine) {
+    const {
+      typeError
+    } = locale.all();
     let toReadCopy = toRead; // flags
 
     let isVector = false;
@@ -638,7 +785,7 @@ define(['exports', '@choco/i18n', '@choco/keychain'], function (exports, locale,
     });
   }
 
-  function write$1(...args) {
+  function write(...args) {
     // var
     let result = '';
     let error;
@@ -673,13 +820,16 @@ define(['exports', '@choco/i18n', '@choco/keychain'], function (exports, locale,
     });
   }
 
+  algorithmTranspilerLang();
+
   exports.Vector = Vector;
+  exports.algorithmTranspilerLang = algorithmTranspilerLang;
   exports.io = io;
-  exports.read = read$1;
+  exports.read = read;
   exports.setDispatch = setDispatch;
   exports.setTabs = setTabs;
   exports.toJS = toJS;
-  exports.write = write$1;
+  exports.write = write;
 
   Object.defineProperty(exports, '__esModule', { value: true });
 

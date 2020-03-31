@@ -39,7 +39,7 @@ function setLang(lang) {
  */
 
 function all() {
-  return cache[locale] ? cache[locale] : cache[en];
+  return (cache[locale] ? cache[locale] : cache[en]) || {};
 }
 /**
  * Get one locales.
@@ -52,6 +52,8 @@ function all() {
  */
 
 function one(key) {
+  // if (!cache[locale]) 
+  console.log(cache);
   return cache[locale] ? cache[locale][key] : cache[en][key];
 }
 /**
@@ -70,13 +72,13 @@ function set(lang, key, value) {
   if (!cache[lang]) cache[lang] = {};
   cache[lang][key] = value;
 }
-var index = {
+var i18n = {
   one,
   all,
   set,
   setLang
 };
 
-export default index;
+export default i18n;
 export { all, one, set, setLang };
 //# sourceMappingURL=i18n.esm.js.map

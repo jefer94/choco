@@ -1,5 +1,6 @@
 import { languages, editor } from 'monaco-editor/esm/vs/editor/editor.main'
-import { algorithmWord, begin, end, forWord, toWord, variables, transpiler, openBracket, closeBracket, write, read, type } from '../../i18n'
+import locale from '@choco/i18n'
+const { algorithmWord, begin, end, forWord, toWord, variables, transpiler, openBracket, closeBracket, write, read, type } = locale.all()
 
 /** @module libs/algorithm/Monaco */
 

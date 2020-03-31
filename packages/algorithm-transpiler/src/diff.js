@@ -1,7 +1,5 @@
 import locale from '@choco/i18n'
 
-const { begin } = locale.all()
-
 /** @module @choco/algorithm-transpiler/diff */
 
 /**
@@ -16,9 +14,10 @@ const { begin } = locale.all()
  * ].join('\n')
  * js = 'var bestAdc'
  * diff(alg, js) // return 1
- * @returns {number} Diff between codes
+ * @returns {number} Diff between codes.
  */
 export default function (code, js) {
+  const { begin } = locale.all()
   const alg = code
     .split(/\n/)
   let beginIndex = 1

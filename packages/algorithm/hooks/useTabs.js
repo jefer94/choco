@@ -4,16 +4,23 @@ import tabsReducer from '../reducers/tabs'
 import { addTabAction, removeTabAction, changeTabAction, saveTabAction, defaultsTabsAction } from '../actions/tabs'
 
 const key = '__ALGORITHM_TABS__'
-const code = locale.one('code')
-const defaults = [{
-  id: 0,
-  name: 'Editor',
-  content: code,
-  active: true
-}]
+/**
+ * Get defaults tabs
+ * @example
+ * getDefaults()
+ * @returns {Tab[]} Array of tabs
+ */
+function getDefaults() {
+  return [{
+    id: 0,
+    name: locale.one('editor'),
+    content: locale.one('code'),
+    active: true
+  }]
+}
 
 export default function () {
-  const init = JSON.parse(localStorage.getItem(key) || 'null') || defaults
+  const init = JSON.parse(localStorage.getItem(key) || 'null') || getDefaults()
   const [tabs, dispatch] = useReducer(tabsReducer, init)
 
   const addTab = useCallback(() => dispatch(addTabAction()), [dispatch])

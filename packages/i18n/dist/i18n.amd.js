@@ -41,7 +41,7 @@ define(['exports'], function (exports) { 'use strict';
    */
 
   function all() {
-    return cache[locale] ? cache[locale] : cache[en];
+    return (cache[locale] ? cache[locale] : cache[en]) || {};
   }
   /**
    * Get one locales.
@@ -54,6 +54,8 @@ define(['exports'], function (exports) { 'use strict';
    */
 
   function one(key) {
+    // if (!cache[locale]) 
+    console.log(cache);
     return cache[locale] ? cache[locale][key] : cache[en][key];
   }
   /**
@@ -72,7 +74,7 @@ define(['exports'], function (exports) { 'use strict';
     if (!cache[lang]) cache[lang] = {};
     cache[lang][key] = value;
   }
-  var index = {
+  var i18n = {
     one,
     all,
     set,
@@ -80,7 +82,7 @@ define(['exports'], function (exports) { 'use strict';
   };
 
   exports.all = all;
-  exports.default = index;
+  exports.default = i18n;
   exports.one = one;
   exports.set = set;
   exports.setLang = setLang;

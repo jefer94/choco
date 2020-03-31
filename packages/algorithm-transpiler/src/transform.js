@@ -1,12 +1,10 @@
 import locale from '@choco/i18n'
 
-const { begin, end, toWord, tokens, transpiler, openBracket, closeBracket, write,
-  read } = locale.all()
-
 /** @module libs/algorithm/transform */
 
 // transform between native languaje and javascipt
 export default function (code) {
+  const { tokens, transpiler, openBracket, closeBracket, write, read } = locale.all()
   let line = stripCode(code)
   let js = ''
 
@@ -96,6 +94,8 @@ export default function (code) {
 }
 
 export function forLoopCondition(lineArg) {
+  const { toWord } = locale.all()
+
   // for (...)
   let line = lineArg
   const matchCondition = line.match(RegExp(`([\\s\\S]+${toWord}[\\s\\S]+)`))
@@ -115,6 +115,8 @@ export function forLoopCondition(lineArg) {
 }
 
 export function doWhileLoopCondition(line) {
+  const { toWord } = locale.all()
+
   // do ... while (!...)
   if (line.match(RegExp(`${toWord}\\s+([\\s\\S]+)`))) return line.replace('(', '(!(')
     .replace(/\)\s{0,}$/, '))')
@@ -182,6 +184,8 @@ export function purgeComment(lineArg) {
 
 
 export function stripCode(codeArg) {
+  const { begin, end } = locale.all()
+
   // good in this space we are going to make a separation between the code
   // and the variables
   const [code] = codeArg.match(RegExp(`${begin}[\\s\\S]*?${end}$`, 'gm'))
@@ -211,6 +215,8 @@ export function stripCode(codeArg) {
  * @returns {string[]} Lines of code.
  */
 function ifIsEqual(linesArg) {
+  const { openBracket } = locale.all()
+
   // if (x === y)
   const lines = linesArg
   Object.keys(lines).map(Number).forEach((key) => {

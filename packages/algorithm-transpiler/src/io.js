@@ -1,8 +1,6 @@
 import keychain from '@choco/keychain'
 import locale from '@choco/i18n'
 
-const { typeError } = locale.all()
-
 /** @module @choco/algorithm-transpiler/io */
 
 export const io = {
@@ -25,6 +23,7 @@ export const io = {
 }
 
 export function read(toRead, variables, lastLine) {
+  const { typeError } = locale.all()
   let toReadCopy = toRead
 
   // flags

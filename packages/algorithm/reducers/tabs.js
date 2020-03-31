@@ -1,9 +1,5 @@
 import locale from '@choco/i18n'
 
-const tabName = locale.one('algorithmWord')
-const code = locale.one('code')
-const editor = locale.one('editor')
-
 /** @module reducers/tabs */
 
 /**
@@ -15,15 +11,19 @@ const editor = locale.one('editor')
  */
 
 /**
- * @constant {Tab[]}
- * @default
+ * Get defaults tabs
+ * @example
+ * getDefaults()
+ * @returns {Tab[]} Array of tabs
  */
-const defaults = [{
-  id: 0,
-  name: editor,
-  content: code,
-  active: true
-}]
+function getDefaults() {
+  return [{
+    id: 0,
+    name: locale.one('editor'),
+    content: locale.one('code'),
+    active: true
+  }]
+}
 
 /**
  * Set first letter to uppercase.
@@ -49,7 +49,7 @@ function add(state) {
   const id = state.length ? state[state.length - 1].id + 1 : 0
   return state.concat([{
     id,
-    name: title(tabName, id),
+    name: title(locale.one('algorithmWord'), id),
     content: '',
     active: false
   }])
@@ -88,7 +88,7 @@ function remove(state, action) {
  * reducer([])
  * @returns {Tab[]} Data store in reducer.
  */
-export default function reducer(state = defaults, action) {
+export default function reducer(state = getDefaults(), action) {
   switch (action.type) {
     case 'ADD_TAB':
       return add(state)
@@ -118,7 +118,7 @@ export default function reducer(state = defaults, action) {
       }))
 
     case 'DEFAULTS_TABS':
-      return [...defaults]
+      return getDefaults()
 
     default:
       return state

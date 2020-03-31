@@ -1,6 +1,5 @@
 import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
-import lang from  '../lang/es'
 import { faEdit, faTerminal, faBook } from '@fortawesome/free-solid-svg-icons'
 import { homeRoute, docsRoute, consoleRoute } from '../globals/routes'
 import keychain from '@choco/keychain'
@@ -8,7 +7,6 @@ import { ThemeContext, MenuContext } from '../contexts'
 import { Menu as MenuComponent } from '@choco/components'
 import dynamic from 'next/dynamic'
 import Head from 'next/head'
-
 
 function menuItem(url, name, icon, active) {
   return { id: keychain('menu'), url, name, icon, active }

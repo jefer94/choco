@@ -1,7 +1,5 @@
 import locale from '@choco/i18n'
 
-const { begin, end, variables, type } = locale.all()
-
 /** @module @choco/algorithm-transpiler/variables */
 
 /**
@@ -62,6 +60,7 @@ export default function (code, store) {
  * @returns {boolean} Is this line the beginning of the variable area?.
  */
 function isVarsZone(keyword, restOfVarLine) {
+  const { variables } = locale.all()
   return variables.indexOf(keyword) !== -1 &&
     (!restOfVarLine.length || restOfVarLine.every((v) => !v))
 }
@@ -135,6 +134,7 @@ function prepareWord(word) {
  * // }
  */
 function reserveVars(store, isA, word) {
+  const { type } = locale.all()
   if (store && store.varAdd)
   switch (isA) {
     case type.int:
@@ -170,5 +170,6 @@ function reserveVars(store, isA, word) {
  * @returns {string} Get the code, less the body (start ... end).
  */
 function ignoreSentences(code) {
+  const { begin, end } = locale.all()
   return code.replace(code.match(RegExp(`${begin}[\\s\\S]*?${end}$`, 'gm'))[0], '')
 }

@@ -1,6 +1,6 @@
 import locale from '@choco/i18n'
 
-const lang = 'es'
+const lang = 'en'
 
 export default function() {
   locale.set(lang, 'menu', 'Menu')

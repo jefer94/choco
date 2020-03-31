@@ -1,6 +1,5 @@
 import locale from '@choco/i18n'
 
-const { algorithmWord } = locale.all()
 
 /** @module libs/algorithm/files */
 
@@ -16,6 +15,7 @@ const { algorithmWord } = locale.all()
  * return
  */
 export default function (code) {
+  const { algorithmWord } = locale.all()
   const [firstLine, ...lines] = code.split('\n')
   const [keyword, name, ...restOfWords] = firstLine.split(' ')
   if (keyword === algorithmWord && name && restOfWords.length === 0) return [name, lines.join('\n')]

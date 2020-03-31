@@ -1,22 +1,20 @@
-'use strict';
+const cache = {}
 
-Object.defineProperty(exports, '__esModule', { value: true });
-
-const cache = {};
 /** @module @choco/i18n */
 
 /**
  * @constant
  * @default
  */
-
-const en = 'es';
-let locale = en;
+const en = 'es'
+let locale = en
 
 try {
-  locale = window ? window.navigator.language.substr(0, 2) : en;
-} catch (e) {}
-/** @todo server rendering support */
+  locale = window ? window.navigator.language.substr(0, 2) : en
+}
+catch(e) {
+  /** @todo server rendering support */
+}
 
 /**
  * Set manually the locales.
@@ -27,11 +25,10 @@ try {
  *
  * locale.setLang('en')
  */
-
-
-function setLang(lang) {
-  locale = lang;
+export function setLang(lang) {
+  locale = lang
 }
+
 /**
  * Get all locales.
  * 
@@ -41,10 +38,10 @@ function setLang(lang) {
  * locale.all() // returns { ... }
  * @returns {Object.<string, any>} All locales.
  */
-
-function all() {
-  return (cache[locale] ? cache[locale] : cache[en]) || {};
+export function all() {
+  return (cache[locale] ? cache[locale] : cache[en]) || {}
 }
+
 /**
  * Get one locales.
  * 
@@ -54,12 +51,12 @@ function all() {
  * locale.one('dog') // returns VALUE
  * @returns {any} One locales.
  */
-
-function one(key) {
+export function one(key) {
   // if (!cache[locale]) 
-  console.log(cache);
-  return cache[locale] ? cache[locale][key] : cache[en][key];
+  console.log(cache)
+  return cache[locale] ? cache[locale][key] : cache[en][key]
 }
+
 /**
  * Set a locale key.
  *
@@ -71,21 +68,9 @@ function one(key) {
  * @param {string} key - Name of translation.
  * @param {any} value - Value of translation
  */
-
-function set(lang, key, value) {
-  if (!cache[lang]) cache[lang] = {};
-  cache[lang][key] = value;
+export function set(lang, key, value) {
+  if (!cache[lang]) cache[lang] = {}
+  cache[lang][key] = value
 }
-const i18n = {
-  one,
-  all,
-  set,
-  setLang
-};
 
-exports.all = all;
-exports.default = i18n;
-exports.one = one;
-exports.set = set;
-exports.setLang = setLang;
-//# sourceMappingURL=i18n.cjs.js.map
+export default { one, all, set, setLang }
