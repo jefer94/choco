@@ -1,4 +1,4 @@
-import Vector from './vector'
+import { Vector } from './vector'
 
 test('empty vector', () => {
   for (let i = 1; i < 10; i++) {

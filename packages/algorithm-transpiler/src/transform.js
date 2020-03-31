@@ -1,4 +1,7 @@
 import locale from '@choco/i18n'
+import { algorithmTranspilerLang } from './lang'
+
+algorithmTranspilerLang()
 
 /** @module libs/algorithm/transform */
 

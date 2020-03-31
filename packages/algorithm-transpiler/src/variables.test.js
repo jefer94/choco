@@ -1,4 +1,7 @@
 import variables from './variables'
+import { algorithmTranspilerLang } from './lang'
+
+algorithmTranspilerLang()
 
 const code = `variables
 numero, i, tabla[10]: entero

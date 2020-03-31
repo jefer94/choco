@@ -1,6 +1,8 @@
 import files from './files'
 import locale from '@choco/i18n'
+import { algorithmTranspilerLang } from './lang'
 
+algorithmTranspilerLang()
 const { code } = locale.all()
 
 test('return correct name', () => {

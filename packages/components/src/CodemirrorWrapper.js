@@ -6,19 +6,19 @@ import { GutterMarker } from '@codemirror/next/gutter/dist'
 
 import { useRef, useEffect, createRef, useState } from 'react'
 
-const Div = styled.div`
-  & > div {
-    height: ${(v) => v.height};
-    max-height: ${(v) => v.height};
-    outline: 0!important;
-    background-color: ${(v) => v.theme.surface};
-    color: ${(v) => v.theme.white};
-    font-size: ${(v) => v.theme.fontSize};
-    padding-left: 15px;
-  }
-`
+// const Div = styled.div`
+//   & > div {
+//     height: ${(v) => v.height};
+//     max-height: ${(v) => v.height};
+//     outline: 0!important;
+//     background-color: ${(v) => v.theme.surface};
+//     color: ${(v) => v.theme.white};
+//     font-size: ${(v) => v.theme.fontSize};
+//     padding-left: 15px;
+//   }
+// `
 
-export default function({ content, height, theme }) {
+function CodemirrorWrapper({ className, content }) {
   const [loading, setLoading] = useState(true)
   let div = useRef()
   let editor = useRef()
@@ -33,6 +33,18 @@ export default function({ content, height, theme }) {
   }, [loading])
 
   return (
-    <Div ref={div} height={height} theme={theme} />
+    <div className={className} ref={div} />
   )
 }
+
+export default styled(CodemirrorWrapper)`
+  & > div {
+    height: ${(v) => v.height};
+    max-height: ${(v) => v.height};
+    outline: 0!important;
+    background-color: ${(v) => v.theme.surface};
+    color: ${(v) => v.theme.white};
+    font-size: ${(v) => v.theme.fontSize};
+    padding-left: 15px;
+  }
+`
