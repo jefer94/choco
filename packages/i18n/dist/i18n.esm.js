@@ -6,7 +6,7 @@ const cache = {};
  * @default
  */
 
-const en = 'es';
+const en = 'en';
 let locale = en;
 
 try {

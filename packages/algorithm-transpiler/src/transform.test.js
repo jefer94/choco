@@ -1,5 +1,7 @@
 import { forLoopCondition, doWhileLoopCondition } from './transform'
+import locale from '@choco/i18n'
 
+locale.setLang('es')
 const forLoopConditionCode = `para (i = 1 hasta i = 9) hacer
   mostrar i
 finpara`

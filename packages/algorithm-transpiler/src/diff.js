@@ -8,11 +8,11 @@ import locale from '@choco/i18n'
  * @param {*} code - Algorithm code.
  * @param {*} js - Current Javascript code.
  * @example
- * alg = [
+ * const alg = [
  *   'variables',
  *   '  bestAdc: string'
  * ].join('\n')
- * js = 'var bestAdc'
+ * const js = 'var bestAdc'
  * diff(alg, js) // return 1
  * @returns {number} Diff between codes.
  */

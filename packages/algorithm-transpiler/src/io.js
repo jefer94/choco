@@ -51,7 +51,6 @@ export function read(toRead, variables, lastLine) {
     toReadCopy += `.add(${input})`
   }
   // here in runtime show the mistakes in assignings
-  console.log(variables, variables[toReadCopy], 'copy')
   switch (variables[toReadCopy]) {
     case 'int':
       if (Number.isNaN(Number(input)) || +input !== Math.trunc(input)) return readResponse(`write('${typeError.int}'); io.error();`, newLastLine)
@@ -62,7 +61,12 @@ export function read(toRead, variables, lastLine) {
     case 'string':
       break
     case 'bool':
-      if (Number.isNaN(Number(input)) || (input === true || input === false)) return readResponse(`write('${typeError.bool}'); io.error();`, newLastLine)
+      try {
+        if (typeof JSON.parse(input) !== 'boolean') return readResponse(`write('${typeError.bool}'); io.error();`, newLastLine)
+      }
+      catch(e) {
+        return readResponse(`write('${typeError.bool}'); io.error();`, newLastLine)
+      }
       break
     default:
       throw new Error('Unknow var type')

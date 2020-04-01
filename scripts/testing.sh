@@ -4,7 +4,7 @@ cd ./packages
 
 if [ $1 ]; then
   cd $1
-  yarn jest ./ --watchAll
+  yarn jest ./ --watch $2 # --watchAll $2
   cd ..
 else
   echo yarn testing package

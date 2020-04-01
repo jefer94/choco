@@ -33,7 +33,7 @@ export default function() {
     repetir: 'do {',
     hasta: '} while',
     para: 'for',
-    hacer: 'do'
+    // hacer: 'do'
   })
 
   locale.set(lang, 'openBracket', [

@@ -1,3 +1,4 @@
+import comments from './comments'
 import locale from '@choco/i18n'
 
 /** @module @choco/algorithm-transpiler/variables */
@@ -23,25 +24,25 @@ import locale from '@choco/i18n'
  * @returns {string} Javascript variables.
  */
 export default function (code, store) {
-  const literals = ignoreSentences(code)
+  const codeWithoutComments = comments(code)
+  const literals = ignoreSentences(codeWithoutComments)
   const [firstLine, ...lines] = literals.split('\n')
   const [keyword, ...restOfVarLine] = firstLine.split(' ')
   let result = ''
+
   if (isVarsZone(keyword, restOfVarLine)) Object.keys(lines).map(Number).forEach((key) => {
-    const words = lines[key].split(' ')
-    // const i = key + 1
-    if (lines[key].search('//') !== -1) {
-      const remove = lines[key].substr(lines[key].search('//'), lines[key].length)
-      lines[key] = lines[key].replace(remove, '')
+    if (lines[key]) {
+      const words = lines[key].split(' ')
+
+      Object.keys(words).map(Number).forEach((j) => {
+        if (j < words.length - 1) {
+          const word = prepareWord(words[j])
+          if (word) result += `var ${word};\n`
+          if (j !== words.length - 1) reserveVars(store, words[words.length - 1],
+            purgeVarName(words[j]))
+        }
+      })
     }
-    Object.keys(words).map(Number).forEach((j) => {
-      if (j < words.length - 1) {
-        const word = prepareWord(words[j])
-        if (word) result += `var ${word};\n`
-        if (j !== words.length - 1) reserveVars(store, words[words.length - 1],
-          purgeVarName(words[j]))
-      }
-    })
   })
   return result.split('\n').filter((v) => v).join('\n')
 }
@@ -62,7 +63,7 @@ export default function (code, store) {
 function isVarsZone(keyword, restOfVarLine) {
   const { variables } = locale.all()
   return variables.indexOf(keyword) !== -1 &&
-    (!restOfVarLine.length || restOfVarLine.every((v) => !v))
+    (!restOfVarLine.length || restOfVarLine.every((v) => !v) || restOfVarLine[0] === '//')
 }
 
 /**
@@ -171,5 +172,6 @@ function reserveVars(store, isA, word) {
  */
 function ignoreSentences(code) {
   const { begin, end } = locale.all()
-  return code.replace(code.match(RegExp(`${begin}[\\s\\S]*?${end}$`, 'gm'))[0], '')
+  // return code.replace(code.match(RegExp(`${begin}[\\s\\S]*?${end}$`, 'gm'))[0], '')
+  return code.replace(RegExp(`([\\s\\S]*?)(\\n${begin}[\\s\\S]*?${end}$)`, 'gm'), '$1')
 }

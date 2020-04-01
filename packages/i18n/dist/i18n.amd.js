@@ -8,7 +8,7 @@ define(['exports'], function (exports) { 'use strict';
    * @default
    */
 
-  const en = 'es';
+  const en = 'en';
   let locale = en;
 
   try {

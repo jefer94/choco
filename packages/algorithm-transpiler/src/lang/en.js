@@ -4,19 +4,19 @@ import { staticTokens } from './common'
 const lang = 'en'
 
 export default function() {
-  locale.set(lang, 'algorithmWord', 'algoritmo')
-  locale.set(lang, 'begin', 'inicio')
-  locale.set(lang, 'end', 'fin')
-  locale.set(lang, 'forWord', 'para')
-  locale.set(lang, 'toWord', 'hasta')
-  locale.set(lang, 'trueWord', 'verdadero')
-  locale.set(lang, 'falseWord', 'falso')
+  locale.set(lang, 'algorithmWord', 'algorithm')
+  locale.set(lang, 'begin', 'begin')
+  locale.set(lang, 'end', 'end')
+  locale.set(lang, 'forWord', 'for')
+  locale.set(lang, 'toWord', 'until')
+  locale.set(lang, 'trueWord', 'true')
+  locale.set(lang, 'falseWord', 'false')
 
   locale.set(lang, 'tokens', { ...staticTokens, ...{
     // algorithm : js
-    o: '||',
-    y: '&&',
-    no: '!'
+    or: '||',
+    and: '&&',
+    not: '!'
   }})
 
   locale.set(lang, 'variables', [
@@ -27,79 +27,80 @@ export default function() {
 
   locale.set(lang, 'transpiler', {
     // algorithm : js
-    si: 'if',
-    sino: '}\nelse {',
-    mientras: 'while',
-    repetir: 'do {',
-    hasta: '} while',
-    para: 'for',
-    hacer: 'do'
+    if: 'if',
+    else: '}\nelse {',
+    while: 'while',
+    repeat: 'do {',
+    until: '} while',
+    for: 'for',
+    do: 'do'
   })
 
   locale.set(lang, 'openBracket', [
     // map
-    'hacer',
-    'entonces'
+    'do',
+    'until'
   ])
 
 
   locale.set(lang, 'closeBracket', [
     // map
-    'finsi',
-    'fin_si',
-    'finmientras',
-    'fin_mientras',
-    'finpara',
-    'fin_para'
+    'endif',
+    'end_if',
+    'endwhile',
+    'end_while',
+    'endfor',
+    'end_for'
   ])
 
   locale.set(lang, 'write', [
     // map
-    'mostrar',
-    'escribir',
-    'imprimir'
+    'show',
+    'write',
+    'print'
   ])
 
   locale.set(lang, 'read', [
     // map
-    'leer'
+    'read'
   ])
 
   locale.set(lang, 'type', {
     // type : algorithm
-    int: 'entero',
-    double: 'real',
-    string: 'carapter',
-    bool: 'booleano'
+    int: 'integer',
+    double: 'float',
+    string: 'string',
+    bool: 'boolean'
   })
 
   locale.set(lang, 'typeError', {
     // type : string in es
-    int: 'ERROR: no es entero',
-    double: 'ERROR: no es flotante',
-    string: 'ERROR: no es una cadena',
-    bool: 'ERROR: no es booleano'
+    int: 'ERROR: don\'t is integer',
+    double: 'ERROR: don\'t is float',
+    string: 'ERROR: don\'t is string',
+    bool: 'ERROR: don\'t is boolean'
   })
 
   locale.set(lang, 'error', {
-    // error name     : string in es
-    stringForNumber: 'ERROR: un numero no puede multiplicar a un carapter',
-    infinity: 'ERROR: dividir entre 0 causa un numero infinito'
+    // error name : string in es
+    stringForNumber: 'ERROR: a number cannot multiply a carapter',
+    infinity: 'ERROR: dividing by 0 causes an infinite number'
   })
 
   locale.set(lang, 'code', [
-    'algoritmo facilito',
+    'algorithm easy',
     'variables',
-    'numero, i, tabla[10]: entero',
-    'inicio',
+    'number, i, table[10]: integer',
+    'begin',
     '  i <- 0',
-    '  mostrar "Ingrese numero a multiplicar: "',
-    '  leer numero',
-    '  mientras (i < 10) hacer',
+    '  write "Enter number a multiplier: "',
+    '  read number',
+    '  while (i < 10) do',
     '    i <- i + 1',
-    '    tabla[i] <- numero * i',
-    '    mostrar numero, " * ", i, " = ", numero * i',
-    '  finmientras',
-    'fin'
+    '    table[i] <- number * i',
+    '    write number, " * ", i, " = ", number * i',
+    '  endwhile',
+    'end',
+    ''
   ].join('\n'))
 }

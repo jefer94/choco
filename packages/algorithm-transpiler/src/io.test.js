@@ -1,4 +1,9 @@
 import { read, write, io } from './io'
+import locale from '@choco/i18n'
+import { algorithmTranspilerLang } from './lang'
+
+algorithmTranspilerLang()
+locale.setLang('en')
 
 let id = -1
 const type = Object.freeze({
@@ -88,25 +93,25 @@ test('write n args', () => {
 })
 
 
-// test('read var', () => {
-//   const vars = {
-//     senna: type.int,
-//     tristana: type.string,
-//     sona: type.double,
-//     jhin: type.bool
-//   }
-//   const res = {
-//     senna: '1',
-//     tristana: 'hey apple',
-//     sona: '1.0',
-//     jhin: 'true'
-//   }
+test('read var', () => {
+  const vars = {
+    senna: type.int,
+    tristana: type.string,
+    sona: type.double,
+    jhin: type.bool
+  }
+  const res = {
+    senna: '1',
+    tristana: 'hey apple',
+    sona: '1.0',
+    jhin: 'true'
+  }
 
-//   Object.keys(vars).forEach((k) => {
-//     window.prompt = jest.fn(() => res[k])
-//     const testAssignValue = vars[k] === type.string ? `'${res[k]}'` : res[k]
-//     const { assign, lastLine, ...restOfProperties } = read(k, vars)
-//     expect(Object.keys(restOfProperties)).toHaveLength(0)
-//     expect(assign).toBe(`${k} = ${testAssignValue};`)
-//   })
-// })
+  Object.keys(vars).forEach((k) => {
+    window.prompt = jest.fn(() => res[k])
+    const testAssignValue = vars[k] === type.string ? `'${res[k]}'` : res[k]
+    const { assign, lastLine, ...restOfProperties } = read(k, vars)
+    expect(Object.keys(restOfProperties)).toHaveLength(0)
+    expect(assign).toBe(`${k} = ${testAssignValue};`)
+  })
+})

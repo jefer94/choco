@@ -3,6 +3,7 @@ import locale from '@choco/i18n'
 import { algorithmTranspilerLang } from './lang'
 
 algorithmTranspilerLang()
+locale.setLang('en')
 const { code } = locale.all()
 
 test('return correct name', () => {
