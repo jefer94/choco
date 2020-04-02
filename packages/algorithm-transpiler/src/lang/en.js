@@ -85,7 +85,8 @@ export default function() {
   locale.set(lang, 'error', {
     // error name : string in es
     stringForNumber: 'Error: a number cannot multiply a carapter',
-    infinity: 'Error: dividing by 0 causes an infinite number'
+    infinity: 'Error: dividing by 0 causes an infinite number',
+    dispatchers: 'Error: dispatchers were not provided'
   })
 
   locale.set(lang, 'code', [

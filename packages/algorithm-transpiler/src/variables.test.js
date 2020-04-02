@@ -105,3 +105,25 @@ test('work with bad indentation and spaces in the end', () => {
   expect(Object.keys(restOfVars).length).toBe(0)
   expect(cocoa).toBe('int')
 })
+
+test('dispatchers were not provided', () => {
+  const codeWithComments = [
+    'variables',
+    '  v1: choco',
+    'begin',
+    '  ...',
+    'end'
+  ].join('\n')
+
+  expect(() => variables(codeWithComments)).toThrow('Error: dispatchers were not provided')
+})
+
+test('variables were not provided', () => {
+  const codeWithComments = [
+    'begin',
+    '  ...',
+    'end'
+  ].join('\n')
+
+  expect(variables(codeWithComments, storeMock)).toBe('')
+})

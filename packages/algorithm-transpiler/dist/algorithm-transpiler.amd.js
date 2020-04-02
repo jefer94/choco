@@ -1,9 +1,160 @@
-define(['exports', '@choco/i18n', '@choco/keychain'], function (exports, locale, keychain) { 'use strict';
+define(['exports', '@choco/i18n', '@choco/functional', '@choco/keychain'], function (exports, locale, functional, keychain) { 'use strict';
 
   locale = locale && Object.prototype.hasOwnProperty.call(locale, 'default') ? locale['default'] : locale;
   keychain = keychain && Object.prototype.hasOwnProperty.call(keychain, 'default') ? keychain['default'] : keychain;
 
-  const staticTokens = {
+  function _typeof(obj) {
+    "@babel/helpers - typeof";
+
+    if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+      _typeof = function (obj) {
+        return typeof obj;
+      };
+    } else {
+      _typeof = function (obj) {
+        return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+      };
+    }
+
+    return _typeof(obj);
+  }
+
+  function _classCallCheck(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+      throw new TypeError("Cannot call a class as a function");
+    }
+  }
+
+  function _defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];
+      descriptor.enumerable = descriptor.enumerable || false;
+      descriptor.configurable = true;
+      if ("value" in descriptor) descriptor.writable = true;
+      Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }
+
+  function _createClass(Constructor, protoProps, staticProps) {
+    if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+    if (staticProps) _defineProperties(Constructor, staticProps);
+    return Constructor;
+  }
+
+  function _defineProperty(obj, key, value) {
+    if (key in obj) {
+      Object.defineProperty(obj, key, {
+        value: value,
+        enumerable: true,
+        configurable: true,
+        writable: true
+      });
+    } else {
+      obj[key] = value;
+    }
+
+    return obj;
+  }
+
+  function ownKeys(object, enumerableOnly) {
+    var keys = Object.keys(object);
+
+    if (Object.getOwnPropertySymbols) {
+      var symbols = Object.getOwnPropertySymbols(object);
+      if (enumerableOnly) symbols = symbols.filter(function (sym) {
+        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+      });
+      keys.push.apply(keys, symbols);
+    }
+
+    return keys;
+  }
+
+  function _objectSpread2(target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i] != null ? arguments[i] : {};
+
+      if (i % 2) {
+        ownKeys(Object(source), true).forEach(function (key) {
+          _defineProperty(target, key, source[key]);
+        });
+      } else if (Object.getOwnPropertyDescriptors) {
+        Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+      } else {
+        ownKeys(Object(source)).forEach(function (key) {
+          Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+        });
+      }
+    }
+
+    return target;
+  }
+
+  function _slicedToArray(arr, i) {
+    return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
+  }
+
+  function _toArray(arr) {
+    return _arrayWithHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableRest();
+  }
+
+  function _arrayWithHoles(arr) {
+    if (Array.isArray(arr)) return arr;
+  }
+
+  function _iterableToArray(iter) {
+    if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);
+  }
+
+  function _iterableToArrayLimit(arr, i) {
+    if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;
+    var _arr = [];
+    var _n = true;
+    var _d = false;
+    var _e = undefined;
+
+    try {
+      for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+        _arr.push(_s.value);
+
+        if (i && _arr.length === i) break;
+      }
+    } catch (err) {
+      _d = true;
+      _e = err;
+    } finally {
+      try {
+        if (!_n && _i["return"] != null) _i["return"]();
+      } finally {
+        if (_d) throw _e;
+      }
+    }
+
+    return _arr;
+  }
+
+  function _unsupportedIterableToArray(o, minLen) {
+    if (!o) return;
+    if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+    var n = Object.prototype.toString.call(o).slice(8, -1);
+    if (n === "Object" && o.constructor) n = o.constructor.name;
+    if (n === "Map" || n === "Set") return Array.from(n);
+    if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+  }
+
+  function _arrayLikeToArray(arr, len) {
+    if (len == null || len > arr.length) len = arr.length;
+
+    for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
+
+    return arr2;
+  }
+
+  function _nonIterableRest() {
+    throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+  }
+
+  var staticTokens = {
     // algorithm : js
     '<>': '!==',
     '<=': '<=',
@@ -13,66 +164,68 @@ define(['exports', '@choco/i18n', '@choco/keychain'], function (exports, locale,
     '<-': '='
   };
 
-  const lang = 'en';
+  var lang = 'en';
   function en () {
-    locale.set(lang, 'algorithmWord', 'algoritmo');
-    locale.set(lang, 'begin', 'inicio');
-    locale.set(lang, 'end', 'fin');
-    locale.set(lang, 'forWord', 'para');
-    locale.set(lang, 'toWord', 'hasta');
-    locale.set(lang, 'trueWord', 'verdadero');
-    locale.set(lang, 'falseWord', 'falso');
-    locale.set(lang, 'tokens', { ...staticTokens,
-      ...{
-        // algorithm : js
-        o: '||',
-        y: '&&',
-        no: '!'
-      }
-    });
+    locale.set(lang, 'algorithmWord', 'algorithm');
+    locale.set(lang, 'begin', 'begin');
+    locale.set(lang, 'end', 'end');
+    locale.set(lang, 'forWord', 'for');
+    locale.set(lang, 'toWord', 'until');
+    locale.set(lang, 'trueWord', 'true');
+    locale.set(lang, 'falseWord', 'false');
+    locale.set(lang, 'tokens', _objectSpread2({}, staticTokens, {}, {
+      // algorithm : js
+      or: '||',
+      and: '&&',
+      not: '!'
+    }));
     locale.set(lang, 'variables', [// map
     'variables', 'var']);
     locale.set(lang, 'transpiler', {
       // algorithm : js
-      si: 'if',
-      sino: '}\nelse {',
-      mientras: 'while',
-      repetir: 'do {',
-      hasta: '} while',
-      para: 'for',
-      hacer: 'do'
+      "if": 'if',
+      "else": '}\nelse {',
+      "while": 'while',
+      repeat: 'do {',
+      until: '} while',
+      "for": 'for',
+      "do": 'do'
     });
     locale.set(lang, 'openBracket', [// map
-    'hacer', 'entonces']);
+    'do', 'until']);
     locale.set(lang, 'closeBracket', [// map
-    'finsi', 'fin_si', 'finmientras', 'fin_mientras', 'finpara', 'fin_para']);
+    'endif', 'end_if', 'endwhile', 'end_while', 'endfor', 'end_for']);
     locale.set(lang, 'write', [// map
-    'mostrar', 'escribir', 'imprimir']);
+    'show', 'write', 'print']);
     locale.set(lang, 'read', [// map
-    'leer']);
+    'read']);
     locale.set(lang, 'type', {
       // type : algorithm
-      int: 'entero',
-      double: 'real',
-      string: 'carapter',
-      bool: 'booleano'
+      "int": 'integer',
+      "double": 'float',
+      string: 'string',
+      bool: 'boolean'
     });
     locale.set(lang, 'typeError', {
       // type : string in es
-      int: 'ERROR: no es entero',
-      double: 'ERROR: no es flotante',
-      string: 'ERROR: no es una cadena',
-      bool: 'ERROR: no es booleano'
+      "int": 'Error: don\'t is integer',
+      "double": 'Error: don\'t is float',
+      string: 'Error: don\'t is string',
+      bool: 'Error: don\'t is boolean',
+      unknow: function unknow(type) {
+        return "Error: ".concat(type, " is not a valid variable type");
+      }
     });
     locale.set(lang, 'error', {
-      // error name     : string in es
-      stringForNumber: 'ERROR: un numero no puede multiplicar a un carapter',
-      infinity: 'ERROR: dividir entre 0 causa un numero infinito'
+      // error name : string in es
+      stringForNumber: 'Error: a number cannot multiply a carapter',
+      infinity: 'Error: dividing by 0 causes an infinite number',
+      dispatchers: 'Error: dispatchers were not provided'
     });
-    locale.set(lang, 'code', ['algoritmo facilito', 'variables', 'numero, i, tabla[10]: entero', 'inicio', '  i <- 0', '  mostrar "Ingrese numero a multiplicar: "', '  leer numero', '  mientras (i < 10) hacer', '    i <- i + 1', '    tabla[i] <- numero * i', '    mostrar numero, " * ", i, " = ", numero * i', '  finmientras', 'fin'].join('\n'));
+    locale.set(lang, 'code', ['algorithm easy', 'variables', 'number, i, table[10]: integer', 'begin', '  i <- 0', '  write "Enter number a multiplier: "', '  read number', '  while (i < 10) do', '    i <- i + 1', '    table[i] <- number * i', '    write number, " * ", i, " = ", number * i', '  endwhile', 'end', ''].join('\n'));
   }
 
-  const lang$1 = 'es';
+  var lang$1 = 'es';
   function es () {
     locale.set(lang$1, 'algorithmWord', 'algoritmo');
     locale.set(lang$1, 'begin', 'inicio');
@@ -81,14 +234,12 @@ define(['exports', '@choco/i18n', '@choco/keychain'], function (exports, locale,
     locale.set(lang$1, 'toWord', 'hasta');
     locale.set(lang$1, 'trueWord', 'verdadero');
     locale.set(lang$1, 'falseWord', 'falso');
-    locale.set(lang$1, 'tokens', { ...staticTokens,
-      ...{
-        // algorithm : js
-        o: '||',
-        y: '&&',
-        no: '!'
-      }
-    });
+    locale.set(lang$1, 'tokens', _objectSpread2({}, staticTokens, {}, {
+      // algorithm : js
+      o: '||',
+      y: '&&',
+      no: '!'
+    }));
     locale.set(lang$1, 'variables', [// map
     'variables', 'var']);
     locale.set(lang$1, 'transpiler', {
@@ -98,8 +249,8 @@ define(['exports', '@choco/i18n', '@choco/keychain'], function (exports, locale,
       mientras: 'while',
       repetir: 'do {',
       hasta: '} while',
-      para: 'for',
-      hacer: 'do'
+      para: 'for' // hacer: 'do'
+
     });
     locale.set(lang$1, 'openBracket', [// map
     'hacer', 'entonces']);
@@ -111,22 +262,26 @@ define(['exports', '@choco/i18n', '@choco/keychain'], function (exports, locale,
     'leer']);
     locale.set(lang$1, 'type', {
       // type : algorithm
-      int: 'entero',
-      double: 'real',
+      "int": 'entero',
+      "double": 'real',
       string: 'carapter',
       bool: 'booleano'
     });
     locale.set(lang$1, 'typeError', {
       // type : string in es
-      int: 'ERROR: no es entero',
-      double: 'ERROR: no es flotante',
-      string: 'ERROR: no es una cadena',
-      bool: 'ERROR: no es booleano'
+      "int": 'Error: no es entero',
+      "double": 'Error: no es flotante',
+      string: 'Error: no es una cadena',
+      bool: 'Error: no es booleano',
+      unknow: function unknow(type) {
+        return "Error: ".concat(type, " no es un tipo de variable valido");
+      }
     });
     locale.set(lang$1, 'error', {
       // error name     : string in es
-      stringForNumber: 'ERROR: un numero no puede multiplicar a un carapter',
-      infinity: 'ERROR: dividir entre 0 causa un numero infinito'
+      stringForNumber: 'Error: un numero no puede multiplicar a un carapter',
+      infinity: 'Error: dividir entre 0 causa un numero infinito',
+      dispatchers: 'Error: No se recibieron dispatchers'
     });
     locale.set(lang$1, 'code', ['algoritmo facilito', 'variables', 'numero, i, tabla[10]: entero', 'inicio', '  i <- 0', '  mostrar "Ingrese numero a multiplicar: "', '  leer numero', '  mientras (i < 10) hacer', '    i <- i + 1', '    tabla[i] <- numero * i', '    mostrar numero, " * ", i, " = ", numero * i', '  finmientras', 'fin'].join('\n'));
   }
@@ -151,13 +306,75 @@ define(['exports', '@choco/i18n', '@choco/keychain'], function (exports, locale,
    */
 
   function files (code) {
-    const {
-      algorithmWord
-    } = locale.all();
-    const [firstLine, ...lines] = code.split('\n');
-    const [keyword, name, ...restOfWords] = firstLine.split(' ');
+    var _locale$all = locale.all(),
+        algorithmWord = _locale$all.algorithmWord;
+
+    var _code$split = code.split('\n'),
+        _code$split2 = _toArray(_code$split),
+        firstLine = _code$split2[0],
+        lines = _code$split2.slice(1);
+
+    var _firstLine$split = firstLine.split(' '),
+        _firstLine$split2 = _toArray(_firstLine$split),
+        keyword = _firstLine$split2[0],
+        name = _firstLine$split2[1],
+        restOfWords = _firstLine$split2.slice(2);
+
     if (keyword === algorithmWord && name && restOfWords.length === 0) return [name, lines.join('\n')];
     throw new Error('name is invalid');
+  }
+
+  /**
+   * Remove comments from line(s)
+   * @param {string|string[]} code - Line(s) to be replaced
+   * @example
+   * import removeComments from '@choco/algorithm-transpiler'
+   *
+   * removeComments('hi //') // returns 'hi'
+   * removeComments(['hi //', 'apple //']) // returns ['hi', 'apple']
+   * @returns {string|string[]} Line(s) without comments
+   */
+  function comments(code) {
+    var regexp = /( ?\/\/.*$)/gm;
+    return code instanceof Array ? code.map(function (v) {
+      return v.replace(regexp, '');
+    }) : code.replace(regexp, '');
+  }
+
+  /**
+   * Remove spaces from code.
+   *
+   * @param {string} code - Code to remove spaces.
+   * @example
+   * spaces([' hello   ', '  apple    ']) // returns ['hello', 'apple']
+   * @returns {string} Code without spaces.
+   */
+  function spaces(code) {
+    var lines = code.split('\n');
+    return lines.map(removeSpacesInLine).join('\n');
+  }
+  /**
+   * Remove spaces from line.
+   *
+   * @param {string} line - Line to remove spaces.
+   * @example
+   * spaces(' hello   ') // returns 'hello'
+   * @returns {string} Line without spaces.
+   */
+
+  function removeSpacesInLine(line) {
+    return line.split(' ').reduce(function (result, value) {
+      if (!result.code) {
+        result = {
+          code: [],
+          inString: false
+        };
+      }
+
+      if (value === '"') result.inString = !result.inString;
+      if (!result.inString && value) result.code.push(value);else if (result.inString) result.code.push(value);
+      return result;
+    }, {}).code.join(' ');
   }
 
   /** @module @choco/algorithm-transpiler/variables */
@@ -184,27 +401,32 @@ define(['exports', '@choco/i18n', '@choco/keychain'], function (exports, locale,
    */
 
   function vars (code, store) {
-    const literals = ignoreSentences(code);
-    const [firstLine, ...lines] = literals.split('\n');
-    const [keyword, ...restOfVarLine] = firstLine.split(' ');
-    let result = '';
-    if (isVarsZone(keyword, restOfVarLine)) Object.keys(lines).map(Number).forEach(key => {
-      const words = lines[key].split(' '); // const i = key + 1
+    var _compose$split = functional.compose(comments, spaces, ignoreSentences)(code).split('\n'),
+        _compose$split2 = _toArray(_compose$split),
+        firstLine = _compose$split2[0],
+        lines = _compose$split2.slice(1);
 
-      if (lines[key].search('//') !== -1) {
-        const remove = lines[key].substr(lines[key].search('//'), lines[key].length);
-        lines[key] = lines[key].replace(remove, '');
-      }
+    var _firstLine$split = firstLine.split(' '),
+        _firstLine$split2 = _toArray(_firstLine$split),
+        keyword = _firstLine$split2[0],
+        restOfVarLine = _firstLine$split2.slice(1);
 
-      Object.keys(words).map(Number).forEach(j => {
+    var result = '';
+    if (isVarsZone(keyword, restOfVarLine)) Object.keys(lines).map(Number).forEach(function (key) {
+      var words = lines[key].split(' ').filter(function (v) {
+        return v;
+      });
+      Object.keys(words).map(Number).forEach(function (j) {
         if (j < words.length - 1) {
-          const word = prepareWord(words[j]);
-          if (word) result += `var ${word};\n`;
-          if (j !== words.length - 1) reserveVars(store, words[words.length - 1], purgeVarName(words[j]));
+          var word = prepareWord(words[j]);
+          result += "var ".concat(word, ";\n");
+          reserveVars(store, words[words.length - 1], purgeVarName(words[j]));
         }
       });
     });
-    return result.split('\n').filter(v => v).join('\n');
+    return result.split('\n').filter(function (v) {
+      return v;
+    }).join('\n');
   }
   /**
    * Is this line the beginning of the variable area?.
@@ -221,10 +443,10 @@ define(['exports', '@choco/i18n', '@choco/keychain'], function (exports, locale,
    */
 
   function isVarsZone(keyword, restOfVarLine) {
-    const {
-      variables
-    } = locale.all();
-    return variables.indexOf(keyword) !== -1 && (!restOfVarLine.length || restOfVarLine.every(v => !v));
+    var _locale$all = locale.all(),
+        variables = _locale$all.variables;
+
+    return variables.indexOf(keyword) !== -1 && !restOfVarLine.length;
   }
   /**
    * Purge variable name of tokens.
@@ -271,7 +493,10 @@ define(['exports', '@choco/i18n', '@choco/keychain'], function (exports, locale,
    * @param {string} isA - Variable type.
    * @param {string} word - Variable name.
    * @example
-   * const store = {}
+   * // store generally is a reducer dispatchers
+   * const store = {
+   *   varAdd: () => {} // dispatch callback
+   * }
    * reserveVars(store, 'int', 'potato')
    * reserveVars(store, 'double', 'heyApple')
    * reserveVars(store, 'string', 'adc')
@@ -286,15 +511,19 @@ define(['exports', '@choco/i18n', '@choco/keychain'], function (exports, locale,
 
 
   function reserveVars(store, isA, word) {
-    const {
-      type
-    } = locale.all();
-    if (store && store.varAdd) switch (isA) {
-      case type.int:
+    var _locale$all2 = locale.all(),
+        type = _locale$all2.type,
+        error = _locale$all2.error,
+        typeError = _locale$all2.typeError;
+
+    if (!store || !store.varAdd) throw new Error(error.dispatchers);
+
+    switch (isA) {
+      case type["int"]:
         store.varAdd('int', word);
         break;
 
-      case type.double:
+      case type["double"]:
         store.varAdd('double', word);
         break;
 
@@ -305,6 +534,9 @@ define(['exports', '@choco/i18n', '@choco/keychain'], function (exports, locale,
       case type.bool:
         store.varAdd('bool', word);
         break;
+
+      default:
+        throw new Error(typeError.unknow(isA));
     }
   }
   /**
@@ -326,11 +558,12 @@ define(['exports', '@choco/i18n', '@choco/keychain'], function (exports, locale,
 
 
   function ignoreSentences(code) {
-    const {
-      begin,
-      end
-    } = locale.all();
-    return code.replace(code.match(RegExp(`${begin}[\\s\\S]*?${end}$`, 'gm'))[0], '');
+    var _locale$all3 = locale.all(),
+        begin = _locale$all3.begin,
+        end = _locale$all3.end; // return code.replace(code.match(RegExp(`${begin}[\\s\\S]*?${end}$`, 'gm'))[0], '')
+
+
+    return code.replace(RegExp("([\\s\\S]*?)(\\n".concat(begin, "[\\s\\S]*?").concat(end, "$)"), 'gm'), '$1');
   }
 
   /** @module @choco/algorithm-transpiler/diff */
@@ -341,49 +574,54 @@ define(['exports', '@choco/i18n', '@choco/keychain'], function (exports, locale,
    * @param {*} code - Algorithm code.
    * @param {*} js - Current Javascript code.
    * @example
-   * alg = [
+   * const alg = [
    *   'variables',
    *   '  bestAdc: string'
    * ].join('\n')
-   * js = 'var bestAdc'
+   * const js = 'var bestAdc'
    * diff(alg, js) // return 1
    * @returns {number} Diff between codes.
    */
 
   function diffAlg (code, js) {
-    const {
-      begin
-    } = locale.all();
-    const alg = code.split(/\n/);
-    let beginIndex = 1;
+    var _locale$all = locale.all(),
+        begin = _locale$all.begin;
 
-    while (alg[beginIndex].match(RegExp(begin)) === null) beginIndex++;
+    var alg = code.split(/\n/);
+    var beginIndex = 1;
 
-    beginIndex++;
-    const localJS = js.split(/\n/);
-    let jsIndex = 0;
+    while (alg[beginIndex].match(RegExp(begin)) === null) {
+      beginIndex += 1;
+    }
 
-    while (/var/.test(localJS[jsIndex])) jsIndex++;
+    beginIndex += 1;
+    var localJS = js.split(/\n/);
+    var jsIndex = 0;
+
+    while (/var/.test(localJS[jsIndex])) {
+      jsIndex++;
+    }
 
     return beginIndex - jsIndex;
   }
 
+  algorithmTranspilerLang();
   /** @module libs/algorithm/transform */
   // transform between native languaje and javascipt
 
   function transform (code) {
-    const {
-      tokens,
-      transpiler,
-      openBracket,
-      closeBracket,
-      write,
-      read
-    } = locale.all();
-    let line = stripCode(code);
-    let js = ''; // now the transpiler work
+    var _locale$all = locale.all(),
+        tokens = _locale$all.tokens,
+        transpiler = _locale$all.transpiler,
+        openBracket = _locale$all.openBracket,
+        closeBracket = _locale$all.closeBracket,
+        write = _locale$all.write,
+        read = _locale$all.read;
 
-    Object.keys(line).map(Number).forEach(i => {
+    var line = stripCode(code);
+    var js = ''; // now the transpiler work
+
+    Object.keys(line).map(Number).forEach(function (i) {
       // ...
       line[i] = purgeComment(line[i]);
       line[i] = purgeLine(line[i]); // vector.io(n).add(value)
@@ -391,13 +629,16 @@ define(['exports', '@choco/i18n', '@choco/keychain'], function (exports, locale,
       line[i] = vectorAdd(line[i]);
 
       if (line[i].substr(0, 1) === ' ') {
-        const length = line[i].length - 1;
-        line[i] = line[i].substr(1, length);
+        var _length = line[i].length - 1;
+
+        line[i] = line[i].substr(1, _length);
       }
 
-      const length = line[i].length - 1;
+      var length = line[i].length - 1;
 
-      while (line[i].substr(length, 1) === ' ') line[i] = line[i].substr(0, length);
+      while (line[i].substr(length, 1) === ' ') {
+        line[i] = line[i].substr(0, length);
+      }
 
       if (line[i] === '') return; // if (x === y)
 
@@ -407,33 +648,35 @@ define(['exports', '@choco/i18n', '@choco/keychain'], function (exports, locale,
 
       line[i] = doWhileLoopCondition(line[i]); // each word is separated into a array
 
-      const word = line[i].split(' '); // this loop is to search in various dictionaries, and transform that code
+      var word = line[i].split(' '); // this loop is to search in various dictionaries, and transform that code
 
-      Object.keys(word).map(Number).forEach(key => {
+      Object.keys(word).map(Number).forEach(function (key) {
         // word[key] = word[key].replace(/=/g, ' === ')
         // dictionaries of words
         // open blackets
         if (openBracket.indexOf(word[key]) !== -1) js += '{ '; // close brackets
-        else if (closeBracket.indexOf(word[key]) !== -1) js += '}';else if (transpiler[word[key]]) js += `${transpiler[word[key]]} `; // dictionaries of tokens
-          else if (tokens[word[key]]) js += `${tokens[word[key]]} `; // and words not in the dictionary
-            else js += `${word[key]} `;
+        else if (closeBracket.indexOf(word[key]) !== -1) js += '}';else if (transpiler[word[key]]) js += "".concat(transpiler[word[key]], " "); // dictionaries of tokens
+          else if (tokens[word[key]]) js += "".concat(tokens[word[key]], " "); // and words not in the dictionary
+            else js += "".concat(word[key], " ");
       }); // console.log('js', js)
       // this fracment of code delete all space in the start of a line
       // with a style like stack, first reverse the array
 
       word.reverse(); // then in spaceInStart assign the last element in the stack
 
-      let spaceInStart = word.pop();
-      const ifNoHaveSpaceInStart = spaceInStart; // while it is equal at ""
+      var spaceInStart = word.pop();
+      var ifNoHaveSpaceInStart = spaceInStart; // while it is equal at ""
       // assign at spaceInStart the last element in the stack
 
-      while (spaceInStart === '') spaceInStart = word.pop(); // the last element never is ""
+      while (spaceInStart === '') {
+        spaceInStart = word.pop();
+      } // the last element never is ""
 
 
       if (typeof spaceInStart === 'undefined') word.push(ifNoHaveSpaceInStart);else word.push(spaceInStart); // and reverse the array again to finish
 
       word.reverse();
-      const lastLine = js.split('\n')[js.split('\n').length - 1];
+      var lastLine = js.split('\n')[js.split('\n').length - 1];
       if (lastLine.search('{') !== -1 || lastLine.search('}') !== -1) js += '\n';else if (write.indexOf(word[0]) !== -1) {
         js = js.replace(write[write.indexOf(word[0])], 'eval(write(');
         js += '));\n';
@@ -445,17 +688,19 @@ define(['exports', '@choco/i18n', '@choco/keychain'], function (exports, locale,
     return js;
   }
   function forLoopCondition(lineArg) {
-    const {
-      toWord
-    } = locale.all(); // for (...)
+    var _locale$all2 = locale.all(),
+        toWord = _locale$all2.toWord; // for (...)
 
-    let line = lineArg;
-    const matchCondition = line.match(RegExp(`([\\s\\S]+${toWord}[\\s\\S]+)`));
+
+    var line = lineArg;
+    var matchCondition = line.match(RegExp("([\\s\\S]+".concat(toWord, "[\\s\\S]+)")));
 
     if (matchCondition) {
-      let [conditionsFor] = matchCondition;
+      var _matchCondition = _slicedToArray(matchCondition, 1),
+          conditionsFor = _matchCondition[0];
+
       conditionsFor = conditionsFor.split(toWord);
-      const ref = matchCondition[0].split(toWord);
+      var ref = matchCondition[0].split(toWord);
       conditionsFor[0] += ';';
       conditionsFor[1] = conditionsFor[1].replace('=', '<=');
       if (conditionsFor[1].search('reversed') === -1) conditionsFor[1] = conditionsFor[1].replace(')', '; i++)');else conditionsFor[1] = conditionsFor[1].replace(')', '; i--)');
@@ -467,11 +712,11 @@ define(['exports', '@choco/i18n', '@choco/keychain'], function (exports, locale,
     return line;
   }
   function doWhileLoopCondition(line) {
-    const {
-      toWord
-    } = locale.all(); // do ... while (!...)
+    var _locale$all3 = locale.all(),
+        toWord = _locale$all3.toWord; // do ... while (!...)
 
-    if (line.match(RegExp(`${toWord}\\s+([\\s\\S]+)`))) return line.replace('(', '(!(').replace(/\)\s{0,}$/, '))').replace(/=/g, '===');
+
+    if (line.match(RegExp("".concat(toWord, "\\s+([\\s\\S]+)")))) return line.replace('(', '(!(').replace(/\)\s{0,}$/, '))').replace(/=/g, '===');
     return line;
   }
   /**
@@ -484,13 +729,13 @@ define(['exports', '@choco/i18n', '@choco/keychain'], function (exports, locale,
    */
 
   function vectorAdd(lineArg) {
-    let line = lineArg; // vector.io(n).add(value)
+    var line = lineArg; // vector.io(n).add(value)
 
     while (line.match(/\.io\([0-9a-zA-Z]+\)\s+<-\s+[a-zA-Z0-9 ]/)) {
       line = line.replace(/<-/, '');
-      const exp = line.match(/\S+/g);
-      line = `${exp[0]}.add(`;
-      if (Number.isNaN(+exp[1])) line += `"${exp[1]}"`;else line += exp[1];
+      var exp = line.match(/\S+/g);
+      line = "".concat(exp[0], ".add(");
+      if (Number.isNaN(+exp[1])) line += "\"".concat(exp[1], "\"");else line += exp[1];
       line += ')';
     }
 
@@ -521,25 +766,28 @@ define(['exports', '@choco/i18n', '@choco/keychain'], function (exports, locale,
 
   function purgeComment(lineArg) {
     // ...
-    let line = lineArg;
+    var line = lineArg;
 
     if (line.search('//') !== -1) {
-      const remove = line.substr(line.search('//'), line.length);
+      var remove = line.substr(line.search('//'), line.length);
       line = line.replace(remove, '');
     }
 
     return line;
   }
   function stripCode(codeArg) {
-    const {
-      begin,
-      end
-    } = locale.all(); // good in this space we are going to make a separation between the code
+    var _locale$all4 = locale.all(),
+        begin = _locale$all4.begin,
+        end = _locale$all4.end; // good in this space we are going to make a separation between the code
     // and the variables
 
-    const [code] = codeArg.match(RegExp(`${begin}[\\s\\S]*?${end}$`, 'gm')); // each line is separated into a array
 
-    const lines = code.split('\n'); // the word "fin" is deleted
+    var _codeArg$match = codeArg.match(RegExp("".concat(begin, "[\\s\\S]*?").concat(end, "$"), 'gm')),
+        _codeArg$match2 = _slicedToArray(_codeArg$match, 1),
+        code = _codeArg$match2[0]; // each line is separated into a array
+
+
+    var lines = code.split('\n'); // the word "fin" is deleted
 
     if (lines[lines.length - 1].search(end) !== -1) lines.pop(); // reverse the line of array
 
@@ -561,13 +809,13 @@ define(['exports', '@choco/i18n', '@choco/keychain'], function (exports, locale,
    */
 
   function ifIsEqual(linesArg) {
-    const {
-      openBracket
-    } = locale.all(); // if (x === y)
+    var _locale$all5 = locale.all(),
+        openBracket = _locale$all5.openBracket; // if (x === y)
 
-    const lines = linesArg;
-    Object.keys(lines).map(Number).forEach(key => {
-      if (lines[key].match(RegExp(`=(.)+${openBracket[key]}`))) lines[key] = lines[key].replace(/=/g, ' === ');
+
+    var lines = linesArg;
+    Object.keys(lines).map(Number).forEach(function (key) {
+      if (lines[key].match(RegExp("=(.)+".concat(openBracket[key])))) lines[key] = lines[key].replace(/=/g, ' === ');
     });
     return lines;
   }
@@ -578,15 +826,14 @@ define(['exports', '@choco/i18n', '@choco/keychain'], function (exports, locale,
   //     .join()
   // }
 
-  let tabs;
-  let store;
-  function setDispatch({
-    varAdd,
-    varReset
-  }) {
+  var tabs;
+  var store;
+  function setDispatch(_ref) {
+    var varAdd = _ref.varAdd,
+        varReset = _ref.varReset;
     store = {
-      varAdd,
-      varReset
+      varAdd: varAdd,
+      varReset: varReset
     };
   }
   function setTabs(externalTabs) {
@@ -596,26 +843,33 @@ define(['exports', '@choco/i18n', '@choco/keychain'], function (exports, locale,
     store.varReset(); // and execute a interpreter
     // const codesInString = joinCodes(tabs)
 
-    const codesInString = tabs[0].content;
-    const [title, codeFromTitle] = files(codesInString);
-    const literals = vars(codeFromTitle, store);
-    const diff = diffAlg(codesInString, literals);
-    const map = tabs.map(v => v.content); // show the output
+    var codesInString = tabs[0].content;
 
-    const code = transform(codeFromTitle);
+    var _files = files(codesInString),
+        _files2 = _slicedToArray(_files, 2),
+        title = _files2[0],
+        codeFromTitle = _files2[1];
+
+    var literals = vars(codeFromTitle, store);
+    var diff = diffAlg(codesInString, literals);
+    var map = tabs.map(function (v) {
+      return v.content;
+    }); // show the output
+
+    var code = transform(codeFromTitle);
     return {
-      title,
-      literals,
-      code,
-      diff,
-      map
+      title: title,
+      literals: literals,
+      code: code,
+      diff: diff,
+      map: map
     };
   }
 
   /** @module @choco/algorithm-transpiler/vector */
 
   /** @classdesc Represent a Array of algorithms. */
-  class Vector {
+  var Vector = /*#__PURE__*/function () {
     /**
      * Constructor.
      *
@@ -623,7 +877,9 @@ define(['exports', '@choco/i18n', '@choco/keychain'], function (exports, locale,
      * @example
      * new Vector(10)
      */
-    constructor(size) {
+    function Vector(size) {
+      _classCallCheck(this, Vector);
+
       if (size <= 0 || typeof size !== 'number') throw new Error('ERROR: invalid array argument');
       /** vector size */
 
@@ -640,160 +896,177 @@ define(['exports', '@choco/i18n', '@choco/keychain'], function (exports, locale,
      */
 
 
-    add(value, index) {
-      const fixIndex = index - 1;
-      if (fixIndex === -1) throw new Error('ERROR: array null point');
-      if (fixIndex < this.size && this.size > 0) this.array[fixIndex] = value;else throw new Error('ERROR: array overflow');
-    }
-    /**
-     * Get a value of vector.
-     *
-     * @param {number} index - Index of vector.
-     * @returns {any} Value store in index argument.
-     */
+    _createClass(Vector, [{
+      key: "add",
+      value: function add(value, index) {
+        var fixIndex = index - 1;
+        if (fixIndex === -1) throw new Error('ERROR: array null point');
+        if (fixIndex < this.size && this.size > 0) this.array[fixIndex] = value;else throw new Error('ERROR: array overflow');
+      }
+      /**
+       * Get a value of vector.
+       *
+       * @param {number} index - Index of vector.
+       * @returns {any} Value store in index argument.
+       */
 
+    }, {
+      key: "show",
+      value: function show(index) {
+        var start = index - 1;
+        if (start < this.size && start >= 0) return this.array[start];
+        throw new Error('ERROR: array null point');
+      }
+      /**
+       * Provide an alternative interface, used in libs/algorithm/transform.
+       *
+       * @param {number} index - Index of Vector.
+       * @see {@link transform}
+       * @returns {}
+       */
 
-    show(index) {
-      const start = index - 1;
-      if (start < this.size && start >= 0) return this.array[start];
-      throw new Error('ERROR: array null point');
-    }
-    /**
-     * Provide an alternative interface, used in libs/algorithm/transform.
-     *
-     * @param {number} index - Index of Vector.
-     * @see {@link transform}
-     * @returns {}
-     */
+    }, {
+      key: "io",
+      value: function io(index) {
+        var _this = this;
 
+        return {
+          /**
+           * Assign value in vector
+           * @param {any} value - Value to be added
+           */
+          add: function add(value) {
+            return _this.add(value, index);
+          },
 
-    io(index) {
-      return {
-        /**
-         * Assign value in vector
-         * @param {any} value - Value to be added
-         */
-        add: value => this.add(value, index),
+          /**
+           * Get a value of vector
+           * @returns {any} Value store in index argument
+           */
+          show: function show() {
+            return _this.show(index);
+          },
 
-        /**
-         * Get a value of vector
-         * @returns {any} Value store in index argument
-         */
-        show: () => this.show(index),
+          /**
+           * Get value of vector if it's parse to string
+           * @returns {any} Value store in index argument
+           */
+          toString: function toString() {
+            return _this.show(index);
+          },
 
-        /**
-         * Get value of vector if it's parse to string
-         * @returns {any} Value store in index argument
-         */
-        toString: () => this.show(index),
+          /**
+           * Confirm that is a vector
+           * @returns {boolean}
+           */
+          isVector: function isVector() {
+            return true;
+          }
+        };
+      }
+    }]);
 
-        /**
-         * Confirm that is a vector
-         * @returns {boolean}
-         */
-        isVector: () => true
-      };
-    }
-
-  }
+    return Vector;
+  }();
 
   /** @module @choco/algorithm-transpiler/io */
 
-  const io = {
+  var io = {
     show: true,
-
-    reset() {
+    reset: function reset() {
       this.text = undefined;
       this.lastText = undefined;
       this.show = true;
     },
-
-    addText(text) {
+    addText: function addText(text) {
       this.lastText = this.text;
       this.text = text;
     },
-
-    error() {
+    error: function error() {
       this.show = false;
     }
-
   };
   function read(toRead, variables, lastLine) {
-    const {
-      typeError
-    } = locale.all();
-    let toReadCopy = toRead; // flags
+    var _locale$all = locale.all(),
+        typeError = _locale$all.typeError;
 
-    let isVector = false;
-    let newLastLine; // clean up unnecessary signs
+    var toReadCopy = toRead; // flags
+
+    var isVector = false;
+    var newLastLine; // clean up unnecessary signs
 
     while (toReadCopy.substr(0, 1) === ' ') {
-      const length = toReadCopy.length - 1;
+      var length = toReadCopy.length - 1;
       toReadCopy = toReadCopy.substr(1, length);
     }
 
-    while (toReadCopy.substr(toReadCopy.length - 1, 1) === ' ') toReadCopy = toReadCopy.substr(0, toReadCopy.length - 1);
+    while (toReadCopy.substr(toReadCopy.length - 1, 1) === ' ') {
+      toReadCopy = toReadCopy.substr(0, toReadCopy.length - 1);
+    }
 
-    let input;
+    var input;
     if (io.text && io.text !== io.lastRext) input = prompt(io.text);else input = prompt(''); // if var not exist, not work
 
-    if (lastLine && lastLine.var) newLastLine = Object.freeze({ ...lastLine,
+    if (lastLine && lastLine["var"]) newLastLine = Object.freeze(_objectSpread2({}, lastLine, {
       content: input
-    });else newLastLine = Object.freeze({ ...lastLine,
-      var: input
-    });
-    if (typeof toReadCopy === 'object') return readResponse(`${toReadCopy} = ${input};`, newLastLine); // vector
+    }));else newLastLine = Object.freeze(_objectSpread2({}, lastLine, {
+      "var": input
+    }));
+    if (_typeof(toReadCopy) === 'object') return readResponse("".concat(toReadCopy, " = ").concat(input, ";"), newLastLine); // vector
 
     if (toReadCopy.search(/\.io\(/) !== -1) {
       isVector = true;
-      toReadCopy += `.add(${input})`;
+      toReadCopy += ".add(".concat(input, ")");
     } // here in runtime show the mistakes in assignings
 
 
-    console.log(variables, variables[toReadCopy], 'copy');
-
     switch (variables[toReadCopy]) {
       case 'int':
-        if (Number.isNaN(Number(input)) || +input !== Math.trunc(input)) return readResponse(`write('${typeError.int}'); io.error();`, newLastLine);
+        if (Number.isNaN(Number(input)) || +input !== Math.trunc(input)) return readResponse("write('".concat(typeError["int"], "'); io.error();"), newLastLine);
         break;
 
       case 'double':
-        if (Number.isNaN(Number(input))) return readResponse(`write('${typeError.double}'); io.error();`, newLastLine);
+        if (Number.isNaN(Number(input))) return readResponse("write('".concat(typeError["double"], "'); io.error();"), newLastLine);
         break;
 
       case 'string':
         break;
 
       case 'bool':
-        if (Number.isNaN(Number(input)) || input === true || input === false) return readResponse(`write('${typeError.bool}'); io.error();`, newLastLine);
+        try {
+          if (typeof JSON.parse(input) !== 'boolean') return readResponse("write('".concat(typeError.bool, "'); io.error();"), newLastLine);
+        } catch (e) {
+          return readResponse("write('".concat(typeError.bool, "'); io.error();"), newLastLine);
+        }
+
         break;
 
       default:
         throw new Error('Unknow var type');
     }
 
-    if (variables[toReadCopy] === 'string') return readResponse(`${toReadCopy} = '${input}';`, newLastLine);
-    if (isVector) return readResponse(`${toReadCopy};`, newLastLine);
-    return readResponse(`${toReadCopy} = ${input};`, newLastLine);
+    if (variables[toReadCopy] === 'string') return readResponse("".concat(toReadCopy, " = '").concat(input, "';"), newLastLine);
+    if (isVector) return readResponse("".concat(toReadCopy, ";"), newLastLine);
+    return readResponse("".concat(toReadCopy, " = ").concat(input, ";"), newLastLine);
   }
 
   function readResponse(assign, lastLine) {
     // const id = keychain('line')
     return Object.freeze({
-      assign,
-      lastLine
+      assign: assign,
+      lastLine: lastLine
     });
   }
 
-  function write(...args) {
+  function write() {
     // var
-    let result = '';
-    let error;
-    Object.values(args[0]).forEach(text => {
-      let textCopy = text;
-      if (typeof textCopy === 'object' && textCopy.isVector && textCopy.isVector()) textCopy = textCopy.show();
-      if (typeof textCopy === 'number' && Number.isNaN(textCopy)) error = `write('${error.stringForNumber}'); io.error();`;
-      if (typeof textCopy === 'number' && !Number.isFinite(textCopy)) error = `write('${error.infinity}'); io.error();`;
+    var result = '';
+    var error;
+    Object.values(arguments.length <= 0 ? undefined : arguments[0]).forEach(function (text) {
+      var textCopy = text;
+      if (_typeof(textCopy) === 'object' && textCopy.isVector && textCopy.isVector()) textCopy = textCopy.show();
+      if (typeof textCopy === 'number' && Number.isNaN(textCopy)) error = "write('".concat(error.stringForNumber, "'); io.error();");
+      if (typeof textCopy === 'number' && !Number.isFinite(textCopy)) error = "write('".concat(error.infinity, "'); io.error();");
       result += textCopy;
     });
     if (error) return Object.freeze({

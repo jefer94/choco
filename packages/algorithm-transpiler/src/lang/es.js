@@ -80,13 +80,13 @@ export default function() {
     string: 'Error: no es una cadena',
     bool: 'Error: no es booleano',
     unknow: (type) => `Error: ${type} no es un tipo de variable valido`
-
   })
 
   locale.set(lang, 'error', {
     // error name     : string in es
     stringForNumber: 'Error: un numero no puede multiplicar a un carapter',
-    infinity: 'Error: dividir entre 0 causa un numero infinito'
+    infinity: 'Error: dividir entre 0 causa un numero infinito',
+    dispatchers: 'Error: No se recibieron dispatchers'
   })
 
   locale.set(lang, 'code', [

@@ -31,18 +31,15 @@ export default function (code, store) {
   let result = ''
 
   if (isVarsZone(keyword, restOfVarLine)) Object.keys(lines).map(Number).forEach((key) => {
-    if (lines[key]) {
-      const words = lines[key].split(' ').filter((v) => v)
+    const words = lines[key].split(' ').filter((v) => v)
 
-      Object.keys(words).map(Number).forEach((j) => {
-        if (j < words.length - 1) {
-          const word = prepareWord(words[j])
-          if (word) result += `var ${word};\n`
-          if (j !== words.length - 1) reserveVars(store, words[words.length - 1],
-            purgeVarName(words[j]))
-        }
-      })
-    }
+    Object.keys(words).map(Number).forEach((j) => {
+      if (j < words.length - 1) {
+        const word = prepareWord(words[j])
+        result += `var ${word};\n`
+        reserveVars(store, words[words.length - 1], purgeVarName(words[j]))
+      }
+    })
   })
   return result.split('\n').filter((v) => v).join('\n')
 }
@@ -62,8 +59,7 @@ export default function (code, store) {
  */
 function isVarsZone(keyword, restOfVarLine) {
   const { variables } = locale.all()
-  return variables.indexOf(keyword) !== -1 &&
-    (!restOfVarLine.length || restOfVarLine.every((v) => !v))
+  return variables.indexOf(keyword) !== -1 && !restOfVarLine.length
 }
 
 /**
@@ -122,7 +118,10 @@ function prepareWord(word) {
  * @param {string} isA - Variable type.
  * @param {string} word - Variable name.
  * @example
- * const store = {}
+ * // store generally is a reducer dispatchers
+ * const store = {
+ *   varAdd: () => {} // dispatch callback
+ * }
  * reserveVars(store, 'int', 'potato')
  * reserveVars(store, 'double', 'heyApple')
  * reserveVars(store, 'string', 'adc')
@@ -135,24 +134,24 @@ function prepareWord(word) {
  * // }
  */
 function reserveVars(store, isA, word) {
-  const { type, typeError } = locale.all()
-  if (store && store.varAdd)
-    switch (isA) {
-      case type.int:
-        store.varAdd('int', word)
-        break
-      case type.double:
-        store.varAdd('double', word)
-        break
-      case type.string:
-        store.varAdd('string', word)
-        break
-      case type.bool:
-        store.varAdd('bool', word)
-        break
-      default:
-        throw new Error(typeError.unknow(isA))
-    }
+  const { type, error, typeError } = locale.all()
+  if (!store || !store.varAdd) throw new Error(error.dispatchers)
+  switch (isA) {
+    case type.int:
+      store.varAdd('int', word)
+      break
+    case type.double:
+      store.varAdd('double', word)
+      break
+    case type.string:
+      store.varAdd('string', word)
+      break
+    case type.bool:
+      store.varAdd('bool', word)
+      break
+    default:
+      throw new Error(typeError.unknow(isA))
+  }
 }
 
 /**
