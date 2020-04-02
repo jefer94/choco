@@ -50,26 +50,28 @@ export function read(toRead, variables, lastLine) {
     isVector = true
     toReadCopy += `.add(${input})`
   }
-  // here in runtime show the mistakes in assignings
-  switch (variables[toReadCopy]) {
-    case 'int':
-      if (Number.isNaN(Number(input)) || +input !== Math.trunc(input)) return readResponse(`write('${typeError.int}'); io.error();`, newLastLine)
-      break
-    case 'double':
-      if (Number.isNaN(Number(input))) return readResponse(`write('${typeError.double}'); io.error();`, newLastLine)
-      break
-    case 'string':
-      break
-    case 'bool':
-      try {
-        if (typeof JSON.parse(input) !== 'boolean') return readResponse(`write('${typeError.bool}'); io.error();`, newLastLine)
-      }
-      catch(e) {
-        return readResponse(`write('${typeError.bool}'); io.error();`, newLastLine)
-      }
-      break
-    default:
-      throw new Error('Unknow var type')
+  // console.log(toReadCopy, typeof toReadCopy)
+  else {
+    switch (variables[toReadCopy]) {
+      case 'int':
+        if (Number.isNaN(Number(input)) || +input !== Math.trunc(input)) return readResponse(`write('${typeError.int}'); io.error();`, newLastLine)
+        break
+      case 'double':
+        if (Number.isNaN(Number(input))) return readResponse(`write('${typeError.double}'); io.error();`, newLastLine)
+        break
+      case 'string':
+        break
+      case 'bool':
+        try {
+          if (typeof JSON.parse(input) !== 'boolean') return readResponse(`write('${typeError.bool}'); io.error();`, newLastLine)
+        }
+        catch(e) {
+          return readResponse(`write('${typeError.bool}'); io.error();`, newLastLine)
+        }
+        break
+      default:
+        throw new Error('Unknow var type')
+    }
   }
 
   if (variables[toReadCopy] === 'string') return readResponse(`${toReadCopy} = '${input}';`, newLastLine)

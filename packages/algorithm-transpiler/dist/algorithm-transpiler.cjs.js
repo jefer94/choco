@@ -1025,33 +1025,33 @@ function read(toRead, variables, lastLine) {
   if (toReadCopy.search(/\.io\(/) !== -1) {
     isVector = true;
     toReadCopy += ".add(".concat(input, ")");
-  } // here in runtime show the mistakes in assignings
+  } // console.log(toReadCopy, typeof toReadCopy)
+  else {
+      switch (variables[toReadCopy]) {
+        case 'int':
+          if (Number.isNaN(Number(input)) || +input !== Math.trunc(input)) return readResponse("write('".concat(typeError["int"], "'); io.error();"), newLastLine);
+          break;
 
+        case 'double':
+          if (Number.isNaN(Number(input))) return readResponse("write('".concat(typeError["double"], "'); io.error();"), newLastLine);
+          break;
 
-  switch (variables[toReadCopy]) {
-    case 'int':
-      if (Number.isNaN(Number(input)) || +input !== Math.trunc(input)) return readResponse("write('".concat(typeError["int"], "'); io.error();"), newLastLine);
-      break;
+        case 'string':
+          break;
 
-    case 'double':
-      if (Number.isNaN(Number(input))) return readResponse("write('".concat(typeError["double"], "'); io.error();"), newLastLine);
-      break;
+        case 'bool':
+          try {
+            if (typeof JSON.parse(input) !== 'boolean') return readResponse("write('".concat(typeError.bool, "'); io.error();"), newLastLine);
+          } catch (e) {
+            return readResponse("write('".concat(typeError.bool, "'); io.error();"), newLastLine);
+          }
 
-    case 'string':
-      break;
+          break;
 
-    case 'bool':
-      try {
-        if (typeof JSON.parse(input) !== 'boolean') return readResponse("write('".concat(typeError.bool, "'); io.error();"), newLastLine);
-      } catch (e) {
-        return readResponse("write('".concat(typeError.bool, "'); io.error();"), newLastLine);
+        default:
+          throw new Error('Unknow var type');
       }
-
-      break;
-
-    default:
-      throw new Error('Unknow var type');
-  }
+    }
 
   if (variables[toReadCopy] === 'string') return readResponse("".concat(toReadCopy, " = '").concat(input, "';"), newLastLine);
   if (isVector) return readResponse("".concat(toReadCopy, ";"), newLastLine);

@@ -138,5 +138,31 @@ test('read var', () => {
     const { assign, lastLine, ...restOfProperties } = read(k, vars)
     expect(Object.keys(restOfProperties)).toHaveLength(0)
     expect(assign).toBe(`${k} = ${testAssignValue};`)
+    expect(lastLine).toBeTruthy()
+    expect(Object.keys(lastLine)).toHaveLength(1)
+    expect(lastLine.var).toBe(res[k])
   })
+})
+
+test('read vector', () => {
+  const list = new Vector(1)
+  // console.log(io.lastText, 'io')
+
+  // io.lastText = 'asd'
+  // console.log(io.lastText, 'io')
+
+  // list.add(1, 1)
+
+  const vars = {
+    list: type.int
+  }
+
+  window.prompt = jest.fn(() => '1')
+  // const testAssignValue = vars[k] === type.string ? `'${res[k]}'` : res[k]
+  const { assign, lastLine, ...restOfProperties } = read('list.io(1)', vars)
+  expect(Object.keys(restOfProperties)).toHaveLength(0)
+  expect(assign).toBe('list.io(1).add(1);')
+  expect(lastLine).toBeTruthy()
+  expect(Object.keys(lastLine)).toHaveLength(1)
+  expect(lastLine.var).toBe('1')
 })
