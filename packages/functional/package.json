@@ -1,0 +1,7 @@
+{
+  "name": "@choco/functional",
+  "version": "1.0.0",
+  "main": "./dist/functional.cjs.js",
+  "module": "./dist/functional.esm.js",
+  "license": "MIT"
+}

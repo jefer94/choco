@@ -21,9 +21,9 @@ export default function (code, js) {
   const alg = code
     .split(/\n/)
   let beginIndex = 1
-  while (alg[beginIndex].match(RegExp(begin)) === null) beginIndex++
+  while (alg[beginIndex].match(RegExp(begin)) === null) beginIndex += 1
 
-  beginIndex++
+  beginIndex += 1
 
   const localJS = js
     .split(/\n/)

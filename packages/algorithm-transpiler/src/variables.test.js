@@ -53,12 +53,55 @@ test('should transpile variables', () => {
 })
 
 test('get vars', () => {
-  variables(code, storeMock)
+  storeMock.store = {}
+  const codeWithComments = [
+    'variables',
+    '  v1: integer',
+    '  v2: float',
+    '  v3: string',
+    '  v4: boolean',
+    'begin',
+    '  ...',
+    'end'
+  ].join('\n')
 
-  const { number, i, table, ...restOfVars } = storeMock.store
+  variables(codeWithComments, storeMock)
+
+  const { v1, v2, v3, v4, ...restOfVars } = storeMock.store
 
   expect(Object.keys(restOfVars).length).toBe(0)
-  expect(number).toBe('int')
-  expect(i).toBe('int')
-  expect(table).toBe('int')
+  expect(v1).toBe('int')
+  expect(v2).toBe('double')
+  expect(v3).toBe('string')
+  expect(v4).toBe('bool')
+})
+
+test('bad var type', () => {
+  const codeWithComments = [
+    'variables',
+    '  v1: choco',
+    'begin',
+    '  ...',
+    'end'
+  ].join('\n')
+
+  expect(() => variables(codeWithComments, storeMock)).toThrow('Error: choco is not a valid variable type')
+})
+
+test('work with bad indentation and spaces in the end', () => {
+  storeMock.store = {}
+  const codeWithComments = [
+    '             variables                                         ',
+    '                 cocoa:            integer                       ',
+    '                            begin                             ',
+    '                           ...                           ',
+    '                           end                           '
+  ].join('\n')
+
+  variables(codeWithComments, storeMock)
+
+  const { cocoa, ...restOfVars } = storeMock.store
+
+  expect(Object.keys(restOfVars).length).toBe(0)
+  expect(cocoa).toBe('int')
 })

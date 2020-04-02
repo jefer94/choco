@@ -75,16 +75,18 @@ export default function() {
 
   locale.set(lang, 'typeError', {
     // type : string in es
-    int: 'ERROR: no es entero',
-    double: 'ERROR: no es flotante',
-    string: 'ERROR: no es una cadena',
-    bool: 'ERROR: no es booleano'
+    int: 'Error: no es entero',
+    double: 'Error: no es flotante',
+    string: 'Error: no es una cadena',
+    bool: 'Error: no es booleano',
+    unknow: (type) => `Error: ${type} no es un tipo de variable valido`
+
   })
 
   locale.set(lang, 'error', {
     // error name     : string in es
-    stringForNumber: 'ERROR: un numero no puede multiplicar a un carapter',
-    infinity: 'ERROR: dividir entre 0 causa un numero infinito'
+    stringForNumber: 'Error: un numero no puede multiplicar a un carapter',
+    infinity: 'Error: dividir entre 0 causa un numero infinito'
   })
 
   locale.set(lang, 'code', [

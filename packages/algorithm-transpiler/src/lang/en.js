@@ -75,16 +75,17 @@ export default function() {
 
   locale.set(lang, 'typeError', {
     // type : string in es
-    int: 'ERROR: don\'t is integer',
-    double: 'ERROR: don\'t is float',
-    string: 'ERROR: don\'t is string',
-    bool: 'ERROR: don\'t is boolean'
+    int: 'Error: don\'t is integer',
+    double: 'Error: don\'t is float',
+    string: 'Error: don\'t is string',
+    bool: 'Error: don\'t is boolean',
+    unknow: (type) => `Error: ${type} is not a valid variable type`
   })
 
   locale.set(lang, 'error', {
     // error name : string in es
-    stringForNumber: 'ERROR: a number cannot multiply a carapter',
-    infinity: 'ERROR: dividing by 0 causes an infinite number'
+    stringForNumber: 'Error: a number cannot multiply a carapter',
+    infinity: 'Error: dividing by 0 causes an infinite number'
   })
 
   locale.set(lang, 'code', [

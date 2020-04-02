@@ -1,4 +1,6 @@
+import { compose } from '@choco/functional'
 import comments from './comments'
+import removeSpaces from './spaces'
 import locale from '@choco/i18n'
 
 /** @module @choco/algorithm-transpiler/variables */
@@ -24,15 +26,13 @@ import locale from '@choco/i18n'
  * @returns {string} Javascript variables.
  */
 export default function (code, store) {
-  const codeWithoutComments = comments(code)
-  const literals = ignoreSentences(codeWithoutComments)
-  const [firstLine, ...lines] = literals.split('\n')
+  const [firstLine, ...lines] = compose(comments, removeSpaces, ignoreSentences)(code).split('\n')
   const [keyword, ...restOfVarLine] = firstLine.split(' ')
   let result = ''
 
   if (isVarsZone(keyword, restOfVarLine)) Object.keys(lines).map(Number).forEach((key) => {
     if (lines[key]) {
-      const words = lines[key].split(' ')
+      const words = lines[key].split(' ').filter((v) => v)
 
       Object.keys(words).map(Number).forEach((j) => {
         if (j < words.length - 1) {
@@ -63,7 +63,7 @@ export default function (code, store) {
 function isVarsZone(keyword, restOfVarLine) {
   const { variables } = locale.all()
   return variables.indexOf(keyword) !== -1 &&
-    (!restOfVarLine.length || restOfVarLine.every((v) => !v) || restOfVarLine[0] === '//')
+    (!restOfVarLine.length || restOfVarLine.every((v) => !v))
 }
 
 /**
@@ -135,23 +135,24 @@ function prepareWord(word) {
  * // }
  */
 function reserveVars(store, isA, word) {
-  const { type } = locale.all()
+  const { type, typeError } = locale.all()
   if (store && store.varAdd)
-  switch (isA) {
-    case type.int:
-      store.varAdd('int', word)
-      break
-    case type.double:
-      store.varAdd('double', word)
-      break
-    case type.string:
-      store.varAdd('string', word)
-      break
-    case type.bool:
-      store.varAdd('bool', word)
-      break
-    default:
-  }
+    switch (isA) {
+      case type.int:
+        store.varAdd('int', word)
+        break
+      case type.double:
+        store.varAdd('double', word)
+        break
+      case type.string:
+        store.varAdd('string', word)
+        break
+      case type.bool:
+        store.varAdd('bool', word)
+        break
+      default:
+        throw new Error(typeError.unknow(isA))
+    }
 }
 
 /**
