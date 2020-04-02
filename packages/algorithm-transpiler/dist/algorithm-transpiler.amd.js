@@ -990,62 +990,27 @@ define(['exports', '@choco/i18n', '@choco/functional', '@choco/keychain'], funct
     }
   };
   function read(toRead, variables, lastLine) {
-    var _locale$all = locale.all(),
-        typeError = _locale$all.typeError;
-
-    var toReadCopy = toRead; // flags
+    var toReadCopy = spaces(toRead); // flags
 
     var isVector = false;
-    var newLastLine; // clean up unnecessary signs
-
-    while (toReadCopy.substr(0, 1) === ' ') {
-      var length = toReadCopy.length - 1;
-      toReadCopy = toReadCopy.substr(1, length);
-    }
-
-    while (toReadCopy.substr(toReadCopy.length - 1, 1) === ' ') {
-      toReadCopy = toReadCopy.substr(0, toReadCopy.length - 1);
-    }
-
+    var newLastLine;
     var input;
-    if (io.text && io.text !== io.lastRext) input = prompt(io.text);else input = prompt(''); // if var not exist, not work
+    input = prompt(io.text); // if var not exist, not work
+    // if (lastLine && lastLine.var) newLastLine = Object.freeze({ ...lastLine, content: input })
+    // else newLastLine = Object.freeze({ ...lastLine, var: input })
 
-    if (lastLine && lastLine["var"]) newLastLine = Object.freeze(_objectSpread2({}, lastLine, {
-      content: input
-    }));else newLastLine = Object.freeze(_objectSpread2({}, lastLine, {
+    newLastLine = Object.freeze(_objectSpread2({}, lastLine, {
       "var": input
-    }));
-    if (_typeof(toReadCopy) === 'object') return readResponse("".concat(toReadCopy, " = ").concat(input, ";"), newLastLine); // vector
+    })); // vector
 
     if (toReadCopy.search(/\.io\(/) !== -1) {
       isVector = true;
       toReadCopy += ".add(".concat(input, ")");
     } // console.log(toReadCopy, typeof toReadCopy)
     else {
-        switch (variables[toReadCopy]) {
-          case 'int':
-            if (Number.isNaN(Number(input)) || +input !== Math.trunc(input)) return readResponse("write('".concat(typeError["int"], "'); io.error();"), newLastLine);
-            break;
-
-          case 'double':
-            if (Number.isNaN(Number(input))) return readResponse("write('".concat(typeError["double"], "'); io.error();"), newLastLine);
-            break;
-
-          case 'string':
-            break;
-
-          case 'bool':
-            try {
-              if (typeof JSON.parse(input) !== 'boolean') return readResponse("write('".concat(typeError.bool, "'); io.error();"), newLastLine);
-            } catch (e) {
-              return readResponse("write('".concat(typeError.bool, "'); io.error();"), newLastLine);
-            }
-
-            break;
-
-          default:
-            throw new Error('Unknow var type');
-        }
+        var result = checkVariables(variables[toReadCopy], newLastLine, input);
+        if (result) return result;
+        input = fixInputToBoolean(variables[toReadCopy], input);
       }
 
     if (variables[toReadCopy] === 'string') return readResponse("".concat(toReadCopy, " = '").concat(input, "';"), newLastLine);
@@ -1059,6 +1024,39 @@ define(['exports', '@choco/i18n', '@choco/functional', '@choco/keychain'], funct
       assign: assign,
       lastLine: lastLine
     });
+  }
+
+  function checkVariables(type, newLastLine, input) {
+    var _locale$all = locale.all(),
+        typeError = _locale$all.typeError;
+
+    switch (type) {
+      case 'int':
+        if (Number.isNaN(Number(input)) || +input !== Math.trunc(input)) return readResponse("write('".concat(typeError["int"], "'); io.error();"), newLastLine);
+        break;
+
+      case 'double':
+        if (Number.isNaN(Number(input))) return readResponse("write('".concat(typeError["double"], "'); io.error();"), newLastLine);
+        break;
+
+      case 'string':
+        break;
+
+      case 'bool':
+        var number = Number(input);
+        if (!Number.isInteger(number) || number < 0 || number > 1) return readResponse("write('".concat(typeError.bool, "'); io.error();"), newLastLine); // else input = number === 1 ? 'true' : 'false'
+
+        break;
+
+      default:
+        return readResponse("write('".concat(typeError.unknow(type), "'); io.error();"), newLastLine);
+    }
+  }
+
+  function fixInputToBoolean(type, input) {
+    if (type === 'bool') {
+      return Number(input) === 1 ? 'true' : 'false';
+    } else return input;
   }
 
   function write() {

@@ -1,5 +1,6 @@
 import keychain from '@choco/keychain'
 import locale from '@choco/i18n'
+import spaces from './spaces'
 
 /** @module @choco/algorithm-transpiler/io */
 
@@ -23,28 +24,19 @@ export const io = {
 }
 
 export function read(toRead, variables, lastLine) {
-  const { typeError } = locale.all()
-  let toReadCopy = toRead
+  let toReadCopy = spaces(toRead)
 
   // flags
   let isVector = false
   let newLastLine
-
-  // clean up unnecessary signs
-  while (toReadCopy.substr(0, 1) === ' ') {
-    const length = toReadCopy.length - 1
-    toReadCopy = toReadCopy.substr(1, length)
-  }
-  while (toReadCopy.substr(toReadCopy.length - 1, 1) === ' ') toReadCopy = toReadCopy.substr(0, toReadCopy.length - 1)
   let input
 
-  if (io.text && io.text !== io.lastRext) input = prompt(io.text)
-  else input = prompt('')
+  input = prompt(io.text)
   // if var not exist, not work
-  if (lastLine && lastLine.var) newLastLine = Object.freeze({ ...lastLine, content: input })
-  else newLastLine = Object.freeze({ ...lastLine, var: input })
+  // if (lastLine && lastLine.var) newLastLine = Object.freeze({ ...lastLine, content: input })
+  // else newLastLine = Object.freeze({ ...lastLine, var: input })
+  newLastLine = Object.freeze({ ...lastLine, var: input })
 
-  if (typeof toReadCopy === 'object') return readResponse(`${toReadCopy} = ${input};`, newLastLine)
   // vector
   if (toReadCopy.search(/\.io\(/) !== -1) {
     isVector = true
@@ -52,26 +44,9 @@ export function read(toRead, variables, lastLine) {
   }
   // console.log(toReadCopy, typeof toReadCopy)
   else {
-    switch (variables[toReadCopy]) {
-      case 'int':
-        if (Number.isNaN(Number(input)) || +input !== Math.trunc(input)) return readResponse(`write('${typeError.int}'); io.error();`, newLastLine)
-        break
-      case 'double':
-        if (Number.isNaN(Number(input))) return readResponse(`write('${typeError.double}'); io.error();`, newLastLine)
-        break
-      case 'string':
-        break
-      case 'bool':
-        try {
-          if (typeof JSON.parse(input) !== 'boolean') return readResponse(`write('${typeError.bool}'); io.error();`, newLastLine)
-        }
-        catch(e) {
-          return readResponse(`write('${typeError.bool}'); io.error();`, newLastLine)
-        }
-        break
-      default:
-        throw new Error('Unknow var type')
-    }
+    const result = checkVariables(variables[toReadCopy], newLastLine, input)
+    if (result) return result
+    input = fixInputToBoolean(variables[toReadCopy], input)
   }
 
   if (variables[toReadCopy] === 'string') return readResponse(`${toReadCopy} = '${input}';`, newLastLine)
@@ -84,6 +59,35 @@ export function read(toRead, variables, lastLine) {
 function readResponse(assign, lastLine) {
   // const id = keychain('line')
   return Object.freeze({ assign, lastLine })
+}
+
+function checkVariables(type, newLastLine, input) {
+  const { typeError } = locale.all()
+
+  switch (type) {
+    case 'int':
+      if (Number.isNaN(Number(input)) || +input !== Math.trunc(input)) return readResponse(`write('${typeError.int}'); io.error();`, newLastLine)
+      break
+    case 'double':
+      if (Number.isNaN(Number(input))) return readResponse(`write('${typeError.double}'); io.error();`, newLastLine)
+      break
+    case 'string':
+      break
+    case 'bool':
+      const number = Number(input)
+      if (!Number.isInteger(number) || number < 0 || number > 1) return readResponse(`write('${typeError.bool}'); io.error();`, newLastLine)
+      // else input = number === 1 ? 'true' : 'false'
+      break
+    default:
+      return readResponse(`write('${typeError.unknow(type)}'); io.error();`, newLastLine) 
+  }
+}
+
+function fixInputToBoolean(type, input) {
+  if (type === 'bool') {
+    return Number(input) === 1 ? 'true' : 'false'
+  }
+  else return input
 }
 
 export function write(...args) {

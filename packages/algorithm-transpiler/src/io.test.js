@@ -123,36 +123,31 @@ test('read var', () => {
     senna: type.int,
     tristana: type.string,
     sona: type.double,
-    jhin: type.bool
+    jhin: type.bool,
+    vi: type.bool
   }
   const res = {
     senna: '1',
     tristana: 'hey apple',
     sona: '1.0',
-    jhin: 'true'
+    jhin: 'true',
+    vi: 'false'
   }
 
   Object.keys(vars).forEach((k) => {
-    window.prompt = jest.fn(() => res[k])
+    const promptInput = res[k] === 'true' ? '1' : res[k] === 'false' ? '0' : res[k]
+    window.prompt = jest.fn(() => promptInput)
     const testAssignValue = vars[k] === type.string ? `'${res[k]}'` : res[k]
     const { assign, lastLine, ...restOfProperties } = read(k, vars)
     expect(Object.keys(restOfProperties)).toHaveLength(0)
     expect(assign).toBe(`${k} = ${testAssignValue};`)
     expect(lastLine).toBeTruthy()
     expect(Object.keys(lastLine)).toHaveLength(1)
-    expect(lastLine.var).toBe(res[k])
+    expect(lastLine.var).toBe(promptInput)
   })
 })
 
 test('read vector', () => {
-  const list = new Vector(1)
-  // console.log(io.lastText, 'io')
-
-  // io.lastText = 'asd'
-  // console.log(io.lastText, 'io')
-
-  // list.add(1, 1)
-
   const vars = {
     list: type.int
   }
@@ -165,4 +160,83 @@ test('read vector', () => {
   expect(lastLine).toBeTruthy()
   expect(Object.keys(lastLine)).toHaveLength(1)
   expect(lastLine.var).toBe('1')
+})
+
+test('read number throw if pass string', () => {
+  const vars = {
+    v: type.int
+  }
+
+  window.prompt = jest.fn(() => 'error')
+  // const testAssignValue = vars[k] === type.string ? `'${res[k]}'` : res[k]
+  const { assign, lastLine, ...restOfProperties } = read('v', vars)
+  expect(Object.keys(restOfProperties)).toHaveLength(0)
+  expect(assign).toBe('write(\'Error: don\'t is integer\'); io.error();')
+  expect(lastLine).toBeTruthy()
+  expect(Object.keys(lastLine)).toHaveLength(1)
+  expect(lastLine.var).toBe('error')
+})
+
+test('read float throw if pass string', () => {
+  const vars = {
+    v: type.double
+  }
+
+  window.prompt = jest.fn(() => 'error')
+  // const testAssignValue = vars[k] === type.string ? `'${res[k]}'` : res[k]
+  const { assign, lastLine, ...restOfProperties } = read('v', vars)
+  expect(Object.keys(restOfProperties)).toHaveLength(0)
+  expect(assign).toBe('write(\'Error: don\'t is float\'); io.error();')
+  expect(lastLine).toBeTruthy()
+  expect(Object.keys(lastLine)).toHaveLength(1)
+  expect(lastLine.var).toBe('error')
+})
+
+
+test('read bool throw if not pass 0 or 1', () => {
+  const list = [2, 'y']
+  const vars = {
+    v: type.bool
+  }
+  list.forEach((v) => {
+    window.prompt = jest.fn(() => v)
+    // const testAssignValue = vars[k] === type.string ? `'${res[k]}'` : res[k]
+    const { assign, lastLine, ...restOfProperties } = read('v', vars)
+    expect(Object.keys(restOfProperties)).toHaveLength(0)
+    expect(assign).toBe('write(\'Error: don\'t is boolean\'); io.error();')
+    expect(lastLine).toBeTruthy()
+    expect(Object.keys(lastLine)).toHaveLength(1)
+    expect(lastLine.var).toBe(v)
+  })
+})
+
+test('read bad type', () => {
+  const vars = {
+    v: 'potato'
+  }
+  window.prompt = jest.fn(() => 'v')
+  // const testAssignValue = vars[k] === type.string ? `'${res[k]}'` : res[k]
+  const { assign, lastLine, ...restOfProperties } = read('v', vars)
+  expect(Object.keys(restOfProperties)).toHaveLength(0)
+  expect(assign).toBe('write(\'Error: potato is not a valid variable type\'); io.error();')
+  expect(lastLine).toBeTruthy()
+  expect(Object.keys(lastLine)).toHaveLength(1)
+  expect(lastLine.var).toBe('v')
+})
+
+test('read var, with lastLine', () => {
+  const last = { lastLine: {}, content: 'Last line'}
+  const vars = {
+    tristana: type.string
+  }
+
+  window.prompt = jest.fn(() => 'v')
+  const { assign, lastLine, ...restOfProperties } = read('tristana', vars, last)
+  expect(Object.keys(restOfProperties)).toHaveLength(0)
+  expect(assign).toBe(`tristana = 'v';`)
+  expect(lastLine).toBeTruthy()
+  expect(Object.keys(lastLine)).toHaveLength(3)
+  expect(Object.keys(lastLine.lastLine)).toHaveLength(0)
+  expect(lastLine.content).toBe('Last line')
+  expect(lastLine.var).toBe('v')
 })
