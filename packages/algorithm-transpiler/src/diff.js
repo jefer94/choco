@@ -7,6 +7,7 @@ import locale from '@choco/i18n'
  *
  * @param {*} code - Algorithm code.
  * @param {*} js - Current Javascript code.
+ * @todo support diff of vars lines
  * @example
  * const alg = [
  *   'variables',
@@ -21,8 +22,7 @@ export default function (code, js) {
   const alg = code
     .split(/\n/)
   let beginIndex = 1
-  while (alg[beginIndex].match(RegExp(begin)) === null) beginIndex += 1
-
+  while (alg[beginIndex] && alg[beginIndex].match(RegExp(begin)) === null) beginIndex += 1
   beginIndex += 1
 
   const localJS = js

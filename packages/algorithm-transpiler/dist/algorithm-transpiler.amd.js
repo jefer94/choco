@@ -573,6 +573,7 @@ define(['exports', '@choco/i18n', '@choco/functional', '@choco/keychain'], funct
    *
    * @param {*} code - Algorithm code.
    * @param {*} js - Current Javascript code.
+   * @todo support diff of vars lines
    * @example
    * const alg = [
    *   'variables',
@@ -590,7 +591,7 @@ define(['exports', '@choco/i18n', '@choco/functional', '@choco/keychain'], funct
     var alg = code.split(/\n/);
     var beginIndex = 1;
 
-    while (alg[beginIndex].match(RegExp(begin)) === null) {
+    while (alg[beginIndex] && alg[beginIndex].match(RegExp(begin)) === null) {
       beginIndex += 1;
     }
 
