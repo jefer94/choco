@@ -624,7 +624,9 @@ function transform (code) {
       write = _locale$all.write,
       read = _locale$all.read;
 
-  var line = stripCode(code);
+  var line = functional.compose(stripCode, comments)(code); // stripCode(code)
+  // let line = stripCode(code)
+
   var js = ''; // now the transpiler work
 
   Object.keys(line).map(Number).forEach(function (i) {
@@ -1065,20 +1067,28 @@ function readResponse(assign, lastLine) {
 }
 
 function write() {
-  // var
+  var _locale$all2 = locale.all(),
+      error = _locale$all2.error; // var
+
+
   var result = '';
-  var error;
-  Object.values(arguments.length <= 0 ? undefined : arguments[0]).forEach(function (text) {
+  var err;
+
+  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+    args[_key] = arguments[_key];
+  }
+
+  Object.values(args).forEach(function (text) {
     var textCopy = text;
     if (_typeof(textCopy) === 'object' && textCopy.isVector && textCopy.isVector()) textCopy = textCopy.show();
-    if (typeof textCopy === 'number' && Number.isNaN(textCopy)) error = "write('".concat(error.stringForNumber, "'); io.error();");
-    if (typeof textCopy === 'number' && !Number.isFinite(textCopy)) error = "write('".concat(error.infinity, "'); io.error();");
+    if (typeof textCopy === 'number' && Number.isNaN(textCopy)) err = "write('".concat(error.stringForNumber, "'); io.error();");
+    if (typeof textCopy === 'number' && !Number.isFinite(textCopy)) err = "write('".concat(error.infinity, "'); io.error();");
     result += textCopy;
   });
-  if (error) return Object.freeze({
+  if (err) return Object.freeze({
     id: keychain('line'),
     error: true,
-    content: error
+    content: err
   }); // io.show is a flag, avoids execution after errors
 
   if (io.show) {

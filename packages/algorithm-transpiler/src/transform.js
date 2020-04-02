@@ -1,4 +1,6 @@
 import locale from '@choco/i18n'
+import { compose } from '@choco/functional'
+import comments from './comments'
 import { algorithmTranspilerLang } from './lang'
 
 algorithmTranspilerLang()
@@ -8,7 +10,8 @@ algorithmTranspilerLang()
 // transform between native languaje and javascipt
 export default function (code) {
   const { tokens, transpiler, openBracket, closeBracket, write, read } = locale.all()
-  let line = stripCode(code)
+  let line = compose(stripCode, comments)(code) // stripCode(code)
+  // let line = stripCode(code)
   let js = ''
 
   // now the transpiler work

@@ -85,22 +85,23 @@ function readResponse(assign, lastLine) {
 }
 
 export function write(...args) {
+  const { error } = locale.all()
   // var
   let result = ''
-  let error
-  Object.values(args[0]).forEach((text) => {
+  let err
+  Object.values(args).forEach((text) => {
     let textCopy = text
     if (typeof textCopy === 'object' && textCopy.isVector && textCopy.isVector()) textCopy = textCopy.show()
 
-    if (typeof textCopy === 'number' && Number.isNaN(textCopy)) error = `write('${error.stringForNumber}'); io.error();`
-    if (typeof textCopy === 'number' && !Number.isFinite(textCopy)) error = `write('${error.infinity}'); io.error();`
+    if (typeof textCopy === 'number' && Number.isNaN(textCopy)) err = `write('${error.stringForNumber}'); io.error();`
+    if (typeof textCopy === 'number' && !Number.isFinite(textCopy)) err = `write('${error.infinity}'); io.error();`
     result += textCopy
   })
 
-  if (error) return Object.freeze({
+  if (err) return Object.freeze({
     id: keychain('line'),
     error: true,
-    content: error
+    content: err
   })
   // io.show is a flag, avoids execution after errors
   if (io.show) {

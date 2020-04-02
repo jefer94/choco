@@ -1,6 +1,7 @@
 import { read, write, io } from './io'
 import locale from '@choco/i18n'
 import { algorithmTranspilerLang } from './lang'
+import { Vector } from './vector'
 
 algorithmTranspilerLang()
 locale.setLang('en')
@@ -82,16 +83,40 @@ test('write lines', () => {
   })
 })
 
-
 test('write n args', () => {
-  // const line = 'line 4: '
-  // // console.log('aaa',  write('0', 1, '2', 3, '4', 5, '6', 7, '8', 9))
-  // const { id, error, content } = write('0', 1, '2', 3, '4', 5, '6', 7, '8', 9)
-  // expect(id).toBe(manualKeychain())
-  // expect(error).toBeFalsy()
-  // expect(content).toBe(line)
+  const { id, error, content } = write('0', 1, '2', 3, '4', 5, '6', 7, '8', 9)
+  expect(id).toBe(manualKeychain())
+  expect(error).toBeFalsy()
+  expect(content).toBe('0123456789')
 })
 
+test('get error with NaN', () => {
+  const { id, error, content } = write(NaN)
+  expect(id).toBe(manualKeychain())
+  expect(error).toBeTruthy()
+  expect(content).toBe('write(\'Error: dividing by 0 causes an infinite number\'); io.error();')
+})
+
+test('io error is true', () => {
+  io.error()
+  const { id, error, content } = write('value')
+  expect(id).toBe(manualKeychain())
+  expect(error).toBeFalsy()
+  expect(content).toBe('')
+  io.reset()
+})
+
+test('write Vector', () => {
+  const list = new Vector(10)
+  const testElements = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+  testElements.forEach((v) => {
+    list.io(v).add(v)
+    const { id, error, content } = write(list.io(v))
+    expect(id).toBe(manualKeychain())
+    expect(error).toBeFalsy()
+    expect(content).toBe(v.toString())
+  })
+})
 
 test('read var', () => {
   const vars = {

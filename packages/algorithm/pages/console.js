@@ -10,7 +10,9 @@ import useTabs from '../hooks/useTabs'
 import keychain from '@choco/keychain'
 import { ThemeContext } from '../contexts'
 import { Console as ConsoleComponent } from '@choco/components'
+import { setLang } from '@choco/i18n'
 
+setLang('es')
 let cache = []
 
 export default function () {

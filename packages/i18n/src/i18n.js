@@ -53,7 +53,6 @@ export function all() {
  */
 export function one(key) {
   // if (!cache[locale]) 
-  console.log(cache)
   return cache[locale] ? cache[locale][key] : cache[en][key]
 }
 
