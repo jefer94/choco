@@ -1116,10 +1116,10 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@codemirror/next@^0.5.0":
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/@codemirror/next/-/next-0.5.0.tgz#94d9ce6ef9227abafdcb46dbd68d8710b1e73895"
-  integrity sha512-51oVeoxWP9PpZkhGoVstI5teIc7kj9jHWgd1L+r87OFy0+GlZ1MZYp5chOgx0tOpJzuBoE0aemNNSKhDTmuMWQ==
+"@codemirror/next@^0.5.3":
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/@codemirror/next/-/next-0.5.3.tgz#d4277a4f53d21a378fa68478ca83f1f321ff86fa"
+  integrity sha512-Ez3vhjUAlLUEVyh1c3sfCmbkd5841vsB2Cc3/2ONTcQkt4mCM1uP3YZSThIkJcH82PwaUx+AZRr3yiKI6Ql+yw==
   dependencies:
     lezer "^0.8.3"
     lezer-css "^0.8.2"
