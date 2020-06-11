@@ -1,26 +1,2 @@
-define(function () { 'use strict';
-
-  /** @module libs/keychain */
-
-  /**
-   * Acumulators by key.
-   *
-   * @constant {string}
-   * @default
-   */
-  const cache = {};
-  /**
-   * Get a unique React key
-   * @param {string} key - Namespace of counter
-   * @return {string} Unique React key
-   */
-
-  function index (key) {
-    if (Number.isInteger(cache[key])) cache[key] += 1;else cache[key] = 0;
-    return `${key}_${cache[key]}`;
-  }
-
-  return index;
-
-});
+define((function(){"use strict";const n={};return function(e){return Number.isInteger(n[e])?n[e]+=1:n[e]=0,`${e}_${n[e]}`}}));
 //# sourceMappingURL=keychain.amd.js.map

@@ -1,0 +1,16 @@
+.git
+*Dockerfile*
+*docker-compose*
+**/.DS_STORE
+npm-debug.log
+.imdone
+build
+coverage
+node_modules
+.env
+.idea
+/package-lock.json
+.vscode
+*.pem
+.next
+dist

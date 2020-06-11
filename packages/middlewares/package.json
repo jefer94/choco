@@ -1,0 +1,27 @@
+{
+  "name": "@choco/middlewares",
+  "version": "1.0.0",
+  "main": "./index.cjs.js",
+  "module": "./index.esm.js",
+  "author": "Jeferson De Freitas",
+  "license": "MIT",
+  "dependencies": {
+    "@choco/configs": "^1.0.0",
+    "@choco/env": "^1.0.0",
+    "aws-sdk": "^2.694.0",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "helmet": "^3.22.1",
+    "method-override": "^3.0.0",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.2",
+    "sharp": "^0.25.3",
+    "socket.io": "^2.3.0",
+    "chalk": "^4.1.0"
+  },
+  "devDependencies": {
+    "mock-aws-s3": "^4.0.1",
+    "supertest": "^4.0.2"
+  }
+}

@@ -1,83 +1,17 @@
+import _taggedTemplateLiteral from '@babel/runtime/helpers/taggedTemplateLiteral';
 import styled from 'styled-components';
 import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { EditorView } from '@codemirror/next/view/dist';
-import { EditorState } from '@codemirror/next/state/dist';
-import '@codemirror/next/gutter/dist';
+import _slicedToArray from '@babel/runtime/helpers/slicedToArray';
+import { EditorView } from '@codemirror/next/view';
+import { EditorState } from '@codemirror/next/state';
+import '@codemirror/next/gutter';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 export { FontAwesomeIcon as FontAwesomeWrapper } from '@fortawesome/react-fontawesome';
 import ServerLink from 'next/link';
 import PulseLoader from 'react-spinners/PulseLoader';
 import { faBars, faTimes, faPlus } from '@fortawesome/free-solid-svg-icons';
 export { ControlledEditor as MonacoWrapper } from '@monaco-editor/react';
-
-function _taggedTemplateLiteral(strings, raw) {
-  if (!raw) {
-    raw = strings.slice(0);
-  }
-
-  return Object.freeze(Object.defineProperties(strings, {
-    raw: {
-      value: Object.freeze(raw)
-    }
-  }));
-}
-
-function _slicedToArray(arr, i) {
-  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
-}
-
-function _arrayWithHoles(arr) {
-  if (Array.isArray(arr)) return arr;
-}
-
-function _iterableToArrayLimit(arr, i) {
-  if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;
-  var _arr = [];
-  var _n = true;
-  var _d = false;
-  var _e = undefined;
-
-  try {
-    for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
-      _arr.push(_s.value);
-
-      if (i && _arr.length === i) break;
-    }
-  } catch (err) {
-    _d = true;
-    _e = err;
-  } finally {
-    try {
-      if (!_n && _i["return"] != null) _i["return"]();
-    } finally {
-      if (_d) throw _e;
-    }
-  }
-
-  return _arr;
-}
-
-function _unsupportedIterableToArray(o, minLen) {
-  if (!o) return;
-  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
-  var n = Object.prototype.toString.call(o).slice(8, -1);
-  if (n === "Object" && o.constructor) n = o.constructor.name;
-  if (n === "Map" || n === "Set") return Array.from(n);
-  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
-}
-
-function _arrayLikeToArray(arr, len) {
-  if (len == null || len > arr.length) len = arr.length;
-
-  for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
-
-  return arr2;
-}
-
-function _nonIterableRest() {
-  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-}
 
 function _templateObject() {
   var data = _taggedTemplateLiteral(["\n  margin: 0;\n  padding: 10px;\n  outline: 0;\n  background-color: transparent;\n  border: 2px solid ", ";\n"]);
@@ -291,21 +225,20 @@ function _templateObject$2() {
 
   return data;
 }
-var Div = styled.div(_templateObject$2(), function (v) {
-  return v.height;
-}, function (v) {
-  return v.height;
-}, function (v) {
-  return v.theme.surface;
-}, function (v) {
-  return v.theme.white;
-}, function (v) {
-  return v.theme.fontSize;
-});
-function Codemirror (_ref) {
-  var content = _ref.content,
-      height = _ref.height,
-      theme = _ref.theme;
+//   & > div {
+//     height: ${(v) => v.height};
+//     max-height: ${(v) => v.height};
+//     outline: 0!important;
+//     background-color: ${(v) => v.theme.surface};
+//     color: ${(v) => v.theme.white};
+//     font-size: ${(v) => v.theme.fontSize};
+//     padding-left: 15px;
+//   }
+// `
+
+function CodemirrorWrapper(_ref) {
+  var className = _ref.className,
+      content = _ref.content;
 
   var _useState = useState(true),
       _useState2 = _slicedToArray(_useState, 2),
@@ -325,12 +258,23 @@ function Codemirror (_ref) {
       setLoading(false);
     } else if (div.current && editor.current) div.current.appendChild(editor.current.dom);
   }, [loading]);
-  return /*#__PURE__*/React.createElement(Div, {
-    ref: div,
-    height: height,
-    theme: theme
+  return /*#__PURE__*/React.createElement("div", {
+    className: className,
+    ref: div
   });
 }
+
+var Codemirror = styled(CodemirrorWrapper)(_templateObject$2(), function (v) {
+  return v.height;
+}, function (v) {
+  return v.height;
+}, function (v) {
+  return v.theme.surface;
+}, function (v) {
+  return v.theme.white;
+}, function (v) {
+  return v.theme.fontSize;
+});
 
 // export { ControlledEditor } from '@monaco-editor/react'
 // import { ControlledEditor } from '@monaco-editor/react'

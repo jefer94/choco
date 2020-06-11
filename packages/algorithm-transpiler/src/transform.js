@@ -11,17 +11,11 @@ algorithmTranspilerLang()
 export default function (code) {
   const { tokens, transpiler, openBracket, closeBracket, write, read } = locale.all()
   let line = compose(stripCode, comments)(code) // stripCode(code)
-  // let line = stripCode(code)
   let js = ''
 
-  // now the transpiler work
   Object.keys(line).map(Number).forEach((i) => {
     // ...
-    line[i] = purgeComment(line[i])
-    line[i] = purgeLine(line[i])
-
-    // vector.io(n).add(value)
-    line[i] = vectorAdd(line[i])
+    line[i] = line[i] = compose(purgeComment, purgeLine, vectorAdd)(line[i])
 
     if (line[i].substr(0, 1) === ' ') {
       const length = line[i].length - 1
@@ -33,36 +27,21 @@ export default function (code) {
 
     if (line[i] === '') return
 
-    // if (x === y)
     line = ifIsEqual(line)
 
-    // for (...)
-    line[i] = forLoopCondition(line[i])
-
-    // do ... while (!...)
-    line[i] = doWhileLoopCondition(line[i])
+    line[i] = compose(forLoopCondition, doWhileLoopCondition)(line[i])
 
     // each word is separated into a array
     const word = line[i].split(' ')
 
-    // this loop is to search in various dictionaries, and transform that code
     Object.keys(word).map(Number).forEach((key) => {
-      // word[key] = word[key].replace(/=/g, ' === ')
-      // dictionaries of words
-      // open blackets
       if (openBracket.indexOf(word[key]) !== -1) js += '{ '
-      // close brackets
       else if (closeBracket.indexOf(word[key]) !== -1) js += '}'
       else if (transpiler[word[key]]) js += `${transpiler[word[key]]} `
-      // dictionaries of tokens
       else if (tokens[word[key]]) js += `${tokens[word[key]]} `
-      // and words not in the dictionary
       else js += `${word[key]} `
     })
-    // console.log('js', js)
 
-    // this fracment of code delete all space in the start of a line
-    // with a style like stack, first reverse the array
     word.reverse()
     // then in spaceInStart assign the last element in the stack
     let spaceInStart = word.pop()

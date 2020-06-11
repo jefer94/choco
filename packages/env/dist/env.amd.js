@@ -1,24 +1,2 @@
-define(['dotenv', 'path'], function (dotenv, path) { 'use strict';
-
-	dotenv = dotenv && Object.prototype.hasOwnProperty.call(dotenv, 'default') ? dotenv['default'] : dotenv;
-
-	/** @module @services/env */
-
-	/**
-	 * @example
-	 * import '@services/env'
-	 */
-
-	dotenv.config({
-	  path: path.join(process.cwd(), '../../.env'),
-	  debug: false
-	}); // const { error, parsed } = dotenv.config({ path: path.join(process.cwd(), '../../.env'), debug: false })
-	// // was there an error?
-	// console.error(error)
-	// // what was parsed?
-	// console.log(parsed)
-	// // compare to process.env
-	// console.dir(process.env)
-
-});
+define(["exports","dotenv","@choco/functional"],(function(e,o,m){"use strict";o=o&&Object.prototype.hasOwnProperty.call(o,"default")?o.default:o;const n="__ENV_KEYS__";function t(e){return`__ENV__${e}`}e.env=function(e,o){const c=t(e);return e||o?(o&&(process.env[e]=o,m.memo(c,o),m.memo(n)?m.memo(n,[...Object.values(m.memo(n)),e]):m.memo(n,[e])),m.memo(c)||process.env[e]):(m.memo(n)||[]).reduce((e,o)=>({...e,[o]:m.memo(t(o))}),{})},e.loadEnv=function(e){e&&"object"==typeof e&&m.memo("__EXTERNAL_ENV__",e),m.memo(n)||m.memo(n,[]),o.config({path:"../../.env"});const t=e||process.env;Object.keys(t).forEach(e=>{const o=`__ENV__${e}`;m.memo(o,t[e]),m.memo(n,[...m.memo(n),e])})},e.resetEnv=function(){m.memo("__EXTERNAL_ENV__",{}),process.env={},m.memo(n,[])},Object.defineProperty(e,"__esModule",{value:!0})}));
 //# sourceMappingURL=env.amd.js.map

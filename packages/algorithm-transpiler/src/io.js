@@ -90,6 +90,12 @@ function fixInputToBoolean(type, input) {
   else return input
 }
 
+/**
+ * Print an array of elements.
+ *
+ * @param  {...any} args Array the elements.
+ * @todo Write all comments from this zone
+ */
 export function write(...args) {
   const { error } = locale.all()
   // var

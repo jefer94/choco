@@ -1,12 +1,16 @@
 {
   "name": "@choco/env",
   "version": "1.0.0",
-  "main": "./dist/env.cjs.js",
-  "module": "./dist/env.esm.js",
+  "main": "./index.cjs.js",
+  "module": "./index.esm.js",
   "author": "Jeferson De Freitas",
   "license": "MIT",
-  "type": "module",
   "dependencies": {
+    "@choco/configs": "^1.0.0",
+    "@choco/functional": "^1.0.0",
     "dotenv": "^8.2.0"
+  },
+  "devDependencies": {
+    "@babel/preset-react": "^7.10.1"
   }
 }

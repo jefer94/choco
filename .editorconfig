@@ -1,0 +1,5 @@
+# Indentation override for all JS under lib directory
+[packages/**.js]
+indent_style = space
+indent_size = 2
+insert_final_newline = true

@@ -1,0 +1,15 @@
+{
+  "name": "@choco/hooks",
+  "version": "1.0.0",
+  "main": "./index.cjs.js",
+  "module": "./index.esm.js",
+  "author": "Jeferson De Freitas",
+  "license": "MIT",
+  "dependencies": {
+    "@choco/configs": "^1.0.0",
+    "axios": "^0.19.2",
+    "js-cookie": "^2.2.1",
+    "next": "^9.4.4",
+    "react": "^16.13.1"
+  }
+}

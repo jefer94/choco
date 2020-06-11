@@ -1,0 +1,33 @@
+{
+  "name": "@choco/configs",
+  "version": "1.0.0",
+  "main": "./index.cjs.js",
+  "module": "./index.esm.js",
+  "author": "Jeferson De Freitas",
+  "license": "MIT",
+  "dependencies": {
+    "@babel/plugin-transform-runtime": "^7.10.1",
+    "@choco/env": "^1.0.0",
+    "@zeit/next-css": "^1.0.1",
+    "babel-plugin-styled-components": "^1.10.7",
+    "eslint-loader": "^4.0.2",
+    "nodemon-webpack-plugin": "^4.3.1",
+    "rollup-plugin-babel": "^4.4.0",
+    "rollup-plugin-eslint": "^7.0.0",
+    "rollup-plugin-node-builtins": "^2.1.2",
+    "rollup-plugin-node-globals": "^1.4.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-sourcemaps": "^0.6.2",
+    "rollup-plugin-terser": "^6.1.0",
+    "webpack-node-externals": "^1.7.2"
+  },
+  "devDependencies": {
+    "@storybook/addon-storysource": "^5.3.19",
+    "eslint": "^7.2.0",
+    "eslint-plugin-functional": "^3.0.1",
+    "stylelint": "^13.6.0",
+    "stylelint-config-recommended": "^3.0.0",
+    "stylelint-config-styled-components": "^0.1.1",
+    "stylelint-processor-styled-components": "^1.10.0"
+  }
+}

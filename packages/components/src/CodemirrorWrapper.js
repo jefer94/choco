@@ -1,8 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
-import { EditorView } from '@codemirror/next/view/dist'
-import { EditorState } from '@codemirror/next/state/dist'
-import { GutterMarker } from '@codemirror/next/gutter/dist'
+import {EditorView} from "@codemirror/next/view"
+import {EditorState} from "@codemirror/next/state"
+// import { EditorView } from '@codemirror/next/view'
+// import { EditorView, EditorState, GutterMarker } from '@codemirror/next'
+// import { EditorState } from '@codemirror/next/state'
+import { GutterMarker } from '@codemirror/next/gutter'
 
 import { useRef, useEffect, createRef, useState } from 'react'
 

@@ -1,6 +1,9 @@
 import reducer from './tabs'
-import { algorithmWord as tabName, code, editor, setLang } from '../libs/i18n'
+import locale, { setLang } from '@choco/i18n'
 import { addTabAction, removeTabAction, changeTabAction, saveTabAction, defaultsTabsAction } from '../actions/tabs'
+
+const { algorithmWord, code, editor } = locale.all()
+const  tabName = algorithmWord
 
 let index = -1
 

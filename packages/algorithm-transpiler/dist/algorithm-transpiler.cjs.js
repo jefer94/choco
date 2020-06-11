@@ -178,7 +178,7 @@ function en () {
   locale.set(lang, 'toWord', 'until');
   locale.set(lang, 'trueWord', 'true');
   locale.set(lang, 'falseWord', 'false');
-  locale.set(lang, 'tokens', _objectSpread2({}, staticTokens, {}, {
+  locale.set(lang, 'tokens', _objectSpread2(_objectSpread2({}, staticTokens), {
     // algorithm : js
     or: '||',
     and: '&&',
@@ -239,7 +239,7 @@ function es () {
   locale.set(lang$1, 'toWord', 'hasta');
   locale.set(lang$1, 'trueWord', 'verdadero');
   locale.set(lang$1, 'falseWord', 'falso');
-  locale.set(lang$1, 'tokens', _objectSpread2({}, staticTokens, {}, {
+  locale.set(lang$1, 'tokens', _objectSpread2(_objectSpread2({}, staticTokens), {
     // algorithm : js
     o: '||',
     y: '&&',
@@ -625,16 +625,11 @@ function transform (code) {
       read = _locale$all.read;
 
   var line = functional.compose(stripCode, comments)(code); // stripCode(code)
-  // let line = stripCode(code)
 
-  var js = ''; // now the transpiler work
-
+  var js = '';
   Object.keys(line).map(Number).forEach(function (i) {
     // ...
-    line[i] = purgeComment(line[i]);
-    line[i] = purgeLine(line[i]); // vector.io(n).add(value)
-
-    line[i] = vectorAdd(line[i]);
+    line[i] = line[i] = functional.compose(purgeComment, purgeLine, vectorAdd)(line[i]);
 
     if (line[i].substr(0, 1) === ' ') {
       var _length = line[i].length - 1;
@@ -648,28 +643,14 @@ function transform (code) {
       line[i] = line[i].substr(0, length);
     }
 
-    if (line[i] === '') return; // if (x === y)
+    if (line[i] === '') return;
+    line = ifIsEqual(line);
+    line[i] = functional.compose(forLoopCondition, doWhileLoopCondition)(line[i]); // each word is separated into a array
 
-    line = ifIsEqual(line); // for (...)
-
-    line[i] = forLoopCondition(line[i]); // do ... while (!...)
-
-    line[i] = doWhileLoopCondition(line[i]); // each word is separated into a array
-
-    var word = line[i].split(' '); // this loop is to search in various dictionaries, and transform that code
-
+    var word = line[i].split(' ');
     Object.keys(word).map(Number).forEach(function (key) {
-      // word[key] = word[key].replace(/=/g, ' === ')
-      // dictionaries of words
-      // open blackets
-      if (openBracket.indexOf(word[key]) !== -1) js += '{ '; // close brackets
-      else if (closeBracket.indexOf(word[key]) !== -1) js += '}';else if (transpiler[word[key]]) js += "".concat(transpiler[word[key]], " "); // dictionaries of tokens
-        else if (tokens[word[key]]) js += "".concat(tokens[word[key]], " "); // and words not in the dictionary
-          else js += "".concat(word[key], " ");
-    }); // console.log('js', js)
-    // this fracment of code delete all space in the start of a line
-    // with a style like stack, first reverse the array
-
+      if (openBracket.indexOf(word[key]) !== -1) js += '{ ';else if (closeBracket.indexOf(word[key]) !== -1) js += '}';else if (transpiler[word[key]]) js += "".concat(transpiler[word[key]], " ");else if (tokens[word[key]]) js += "".concat(tokens[word[key]], " ");else js += "".concat(word[key], " ");
+    });
     word.reverse(); // then in spaceInStart assign the last element in the stack
 
     var spaceInStart = word.pop();
@@ -1004,7 +985,7 @@ function read(toRead, variables, lastLine) {
   // if (lastLine && lastLine.var) newLastLine = Object.freeze({ ...lastLine, content: input })
   // else newLastLine = Object.freeze({ ...lastLine, var: input })
 
-  newLastLine = Object.freeze(_objectSpread2({}, lastLine, {
+  newLastLine = Object.freeze(_objectSpread2(_objectSpread2({}, lastLine), {}, {
     "var": input
   })); // vector
 
@@ -1063,6 +1044,13 @@ function fixInputToBoolean(type, input) {
     return Number(input) === 1 ? 'true' : 'false';
   } else return input;
 }
+/**
+ * Print an array of elements.
+ *
+ * @param  {...any} args Array the elements.
+ * @todo Write all comments from this zone
+ */
+
 
 function write() {
   var _locale$all2 = locale.all(),

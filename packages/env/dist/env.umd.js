@@ -1,28 +1,2 @@
-(function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('dotenv'), require('path')) :
-	typeof define === 'function' && define.amd ? define(['dotenv', 'path'], factory) :
-	(global = global || self, factory(global.dotenv, global.path));
-}(this, (function (dotenv, path) { 'use strict';
-
-	dotenv = dotenv && Object.prototype.hasOwnProperty.call(dotenv, 'default') ? dotenv['default'] : dotenv;
-
-	/** @module @services/env */
-
-	/**
-	 * @example
-	 * import '@services/env'
-	 */
-
-	dotenv.config({
-	  path: path.join(process.cwd(), '../../.env'),
-	  debug: false
-	}); // const { error, parsed } = dotenv.config({ path: path.join(process.cwd(), '../../.env'), debug: false })
-	// // was there an error?
-	// console.error(error)
-	// // what was parsed?
-	// console.log(parsed)
-	// // compare to process.env
-	// console.dir(process.env)
-
-})));
+!function(e,o){"object"==typeof exports&&"undefined"!=typeof module?o(exports,require("dotenv"),require("@choco/functional")):"function"==typeof define&&define.amd?define(["exports","dotenv","@choco/functional"],o):o((e=e||self)["@choco/env"]={},e.dotenv,e.functional)}(this,(function(e,o,n){"use strict";o=o&&Object.prototype.hasOwnProperty.call(o,"default")?o.default:o;const t="__ENV_KEYS__";function c(e){return`__ENV__${e}`}e.env=function(e,o){const m=c(e);return e||o?(o&&(process.env[e]=o,n.memo(m,o),n.memo(t)?n.memo(t,[...Object.values(n.memo(t)),e]):n.memo(t,[e])),n.memo(m)||process.env[e]):(n.memo(t)||[]).reduce((e,o)=>({...e,[o]:n.memo(c(o))}),{})},e.loadEnv=function(e){e&&"object"==typeof e&&n.memo("__EXTERNAL_ENV__",e),n.memo(t)||n.memo(t,[]),o.config({path:"../../.env"});const c=e||process.env;Object.keys(c).forEach(e=>{const o=`__ENV__${e}`;n.memo(o,c[e]),n.memo(t,[...n.memo(t),e])})},e.resetEnv=function(){n.memo("__EXTERNAL_ENV__",{}),process.env={},n.memo(t,[])},Object.defineProperty(e,"__esModule",{value:!0})}));
 //# sourceMappingURL=env.umd.js.map

@@ -1,78 +1,12 @@
-define(['exports', 'styled-components', 'react', 'prop-types', '@codemirror/next/view/dist', '@codemirror/next/state/dist', '@codemirror/next/gutter/dist', '@fortawesome/react-fontawesome', 'next/link', 'react-spinners/PulseLoader', '@fortawesome/free-solid-svg-icons', '@monaco-editor/react'], function (exports, styled, React, PropTypes, dist, dist$1, dist$2, reactFontawesome, ServerLink, PulseLoader, freeSolidSvgIcons, react) { 'use strict';
+define(['exports', '@babel/runtime/helpers/taggedTemplateLiteral', 'styled-components', 'react', 'prop-types', '@babel/runtime/helpers/slicedToArray', '@codemirror/next/view', '@codemirror/next/state', '@codemirror/next/gutter', '@fortawesome/react-fontawesome', 'next/link', 'react-spinners/PulseLoader', '@fortawesome/free-solid-svg-icons', '@monaco-editor/react'], function (exports, _taggedTemplateLiteral, styled, React, PropTypes, _slicedToArray, view, state, gutter, reactFontawesome, ServerLink, PulseLoader, freeSolidSvgIcons, react) { 'use strict';
 
+  _taggedTemplateLiteral = _taggedTemplateLiteral && Object.prototype.hasOwnProperty.call(_taggedTemplateLiteral, 'default') ? _taggedTemplateLiteral['default'] : _taggedTemplateLiteral;
   styled = styled && Object.prototype.hasOwnProperty.call(styled, 'default') ? styled['default'] : styled;
   var React__default = 'default' in React ? React['default'] : React;
   PropTypes = PropTypes && Object.prototype.hasOwnProperty.call(PropTypes, 'default') ? PropTypes['default'] : PropTypes;
+  _slicedToArray = _slicedToArray && Object.prototype.hasOwnProperty.call(_slicedToArray, 'default') ? _slicedToArray['default'] : _slicedToArray;
   ServerLink = ServerLink && Object.prototype.hasOwnProperty.call(ServerLink, 'default') ? ServerLink['default'] : ServerLink;
   PulseLoader = PulseLoader && Object.prototype.hasOwnProperty.call(PulseLoader, 'default') ? PulseLoader['default'] : PulseLoader;
-
-  function _taggedTemplateLiteral(strings, raw) {
-    if (!raw) {
-      raw = strings.slice(0);
-    }
-
-    return Object.freeze(Object.defineProperties(strings, {
-      raw: {
-        value: Object.freeze(raw)
-      }
-    }));
-  }
-
-  function _slicedToArray(arr, i) {
-    return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
-  }
-
-  function _arrayWithHoles(arr) {
-    if (Array.isArray(arr)) return arr;
-  }
-
-  function _iterableToArrayLimit(arr, i) {
-    if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;
-    var _arr = [];
-    var _n = true;
-    var _d = false;
-    var _e = undefined;
-
-    try {
-      for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
-        _arr.push(_s.value);
-
-        if (i && _arr.length === i) break;
-      }
-    } catch (err) {
-      _d = true;
-      _e = err;
-    } finally {
-      try {
-        if (!_n && _i["return"] != null) _i["return"]();
-      } finally {
-        if (_d) throw _e;
-      }
-    }
-
-    return _arr;
-  }
-
-  function _unsupportedIterableToArray(o, minLen) {
-    if (!o) return;
-    if (typeof o === "string") return _arrayLikeToArray(o, minLen);
-    var n = Object.prototype.toString.call(o).slice(8, -1);
-    if (n === "Object" && o.constructor) n = o.constructor.name;
-    if (n === "Map" || n === "Set") return Array.from(n);
-    if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
-  }
-
-  function _arrayLikeToArray(arr, len) {
-    if (len == null || len > arr.length) len = arr.length;
-
-    for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
-
-    return arr2;
-  }
-
-  function _nonIterableRest() {
-    throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-  }
 
   function _templateObject() {
     var data = _taggedTemplateLiteral(["\n  margin: 0;\n  padding: 10px;\n  outline: 0;\n  background-color: transparent;\n  border: 2px solid ", ";\n"]);
@@ -286,21 +220,20 @@ define(['exports', 'styled-components', 'react', 'prop-types', '@codemirror/next
 
     return data;
   }
-  var Div = styled.div(_templateObject$2(), function (v) {
-    return v.height;
-  }, function (v) {
-    return v.height;
-  }, function (v) {
-    return v.theme.surface;
-  }, function (v) {
-    return v.theme.white;
-  }, function (v) {
-    return v.theme.fontSize;
-  });
-  function Codemirror (_ref) {
-    var content = _ref.content,
-        height = _ref.height,
-        theme = _ref.theme;
+  //   & > div {
+  //     height: ${(v) => v.height};
+  //     max-height: ${(v) => v.height};
+  //     outline: 0!important;
+  //     background-color: ${(v) => v.theme.surface};
+  //     color: ${(v) => v.theme.white};
+  //     font-size: ${(v) => v.theme.fontSize};
+  //     padding-left: 15px;
+  //   }
+  // `
+
+  function CodemirrorWrapper(_ref) {
+    var className = _ref.className,
+        content = _ref.content;
 
     var _useState = React.useState(true),
         _useState2 = _slicedToArray(_useState, 2),
@@ -311,8 +244,8 @@ define(['exports', 'styled-components', 'react', 'prop-types', '@codemirror/next
     var editor = React.useRef();
     React.useEffect(function () {
       if (loading) {
-        editor.current = new dist.EditorView({
-          state: dist$1.EditorState.create({
+        editor.current = new view.EditorView({
+          state: state.EditorState.create({
             doc: content,
             extensions: []
           })
@@ -320,12 +253,23 @@ define(['exports', 'styled-components', 'react', 'prop-types', '@codemirror/next
         setLoading(false);
       } else if (div.current && editor.current) div.current.appendChild(editor.current.dom);
     }, [loading]);
-    return /*#__PURE__*/React__default.createElement(Div, {
-      ref: div,
-      height: height,
-      theme: theme
+    return /*#__PURE__*/React__default.createElement("div", {
+      className: className,
+      ref: div
     });
   }
+
+  var Codemirror = styled(CodemirrorWrapper)(_templateObject$2(), function (v) {
+    return v.height;
+  }, function (v) {
+    return v.height;
+  }, function (v) {
+    return v.theme.surface;
+  }, function (v) {
+    return v.theme.white;
+  }, function (v) {
+    return v.theme.fontSize;
+  });
 
   // export { ControlledEditor } from '@monaco-editor/react'
   // import { ControlledEditor } from '@monaco-editor/react'
