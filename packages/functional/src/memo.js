@@ -11,6 +11,6 @@ const cache = {}
  * @returns {any} Data memoize.
  */
 export function memo(key, data) {
-  if (data) { cache[key] = data }
+  if (data !== undefined) cache[key] = data
   return cache[key]
 }

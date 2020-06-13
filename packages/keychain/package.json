@@ -1,8 +1,9 @@
 {
   "name": "@choco/keychain",
   "version": "1.0.0",
-  "main": "./index.cjs.js",
-  "module": "./index.esm.js",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "author": "Jeferson De Freitas",
   "license": "MIT",
   "dependencies": {

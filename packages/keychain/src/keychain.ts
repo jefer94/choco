@@ -1,12 +1,5 @@
+import { memo } from '@choco/functional'
 /** @module @choco/keychain */
-
-/**
- * Acumulators by key.
- *
- * @constant {string}
- * @default
- */
-const cache = {}
 
 /**
  * Get a unique React key.
@@ -19,9 +12,10 @@ const cache = {}
  * // ...
  * @returns {string} Unique React key.
  */
-export default function keychain(key) {
-  if (Number.isInteger(cache[key])) {
-    cache[key] += 1
-  } else { cache[key] = 0 }
-  return `${key}_${cache[key]}`
+export default function keychain(key: string): string {
+  const memoKey = `__KEYCHAIN_${key}__`
+  const acc = memo(memoKey)
+  if (Number.isInteger(acc)) memo(memoKey, acc + 1)
+  else memo(memoKey, 0)
+  return `${key}_${memo(memoKey)}`
 }
