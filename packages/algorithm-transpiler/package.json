@@ -1,8 +1,9 @@
 {
   "name": "@choco/algorithm-transpiler",
-  "version": "1.0.0",
-  "main": "./dist/algorithm-transpiler.cjs.js",
-  "module": "./dist/algorithm-transpiler.esm.js",
+  "version": "1.0.0",  
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./src/index.ts",
   "author": "Jeferson De Freitas",
   "license": "MIT"
 }

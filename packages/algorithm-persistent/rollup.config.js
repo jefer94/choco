@@ -1,15 +1,3 @@
-import babel from 'rollup-plugin-babel';
-import pkg from './package.json';
+import { rollup } from '@choco/configs'
 
-const config = {
-	input: 'src/index.js',
-	output: [
-		{
-			file: pkg.module,
-			format: 'esm',
-		},
-	],
-	plugins: [babel()],
-};
-
-export default config;
+export default rollup('algorithm-persistent')

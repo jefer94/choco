@@ -1,13 +1,12 @@
-import React from 'react'
+import React, { useRef, useEffect, createRef, useState } from 'react'
 import styled from 'styled-components'
-import {EditorView} from "@codemirror/next/view"
-import {EditorState} from "@codemirror/next/state"
+// import {EditorView} from "@codemirror/next/view"
+// import {EditorState} from "@codemirror/next/state"
 // import { EditorView } from '@codemirror/next/view'
 // import { EditorView, EditorState, GutterMarker } from '@codemirror/next'
 // import { EditorState } from '@codemirror/next/state'
-import { GutterMarker } from '@codemirror/next/gutter'
-
-import { useRef, useEffect, createRef, useState } from 'react'
+// import { GutterMarker } from '@codemirror/next/gutter'
+import { UnControlled as CodeMirror } from 'react-codemirror2'
 
 // const Div = styled.div`
 //   & > div {
@@ -26,17 +25,28 @@ function CodemirrorWrapper({ className, content }) {
   let div = useRef()
   let editor = useRef()
 
-  useEffect(() => {
-    if (loading) {
-      editor.current = new EditorView({state: EditorState.create({doc: content, extensions: []}) })
-      setLoading(false)
-    }
+  // useEffect(() => {
+  //   if (loading) {
+  //     editor.current = new EditorView({state: EditorState.create({doc: content, extensions: []}) })
+  //     setLoading(false)
+  //   }
   
-    else if (div.current && editor.current) div.current.appendChild(editor.current.dom)
-  }, [loading])
+  //   else if (div.current && editor.current) div.current.appendChild(editor.current.dom)
+  // }, [loading])
 
   return (
-    <div className={className} ref={div} />
+    // <div className={className} ref={div} />
+    <CodeMirror
+      value='<h1>I ♥ react-codemirror2</h1>'
+      options={{
+        mode: 'xml',
+        theme: 'material',
+        lineNumbers: true
+      }}
+      onChange={(editor, data, value) => {
+        console.log(value)
+      }}
+    />
   )
 }
 

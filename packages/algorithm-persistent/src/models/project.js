@@ -1,6 +1,6 @@
 /**
  * @constant
- * @description
+ * @description - Model.
  */
 export default {
   id: String,

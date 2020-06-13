@@ -55,23 +55,33 @@ dependencies() {
 build() {
   cd $1
   echo "<-------- $1 -------->"
-  if test -f ./rollup.config.js; then
+  if test -f ./src/index.ts; then
     # resolve bug, because one element in rollup load index.cjs.js and it execution fail
     mkdir dist > /dev/null 2>&1
     touch ./dist/$1.cjs.js > /dev/null 2>&1
     index $1
     # seed $1
-    dependencies
+    # dependencies
+    # yarn rollup -c $2
+    yarn tsc ./src/index.ts $2 --outDir ./dist -t es5
+    # killall node
+  elif test -f ./rollup.config.js; then
+    # resolve bug, because one element in rollup load index.cjs.js and it execution fail
+    mkdir dist > /dev/null 2>&1
+    touch ./dist/$1.cjs.js > /dev/null 2>&1
+    index $1
+    # seed $1
+    # dependencies
     yarn rollup -c $2
-    killall node
+    # killall node
   elif test -f ./next.config.js; then
-    dependencies
+    # dependencies
     yarn build
-    killall node
+    # killall node
   elif test -f ./webpack.config.js; then
-    dependencies
+    # dependencies
     APP_ENV=production yarn webpack-cli --mode="production"
-    killall node
+    # killall node
   fi
   cd ..
 }

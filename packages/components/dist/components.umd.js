@@ -1,30 +1,16 @@
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@babel/runtime/helpers/taggedTemplateLiteral'), require('styled-components'), require('react'), require('prop-types'), require('@babel/runtime/helpers/slicedToArray'), require('@codemirror/next/view'), require('@codemirror/next/state'), require('@codemirror/next/gutter'), require('@fortawesome/react-fontawesome'), require('next/link'), require('react-spinners/PulseLoader'), require('@fortawesome/free-solid-svg-icons'), require('@monaco-editor/react')) :
-  typeof define === 'function' && define.amd ? define(['exports', '@babel/runtime/helpers/taggedTemplateLiteral', 'styled-components', 'react', 'prop-types', '@babel/runtime/helpers/slicedToArray', '@codemirror/next/view', '@codemirror/next/state', '@codemirror/next/gutter', '@fortawesome/react-fontawesome', 'next/link', 'react-spinners/PulseLoader', '@fortawesome/free-solid-svg-icons', '@monaco-editor/react'], factory) :
-  (global = global || self, factory(global['@choco/components'] = {}, global._taggedTemplateLiteral, global.styled, global.React, global.PropTypes, global._slicedToArray, global.view, global.state, global.gutter, global.reactFontawesome, global.ServerLink, global.PulseLoader, global.freeSolidSvgIcons, global.react));
-}(this, (function (exports, _taggedTemplateLiteral, styled, React, PropTypes, _slicedToArray, view, state, gutter, reactFontawesome, ServerLink, PulseLoader, freeSolidSvgIcons, react) { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('react'), require('prop-types'), require('@babel/runtime/helpers/taggedTemplateLiteral'), require('styled-components'), require('@babel/runtime/helpers/slicedToArray'), require('react-codemirror2'), require('@fortawesome/react-fontawesome'), require('next/link'), require('react-spinners/PulseLoader'), require('@fortawesome/free-solid-svg-icons'), require('@monaco-editor/react')) :
+  typeof define === 'function' && define.amd ? define(['exports', 'react', 'prop-types', '@babel/runtime/helpers/taggedTemplateLiteral', 'styled-components', '@babel/runtime/helpers/slicedToArray', 'react-codemirror2', '@fortawesome/react-fontawesome', 'next/link', 'react-spinners/PulseLoader', '@fortawesome/free-solid-svg-icons', '@monaco-editor/react'], factory) :
+  (global = global || self, factory(global['@choco/components'] = {}, global.React, global.PropTypes, global._taggedTemplateLiteral, global.styled, global._slicedToArray, global.reactCodemirror2, global.reactFontawesome, global.ServerLink, global.PulseLoader, global.freeSolidSvgIcons, global.react));
+}(this, (function (exports, React, PropTypes, _taggedTemplateLiteral, styled, _slicedToArray, reactCodemirror2, reactFontawesome, ServerLink, PulseLoader, freeSolidSvgIcons, react) { 'use strict';
 
-  _taggedTemplateLiteral = _taggedTemplateLiteral && Object.prototype.hasOwnProperty.call(_taggedTemplateLiteral, 'default') ? _taggedTemplateLiteral['default'] : _taggedTemplateLiteral;
-  styled = styled && Object.prototype.hasOwnProperty.call(styled, 'default') ? styled['default'] : styled;
   var React__default = 'default' in React ? React['default'] : React;
   PropTypes = PropTypes && Object.prototype.hasOwnProperty.call(PropTypes, 'default') ? PropTypes['default'] : PropTypes;
+  _taggedTemplateLiteral = _taggedTemplateLiteral && Object.prototype.hasOwnProperty.call(_taggedTemplateLiteral, 'default') ? _taggedTemplateLiteral['default'] : _taggedTemplateLiteral;
+  styled = styled && Object.prototype.hasOwnProperty.call(styled, 'default') ? styled['default'] : styled;
   _slicedToArray = _slicedToArray && Object.prototype.hasOwnProperty.call(_slicedToArray, 'default') ? _slicedToArray['default'] : _slicedToArray;
   ServerLink = ServerLink && Object.prototype.hasOwnProperty.call(ServerLink, 'default') ? ServerLink['default'] : ServerLink;
   PulseLoader = PulseLoader && Object.prototype.hasOwnProperty.call(PulseLoader, 'default') ? PulseLoader['default'] : PulseLoader;
-
-  function _templateObject() {
-    var data = _taggedTemplateLiteral(["\n  margin: 0;\n  padding: 10px;\n  outline: 0;\n  background-color: transparent;\n  border: 2px solid ", ";\n"]);
-
-    _templateObject = function _templateObject() {
-      return data;
-    };
-
-    return data;
-  }
-
-  var Button = styled.button(_templateObject(), function (v) {
-    return v.color ? v.color : '#000';
-  });
 
   function _templateObject2() {
     var data = _taggedTemplateLiteral(["\n  display: inline;\n  float: left;\n  margin: {(v) => v.firstLine ? 0 : 'unset'};\n  padding: {(v) => v.firstLine ? '0 10px 0 0' : 'unset'};\n  color: {(v) => v.firstLine ? '#537f7e' : 'unset'};\n  margin-left: {(v) => !v.firstLine ? 0 : 'unset'};\n"]);
@@ -36,10 +22,10 @@
     return data;
   }
 
-  function _templateObject$1() {
+  function _templateObject() {
     var data = _taggedTemplateLiteral(["\n  font-family: monospace;\n  font-size: {(v) => v.theme.fontSize};\n  line-height: {(v) => v.theme.lineHeight};\n  white-space: pre-wrap;\n  word-break: normal;\n  word-wrap: break-word;\n  cursor: text;\n  padding: 0px 4px 0px 0px;\n"]);
 
-    _templateObject$1 = function _templateObject() {
+    _templateObject = function _templateObject() {
       return data;
     };
 
@@ -61,7 +47,7 @@
    * @property {number} lineNumber - Line number.
    */
 
-  var LineWrapper = styled.div(_templateObject$1());
+  var LineWrapper = styled.div(_templateObject());
   var Line = styled.div(_templateObject2());
   /**
    * Console component, base in C/C++ style.
@@ -215,10 +201,10 @@
     });
   }
 
-  function _templateObject$2() {
+  function _templateObject$1() {
     var data = _taggedTemplateLiteral(["\n  & > div {\n    height: ", ";\n    max-height: ", ";\n    outline: 0!important;\n    background-color: ", ";\n    color: ", ";\n    font-size: ", ";\n    padding-left: 15px;\n  }\n"]);
 
-    _templateObject$2 = function _templateObject() {
+    _templateObject$1 = function _templateObject() {
       return data;
     };
 
@@ -245,25 +231,32 @@
         setLoading = _useState2[1];
 
     var div = React.useRef();
-    var editor = React.useRef();
-    React.useEffect(function () {
-      if (loading) {
-        editor.current = new view.EditorView({
-          state: state.EditorState.create({
-            doc: content,
-            extensions: []
-          })
-        });
-        setLoading(false);
-      } else if (div.current && editor.current) div.current.appendChild(editor.current.dom);
-    }, [loading]);
-    return /*#__PURE__*/React__default.createElement("div", {
-      className: className,
-      ref: div
-    });
+    var editor = React.useRef(); // useEffect(() => {
+    //   if (loading) {
+    //     editor.current = new EditorView({state: EditorState.create({doc: content, extensions: []}) })
+    //     setLoading(false)
+    //   }
+    //   else if (div.current && editor.current) div.current.appendChild(editor.current.dom)
+    // }, [loading])
+
+    return (
+      /*#__PURE__*/
+      // <div className={className} ref={div} />
+      React__default.createElement(reactCodemirror2.UnControlled, {
+        value: "<h1>I \u2665 react-codemirror2</h1>",
+        options: {
+          mode: 'xml',
+          theme: 'material',
+          lineNumbers: true
+        },
+        onChange: function onChange(editor, data, value) {
+          console.log(value);
+        }
+      })
+    );
   }
 
-  var Codemirror = styled(CodemirrorWrapper)(_templateObject$2(), function (v) {
+  var Codemirror = styled(CodemirrorWrapper)(_templateObject$1(), function (v) {
     return v.height;
   }, function (v) {
     return v.height;
@@ -370,6 +363,20 @@
     content: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired
   };
+
+  function _templateObject$2() {
+    var data = _taggedTemplateLiteral(["\n  margin: 0;\n  padding: 10px;\n  outline: 0;\n  background-color: transparent;\n  border: 2px solid ", ";\n"]);
+
+    _templateObject$2 = function _templateObject() {
+      return data;
+    };
+
+    return data;
+  }
+
+  var Button = styled.button(_templateObject$2(), function (v) {
+    return v.color ? v.color : '#000';
+  });
 
   function _templateObject$3() {
     var data = _taggedTemplateLiteral(["\n  position: fixed;\n  top: ", ";\n  bottom: ", ";\n  left: ", ";\n  right: ", ";\n  padding: 30px ", ";\n  border-radius: 30px;\n  background-color: #000;\n  z-index: 255;\n"]);

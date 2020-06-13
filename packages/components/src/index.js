@@ -1,4 +1,3 @@
-import Button from './Button'
 import Console from './Console'
 import ConsoleLine from './ConsoleLine'
 import Docs from './Docs'
@@ -15,8 +14,9 @@ import Tab from './Tab'
 import TabButton from './TabButton'
 import Tabs from './Tabs'
 
+export * from './Button'
+
 export {
-  Button,
   Console,
   ConsoleLine,
   Docs,

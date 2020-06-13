@@ -15,3 +15,4 @@ dist/
 .fuse_hidden*
 .next
 dist
+docs

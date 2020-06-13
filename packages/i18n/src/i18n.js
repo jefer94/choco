@@ -1,75 +1,73 @@
-const cache = {}
-
+"use strict";
+exports.__esModule = true;
+exports.set = exports.one = exports.all = exports.setLang = exports.getLang = void 0;
+var cache = {};
 /** @module @choco/i18n */
-
 /**
  * @constant
  * @default
  */
-const en = 'en'
-let locale = en
-
-try {
-  locale = window ? window.navigator.language.substr(0, 2) : en
+var en = 'en';
+var locale = window && window.navigator ? window.navigator.language.substr(0, 2) : en;
+/**
+ * Get manually the locales.
+ *
+ * @example
+ * locale.getLang()
+ * @returns {string} Locale.
+ */
+function getLang() {
+    return locale;
 }
-catch(e) {
-  /** @todo server rendering support */
-}
-
+exports.getLang = getLang;
 /**
  * Set manually the locales.
  *
  * @param {string} lang -  Short locale.
  * @example
- * import locale from '@choco/i18n'
- *
  * locale.setLang('en')
  */
-export function setLang(lang) {
-  locale = lang
+function setLang(lang) {
+    locale = lang;
 }
-
+exports.setLang = setLang;
 /**
  * Get all locales.
- * 
- * @example
- * import locale from '@choco/i18n'
  *
+ * @example
  * locale.all() // returns { ... }
- * @returns {Object.<string, any>} All locales.
+ * @returns {object.<string, any>} All locales.
  */
-export function all() {
-  return (cache[locale] ? cache[locale] : cache[en]) || {}
+function all() {
+    return cache[locale] || {};
 }
-
+exports.all = all;
 /**
  * Get one locales.
- * 
- * @example
- * import locale from '@choco/i18n'
  *
+ * @example
  * locale.one('dog') // returns VALUE
- * @returns {any} One locales.
+ * @returns {string|undefined} One locales.
  */
-export function one(key) {
-  // if (!cache[locale]) 
-  return cache[locale] ? cache[locale][key] : cache[en][key]
+function one(key) {
+    // if (!cache[locale])
+    if (cache[locale])
+        return cache[locale][key];
 }
-
+exports.one = one;
 /**
  * Set a locale key.
  *
  * @example
- * import locale from '@choco/i18n'
- *
  * locale.set('en', 'dog', 'potato')
  * @param {string} lang - Short locale.
  * @param {string} key - Name of translation.
- * @param {any} value - Value of translation
+ * @param {any} value - Value of translation.
  */
-export function set(lang, key, value) {
-  if (!cache[lang]) cache[lang] = {}
-  cache[lang][key] = value
+function set(lang, key, value) {
+    if (!cache[lang])
+        cache[lang] = {};
+    cache[lang][key] = value;
 }
-
-export default { one, all, set, setLang }
+exports.set = set;
+exports["default"] = { one: one, all: all, set: set, getLang: getLang, setLang: setLang };

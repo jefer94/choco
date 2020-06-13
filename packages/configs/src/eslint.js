@@ -9,7 +9,7 @@
  * eslint(false) // Next.js.
  * @returns {object} Eslint config.
  */
-export function eslint(isNotNextApp = true) {
+export function eslint({ next, types } = {}) {
   return {
     env: {
       browser: true,
@@ -19,6 +19,8 @@ export function eslint(isNotNextApp = true) {
     extends: [
       'plugin:react/recommended',
       'airbnb',
+      'plugin:@typescript-eslint/eslint-recommended',
+      'plugin:@typescript-eslint/recommended',
       'plugin:functional/external-recommended',
       'plugin:functional/recommended'
     ],
@@ -32,6 +34,7 @@ export function eslint(isNotNextApp = true) {
       afterAll: true,
       jasmine: true
     },
+    parser: types ? '@typescript-eslint/parser' : undefined,
     parserOptions: {
       ecmaFeatures: {
         jsx: true
@@ -41,10 +44,13 @@ export function eslint(isNotNextApp = true) {
       allowImportExportEverywhere: true
     },
     plugins: [
-      'react',
-      'eslint-plugin-react-hooks',
-      'jsdoc',
-      'functional'
+      ...[
+        'react',
+        'eslint-plugin-react-hooks',
+        'jsdoc',
+        'functional'
+      ],
+      ...(types ? ['@typescript-eslint'] : [])
     ],
     rules: {
       semi: ['error', 'never'],
@@ -55,7 +61,7 @@ export function eslint(isNotNextApp = true) {
       'object-curly-newline': ['error', { ImportDeclaration: 'never', ExportDeclaration: 'never' }],
       'no-empty': ['error', { allowEmptyCatch: true }],
       'operator-linebreak': ['error', 'after'],
-      curly: [2, 'all'],
+      curly: [2, 'multi-line'],
       'no-use-before-define': 'off',
       'react/jsx-filename-extension': 'off',
       'react-hooks/rules-of-hooks': 'error',
@@ -89,20 +95,20 @@ export function eslint(isNotNextApp = true) {
       'jsdoc/require-returns-description': 1,
       'jsdoc/require-returns-type': 1,
       'jsdoc/valid-types': 1,
-      'react/react-in-jsx-scope': isNotNextApp ? 2 : 0,
+      'react/react-in-jsx-scope': !next ? 2 : 0,
       'import/no-extraneous-dependencies': 1,
       'import/prefer-default-export': 0,
       'implicit-arrow-linebreak': 0, // supertest
       'react/jsx-props-no-spreading': 0,
       'react/require-default-props': 0,
-      'no-shadow': 1,
+      'no-shadow': 0,
       'functional/functional-parameters': 0,
       'functional/no-conditional-statement': 0,
       'functional/no-class': 1,
       'functional/no-this-expression': 0,
       'functional/no-let': 0,
       'functional/immutable-data': 1,
-      'functional/no-return-void': 1,
+      'functional/no-return-void': 0,
       'functional/no-loop-statement': 2,
       'functional/no-expression-statement': 0,
       'functional/no-try-statement': 0,

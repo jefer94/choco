@@ -9,5 +9,5 @@ export const withoutTabs = () => (
 )
 
 export const twoTabs = () => (
-  <Tabs color="#000" activeColor="#f00" tabs={[{ name: 'first', key: 0 }, { name: 'first', key: 1 }]} />
+  <Tabs color="#000" activeColor="#f00" tabs={[{ name: 'first', key: 0 }, { name: 'first', key: 1, active: true }]} />
 )

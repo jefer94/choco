@@ -1,6 +1,6 @@
 import styled from 'styled-components' // eslint-disable-line
 
-export default styled.button`
+export const Button = styled.button`
   margin: 0;
   padding: 10px;
   outline: 0;

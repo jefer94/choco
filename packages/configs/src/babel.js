@@ -1,21 +1,36 @@
 /** @module @choco/configs */
 
 /**
+ * @typedef {object} BabelConfig
+ * @property {boolean} isServer - Is server.
+ * @property {boolean} useTransformRuntime - Use transform runtime.
+ */
+
+/**
  * Babel config.
  *
  * @param {boolean} isServer - Is server.
  * @param {boolean} useTransformRuntime - Use transform runtime.
+ * @param {BabelConfig} BabelConfig - Babel configs.
  * @example
  * const isServer = true
  * const useTransformRuntime = true
  * babel(isServer, useTransformRuntime)
  * @returns {object} Babel config.
  */
-export function babel(isServer = true, useTransformRuntime = true) {
+// export function babel(isServer = true, useTransformRuntime = true) {
+export function babel({ isServer = true, useTransformRuntime = true, types } = {}) {
+  console.log('=====================\n================================================', {presets: [
+    // next.js
+    // '@babel/preset-react',
+    ...presetTypescript(types),
+    ...presetEnv(isServer)
+  ]})
   return {
     presets: [
       // next.js
       // '@babel/preset-react',
+      ...presetTypescript(types),
       ...presetEnv(isServer)
     ],
     plugins: [...[
@@ -40,6 +55,17 @@ export function babelNextJS() {
     ],
     presets: ['next/babel']
   }
+}
+
+/**
+ * Babel preset Typescript config.
+ *
+ * @param {boolean} types - Accept types.
+ * @returns {string[]} Babel preset Typescript config.
+ */
+function presetTypescript(types) {
+  if (types) return ['@babel/preset-typescript']
+  return []
 }
 
 /**

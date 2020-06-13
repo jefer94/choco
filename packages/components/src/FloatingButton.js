@@ -1,6 +1,6 @@
 import React, { memo } from 'react'
 import styled from 'styled-components'
-import Button from './Button'
+import { Button } from './Button'
 
 /** @module components/FloatingButton */
 

@@ -5,6 +5,7 @@ import { eslint } from 'rollup-plugin-eslint'
 // import builtins from 'rollup-plugin-node-builtins'
 // import globals from 'rollup-plugin-node-globals'
 import { terser } from 'rollup-plugin-terser'
+// import typescript from '@rollup/plugin-typescript'
 
 /** @module @choco/configs */
 
@@ -12,6 +13,7 @@ import { terser } from 'rollup-plugin-terser'
  * @typedef RollupOptions
  * @property {boolean} debug - Is debug.
  * @property {boolean} ignoreEslint - Ignore eslint checking.
+ * @property {boolean} types - Use types.
  */
 
 /**
@@ -23,9 +25,9 @@ import { terser } from 'rollup-plugin-terser'
  * rollup('module-name')
  * @returns {object} Rollup config.
  */
-export function rollup(module, { debug, ignoreEslint } = {}) {
+export function rollup(module, { debug, ignoreEslint, types } = {}) {
   return {
-    input: 'src/index.js',
+    input: `src/index.${types ? 'ts' : 'js'}`,
     output: [
       {
         file: `dist/${module}.esm.js`,
@@ -37,34 +39,19 @@ export function rollup(module, { debug, ignoreEslint } = {}) {
         format: 'commonjs',
         preferConst: true,
         sourcemap: true
-      },
-      {
-        file: `dist/${module}.amd.js`,
-        format: 'amd',
-        sourcemap: true
-      },
-      {
-        file: `dist/${module}.umd.js`,
-        format: 'umd',
-        name: `@choco/${module}`,
-        sourcemap: true
       }
     ],
     external: (id) => !/^(\.|\/)/.test(id),
     plugins: [
-      ...[
-        // globals(),
-        resolve()
-        // builtins(),
-        // babel(),
-      ],
+      // globals(),
+      resolve({ extensions: ['.js', '.jsx', '.ts', '.tsx'] }),
+      // builtins(),
+      // babel(),
       ...eslintConfig(ignoreEslint),
-      ...[
-        babel({
-          exclude: 'node_modules/**',
-          runtimeHelpers: true
-        })
-      ],
+      babel({
+        exclude: 'node_modules/**',
+        runtimeHelpers: true
+      }),
       ...lastPlugins(debug)
     ]
   }
