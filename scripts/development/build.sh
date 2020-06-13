@@ -9,6 +9,7 @@ seed() {
 
   mkdir ./dist > /dev/null 2>&1
 
+  # if [ ! -f ]
   if [ ! -f ./dist/$1.cjs.js ]; then
     echo "module.exports = {}" >> ./dist/$1.cjs.js
   fi
