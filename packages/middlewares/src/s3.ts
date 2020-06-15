@@ -1,6 +1,5 @@
 // https://aws.amazon.com/es/sdk-for-node-js/
 import AWS, { S3 } from 'aws-sdk'
-import { File } from 'multer'
 import { env } from '@choco/env'
 import { Request, Response, NextFunction } from 'express'
 
@@ -59,7 +58,7 @@ export async function uploadToS3(req: Request, res: Response, next: NextFunction
  * @param {number} length - Array length.
  * @returns {Promise<boolean>} Was uploaded.
  */
-async function upload(item: File, s3bucket: S3, req: Request, key = 0, length = 1):
+async function upload(item: Express.Multer.File, s3bucket: S3, req: Request, key = 0, length = 1):
   Promise<boolean> {
   const params = {
     Bucket: env('BUCKET'),
