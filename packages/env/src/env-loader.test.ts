@@ -1,9 +1,7 @@
 const mockConfig = jest.fn()
 
 jest.mock('dotenv', () => ({ __esModule: true,
-  default: {
-    config: mockConfig
-  } }))
+  config: mockConfig }))
 
 test('dotenv has been called', async () => {
   const dep = await import('./env-loader')

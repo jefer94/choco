@@ -1,4 +1,4 @@
-import dotenv from 'dotenv'
+import { config } from 'dotenv'
 import { memo } from '@choco/functional'
 import { keys, externalKey } from './keys'
 
@@ -11,10 +11,10 @@ import { keys, externalKey } from './keys'
  * @example
  * loadEnv()
  */
-export function loadEnv(externalEnv) {
+export function loadEnv(externalEnv?: boolean): void {
   if (externalEnv && typeof externalEnv === 'object') { memo(externalKey, externalEnv) }
   if (!memo(keys)) { memo(keys, []) }
-  dotenv.config({ path: '../../.env' })
+  config({ path: '../../.env' })
 
   const data = externalEnv || process.env
   Object.keys(data).forEach((key) => {

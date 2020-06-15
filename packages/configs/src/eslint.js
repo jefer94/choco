@@ -55,7 +55,7 @@ export function eslint({ next, types } = {}) {
     rules: {
       semi: ['error', 'never'],
       'comma-dangle': ['error', 'never'],
-      'brace-style': ['error', '1tbs', { allowSingleLine: true }],
+      // 'brace-style': ['error', '1tbs', { allowSingleLine: true }],
       'no-plusplus': 'off',
       'space-before-function-paren': ['error', { anonymous: 'always', named: 'never', asyncArrow: 'always' }],
       'object-curly-newline': ['error', { ImportDeclaration: 'never', ExportDeclaration: 'never' }],

@@ -31,20 +31,21 @@ export function read(toRead: string, variables, lastLine) {
 
   // flags
   let isVector = false
-  let newLastLine
+  // let newLastLine
   let input
 
   input = prompt(io.text)
   // if var not exist, not work
   // if (lastLine && lastLine.var) newLastLine = Object.freeze({ ...lastLine, content: input })
   // else newLastLine = Object.freeze({ ...lastLine, var: input })
-  newLastLine = Object.freeze({ ...lastLine, var: input })
+  const newLastLine = Object.freeze({ ...lastLine, var: input })
 
   // vector
   if (toReadCopy.search(/\.io\(/) !== -1) {
     isVector = true
     toReadCopy += `.add(${input})`
   }
+
   // console.log(toReadCopy, typeof toReadCopy)
   else {
     const result = checkVariables(variables[toReadCopy], newLastLine, input)

@@ -1,0 +1,6 @@
+{
+  "name": "@choco/types",
+  "version": "1.0.0",
+  "license": "MIT",
+  "types": "./src/index.d.ts"
+}
