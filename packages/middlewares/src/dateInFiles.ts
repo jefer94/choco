@@ -1,7 +1,8 @@
+import { Request, Response, NextFunction } from 'express'
 /** @module @choco/middlewares */
 
 // eslint-disable-next-line jsdoc/require-jsdoc
-export function dateInFiles(req, res, next) {
+export function dateInFiles(req: Request, res: Response, next: NextFunction): void {
   const files = req.files || [req.file].filter((v) => v)
 
   if (!files) { return next() }

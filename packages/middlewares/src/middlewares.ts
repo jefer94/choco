@@ -1,4 +1,4 @@
-import express from 'express'
+import express, { Application } from 'express'
 import cors from 'cors'
 import helmet from 'helmet'
 import morgan from 'morgan'
@@ -21,7 +21,7 @@ import methodOverride from 'method-override'
  * common(app)
  * common(app, __dirname)
  */
-export default function (app, dir) {
+export function middlewares(app: Application, dir: string): void {
   app
     .use(morgan('combined'))
     .use(helmet())

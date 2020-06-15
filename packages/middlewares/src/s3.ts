@@ -1,11 +1,13 @@
 // https://aws.amazon.com/es/sdk-for-node-js/
-import AWS from 'aws-sdk'
+import AWS, { S3 } from 'aws-sdk'
+import { File } from 'multer'
 import { env } from '@choco/env'
+import { Request, Response, NextFunction } from 'express'
 
 /** @module @choco/middlewares */
 
 // eslint-disable-next-line jsdoc/require-jsdoc
-export async function uploadToS3(req, res, next) {
+export async function uploadToS3(req: Request, res: Response, next: NextFunction): Promise<void> {
   if (!env('BUCKET')) { throw new Error('BUCKET env not set') }
   if (!env('IAM_KEY')) { throw new Error('IAM_KEY env not set') }
   if (!env('IAM_SECRET')) { throw new Error('IAM_SECRET env not set') }
@@ -47,18 +49,18 @@ export async function uploadToS3(req, res, next) {
   }
 }
 
-// eslint-disable-next-line jsdoc/require-example
 /**
  * Upload file to bucket.
  *
  * @param {object} item - File.
- * @param {string} s3bucket - Bucket name.
+ * @param {object} s3bucket - Bucket name.
  * @param {object} req - Request.
  * @param {number} key - Array key.
  * @param {number} length - Array length.
+ * @returns {Promise<boolean>} Was uploaded.
  */
-// eslint-disable-next-line consistent-return
-async function upload(item, s3bucket, req, key = 0, length = 1) {
+async function upload(item: File, s3bucket: S3, req: Request, key = 0, length = 1):
+  Promise<boolean> {
   const params = {
     Bucket: env('BUCKET'),
     // Bucket: 'interpreterhub-development', // process.env.BUCKET,

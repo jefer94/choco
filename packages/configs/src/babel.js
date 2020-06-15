@@ -20,12 +20,6 @@
  */
 // export function babel(isServer = true, useTransformRuntime = true) {
 export function babel({ isServer = true, useTransformRuntime = true, types } = {}) {
-  console.log('=====================\n================================================', {presets: [
-    // next.js
-    // '@babel/preset-react',
-    ...presetTypescript(types),
-    ...presetEnv(isServer)
-  ]})
   return {
     presets: [
       // next.js

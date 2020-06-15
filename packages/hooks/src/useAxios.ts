@@ -1,8 +1,20 @@
-/* eslint-disable no-shadow */
-/* eslint-disable jsdoc/check-examples */
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
+import { Dictionary } from '@choco/configs'
 import axios from 'axios'
 
+type Props<Type> = {
+  readonly method: string
+  readonly url: string
+  readonly object: Type
+  readonly headers: Dictionary
+  readonly wait: boolean
+}
+
+type useAxios<Response, Error> = {
+  readonly data: Response
+  readonly loaded: boolean
+  readonly error: Error
+}
 
 /**
  * @callback FieldSetter
@@ -41,18 +53,15 @@ import axios from 'axios'
  * }
  * @returns {UseAxios} Use axios object.
  */
-export function useAxios({ method = 'get', url, object, headers, wait }) {
-  const [loaded, setLoaded] = useState(false)
-  const [data, setData] = useState(null)
-  const [error, setError] = useState(null)
+export function useAxios<Type, Response, Error>(
+  { method = 'get', url, object, headers, wait }: Props<Type>
+): useAxios<Response, Error> {
+  const [loaded, setLoaded] = useState<boolean>(false)
+  const [data, setData] = useState<Response>(null)
+  const [error, setError] = useState<Error>(null)
   useEffect(() => {
-    /**
-     * Execute axios request.
-     *
-     * @example
-     * execute()
-     */
-    async function execute() {
+    /** Execute axios request. */
+    async function execute(): Promise<void> {
       try {
         const m = method.toLowerCase()
         const response = m === 'post' || m === 'put' ?
@@ -61,9 +70,11 @@ export function useAxios({ method = 'get', url, object, headers, wait }) {
 
         const { data } = await response
         setData(data)
-      } catch (e) {
+      }
+      catch (e) {
         setError(e.message)
-      } finally {
+      }
+      finally {
         setLoaded(true)
       }
     }

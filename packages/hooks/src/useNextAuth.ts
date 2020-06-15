@@ -1,8 +1,13 @@
 /* eslint-disable no-shadow */
 /* eslint-disable jsdoc/check-examples */
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import Router from 'next/router'
 // import Cookies from 'js-cookie'
+
+type UseNextAuth = {
+  readonly token: string
+  readonly setToken: (token: string) => void
+}
 
 /**
  * Auth redirections.
@@ -24,7 +29,7 @@ import Router from 'next/router'
  * }
  * @returns {object} Auth handler.
  */
-export function useNextAuth(key, redirectTo, whereInLogin = false) {
+export function useNextAuth(key: string, redirectTo: string, whereInLogin = false): UseNextAuth {
   // spinner
   // const [authIsLoaded, setAuthIsLoaded] = useState(false)
   const [token, internalSet] = useState(null)
@@ -41,9 +46,9 @@ export function useNextAuth(key, redirectTo, whereInLogin = false) {
   /**
    * Set auth state.
    *
-   * @param {boolean} token - New auth state.
+   * @param {string} token - New auth state.
    */
-  function setToken(token) {
+  function setToken(token: string): void {
     localStorage.setItem(key, token)
     internalSet(token)
   }

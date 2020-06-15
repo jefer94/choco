@@ -1,11 +1,10 @@
-/* eslint-disable no-await-in-loop */
-/* eslint-disable no-restricted-syntax */
-/* eslint-disable guard-for-in */
 import sharp from 'sharp'
+import { Request, Response, NextFunction } from 'express'
 
 /** @module @choco/middlewares */
 
-export const resizeFiles = (size = [50, 100, 200]) => async (req, res, next) => {
+export const resizeFiles = (size = [50, 100, 200]) => async (
+  req: Request, res: Response, next: NextFunction): Promise<void> => {
   const files = req.files || [req.file].filter((v) => v)
   const response = [...files]
 

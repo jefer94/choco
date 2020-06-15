@@ -1,8 +1,9 @@
 {
   "name": "@choco/token-killer",
   "version": "1.0.0",
-  "main": "./dist/token-killer.cjs.js",
-  "module": "./dist/token-killer.esm.js",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "author": "Jeferson De Freitas",
   "license": "MIT"
 }

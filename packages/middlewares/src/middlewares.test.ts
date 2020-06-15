@@ -1,3 +1,5 @@
+// import { Application } from 'express'
+
 const mockCors = jest.fn()
 const mockHelmet = jest.fn()
 const mockMorgan = jest.fn()
@@ -24,9 +26,10 @@ jest.mock('body-parser', () => ({ __esModule: true,
 
 test('common use all middlewares', async () => {
   const use = () => ({ use })
-  const middlewares = await import('./middlewares')
+  // const app: Application = { use }
+  const { middlewares } = await import('./middlewares')
 
-  middlewares.default({ use }, __dirname)
+  middlewares({ use }, __dirname)
 
   expect(mockCors).toHaveBeenCalled()
   expect(mockHelmet).toHaveBeenCalled()

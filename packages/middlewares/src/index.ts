@@ -1,9 +1,5 @@
-import '@choco/env'
-import middlewares from './middlewares'
-
-export default middlewares
 export * from './http'
-// export * from './middlewares'
+export * from './middlewares'
 export * from './s3'
 export * from './dateInFiles'
 export * from './files'
