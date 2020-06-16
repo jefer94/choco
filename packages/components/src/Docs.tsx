@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 // import './Docs.sass'1
 // import keychain from '@choco/keychain'
 
@@ -26,7 +26,7 @@ import React from 'react'
  * //   description: 'Awesome description',
  * //   content: 'Awesome content'
  * // }
- * @returns {Doc} Doc
+ * @returns {Doc} Doc.
  */
 // function addDoc(name, description, content) {
 //   return {
@@ -39,18 +39,18 @@ import React from 'react'
 
 
 /**
- * Generate Docs component, with examples
+ * Generate Docs component, with examples.
  *
- * @todo store and load examples
- * @todo sync in the cloud algorithms
+ * @todo Store and load examples.
+ * @todo Sync in the cloud algorithms.
  * @example
  * import React from 'react'
  * import Docs from 'components/Docs'
  *
  * const Component = () => <Docs />
- * @returns {object} Docs
+ * @returns {object} Docs.
  */
-export default function () {
+export default function Docs(): ReactElement {
   // const docs = [
   //   addDoc('hola', 'asdasdsaddsasddsadsadaddsaa'),
   //   addDoc('hola', 'asdasdsaddsasddsadsadaddsaa'),

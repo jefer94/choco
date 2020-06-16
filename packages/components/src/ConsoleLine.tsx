@@ -1,7 +1,8 @@
-import React, { memo } from 'react'
+import React, { memo, ReactElement } from 'react'
 import PropTypes from 'prop-types'
 // import './Console.sass'
 import styled from 'styled-components'
+import { Dictionary } from '@choco/types'
 // #393035
 
 /** @module components/Console */
@@ -39,10 +40,23 @@ const Line = styled.div`
   margin-left: {(v) => !v.firstLine ? 0 : 'unset'};
 `
 
+export type ConsoleLineProp = {
+  readonly id: string
+  readonly value: string
+  readonly var: string
+  readonly content: string
+}
+
+type Props = {
+  readonly theme: Dictionary
+  readonly line: ConsoleLineProp
+  readonly lineNumber: number
+}
+
 /**
  * Console component, base in C/C++ style.
  *
- * @param {ConsoleProps} props - Doc name.
+ * @param {ConsoleProps} props - Console line props.
  * @example
  * import React from 'react'
  * import Console from 'components/Console'
@@ -50,7 +64,7 @@ const Line = styled.div`
  * const Component = () => <Console />
  * @returns {object} Doc.
  */
-function ConsoleLine({ theme, line, lineNumber }) {
+function ConsoleLine({ theme, line, lineNumber }: Props): ReactElement {
   return (
     <LineWrapper theme={theme}>
       { lineNumber === 0 ? (

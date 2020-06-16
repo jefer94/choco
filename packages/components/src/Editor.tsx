@@ -1,7 +1,8 @@
-import React, { useState, memo, useEffect } from 'react'
+import React, { useState, memo, useEffect, ReactElement } from 'react'
 // import React, { useState, memo, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import Codemirror from './CodemirrorWrapper'
+import { Dictionary } from '@choco/types'
 // import { editor as monaco } from 'monaco-editor/esm/vs/editor/editor.main'
 // export { ControlledEditor } from '@monaco-editor/react'
 // import { ControlledEditor } from '@monaco-editor/react'
@@ -14,7 +15,7 @@ import Codemirror from './CodemirrorWrapper'
  *
  * @returns {number} Height less navbar.
  */
-function windowHeight() {
+function windowHeight(): number {
   // return +window.innerHeight - 71
   return +window.innerHeight - 48
 }
@@ -24,20 +25,26 @@ function windowHeight() {
  *
  * @returns {number} Width less navbar.
  */
-function windowWidth() {
+function windowWidth(): number {
   return +window.innerWidth
 }
 
 /**
- * @typedef {Object} EditorProps
- * @property {string} content - Value of editor
- * @property {callback} onChange - On change send current content
+ * @typedef {object} EditorProps
+ * @property {string} content - Value of editor.
+ * @property {callback} onChange - On change send current content.
  */
+
+type Props = {
+  readonly content: string
+  readonly onChange: () => void
+  readonly theme: Dictionary
+}
 
 /**
  * Edidor wrapper.
  *
- * @param {EditorProps} props
+ * @param {EditorProps} props - Editor props.
  * @example
  * // returns <Editor ... />
  * import React from 'react'
@@ -46,9 +53,9 @@ function windowWidth() {
  * export default function () {
  *   return <Editor content="Content" onChange={value => console.log(value) } />
  * }
- * @returns {object} <Editor ... />
+ * @returns {object} <Editor ... />.
  */
-function Editor({ content, onChange, theme }) {
+function Editor({ content, onChange, theme }: Props): ReactElement {
   const [height, setHeight] = useState(windowHeight())
   const [width, setWidth] = useState(windowWidth())
 

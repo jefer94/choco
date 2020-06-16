@@ -1,8 +1,10 @@
-import React, { memo } from 'react'
+import React, { memo, ReactElement, ReactChildren } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import MenuItem from './MenuItem'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
+import MenuItem from './MenuItem'
+import { Dictionary } from '@choco/types'
+import { IconProp } from '@fortawesome/fontawesome-svg-core'
 
 // import './Menu.sass'
 
@@ -38,13 +40,37 @@ const ContentWrapper = styled.div`
 `
 
 /**
+ * @typedef {object} MenuProps
+ * @property {string} id - Menu id.
+ * @property {string} url - Menu url.
+ * @property {object} icon - Menu icon.
+ * @property {boolean} active - Menu active.
+ */
+
+export type MenuItemProp = {
+  readonly id: string
+  readonly url: string
+  readonly icon: IconProp
+  readonly active: boolean
+}
+
+type Props = {
+  readonly theme: Dictionary
+  readonly children: ReactChildren
+  readonly items: readonly MenuItemProp[]
+  readonly isOpen: boolean
+  readonly toggle: () => void
+}
+
+/**
  * App Menu.
  *
- * @param {object} children - Children of menu.
- * @todo Color of tabs menu
- * @todo Hide menu when click an icon
+ * @param {MenuProps} props - Link props.
+ * @returns {object} Menu element.
+ * @todo Color of tabs menu.
+ * @todo Hide menu when click an icon.
  */
-function Menu({ theme, children, items, isOpen, toggle }) {
+function Menu({ theme, children, items, isOpen, toggle }: Props): ReactElement {
   return (
     <>
       <MenuWrapper theme={theme} show={isOpen}>

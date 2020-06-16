@@ -1,10 +1,15 @@
-import React, { memo } from 'react'
+import React, { memo, ReactElement } from 'react'
 import PropTypes from 'prop-types'
 import PulseLoader from 'react-spinners/PulseLoader'
 // import './Loading.sass'
 import styled from 'styled-components'
 
 /** @module components/Loading */
+
+type Props = {
+  readonly className: string
+  readonly color: string
+}
 
 /**
  * Loading spinner component.
@@ -13,7 +18,7 @@ import styled from 'styled-components'
  * <Loading />
  * @returns {object} <Loading />
  */
-function Loading({ className, color }) {
+function Loading({ className, color }: Props): ReactElement {
   return (
     <div className={className}>
       <PulseLoader color={color} loading />

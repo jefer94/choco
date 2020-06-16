@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, ReactElement, ReactChildren } from 'react'
 import PropTypes from 'prop-types'
 import ServerLink from 'next/link'
 // import { Link as BrowserLink } from 'react-router-dom'
@@ -20,7 +20,26 @@ import ServerLink from 'next/link'
 //   )
 // }
 
-export default function Link({ to, children }) {
+/**
+ * @typedef {object} LinkProps
+ * @property {string} to - Link to.
+ * @property {object} children - Link children.
+ */
+
+type Props = {
+  readonly to: string
+  readonly children: ReactChildren
+}
+
+/**
+ * Link.
+ *
+ * @param {LinkProps} props - Link props.
+ * @example
+ * <Link to="#" />
+ * @returns {object} <Editor ... />
+ */
+export default function Link({ to, children }: Props): ReactElement {
   return (
     <ServerLink href={to}>
       {children}

@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import PropTypes from 'prop-types'
 import Link from './Link'
 import styled from 'styled-components' // eslint-disable-line
 import Icon from './Icon'
+import { IconProp } from '@fortawesome/fontawesome-svg-core'
+import { Dictionary } from '@choco/types'
 
 const BaseStyled = `
   display: flex;
@@ -16,7 +18,28 @@ const BaseStyled = `
   color: #D7DAE0;
 `
 
-function MenuLink({ className, theme, url, icon }) {
+/**
+ * @typedef {object} MenuItemProps
+ * @property {string} id - Menu id.
+ * @property {string} url - Menu url.
+ * @property {object} icon - Menu icon.
+ * @property {boolean} active - Menu active.
+ */
+
+export type Props = {
+  readonly className: string
+  readonly theme: Dictionary
+  readonly url: string
+  readonly icon: IconProp
+}
+
+/**
+ * Menu link element.
+ *
+ * @param {MenuItemProps} props - Menu link props.
+ * @returns {object} Menu link.
+ */
+function MenuLink({ className, theme, url, icon }: Props): ReactElement {
   console.log(icon, 'icon')
   return (
     <div className={className}>

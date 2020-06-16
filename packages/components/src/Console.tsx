@@ -1,7 +1,8 @@
-import React, { memo } from 'react'
+import React, { ReactElement } from 'react'
 import PropTypes from 'prop-types'
 // import './Console.sass'
-import ConsoleLine from './ConsoleLine'
+import { Dictionary } from '@choco/types'
+import ConsoleLine, { ConsoleLineProp } from './ConsoleLine'
 // #393035
 
 /** @module components/Console */
@@ -18,10 +19,15 @@ import ConsoleLine from './ConsoleLine'
  * @property {Line[]} lines - Doc key.
  */
 
+type Props = {
+  readonly lines: readonly ConsoleLineProp[]
+  readonly theme: Dictionary
+}
+
 /**
  * Console component, base in C/C++ style.
  *
- * @param {ConsoleProps} props - Doc name.
+ * @param {ConsoleProps} props - Console props.
  * @example
  * import React from 'react'
  * import Console from 'components/Console'
@@ -29,7 +35,7 @@ import ConsoleLine from './ConsoleLine'
  * const Component = () => <Console />
  * @returns {object} Doc.
  */
-function Console({ lines, theme }) {
+function Console({ lines, theme }: Props): ReactElement {
   return (
     <main id="content2" className="tab">
       <div className="console">

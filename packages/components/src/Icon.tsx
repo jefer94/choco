@@ -1,24 +1,30 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import PropTypes from 'prop-types'
 // import './Icon.sass'
 import styled from 'styled-components'
+import { IconProp } from '@fortawesome/fontawesome-svg-core'
 import FontAwesomeIcon from './FontAwesomeWrapper'
 
 /** @module components/Icon */
 
 /**
  * @typedef {object} IconProps
- * @property {string} name - Icon from FontAwesome
+ * @property {string} name - Icon from FontAwesome.
  */
 
+type Props = {
+  readonly className: string
+  readonly name: IconProp
+}
 /**
- * Edidor wrapper
- * @param {IconProps} props
+ * Edidor wrapper.
+ *
+ * @param {IconProps} props - Icon props.
  * @example
  * <Icon name={FontAwesomeIcon} />
- * @returns {object} <Editor ... />
+ * @returns {object} <Icon ... />.
  */
-function Icon({ className, name }) {
+function Icon({ className, name }: Props): ReactElement {
   return <FontAwesomeIcon className={className} icon={name} />
 }
 Icon.propTypes = {

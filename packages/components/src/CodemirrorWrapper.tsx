@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, createRef, useState } from 'react'
+import React, { useRef, useEffect, createRef, useState, FunctionComponent, ReactElement } from 'react'
 import styled from 'styled-components'
 // import {EditorView} from "@codemirror/next/view"
 // import {EditorState} from "@codemirror/next/state"
@@ -20,7 +20,12 @@ import { UnControlled as CodeMirror } from 'react-codemirror2'
 //   }
 // `
 
-function CodemirrorWrapper({ className, content }) {
+type Props = {
+  readonly className: string
+  readonly content: string
+}
+
+function CodemirrorWrapper({ className, content }: Props): ReactElement {
   const [loading, setLoading] = useState(true)
   let div = useRef()
   let editor = useRef()
@@ -37,7 +42,7 @@ function CodemirrorWrapper({ className, content }) {
   return (
     // <div className={className} ref={div} />
     <CodeMirror
-      value='<h1>I ♥ react-codemirror2</h1>'
+      value="<h1>I ♥ react-codemirror2</h1>"
       options={{
         mode: 'xml',
         theme: 'material',

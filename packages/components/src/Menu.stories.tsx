@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { faHome } from '@fortawesome/free-solid-svg-icons'
 import Menu from './Menu'
@@ -6,11 +6,11 @@ import Menu from './Menu'
 
 export default { title: 'Menu' }
 
-export const emplyMenu = () => (
+export const emplyMenu = (): ReactElement => (
   <Menu color="#f00" borderColor="#0f0" />
 )
 
-export const menuWithTwoItems = () => (
+export const menuWithTwoItems = (): ReactElement => (
   <Menu
     color="#f00"
     borderColor="#0f0"
