@@ -14,7 +14,7 @@ const type = Object.freeze({
   bool: 'bool'
 })
 
-function manualKeychain() {
+function manualKeychain(): string {
   id += 1
   return `line_${id}`
 }
@@ -107,7 +107,7 @@ test('io error is true', () => {
 })
 
 test('write Vector', () => {
-  const list = new Vector(10)
+  const list = new Vector<number>(10)
   const testElements = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
   testElements.forEach((v) => {
     list.io(v).add(v)

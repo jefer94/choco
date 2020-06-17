@@ -64,7 +64,7 @@ type Props = {
  * const Component = () => <Console />
  * @returns {object} Doc.
  */
-function ConsoleLine({ theme, line, lineNumber }: Props): ReactElement {
+function ConsoleLine({ theme = {}, line, lineNumber }: Props): ReactElement {
   return (
     <LineWrapper theme={theme}>
       { lineNumber === 0 ? (
@@ -86,7 +86,7 @@ const line = {
   var: PropTypes.string
 }
 ConsoleLine.propTypes = {
-  theme: PropTypes.objectOf(PropTypes.string).isRequired,
+  theme: PropTypes.objectOf(PropTypes.string),
   line: PropTypes.shape(line).isRequired,
   lineNumber: PropTypes.number.isRequired
 }

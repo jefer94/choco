@@ -2,11 +2,10 @@ import React, { useRef, useEffect, createRef, useState, FunctionComponent, React
 import styled from 'styled-components'
 // import {EditorView} from "@codemirror/next/view"
 // import {EditorState} from "@codemirror/next/state"
-// import { EditorView } from '@codemirror/next/view'
-// import { EditorView, EditorState, GutterMarker } from '@codemirror/next'
-// import { EditorState } from '@codemirror/next/state'
-// import { GutterMarker } from '@codemirror/next/gutter'
-import { UnControlled as CodeMirror } from 'react-codemirror2'
+import { EditorView } from '@codemirror/next/view'
+import { EditorState } from '@codemirror/next/state'
+import { GutterMarker } from '@codemirror/next/gutter'
+// import { UnControlled as CodeMirror } from 'react-codemirror2'
 
 // const Div = styled.div`
 //   & > div {
@@ -25,37 +24,37 @@ type Props = {
   readonly content: string
 }
 
-function CodemirrorWrapper({ className, content }: Props): ReactElement {
+function CodemirrorWrapperBase({ className, content }: Props): ReactElement {
   const [loading, setLoading] = useState(true)
   let div = useRef()
   let editor = useRef()
 
-  // useEffect(() => {
-  //   if (loading) {
-  //     editor.current = new EditorView({state: EditorState.create({doc: content, extensions: []}) })
-  //     setLoading(false)
-  //   }
+  useEffect(() => {
+    if (loading) {
+      editor.current = new EditorView({state: EditorState.create({doc: content, extensions: []}) })
+      setLoading(false)
+    }
   
-  //   else if (div.current && editor.current) div.current.appendChild(editor.current.dom)
-  // }, [loading])
+    else if (div.current && editor.current) div.current.appendChild(editor.current.dom)
+  }, [loading])
 
   return (
-    // <div className={className} ref={div} />
-    <CodeMirror
-      value="<h1>I ♥ react-codemirror2</h1>"
-      options={{
-        mode: 'xml',
-        theme: 'material',
-        lineNumbers: true
-      }}
-      onChange={(editor, data, value) => {
-        console.log(value)
-      }}
-    />
+    <div className={className} ref={div} />
+    // <CodeMirror
+    //   value="<h1>I ♥ react-codemirror2</h1>"
+    //   options={{
+    //     mode: 'xml',
+    //     theme: 'material',
+    //     lineNumbers: true
+    //   }}
+    //   onChange={(editor, data, value) => {
+    //     console.log(value)
+    //   }}
+    // />
   )
 }
 
-export default styled(CodemirrorWrapper)`
+export const CodemirrorWrapper = styled(CodemirrorWrapper)`
   & > div {
     height: ${(v) => v.height};
     max-height: ${(v) => v.height};

@@ -8,7 +8,7 @@ import styled from 'styled-components'
 
 type Props = {
   readonly className: string
-  readonly color: string
+  readonly color: string | undefined
 }
 
 /**
@@ -18,19 +18,19 @@ type Props = {
  * <Loading />
  * @returns {object} <Loading />
  */
-function Loading({ className, color }: Props): ReactElement {
+function LoadingBase({ className, color }: Props): ReactElement {
   return (
     <div className={className}>
       <PulseLoader color={color} loading />
     </div>
   )
 }
-Loading.propTypes = {
+LoadingBase.propTypes = {
   className: PropTypes.string.isRequired,
-  color: PropTypes.string.isRequired
+  color: PropTypes.string
 }
 
-const LoadingStyled = styled(Loading)`
+export const Loading = styled(LoadingBase)`
   display: flex;
   width: 100vw;
   height: 100vh;
@@ -38,5 +38,3 @@ const LoadingStyled = styled(Loading)`
   align-items: center;
   background-color: ${(v) => v.background}
 `
-
-export default LoadingStyled

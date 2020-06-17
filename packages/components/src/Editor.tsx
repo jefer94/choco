@@ -1,8 +1,8 @@
 import React, { useState, memo, useEffect, ReactElement } from 'react'
 // import React, { useState, memo, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import Codemirror from './CodemirrorWrapper'
 import { Dictionary } from '@choco/types'
+import { CodemirrorWrapper } from './CodemirrorWrapper'
 // import { editor as monaco } from 'monaco-editor/esm/vs/editor/editor.main'
 // export { ControlledEditor } from '@monaco-editor/react'
 // import { ControlledEditor } from '@monaco-editor/react'
@@ -92,7 +92,7 @@ function Editor({ content, onChange, theme }: Props): ReactElement {
           autoIndent: 'full'
         }}
       /> */}
-      <Codemirror height="calc(100vh - 48px)" theme={theme} content={content} />
+      <CodemirrorWrapper height="calc(100vh - 48px)" theme={theme} content={content} />
     </main>
   )
 }

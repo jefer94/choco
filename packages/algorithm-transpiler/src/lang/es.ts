@@ -79,7 +79,7 @@ export default function es(): void {
     double: 'Error: no es flotante',
     string: 'Error: no es una cadena',
     bool: 'Error: no es booleano',
-    unknow: (type) => `Error: ${type} no es un tipo de variable valido`
+    unknow: (type: string): string => `Error: ${type} no es un tipo de variable valido`
   })
 
   locale.set(lang, 'error', {

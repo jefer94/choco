@@ -37,8 +37,8 @@ export function useNextAuth(key: string, redirectTo: string, whereInLogin = fals
   useEffect(() => {
     const currentToken = localStorage.getItem(key)
     internalSet(currentToken)
-    if (whereInLogin && currentToken) { Router.push(redirectTo) }
-    if (!whereInLogin && !currentToken) { Router.push(redirectTo) }
+    if (whereInLogin && currentToken) Router.push(redirectTo)
+    if (!whereInLogin && !currentToken) Router.push(redirectTo)
     // spinner
     // setAuthIsLoaded(true)
   }, [key, token, whereInLogin, redirectTo])

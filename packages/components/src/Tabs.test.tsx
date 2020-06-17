@@ -15,7 +15,7 @@ test('without multitabs feature prop', () => {
   const tabs = [
     item('Tab1', 'Content1', true)
   ]
-  const { getAllByText } = render(<Tabs tabs={tabs} multiTabsFeature={false} />)
+  const { getAllByText } = render(<Tabs tabs={tabs} />)
   expect(getAllByText('Tab1').length).toBe(1)
 })
 
@@ -45,7 +45,6 @@ test('with multitabs feature prop', () => {
     add={addFunc}
     remove={removeFunc}
     change={changeFunc}
-    multiTabsFeature={true}
   />)
 
   expect(addFunc.mock.calls.length).toBe(0)

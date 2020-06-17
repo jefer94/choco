@@ -13,12 +13,16 @@ import transform from './transform'
 let tabs
 let store
 
+export type VariableStore = {
+  readonly varAdd: (value: string, name: string) => void
+  readonly varReset: () => void
+}
 
-export function setDispatch({ varAdd, varReset }) {
+export function setDispatch({ varAdd, varReset }: VariableStore): void {
   store = { varAdd, varReset }
 }
 
-export function setTabs(externalTabs) {
+export function setTabs(externalTabs): void {
   tabs = externalTabs
 }
 

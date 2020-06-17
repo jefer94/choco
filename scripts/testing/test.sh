@@ -2,24 +2,27 @@
 
 cd ./packages
 
-# if grep -q "jesttt" ./package.json; then echo a; else echo b; fi
-if [ $1 ]; then
-  cd $1
-  # --detectOpenHandles
-  # --listTests
-  # --runInBand
-  # --bail
-  if ! yarn jest --forceExit --detectOpenHandles --notify ./ $2; then
+jest() {
+  if ! yarn jest --forceExit --passWithNoTests --detectOpenHandles --notify --preset ts-jest --testEnvironment $1 ./ $2; then
     exit 1
   fi
+}
+
+jestEnv() {
+  cd $1
+  if [ -f .node ]; then
+    jest node $2
+  elif [ -f .browser ]; then
+    jest jsdom $2
+  fi
   cd ..
+}
+
+if [ $1 ]; then
+  jestEnv $1 $2
 else
-  for i in *; do
-    cd $i
-    if ! yarn jest --forceExit --passWithNoTests --detectOpenHandles ./; then
-      exit 1
-    fi
-    cd ..
+  for folder in *; do
+    jestEnv $folder
   done
 fi
 

@@ -8,13 +8,15 @@ import locale from '@choco/i18n'
  * @param {string} code - Algorithm lines.
  */
 
+export type Files = readonly [string, string]
+
 /**
  * Get name of algorithm.
- * @param {string} code - Algorithm lines
- * @returns {Files} Algorithm name and lines but first line
- * return
+ *
+ * @param {string} code - Algorithm lines.
+ * @returns {Files} Algorithm name and lines but first line.
  */
-export default function (code) {
+export default function files(code: string): Files {
   const { algorithmWord } = locale.all()
   const [firstLine, ...lines] = code.split('\n')
   const [keyword, name, ...restOfWords] = firstLine.split(' ')

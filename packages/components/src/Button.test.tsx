@@ -1,7 +1,7 @@
 import React from 'react'
 import 'jest-styled-components'
 import renderer from 'react-test-renderer'
-import Button from './Button'
+import { Button } from './Button'
 
 test('it works', () => {
   [undefined, '#111', '#222', '#333'].forEach((color) => {

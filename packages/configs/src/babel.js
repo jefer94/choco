@@ -9,8 +9,6 @@
 /**
  * Babel config.
  *
- * @param {boolean} isServer - Is server.
- * @param {boolean} useTransformRuntime - Use transform runtime.
  * @param {BabelConfig} BabelConfig - Babel configs.
  * @example
  * const isServer = true
@@ -31,7 +29,8 @@ export function babel({ isServer = true, useTransformRuntime = true, types } = {
       '@babel/plugin-proposal-class-properties',
       ['styled-components', { ssr: true, displayName: true, preprocess: false }],
       ...transformRuntime(useTransformRuntime)
-    ]]
+    ]],
+    ignore: []
   }
 }
 

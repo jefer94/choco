@@ -79,7 +79,7 @@ export default function() {
     double: 'Error: don\'t is float',
     string: 'Error: don\'t is string',
     bool: 'Error: don\'t is boolean',
-    unknow: (type) => `Error: ${type} is not a valid variable type`
+    unknow: (type: string): string => `Error: ${type} is not a valid variable type`
   })
 
   locale.set(lang, 'error', {

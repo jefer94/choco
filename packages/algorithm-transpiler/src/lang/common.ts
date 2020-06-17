@@ -35,3 +35,5 @@ export type LangCloseBracket = readonly string[]
 export type LangRead = readonly string[]
 export type LangWrite = readonly string[]
 export type LangCode = readonly string[]
+
+export type JavascriptType = 'int' | 'double' | 'string' | 'bool'

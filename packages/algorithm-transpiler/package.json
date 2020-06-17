@@ -5,5 +5,8 @@
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "author": "Jeferson De Freitas",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "@choco/types": "^1.0.0"
+  }
 }

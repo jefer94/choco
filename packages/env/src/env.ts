@@ -50,11 +50,8 @@ export function env(key?: string, value?: string): string | Dictionary {
   if (value) {
     process.env[key] = value
     memo(memokey, value)
-    if (memo(keys)) {
-      memo(keys, [...Object.values(memo(keys)), key]) // error
-    } else {
-      memo(keys, [key]) // error
-    }
+    if (memo(keys)) memo(keys, [...Object.values(memo(keys)), key])
+    else memo(keys, [key])
   }
   return memo(memokey) || process.env[key]
 }

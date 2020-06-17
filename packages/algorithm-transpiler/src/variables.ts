@@ -1,7 +1,7 @@
 import { compose } from '@choco/functional'
+import locale from '@choco/i18n'
 import comments from './comments'
 import removeSpaces from './spaces'
-import locale from '@choco/i18n'
 import { LangType, LangTypeError, LangError, LangVariables } from './lang/common'
 
 /** @module @choco/algorithm-transpiler/variables */
@@ -19,29 +19,31 @@ import { LangType, LangTypeError, LangError, LangVariables } from './lang/common
  *   'algorithm easy',
  *   'variables',
  *   '  stuff: string',
- *   'start'.
- *   '  ...'.
+ *   'start',
+ *   '  ...',
  *   'end'
  * ]
  * variables(code, store) // return 'var stuff;\n'
  * @returns {string} Javascript variables.
  */
-export default function variables(code: string, store) {
+export default function variables(code: string, store?): string {
   const [firstLine, ...lines] = compose(comments, removeSpaces, ignoreSentences)(code).split('\n')
   const [keyword, ...restOfVarLine] = firstLine.split(' ')
   let result = ''
 
-  if (isVarsZone(keyword, restOfVarLine)) Object.keys(lines).map(Number).forEach((key) => {
-    const words = lines[key].split(' ').filter((v) => v)
+  if (isVarsZone(keyword, restOfVarLine)) {
+    Object.keys(lines).map(Number).forEach((key) => {
+      const words = lines[key].split(' ').filter((v) => v)
 
-    Object.keys(words).map(Number).forEach((j) => {
-      if (j < words.length - 1) {
-        const word = prepareWord(words[j])
-        result += `var ${word};\n`
-        reserveVars(store, words[words.length - 1], purgeVarName(words[j]))
-      }
+      Object.keys(words).map(Number).forEach((j) => {
+        if (j < words.length - 1) {
+          const word = prepareWord(words[j])
+          result += `var ${word};\n`
+          reserveVars(store, words[words.length - 1], purgeVarName(words[j]))
+        }
+      })
     })
-  })
+  }
   return result.split('\n').filter((v) => v).join('\n')
 }
 

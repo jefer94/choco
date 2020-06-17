@@ -1,6 +1,15 @@
 import locale from '@choco/i18n'
+import { Dictionary } from '@choco/types'
+import { LangOpenBracket, LangCloseBracket } from '../dist/lang/common'
 
-export default function brackets(keywords, currentJS) {
+/**
+ * Generate javascript brackets.
+ *
+ * @param {string[]} keywords - Keywords.
+ * @param {string} currentJS - Current JS.
+ * @returns {string} Javascript brackets.
+ */
+export default function brackets(keywords: readonly string[], currentJS: string): string {
   let js = currentJS
   Object.keys(keywords).map(Number).forEach((key) => {
     js += bracketsLine(keywords[key])
@@ -8,11 +17,20 @@ export default function brackets(keywords, currentJS) {
   return js
 }
 
-function bracketsLine(keyword) {
-  const { openBracket, closeBracket, transpiler, tokens } = locale.all()
+/**
+ * Generate javascript brackets for line.
+ *
+ * @param {string} keyword - Keyword.
+ * @returns {string} Javascript brackets for line.
+ */
+function bracketsLine(keyword: string): string {
+  const openBracket = locale.one<LangOpenBracket>('openBracket')
+  const closeBracket = locale.one<LangCloseBracket>('closeBracket')
+  const transpiler = locale.one<Dictionary>('transpiler')
+  const tokens = locale.one<Dictionary>('tokens')
   if (openBracket.indexOf(keyword) !== -1) return '{ '
-  else if (closeBracket.indexOf(keyword) !== -1) return '}'
-  else if (transpiler[keyword]) return `${transpiler[keyword]} `
-  else if (tokens[keyword]) return `${tokens[keyword]} `
-  else return `${keyword} `
+  if (closeBracket.indexOf(keyword) !== -1) return '}'
+  if (transpiler[keyword]) return `${transpiler[keyword]} `
+  if (tokens[keyword]) return `${tokens[keyword]} `
+  return `${keyword} `
 }

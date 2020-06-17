@@ -17,7 +17,7 @@ let client
  * @example
  * startDB()
  */
-export function startDB() {
+export function startDB(): void {
   client = createClient()
 
   client.on('error', (error) => {
@@ -61,15 +61,18 @@ app.post('/', async (req, res) => {
           client.set(req.body.key, req.body.value, print)
           res.statusCode = 204
           res.send()
-        } else {
+        }
+        else {
           res.send(await clientGet(req.body.key))
         }
       }
-    } catch (e) {
+    }
+    catch (e) {
       res.statusCode = 500
       res.json(JSON.stringify(e))
     }
-  } else {
+  }
+  else {
     res.statusCode = 500
     res.send('')
   }

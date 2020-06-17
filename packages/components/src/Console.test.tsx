@@ -8,7 +8,13 @@ import keychain from '@choco/keychain'
 // remove svg icon
 jest.mock('./Icon')
 
-function item(content, variable) {
+type Item = {
+  readonly id: string
+  readonly var?: string
+  readonly content: string
+}
+
+function item(content: string, variable?: string): Item {
   return { id: keychain('tab'), var: variable, content }
 }
 

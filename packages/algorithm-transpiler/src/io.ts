@@ -1,7 +1,8 @@
 import keychain from '@choco/keychain'
 import locale from '@choco/i18n'
 import spaces from './spaces'
-import { LangError, LangTypeError } from './lang/common'
+import { LangError, LangTypeError, JavascriptType, LangVariables } from './lang/common'
+import { VectorIO } from './vector'
 
 /** @module @choco/algorithm-transpiler/io */
 
@@ -26,7 +27,30 @@ export const io = {
   }
 }
 
-export function read(toRead: string, variables, lastLine) {
+type IoLine = {
+  readonly id: string
+  readonly error: boolean
+  readonly content: string
+  readonly var?: string
+}
+
+
+/**
+ * @typedef {object} ReadResponse
+ * @property {string} assign - Read response assign.
+ * @property {string} lastLine - Read response lastLine.
+ */
+
+type ReadResponse = {
+  readonly assign: string
+  readonly lastLine: IoLine
+}
+
+export type IoVariables = {
+  readonly [key: string]: JavascriptType
+}
+
+export function read(toRead: string, variables: IoVariables, lastLine?: IoLine): ReadResponse {
   let toReadCopy = spaces(toRead)
 
   // flags
@@ -60,17 +84,18 @@ export function read(toRead: string, variables, lastLine) {
   return readResponse(`${toReadCopy} = ${input};`, newLastLine)
 }
 
-function readResponse(assign, lastLine) {
+function readResponse(assign: string, lastLine: IoLine): ReadResponse {
   // const id = keychain('line')
   return Object.freeze({ assign, lastLine })
 }
 
-function checkVariables(type, newLastLine, input) {
+function checkVariables(type: JavascriptType, newLastLine: IoLine, input: string): ReadResponse |
+  undefined {
   const typeError = locale.one<LangTypeError>('typeError')
 
   switch (type) {
     case 'int':
-      if (Number.isNaN(Number(input)) || +input !== Math.trunc(input)) return readResponse(`write('${typeError.int}'); io.error();`, newLastLine)
+      if (Number.isNaN(Number(input)) || +input !== Math.trunc(+input)) return readResponse(`write('${typeError.int}'); io.error();`, newLastLine)
       break
     case 'double':
       if (Number.isNaN(Number(input))) return readResponse(`write('${typeError.double}'); io.error();`, newLastLine)
@@ -93,22 +118,36 @@ function fixInputToBoolean(type: string, input: string): string {
 }
 
 /**
+ * @typedef {object} WriteResponse
+ * @property {string} id - Write response id.
+ * @property {boolean} error - Write response error.
+ * @property {string} content - Write response content.
+ */
+
+type WriteInput = string | number | VectorIO<string> | VectorIO<number> | VectorIO<boolean>
+
+/**
  * Print an array of elements.
  *
- * @param  {...any} args Array the elements.
- * @todo Write all comments from this zone.
+ * @param {...any} args - Array the elements.
+ * @returns {WriteResponse} Write object.
  */
-export function write(...args: any[]) {
+export function write(...args: readonly WriteInput[]): IoLine {
   const error = locale.one<LangError>('error')
   // var
   let result = ''
   let err
-  Object.values(args).forEach((text) => {
+  args.forEach((text) => {
     let textCopy = text
-    if (typeof textCopy === 'object' && textCopy.isVector && textCopy.isVector()) textCopy = textCopy.show()
-
-    if (typeof textCopy === 'number' && Number.isNaN(textCopy)) err = `write('${error.stringForNumber}'); io.error();`
-    if (typeof textCopy === 'number' && !Number.isFinite(textCopy)) err = `write('${error.infinity}'); io.error();`
+    if (typeof textCopy === 'object' && textCopy.isVector && textCopy.isVector()) {
+      textCopy = textCopy.show().toString()
+    }
+    if (typeof textCopy === 'number' && Number.isNaN(textCopy)) {
+      err = `write('${error.stringForNumber}'); io.error();`
+    }
+    if (typeof textCopy === 'number' && !Number.isFinite(textCopy)) {
+      err = `write('${error.infinity}'); io.error();`
+    }
     result += textCopy
   })
 

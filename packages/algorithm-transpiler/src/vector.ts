@@ -23,14 +23,14 @@
  */
 
 /**
- * @typedef {object} IO
+ * @typedef {object} VectorIO
  * @property {FunctionAdd} add - Assign value in vector.
  * @property {FunctionShow} show - Get a value of vector.
  * @property {FunctionToString} toString - Get value of vector if it's parse to string.
  * @property {FunctionIsVector} isVector - Confirm that is a vector.
  */
 
-type IO<Type> = {
+export type VectorIO<Type> = {
   readonly add: (value: Type) => void
   readonly show: () => Type
   readonly toString: () => Type
@@ -89,9 +89,9 @@ export class Vector<Type> {
    *
    * @param {number} index - Index of Vector.
    * @see {@link transform}
-   * @returns {IO} Array IO interface.
+   * @returns {VectorIO} Array IO interface.
    */
-  io(index: number): IO<Type> {
+  io(index: number): VectorIO<Type> {
     return {
       add: (value: Type) => this.add(value, index),
       show: () => this.show(index),

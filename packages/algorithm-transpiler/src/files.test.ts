@@ -1,10 +1,10 @@
-import files from './files'
 import locale from '@choco/i18n'
+import files from './files'
 import { algorithmTranspilerLang } from './lang'
 
 algorithmTranspilerLang()
 locale.setLang('en')
-const { code } = locale.all()
+const code = locale.one<string>('code')
 
 test('return correct name', () => {
   const expectResult = code.split('\n').slice(1).join('\n')

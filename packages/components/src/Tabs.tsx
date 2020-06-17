@@ -108,7 +108,6 @@ AddTabButton.defaultProps = {
  * @property {AddTab} add - Icon from FontAwesome.
  * @property {ChangeTab} change - Icon from FontAwesome.
  * @property {RemoveTab} remove - Icon from FontAwesome.
- * @property {boolean} multiTabsFeature - Icon from FontAwesome.
  * @property {object} theme - Icon from theme.
  * @property {boolean} menuIsOpen - Icon from menuIsOpen.
  */
@@ -122,12 +121,11 @@ type Tab = {
 
 type Props = {
   readonly tabs: readonly Tab[]
-  readonly add: () => void
-  readonly change: () => void
-  readonly remove: () => void
-  readonly multiTabsFeature: boolean
-  readonly theme: Dictionary
-  readonly menuIsOpen: boolean
+  readonly add?: () => void
+  readonly change?: () => void
+  readonly remove?: () => void
+  readonly theme?: Dictionary
+  readonly menuIsOpen?: boolean
 }
 
 /**
@@ -144,7 +142,7 @@ type Props = {
  * />
  * @returns {object} <Tabs ... />
  */
-function Tabs({ tabs, add, change, remove, multiTabsFeature, theme, menuIsOpen }: Props):
+function Tabs({ tabs, add, change, remove, theme = {}, menuIsOpen }: Props):
   ReactElement {
   // console.log(add, change, remove, multiTabsFeature)
   return (
@@ -177,8 +175,7 @@ Tabs.propTypes = {
   add: PropTypes.func,
   change: PropTypes.func,
   remove: PropTypes.func,
-  multiTabsFeature: PropTypes.bool,
-  theme: PropTypes.objectOf(PropTypes.string).isRequired
+  theme: PropTypes.objectOf(PropTypes.string)
 }
 Tabs.defaultProps = {
   add: () => {},

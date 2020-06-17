@@ -1,7 +1,7 @@
 import React from 'react'
 import 'jest-styled-components'
 import renderer from 'react-test-renderer'
-import CodemirrorWrapper from './CodemirrorWrapper'
+import { CodemirrorWrapper } from './CodemirrorWrapper'
 import { css } from 'styled-components'
 
 test('it works', () => {

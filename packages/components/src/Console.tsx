@@ -21,7 +21,7 @@ import ConsoleLine, { ConsoleLineProp } from './ConsoleLine'
 
 type Props = {
   readonly lines: readonly ConsoleLineProp[]
-  readonly theme: Dictionary
+  readonly theme?: Dictionary
 }
 
 /**
@@ -35,7 +35,7 @@ type Props = {
  * const Component = () => <Console />
  * @returns {object} Doc.
  */
-function Console({ lines, theme }: Props): ReactElement {
+function Console({ lines, theme = {} }: Props): ReactElement {
   return (
     <main id="content2" className="tab">
       <div className="console">
@@ -50,7 +50,7 @@ function Console({ lines, theme }: Props): ReactElement {
   )
 }
 Console.propTypes = {
-  theme: PropTypes.objectOf(PropTypes.string).isRequired,
+  theme: PropTypes.objectOf(PropTypes.string),
   lines: PropTypes.arrayOf(PropTypes.object).isRequired
 }
 

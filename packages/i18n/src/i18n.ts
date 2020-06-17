@@ -71,7 +71,7 @@ export function one<Type>(key: string): Type {
  * @param {string} key - Name of translation.
  * @param {any} value - Value of translation.
  */
-export function set<Type>(lang: string, key: string, value: Type): void {
+export function set<Type>(lang: string, key: string, value?: Type): void {
   if (!cache[lang]) cache[lang] = {}
   cache[lang][key] = value
 }

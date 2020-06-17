@@ -1,7 +1,14 @@
 import { setLang, all, one, set, getLang } from './i18n'
 
+type Things = {
+  readonly cow: string,
+  readonly potato: string
+}
+
+type Locale = readonly [string, Things]
+
 test('check i18n work', () => {
-  [
+  const locales: readonly Locale[] = [
     ['en', {
       cow: 'Cow',
       potato: 'Potato'
@@ -10,9 +17,10 @@ test('check i18n work', () => {
       cow: 'Vaca',
       potato: 'Papa'
     }]
-  ].forEach(([lang, obj]) => {
-    const set1Returns = set(lang, 'cow', obj.cow)
-    const set2Returns = set(lang, 'potato', obj.potato)
+  ]
+  locales.forEach(([lang, obj]) => {
+    const set1Returns = set<string>(lang, 'cow', obj.cow)
+    const set2Returns = set<string>(lang, 'potato', obj.potato)
 
     expect(set1Returns).toBeFalsy()
     expect(set2Returns).toBeFalsy()
