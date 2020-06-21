@@ -64,7 +64,8 @@ build() {
     # seed $1
     # dependencies
     # yarn rollup -c $2
-    yarn tsc ./src/index.ts $2 --outDir ./dist -t es5 -d --esModuleInterop --jsx react
+    # yarn tsc ./src/index.ts $2 --outDir ./dist -t es5 -d --esModuleInterop --jsx react
+    yarn tsc $2 -d --outDir ./dist
     # killall node
   elif test -f ./rollup.config.js; then
     # resolve bug, because one element in rollup load index.cjs.js and it execution fail

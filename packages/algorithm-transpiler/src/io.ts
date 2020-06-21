@@ -27,13 +27,12 @@ export const io = {
   }
 }
 
-type IoLine = {
+export type IoLine = {
   readonly id: string
   readonly error: boolean
   readonly content: string
   readonly var?: string
 }
-
 
 /**
  * @typedef {object} ReadResponse

@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { FunctionComponent } from 'react'
+import { ReactElement } from 'react'
 
 const Div = styled.div`
   /* background: #000; */
@@ -9,7 +9,7 @@ const Div = styled.div`
   font-size: 12px;
 `
 
-function Wrapper(): FunctionComponent {
+function Wrapper(): ReactElement {
   return (
     <Div>
       <label>

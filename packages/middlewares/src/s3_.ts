@@ -5,6 +5,28 @@ import { Request, Response, NextFunction } from 'express'
 
 /** @module @choco/middlewares */
 
+
+declare global {
+  namespace Express {
+      interface Request {
+          /** `Multer.File` object populated by `single()` middleware. */
+          file: Multer.File;
+          /**
+           * Array or dictionary of `Multer.File` object populated by `array()`,
+           * `fields()`, and `any()` middleware.
+           */
+          files: {
+              [fieldname: string]: Multer.File[];
+          } | Multer.File[];
+      }
+  }
+}
+
+type a = {
+  uploadResult: boolean
+  isUploaded: boolean
+}
+
 // eslint-disable-next-line jsdoc/require-jsdoc
 export async function uploadToS3(req: Request, res: Response, next: NextFunction): Promise<void> {
   if (!env('BUCKET')) { throw new Error('BUCKET env not set') }

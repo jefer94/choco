@@ -1,12 +1,15 @@
 /** @module @choco/configs */
 
 /**
+ * @typedef EslintOptions
+ * @property {boolean} next - Is Next App.
+ * @property {boolean} types - Use types.
+ */
+
+/**
  * Eslint config.
  *
- * @param {boolean} isNotNextApp - Is not a Next.JS app.
- * @example
- * eslint() // any projects but Next.js.
- * eslint(false) // Next.js.
+ * @param {EslintOptions} opts - Rollup config.
  * @returns {object} Eslint config.
  */
 export function eslint({ next, types } = {}) {
@@ -112,7 +115,9 @@ export function eslint({ next, types } = {}) {
       'functional/no-loop-statement': 2,
       'functional/no-expression-statement': 0,
       'functional/no-try-statement': 0,
-      'functional/no-throw-statement': 0
+      'functional/no-throw-statement': 0,
+      'import/extensions': [2, 'never', { ts: 'never', tsx: 'never' }
+      ]
     }
   }
 }

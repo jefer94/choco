@@ -6,6 +6,11 @@ import { LangType, LangTypeError, LangError, LangVariables } from './lang/common
 
 /** @module @choco/algorithm-transpiler/variables */
 
+export type VariableStore = {
+  readonly varAdd: (value: string, name: string) => void
+  readonly varReset: () => void
+}
+
 /**
  * Transform Algorithm variables in Javascript variables.
  *
@@ -26,7 +31,7 @@ import { LangType, LangTypeError, LangError, LangVariables } from './lang/common
  * variables(code, store) // return 'var stuff;\n'
  * @returns {string} Javascript variables.
  */
-export default function variables(code: string, store?): string {
+export default function variables(code: string, store?: VariableStore): string {
   const [firstLine, ...lines] = compose(comments, removeSpaces, ignoreSentences)(code).split('\n')
   const [keyword, ...restOfVarLine] = firstLine.split(' ')
   let result = ''

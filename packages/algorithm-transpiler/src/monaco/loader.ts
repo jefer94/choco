@@ -1,3 +1,4 @@
+export default {}
 // export const conf = {
 //   // eslint-disable-next-line no-useless-escape
 //   wordPattern: /(-?\d*\.\d\w*)|([^\`\~\!\@\#\%\^\&\*\(\)\-\=\+\[\{\]\}\\\|\;\:\'\"\,\.\<\>\/\?\s]+)/g,

@@ -1,6 +1,6 @@
 import request from 'supertest'
 import * as path from 'path'
-import express from 'express'
+import express, { Request, Response } from 'express'
 import { inMemoryAllowOneImage, inMemoryAllowArrayOfImages } from './files'
 import { dateInFiles } from './dateInFiles'
 
@@ -15,13 +15,13 @@ const dateStringRegExp = '20[0-9]{2}-[0-1]{1}[1-9]{1}-[0-3]{1}[0-9]{1}T[0-2]{1}[
  * fromRoot(__dirname, 'potato') // returns '/home/potato/project/potato'
  * @returns {string} Path.
  */
-function fromRoot(dir) {
+function fromRoot(dir: string): string {
   return path.join(__dirname, dir)
 }
 
 beforeAll(async () => {
   // eslint-disable-next-line jsdoc/require-jsdoc
-  function getResult(req, res) {
+  function getResult(req: Request, res: Response): void {
     res.json(req.files.map((v) => v.originalname))
   }
 

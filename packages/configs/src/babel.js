@@ -4,6 +4,7 @@
  * @typedef {object} BabelConfig
  * @property {boolean} isServer - Is server.
  * @property {boolean} useTransformRuntime - Use transform runtime.
+ * @property {boolean} types - Use types.
  */
 
 /**
@@ -16,7 +17,6 @@
  * babel(isServer, useTransformRuntime)
  * @returns {object} Babel config.
  */
-// export function babel(isServer = true, useTransformRuntime = true) {
 export function babel({ isServer = true, useTransformRuntime = true, types } = {}) {
   return {
     presets: [

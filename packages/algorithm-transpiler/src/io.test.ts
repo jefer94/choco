@@ -1,5 +1,5 @@
-import { read, write, io } from './io'
 import locale from '@choco/i18n'
+import { read, write, io, IoVariables, IoLine } from './io'
 import { algorithmTranspilerLang } from './lang'
 import { Vector } from './vector'
 
@@ -7,7 +7,7 @@ algorithmTranspilerLang()
 locale.setLang('en')
 
 let id = -1
-const type = Object.freeze({
+const type: IoVariables = Object.freeze({
   int: 'int',
   double: 'double',
   string: 'string',
@@ -64,7 +64,6 @@ test('io reset', () => {
   io.text = 'Jax'
   io.lastText = 'Kassadin'
 
-
   expect(io.reset()).toBeUndefined()
   expect(Object.keys(io)).toHaveLength(6)
   expect(io.show).toBeTruthy()
@@ -119,7 +118,7 @@ test('write Vector', () => {
 })
 
 test('read var', () => {
-  const vars = {
+  const vars: IoVariables = {
     senna: type.int,
     tristana: type.string,
     sona: type.double,
@@ -127,17 +126,18 @@ test('read var', () => {
     vi: type.bool
   }
   const res = {
-    senna: '1',
-    tristana: 'hey apple',
-    sona: '1.0',
-    jhin: 'true',
-    vi: 'false'
+    senna: 'int',
+    tristana: 'string',
+    sona: 'double',
+    jhin: 'bool',
+    vi: 'bool'
   }
 
   Object.keys(vars).forEach((k) => {
     const promptInput = res[k] === 'true' ? '1' : res[k] === 'false' ? '0' : res[k]
     window.prompt = jest.fn(() => promptInput)
     const testAssignValue = vars[k] === type.string ? `'${res[k]}'` : res[k]
+    console.log(vars, 'vars')
     const { assign, lastLine, ...restOfProperties } = read(k, vars)
     expect(Object.keys(restOfProperties)).toHaveLength(0)
     expect(assign).toBe(`${k} = ${testAssignValue};`)
@@ -199,6 +199,8 @@ test('read bool throw if not pass 0 or 1', () => {
     v: type.bool
   }
   list.forEach((v) => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     window.prompt = jest.fn(() => v)
     // const testAssignValue = vars[k] === type.string ? `'${res[k]}'` : res[k]
     const { assign, lastLine, ...restOfProperties } = read('v', vars)
@@ -214,8 +216,13 @@ test('read bad type', () => {
   const vars = {
     v: 'potato'
   }
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   window.prompt = jest.fn(() => 'v')
   // const testAssignValue = vars[k] === type.string ? `'${res[k]}'` : res[k]
+  // ignore bad type
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   const { assign, lastLine, ...restOfProperties } = read('v', vars)
   expect(Object.keys(restOfProperties)).toHaveLength(0)
   expect(assign).toBe('write(\'Error: potato is not a valid variable type\'); io.error();')
@@ -225,7 +232,7 @@ test('read bad type', () => {
 })
 
 test('read var, with lastLine', () => {
-  const last = { lastLine: {}, content: 'Last line'}
+  const last: IoLine = { content: 'Last line', error: false, id: 'first' }
   const vars = {
     tristana: type.string
   }
@@ -233,10 +240,10 @@ test('read var, with lastLine', () => {
   window.prompt = jest.fn(() => 'v')
   const { assign, lastLine, ...restOfProperties } = read('tristana', vars, last)
   expect(Object.keys(restOfProperties)).toHaveLength(0)
-  expect(assign).toBe(`tristana = 'v';`)
+  expect(assign).toBe('tristana = \'v\';')
   expect(lastLine).toBeTruthy()
-  expect(Object.keys(lastLine)).toHaveLength(3)
-  expect(Object.keys(lastLine.lastLine)).toHaveLength(0)
+  expect(lastLine).toEqual({ ...last, var: 'v' })
+  // expect(Object.keys(lastLine.lastLine)).toHaveLength(0)
   expect(lastLine.content).toBe('Last line')
   expect(lastLine.var).toBe('v')
 })

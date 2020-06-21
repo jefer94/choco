@@ -22,7 +22,8 @@
     "docs:api:build": "./scripts/docs/api-build.sh",
     "docs:api:serve": "./scripts/docs/api-serve.sh",
     "clean": "./scripts/yarn/clean.sh",
-    "indexing": "./scripts/yarn/indexing.sh"
+    "indexing": "./scripts/yarn/indexing.sh",
+    "new": "./scripts/yarn/new.sh"
   },
   "devDependencies": {
     "@babel/cli": "^7.10.1",

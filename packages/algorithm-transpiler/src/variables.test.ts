@@ -1,6 +1,6 @@
-import variables from './variables'
-import { algorithmTranspilerLang } from './lang'
 import locale from '@choco/i18n'
+import variables, { VariableStore } from './variables'
+import { algorithmTranspilerLang } from './lang'
 
 locale.setLang('en')
 algorithmTranspilerLang()
@@ -11,10 +11,14 @@ begin
   ...
 end`
 
-const storeMock = {
+let store: Record<string, string> = {}
+const storeMock: VariableStore = {
   varAdd(type, name) {
-    this.store = this.store || {}
-    this.store[name] = type
+    store = store || {}
+    store[name] = type
+  },
+  varReset() {
+    store = {}
   }
 }
 
@@ -53,7 +57,7 @@ test('should transpile variables', () => {
 })
 
 test('get vars', () => {
-  storeMock.store = {}
+  store = {}
   const codeWithComments = [
     'variables',
     '  v1: integer',
@@ -67,7 +71,7 @@ test('get vars', () => {
 
   variables(codeWithComments, storeMock)
 
-  const { v1, v2, v3, v4, ...restOfVars } = storeMock.store
+  const { v1, v2, v3, v4, ...restOfVars } = store
 
   expect(Object.keys(restOfVars).length).toBe(0)
   expect(v1).toBe('int')
@@ -89,7 +93,7 @@ test('bad var type', () => {
 })
 
 test('work with bad indentation and spaces in the end', () => {
-  storeMock.store = {}
+  store = {}
   const codeWithComments = [
     '             variables                                         ',
     '                 cocoa:            integer                       ',
@@ -100,7 +104,7 @@ test('work with bad indentation and spaces in the end', () => {
 
   variables(codeWithComments, storeMock)
 
-  const { cocoa, ...restOfVars } = storeMock.store
+  const { cocoa, ...restOfVars } = store
 
   expect(Object.keys(restOfVars).length).toBe(0)
   expect(cocoa).toBe('int')

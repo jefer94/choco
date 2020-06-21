@@ -25,7 +25,7 @@ export function startDB(): void {
   })
 }
 
-export const listen = () => httpListen(app)
+export const listen = (): void => httpListen(app)
 export const close = httpClose
 
 /**
@@ -36,7 +36,7 @@ export const close = httpClose
  * @param {string} key - Key.
  * @returns {Promise} Value.
  */
-function clientGet(key) {
+function clientGet(key): Promise<string> {
   return new Promise((resolve, reject) => {
     client.get(key, (err, value) => {
       if (err) { reject(err) }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import styled from 'styled-components'
 
 const Nav = styled.nav`
@@ -21,7 +21,7 @@ const Nav = styled.nav`
 
 `
 
-const Home = () => (
+const Home = (): ReactElement => (
   <Nav>
     <ul>
       <li>Home</li>

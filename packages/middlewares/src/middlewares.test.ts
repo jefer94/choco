@@ -1,4 +1,4 @@
-// import { Application } from 'express'
+import { Use } from './types'
 
 const mockCors = jest.fn()
 const mockHelmet = jest.fn()
@@ -25,10 +25,11 @@ jest.mock('body-parser', () => ({ __esModule: true,
   } }))
 
 test('common use all middlewares', async () => {
-  const use = () => ({ use })
-  // const app: Application = { use }
+  const use = (): Use => ({ use })
   const { middlewares } = await import('./middlewares')
 
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   middlewares({ use }, __dirname)
 
   expect(mockCors).toHaveBeenCalled()

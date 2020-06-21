@@ -1,5 +1,5 @@
 {
-  "name": "@choco/algorithm-transpiler",
+  "name": "@choco/password",
   "version": "1.0.0",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -7,7 +7,7 @@
   "author": "Jeferson De Freitas",
   "license": "MIT",
   "dependencies": {
-    "@choco/i18n": "^1.0.0",
-    "@choco/types": "^1.0.0"
+    "@types/bcrypt": "^3.0.0",
+    "bcrypt": "^5.0.0"
   }
 }
