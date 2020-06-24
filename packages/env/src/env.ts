@@ -43,7 +43,7 @@ export function env(key?: string, value?: string): string | Dictionary {
   const memokey = envKeyPrefix(key)
 
   if (!key && !value) {
-    return (memo(keys) || []).reduce((obj, key) =>
+    return (memo<readonly string[]>(keys) || []).reduce((obj, key) =>
       ({ ...obj, [key]: memo(envKeyPrefix(key)) }), {})
   }
 

@@ -1,2 +1,0 @@
-"use strict";Object.defineProperty(exports,"__esModule",{value:!0});const e=require("path");const r={};exports.capitalizeFirstLetter=function(e){return e.charAt(0).toUpperCase()+e.slice(1)},exports.compose=function(...e){return r=>e.reduce((e,r)=>r(e),r)},exports.filterObject=function(e,r){return r.filter(r=>void 0!==e[r]).reduce((r,t)=>({...r,[t]:e[t]}),{})},exports.memo=function(e,t){return void 0!==t&&(r[e]=t),r[e]},exports.url=function(r="",...t){return r.replace(/\/$/,"")+t.reduce((r,t="")=>e.join(r,t),"/").replace(/\/$/,"")};
-//# sourceMappingURL=functional.cjs.js.map

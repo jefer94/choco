@@ -84,7 +84,7 @@ export default function (code) {
 }
 
 export function forLoopCondition(lineArg) {
-  const { toWord } = locale.all()
+  const toWord = locale.one<string>('toWord')
 
   // for (...)
   let line = lineArg
@@ -104,13 +104,21 @@ export function forLoopCondition(lineArg) {
   return line
 }
 
-export function doWhileLoopCondition(line) {
-  const { toWord } = locale.all()
+/**
+ * Generate white loop.
+ *
+ * @param {string} line - Line of code.
+ * @returns {string} Line of code.
+ */
+export function doWhileLoopCondition(line: string): string {
+  const toWord = locale.one<string>('toWord')
 
   // do ... while (!...)
-  if (line.match(RegExp(`${toWord}\\s+([\\s\\S]+)`))) return line.replace('(', '(!(')
-    .replace(/\)\s{0,}$/, '))')
-    .replace(/=/g, '===')
+  if (line.match(RegExp(`${toWord}\\s+([\\s\\S]+)`))) {
+    return line.replace('(', '(!(')
+      .replace(/\)\s{0,}$/, '))')
+      .replace(/=/g, '===')
+  }
   return line
 }
 /**

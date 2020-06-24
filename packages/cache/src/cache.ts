@@ -2,7 +2,7 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import { createClient, print, RedisClient } from 'redis'
 import chalk from 'chalk'
-import middlewares, { listen as httpListen, close as httpClose } from '@choco/middlewares'
+import { middlewares, listen as httpListen, close as httpClose } from '@choco/middlewares'
 
 /** @module @choco/cache */
 

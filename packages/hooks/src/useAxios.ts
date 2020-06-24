@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { Dictionary } from '@choco/configs'
+import { Dictionary } from '@choco/types'
 import axios from 'axios'
+axios.he
+type Methods = 'get' | 'post' | 'put' | 'delete' | 'patch' | 'head'
 
 type Props<Type> = {
-  readonly method: string
+  readonly method: Methods
   readonly url: string
   readonly object: Type
   readonly headers: Dictionary
@@ -57,8 +59,8 @@ export function useAxios<Type, Response, Error>(
   { method = 'get', url, object, headers, wait }: Props<Type>
 ): useAxios<Response, Error> {
   const [loaded, setLoaded] = useState<boolean>(false)
-  const [data, setData] = useState<Response>(null)
-  const [error, setError] = useState<Error>(null)
+  const [data, setData] = useState<Response | null>(null)
+  const [error, setError] = useState<Error | null>(null)
   useEffect(() => {
     /** Execute axios request. */
     async function execute(): Promise<void> {

@@ -1,3 +1,6 @@
+// type Cache = Record<string, unknown>
+
+// const cache: Cache = {}
 const cache = {}
 
 /**

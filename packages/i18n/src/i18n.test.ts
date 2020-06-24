@@ -1,4 +1,5 @@
-import { setLang, all, one, set, getLang } from './i18n'
+// import { setLang, all, one, set, getLang } from './i18n'
+import { setLang, one, set, getLang } from './i18n'
 
 type Things = {
   readonly cow: string,
@@ -35,19 +36,19 @@ test('check i18n work', () => {
     expect(oneCow).toBe(obj.cow)
     expect(onePotato).toBe(obj.potato)
 
-    const { cow, potato, ...restOfLocales } = all()
+    // const { cow, potato, ...restOfLocales } = all()
 
-    expect(Object.keys(restOfLocales)).toHaveLength(0)
+    // expect(Object.keys(restOfLocales)).toHaveLength(0)
 
-    expect(cow).toBe(obj.cow)
-    expect(potato).toBe(obj.potato)
+    // expect(cow).toBe(obj.cow)
+    // expect(potato).toBe(obj.potato)
   })
 })
 
-test('get all from unknow lang', () => {
-  setLang('af')
-  expect(all()).toEqual({})
-})
+// test('get all from unknow lang', () => {
+//   setLang('af')
+//   expect(all()).toEqual({})
+// })
 
 test('get one from unknow lang', () => {
   setLang('af')

@@ -21,7 +21,7 @@ import methodOverride from 'method-override'
  * common(app)
  * common(app, __dirname)
  */
-export function middlewares(app: Application, dir: string): void {
+export function middlewares(app: Application, dir?: string): void {
   app
     .use(morgan('combined'))
     .use(helmet())

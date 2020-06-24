@@ -1,4 +1,24 @@
-const cache = {}
+import { memo } from '@choco/functional'
+
+const langKey = '__I18N_LANG__'
+
+/**
+ * Get key.
+ *
+ * @param {string} key - Name of translation.
+ * @param {string} lang - Language of translation.
+ * @returns {string} Key.
+ */
+function valueKey(key: string, lang?: string): string {
+  const locale = lang || getLang()
+  return `__${locale}_${key}__`
+}
+
+type Cache = {
+  readonly [key: string]: Record<string, unknown>
+}
+
+const cache: I18nDictionary = {}
 
 /** @module @choco/i18n */
 
@@ -6,12 +26,12 @@ type I18nValue = string | {
   readonly [key: string]: string | I18nValue
 }
 
-/**
- * @constant
- * @default
- */
-const en = 'en'
-let locale = window && window.navigator ? window.navigator.language.substr(0, 2) : en
+// /**
+//  * @constant
+//  * @default
+//  */
+// const en = 'en'
+// let locale = window && window.navigator ? window.navigator.language.substr(0, 2) : en
 
 type I18nDictionary = {
   readonly [key: string]: I18nValue
@@ -25,7 +45,7 @@ type I18nDictionary = {
  * @returns {string} Locale.
  */
 export function getLang(): string {
-  return locale
+  return memo<string>(langKey) || 'en'
 }
 
 /**
@@ -36,19 +56,19 @@ export function getLang(): string {
  * locale.setLang('en')
  */
 export function setLang(lang: string): void {
-  locale = lang
+  memo<string>(langKey, lang)
 }
 
-/**
- * Get all locales.
- *
- * @example
- * locale.all() // returns { ... }
- * @returns {object.<string, any>} All locales.
- */
-export function all(): I18nDictionary | undefined {
-  return cache[locale] || {}
-}
+// /**
+//  * Get all locales.
+//  *
+//  * @example
+//  * locale.all() // returns { ... }
+//  * @returns {object.<string, any>} All locales.
+//  */
+// export function all(): I18nDictionary | undefined {
+//   return cache[locale] || {}
+// }
 
 /**
  * Get one locales.
@@ -58,8 +78,7 @@ export function all(): I18nDictionary | undefined {
  * @returns {string|undefined} One locales.
  */
 export function one<Type>(key: string): Type {
-  // if (!cache[locale])
-  if (cache[locale]) return cache[locale][key]
+  return memo<Type>(valueKey(key))
 }
 
 /**
@@ -72,8 +91,8 @@ export function one<Type>(key: string): Type {
  * @param {any} value - Value of translation.
  */
 export function set<Type>(lang: string, key: string, value?: Type): void {
-  if (!cache[lang]) cache[lang] = {}
-  cache[lang][key] = value
+  memo(valueKey(key, lang), value)
 }
 
-export default { one, all, set, getLang, setLang }
+// export default { one, all, set, getLang, setLang }
+export default { one, set, getLang, setLang }

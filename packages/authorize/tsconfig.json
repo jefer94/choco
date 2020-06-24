@@ -6,7 +6,12 @@
       "dom.iterable",
       "esnext"
     ],
-    "module": "esnext"
+    "module": "esnext",
+    "allowJs": true,
+    "noEmit": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true
   },
   "exclude": [
     "node_modules"

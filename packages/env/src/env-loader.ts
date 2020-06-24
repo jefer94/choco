@@ -20,6 +20,6 @@ export function loadEnv(externalEnv?: boolean): void {
   Object.keys(data).forEach((key) => {
     const memokey = `__ENV__${key}`
     memo(memokey, data[key])
-    memo(keys, [...memo(keys), key])
+    memo(keys, [...memo<readonly string[]>(keys), key])
   })
 }

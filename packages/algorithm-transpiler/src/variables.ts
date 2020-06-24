@@ -181,7 +181,8 @@ function reserveVars(store, isA: string, word: string): void {
  * @returns {string} Get the code, less the body (start ... end).
  */
 function ignoreSentences(code: string): string {
-  const { begin, end } = locale.all()
+  const begin = locale.one<string>('begin')
+  const end = locale.one<string>('end')
   // return code.replace(code.match(RegExp(`${begin}[\\s\\S]*?${end}$`, 'gm'))[0], '')
   return code.replace(RegExp(`([\\s\\S]*?)(\\n${begin}[\\s\\S]*?${end}$)`, 'gm'), '$1')
 }
