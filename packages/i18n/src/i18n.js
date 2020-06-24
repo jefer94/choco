@@ -2,7 +2,6 @@
 exports.__esModule = true;
 exports.set = exports.one = exports.all = exports.setLang = exports.getLang = void 0;
 var cache = {};
-/** @module @choco/i18n */
 /**
  * @constant
  * @default

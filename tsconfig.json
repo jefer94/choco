@@ -12,7 +12,8 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "declaration": true
   },
   "exclude": [
     "node_modules"

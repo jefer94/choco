@@ -16,20 +16,5 @@ import Tabs from './Tabs'
 
 export * from './Button'
 
-export {
-  Console,
-  ConsoleLine,
-  Docs,
-  Editor,
-  FloatingButton,
-  FontAwesomeWrapper,
-  Icon,
-  Link,
-  Loading,
-  Menu,
-  MenuItem,
-  MonacoWrapper,
-  Tab,
-  TabButton,
-  Tabs
-}
+export { Console, ConsoleLine, Docs, Editor, FloatingButton, FontAwesomeWrapper, Icon, Link,
+  Loading, Menu, MenuItem, MonacoWrapper, Tab, TabButton, Tabs }

@@ -116,8 +116,8 @@ export function eslint({ next, types } = {}) {
       'functional/no-expression-statement': 0,
       'functional/no-try-statement': 0,
       'functional/no-throw-statement': 0,
-      'import/extensions': [2, 'never', { ts: 'never', tsx: 'never' }
-      ]
+      'import/extensions': [2, 'never', { ts: 'never', tsx: 'never' }],
+      'import/no-unresolved': 0
     }
   }
 }

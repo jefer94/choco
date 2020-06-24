@@ -1,6 +1,6 @@
 /** @module @choco/functional */
 
-type Func = (...args: any) => any
+type Func = (...args: readonly unknown[]) => unknown
 
 /**
  * Compose a function and pipe each return.
@@ -15,5 +15,5 @@ type Func = (...args: any) => any
  * @returns {compose~composed} - Composed function.
  */
 export function compose(...functions: readonly Func[]) {
-  return (arg: any): any => functions.reduce((value, fn) => fn(value), arg)
+  return (arg: unknown): unknown => functions.reduce((value, fn) => fn(value), arg)
 }

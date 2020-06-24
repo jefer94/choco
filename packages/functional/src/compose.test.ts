@@ -12,7 +12,7 @@ test('compose returns correct value', () => {
  * add(1, 2) // returns 3
  * @returns {number} Numbers addeds.
  */
-function add(n) {
+function add(n): number {
   return n + n
 }
 
@@ -24,7 +24,7 @@ function add(n) {
  * square(3) // returns 9
  * @returns {number} Result of n * n.
  */
-function square(n) {
+function square(n): number {
   return n * n
 }
 
@@ -36,6 +36,6 @@ function square(n) {
  * square(3) // returns 27
  * @returns {number} Result of n * n * n.
  */
-function cube(n) {
+function cube(n): number {
   return n * n * n
 }

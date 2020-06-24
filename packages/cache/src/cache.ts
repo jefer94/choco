@@ -59,7 +59,7 @@ app.post('/', async (req, res) => {
       if (mode && key) {
         if (mode === 'set' && value) {
           client.set(req.body.key, req.body.value, print)
-          res.statusCode = 204
+          res.status(204)
           res.send()
         }
         else {
@@ -68,12 +68,12 @@ app.post('/', async (req, res) => {
       }
     }
     catch (e) {
-      res.statusCode = 500
+      res.status(500)
       res.json(JSON.stringify(e))
     }
   }
   else {
-    res.statusCode = 500
+    res.status(500)
     res.send('')
   }
 })

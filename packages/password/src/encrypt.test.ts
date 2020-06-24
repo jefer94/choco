@@ -1,4 +1,4 @@
-import { encrypt } from "./encrypt"
+import { encrypt } from './encrypt'
 
 test('hash', async () => {
   const hash1 = await encrypt('password')

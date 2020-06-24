@@ -4,7 +4,6 @@ import request from 'supertest'
 import { createClient as mockCreateClient, print as mockPrint } from 'redis-mock'
 import app, { startDB } from './cache'
 
-
 // console.log('mock', createClient)
 // const calls = [];
 // let mockGetReturns
@@ -30,7 +29,6 @@ test('set cache', () =>
       expect(response.statusCode).toBe(204)
       expect(response.text).toBe('')
     }))
-
 
 test('get cache', () =>
   // console.log('aoo', app)
