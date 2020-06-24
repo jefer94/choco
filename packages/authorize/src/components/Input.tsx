@@ -9,13 +9,21 @@ const Div = styled.div`
   font-size: 12px;
 `
 
-function Wrapper(): ReactElement {
+type Props = {
+  readonly value: string
+  readonly onChange?: (value: string) => void
+}
+
+function Wrapper({ value, onChange }: Props): ReactElement {
   return (
     <Div>
-      <label>
-        <span>asdasddas</span>
-        <input value="aaaaa" readOnly />
-      </label>
+      {/* <label> */}
+      <label>asdasddas</label>
+      {/* <span>asdasddas</span> */}
+      {onChange ?
+        <input value={value} readOnly onChange={(v) => onChange(v.target.value)} /> :
+        <input value={value} readOnly />}
+      {/* </label> */}
     </Div>
   )
 }

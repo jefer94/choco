@@ -117,7 +117,8 @@ export function eslint({ next, types } = {}) {
       'functional/no-try-statement': 0,
       'functional/no-throw-statement': 0,
       'import/extensions': [2, 'never', { ts: 'never', tsx: 'never' }],
-      'import/no-unresolved': 0
+      'import/no-unresolved': 0,
+      'functional/no-mixed-type': 0
     }
   }
 }

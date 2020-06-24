@@ -1,15 +1,13 @@
 import express from 'express'
 import bodyParser from 'body-parser'
-import { createClient, print } from 'redis'
+import { createClient, print, RedisClient } from 'redis'
 import chalk from 'chalk'
-import middlewares, { listen as httpListen, httpClose } from '@choco/middlewares'
-
-const { log } = console
+import middlewares, { listen as httpListen, close as httpClose } from '@choco/middlewares'
 
 /** @module @choco/cache */
 
 const app = express()
-let client
+let client: RedisClient
 
 /**
  * Start Redis.
@@ -21,7 +19,7 @@ export function startDB(): void {
   client = createClient()
 
   client.on('error', (error) => {
-    log(chalk.red(error))
+    console.log(chalk.red(error))
   })
 }
 
@@ -36,7 +34,7 @@ export const close = httpClose
  * @param {string} key - Key.
  * @returns {Promise} Value.
  */
-function clientGet(key): Promise<string> {
+function clientGet(key: string): Promise<string> {
   return new Promise((resolve, reject) => {
     client.get(key, (err, value) => {
       if (err) { reject(err) }

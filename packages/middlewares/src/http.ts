@@ -7,7 +7,7 @@ import chalk from 'chalk'
 
 /** @module @choco/middlewares */
 
-let server
+let server: http.Server
 
 /**
  * Listen Express app.

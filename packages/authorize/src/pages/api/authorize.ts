@@ -1,5 +1,9 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 
+export default function refresh(req: NextApiRequest, res: NextApiResponse): void {
+  res.json({})
+}
+
 function isValid({ grantType, username, password, clientId, clientSecret }): string {
   return grantType === 'password' && username && password && clientId && clientSecret
 }

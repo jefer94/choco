@@ -8,6 +8,7 @@
   "dependencies": {
     "@choco/configs": "^1.0.0",
     "@choco/middlewares": "^1.0.0",
+    "@types/redis": "^2.8.22",
     "axios": "^0.19.2",
     "body-parser": "^1.19.0",
     "chalk": "^4.1.0",

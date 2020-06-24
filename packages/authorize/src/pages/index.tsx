@@ -7,17 +7,17 @@ import Form from '../components/Form'
 const Button = styled.button`
   background: #000;
 `
-let a: number
-a = ''
 
 const Home: FunctionComponent = () => (
   <div>
     <Head>
-      <style>{`
-        body {
-          margin: 0;
-        }
-      `}</style>
+      <style>
+        {`
+          body {
+            margin: 0;
+          }
+        `}
+      </style>
     </Head>
     <Menu />
     <Form />
