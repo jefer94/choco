@@ -32,7 +32,7 @@ export type VariableStore = {
  * @returns {string} Javascript variables.
  */
 export default function variables(code: string, store?: VariableStore): string {
-  const [firstLine, ...lines] = compose(comments, removeSpaces, ignoreSentences)(code).split('\n')
+  const [firstLine, ...lines] = compose<string, string>(comments, removeSpaces, ignoreSentences)(code).split('\n')
   const [keyword, ...restOfVarLine] = firstLine.split(' ')
   let result = ''
 

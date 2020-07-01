@@ -126,24 +126,23 @@ test('read var', () => {
     vi: type.bool
   }
   const res = {
-    senna: 'int',
+    senna: 6,
     tristana: 'string',
-    sona: 'double',
-    jhin: 'bool',
-    vi: 'bool'
+    sona: '1.23',
+    jhin: 'false',
+    vi: 'true'
   }
 
   Object.keys(vars).forEach((k) => {
     const promptInput = res[k] === 'true' ? '1' : res[k] === 'false' ? '0' : res[k]
     window.prompt = jest.fn(() => promptInput)
     const testAssignValue = vars[k] === type.string ? `'${res[k]}'` : res[k]
-    console.log(vars, 'vars')
-    const { assign, lastLine, ...restOfProperties } = read(k, vars)
-    expect(Object.keys(restOfProperties)).toHaveLength(0)
-    expect(assign).toBe(`${k} = ${testAssignValue};`)
-    expect(lastLine).toBeTruthy()
-    expect(Object.keys(lastLine)).toHaveLength(1)
-    expect(lastLine.var).toBe(promptInput)
+    expect(read(k, vars)).toEqual({
+      assign: `${k} = ${testAssignValue};`,
+      lastLine: {
+        var: promptInput
+      }
+    })
   })
 })
 

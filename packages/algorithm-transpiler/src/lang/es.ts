@@ -3,6 +3,7 @@ import { staticTokens } from './common'
 
 const lang = 'es'
 
+/** Spanish lang. */
 export default function es(): void {
   locale.set(lang, 'algorithmWord', 'algoritmo')
   locale.set(lang, 'begin', 'inicio')
@@ -12,12 +13,13 @@ export default function es(): void {
   locale.set(lang, 'trueWord', 'verdadero')
   locale.set(lang, 'falseWord', 'falso')
 
-  locale.set(lang, 'tokens', { ...staticTokens, ...{
-    // algorithm : js
-    o: '||',
-    y: '&&',
-    no: '!'
-  }})
+  locale.set(lang, 'tokens', { ...staticTokens,
+    ...{
+      // algorithm : js
+      o: '||',
+      y: '&&',
+      no: '!'
+    } })
 
   locale.set(lang, 'variables', [
     // map
@@ -32,7 +34,7 @@ export default function es(): void {
     mientras: 'while',
     repetir: 'do {',
     hasta: '} while',
-    para: 'for',
+    para: 'for'
     // hacer: 'do'
   })
 
@@ -41,7 +43,6 @@ export default function es(): void {
     'hacer',
     'entonces'
   ])
-
 
   locale.set(lang, 'closeBracket', [
     // map

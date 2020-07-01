@@ -3,7 +3,8 @@ import { staticTokens } from './common'
 
 const lang = 'en'
 
-export default function() {
+/** English lang. */
+export default function en(): void {
   locale.set(lang, 'algorithmWord', 'algorithm')
   locale.set(lang, 'begin', 'begin')
   locale.set(lang, 'end', 'end')
@@ -12,12 +13,13 @@ export default function() {
   locale.set(lang, 'trueWord', 'true')
   locale.set(lang, 'falseWord', 'false')
 
-  locale.set(lang, 'tokens', { ...staticTokens, ...{
-    // algorithm : js
-    or: '||',
-    and: '&&',
-    not: '!'
-  }})
+  locale.set(lang, 'tokens', { ...staticTokens,
+    ...{
+      // algorithm : js
+      or: '||',
+      and: '&&',
+      not: '!'
+    } })
 
   locale.set(lang, 'variables', [
     // map
@@ -41,7 +43,6 @@ export default function() {
     'do',
     'until'
   ])
-
 
   locale.set(lang, 'closeBracket', [
     // map

@@ -2,25 +2,26 @@ import locale from '@choco/i18n'
 import { compose } from '@choco/functional'
 import comments from './comments'
 import { algorithmTranspilerLang } from './lang'
-import { LangOpenBracket, LangRead, LangWrite, LangCloseBracket } from './lang/common'
+import { LangOpenBracket, LangRead, LangWrite, LangCloseBracket, LangTokens, LangTranspiler } from './lang/common'
 
 algorithmTranspilerLang()
 
 /** @module libs/algorithm/transform */
 
 // transform between native languaje and javascipt
-export default function (code) {
-  const { tokens, transpiler } = locale.all()
+export default function transform(code: string): string {
+  const tokens = locale.one<LangTokens>('tokens')
+  const transpiler = locale.one<LangTranspiler>('transpiler')
   const openBracket = locale.one<LangOpenBracket>('openBracket')
   const closeBracket = locale.one<LangCloseBracket>('closeBracket')
   const read = locale.one<LangRead>('read')
   const write = locale.one<LangWrite>('write')
-  let line = compose(stripCode, comments)(code) // stripCode(code)
+  let line = compose<string[], string>(stripCode, comments)(code) // stripCode(code)
   let js = ''
 
   Object.keys(line).map(Number).forEach((i) => {
     // ...
-    line[i] = line[i] = compose(purgeComment, purgeLine, vectorAdd)(line[i])
+    line[i] = compose<string, string>(purgeComment, purgeLine, vectorAdd)(line[i])
 
     if (line[i].substr(0, 1) === ' ') {
       const length = line[i].length - 1
@@ -34,7 +35,7 @@ export default function (code) {
 
     line = ifIsEqual(line)
 
-    line[i] = compose(forLoopCondition, doWhileLoopCondition)(line[i])
+    line[i] = compose<string, string>(forLoopCondition, doWhileLoopCondition)(line[i])
 
     // each word is separated into a array
     const word = line[i].split(' ')
@@ -170,7 +171,7 @@ export function purgeLine(line) {
  * // return 'for (bestADC === \'Tristana\') do '
  * @returns {string} Line of code.
  */
-export function purgeComment(lineArg) {
+export function purgeComment(lineArg: string): string {
   // ...
   let line = lineArg
   if (line.search('//') !== -1) {
@@ -212,7 +213,7 @@ export function stripCode(codeArg: string): readonly string[] {
  * // return ['for (text === \'Not text\') do']
  * @returns {string[]} Lines of code.
  */
-function ifIsEqual(lines: readonly string[]): readonly string[] {
+function ifIsEqual(lines: readonly string[]): string[] {
   const openBracket = locale.one<LangOpenBracket>('openBracket')
 
   // if (x === y)

@@ -37,3 +37,5 @@ export type LangWrite = readonly string[]
 export type LangCode = readonly string[]
 
 export type JavascriptType = 'int' | 'double' | 'string' | 'bool'
+export type LangTokens = Record<string, string>
+export type LangTranspiler = Record<string, string>

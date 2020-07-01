@@ -1,7 +1,8 @@
 import en from './en'
 import es from './es'
 
-export function algorithmTranspilerLang() {
+/** Algorithm transpiler lang. */
+export function algorithmTranspilerLang(): void {
   en()
   es()
 }
