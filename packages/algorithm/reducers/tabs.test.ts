@@ -2,8 +2,10 @@ import reducer from './tabs'
 import locale, { setLang } from '@choco/i18n'
 import { addTabAction, removeTabAction, changeTabAction, saveTabAction, defaultsTabsAction } from '../actions/tabs'
 
-const { algorithmWord, code, editor } = locale.all()
-const  tabName = algorithmWord
+const algorithmWord = locale.one<string>('algorithmWord')
+const code = locale.one<string>('code')
+const editor = locale.one<string>('editor')
+const tabName = algorithmWord
 
 let index = -1
 

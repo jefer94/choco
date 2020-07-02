@@ -1,5 +1,7 @@
 /** @module reducers/variables */
 
+import { ResetVarAction, AddVarAction } from "../actions"
+
 /**
  * Functional store that mutate state of variables.
  *
@@ -10,7 +12,8 @@
  * reducer({ senna: 'string' }, { type: 'VAR_RESET' }) // return {}
  * @returns {object.<string, string>} - Data store in reducer.
  */
-export default function reducer(state = {}, action) {
+export default function reducer(state: Record<string, string> = {},
+  action: AddVarAction | ResetVarAction): Record<string, string> {
   switch (action.type) {
     case 'VAR_ADD':
       return ({ ...state, ...{ [action.key]: action.text } })

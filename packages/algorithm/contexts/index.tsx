@@ -1,5 +1,4 @@
-import React from 'react'
-import PropsTypes from 'prop-types'
+import React, { ReactElement, ReactChildren } from 'react'
 import { algorithmTranspilerLang } from '@choco/algorithm-transpiler'
 import lang from '../lang'
 
@@ -10,7 +9,22 @@ import { MenuContextProvider } from './MenuContext' // eslint-disable-line
 algorithmTranspilerLang()
 lang()
 
-function Provider({ children }) {
+/**
+ * @typedef {object} ProviderProps
+ * @property {object} children - Provider children.
+ */
+
+type ProviderProps = {
+  readonly children: ReactChildren
+}
+
+/**
+ * Contexts provider.
+ *
+ * @param {ProviderProps} Props - Props.
+ * @returns {object} Contexts provider.
+ */
+function Provider({ children }: ProviderProps): ReactElement {
   return (
     <ThemeContextProvider>
       <MenuContextProvider>
@@ -18,9 +32,6 @@ function Provider({ children }) {
       </MenuContextProvider>
     </ThemeContextProvider>
   )
-}
-Provider.propTypes = {
-  children: PropsTypes.node.isRequired
 }
 
 export * from './ThemeContext'

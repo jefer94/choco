@@ -7,4 +7,6 @@ export function algorithmTranspilerLang(): void {
   es()
 }
 
+export * from './common'
+
 // export default algorithmTranspilerLang

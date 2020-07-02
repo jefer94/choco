@@ -2,22 +2,23 @@ import React, { memo, ReactElement, ReactChildren } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
-import MenuItem from './MenuItem'
 import { Dictionary } from '@choco/types'
 import { IconProp } from '@fortawesome/fontawesome-svg-core'
+import MenuItem from './MenuItem'
+import { StyledMenu } from './types'
 
 // import './Menu.sass'
 
 /** @module components/Menu */
 
 const MenuWrapper = styled.div`
-  transform: ${(v) => v.show ? 'unset' : 'translateX(-64px)'};
+  transform: ${(v: StyledMenu) => (v.show ? 'unset' : 'translateX(-64px)')};
   transition-duration: 0.1s;
   width: 64px;
   height: 100vh;
   display: inline-block;
   position: absolute;
-  background-color: ${(v) => v.theme.surface};
+  /* background-color: ${(v) => v.theme.surface}; */
   border-right: 1px solid ${(v) => v.theme.surfaceBorder};
   box-shadow: 1px 0 ${(v) => v.theme.surfaceBorder};
   background: #252526;
@@ -31,8 +32,8 @@ const MenuWrapper = styled.div`
 
 const ContentWrapper = styled.div`
   top: 0px;
-  left: ${(v) => v.menuIsOpen ? '64px' : 'unset'};
-  width: ${(v) => v.menuIsOpen ? 'calc(100vw - 64px)' : '100vw'};
+  left: ${(v: StyledMenu) => (v.menuIsOpen ? '64px' : 'unset')};
+  width: ${(v: StyledMenu) => (v.menuIsOpen ? 'calc(100vw - 64px)' : '100vw')};
   position: absolute;
   display: inline-block;
   height: 100vh;

@@ -1,4 +1,4 @@
-import React, { memo, ReactElement } from 'react'
+import React, { ReactElement } from 'react'
 import PropTypes from 'prop-types'
 import { faPlus, faBars } from '@fortawesome/free-solid-svg-icons'
 import Link from './Link'
@@ -8,7 +8,7 @@ import TabButton from './TabButton'
 import Icon from './Icon'
 // import './Tabs.sass'
 import styled from 'styled-components' // eslint-disable-line
-import { Dictionary } from '@choco/types'
+import { StyledMenu } from './types'
 
 /** @module components/Tabs */
 
@@ -21,7 +21,7 @@ const SimpleTabButton = styled(TabButton)`
 `
 
 const Nav = styled.nav`
-  width: ${(v) => v.menuIsOpen ? 'calc(100vw - 48px)' : '100vw'};
+  width: ${(v: StyledMenu) => (v.menuIsOpen ? 'calc(100vw - 48px)' : '100vw')};
   background-color: ${(v) => v.theme.tabSurface};
   display: table;
 `
@@ -47,7 +47,6 @@ const SimpleButtonLi = styled(Li)`
   float: left;
 `
 
-
 /**
  * @callback AddTab
  */
@@ -67,7 +66,7 @@ const SimpleButtonLi = styled(Li)`
  */
 
 type AddTabButtonProps = {
-  readonly theme: Dictionary
+  readonly theme: Record<string, string>
   readonly add: () => void
 }
 
@@ -85,13 +84,6 @@ function AddTabButton({ theme, add }: AddTabButtonProps): ReactElement {
       </SimpleTabButton>
     </SimpleButtonLi>
   ) : <></>
-}
-AddTabButton.propTypes = {
-  theme: PropTypes.objectOf(PropTypes.string).isRequired,
-  add: PropTypes.func
-}
-AddTabButton.defaultProps = {
-  add: () => {}
 }
 
 /**
@@ -124,7 +116,7 @@ type Props = {
   readonly add?: () => void
   readonly change?: () => void
   readonly remove?: () => void
-  readonly theme?: Dictionary
+  readonly theme?: Record<string, string>
   readonly menuIsOpen?: boolean
 }
 

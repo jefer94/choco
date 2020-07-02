@@ -9,12 +9,14 @@ import FontAwesomeIcon from './FontAwesomeWrapper'
 
 /**
  * @typedef {object} IconProps
+ * @property {string} className - CSS class.
  * @property {string} name - Icon from FontAwesome.
  */
 
-type Props = {
+type IconProps = {
   readonly className: string
   readonly name: IconProp
+  readonly theme?: Record<string, string>
 }
 /**
  * Edidor wrapper.
@@ -24,14 +26,8 @@ type Props = {
  * <Icon name={FontAwesomeIcon} />
  * @returns {object} <Icon ... />.
  */
-function Icon({ className, name }: Props): ReactElement {
+function Icon({ className, name }: IconProps): ReactElement {
   return <FontAwesomeIcon className={className} icon={name} />
-}
-Icon.propTypes = {
-  className: PropTypes.string.isRequired,
-  name: PropTypes.shape({
-    icon: PropTypes.array
-  }).isRequired
 }
 
 export default styled(Icon)`color: ${(v) => v.theme.white};`

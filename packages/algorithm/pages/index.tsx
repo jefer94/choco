@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect, useContext, ReactElement } from 'react'
 import Head from 'next/head'
 import { faPlay } from '@fortawesome/free-solid-svg-icons'
 import useTabs from '../hooks/useTabs'
@@ -34,7 +34,12 @@ function getActiveId(tabs) {
   return -1
 }
 
-export default function () {
+/**
+ * Index page.
+ *
+ * @returns {object} Index page.
+ */
+export default function Index(): ReactElement {
   const { tabs, addTab, changeTab, saveTab, removeTab } = useTabs()
   const { theme } = useContext(ThemeContext)
   const { isOpen } = useContext(MenuContext)

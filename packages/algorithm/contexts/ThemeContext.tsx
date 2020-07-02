@@ -1,6 +1,4 @@
-import React, { useEffect, useState, createContext } from 'react'
-import PropsTypes from 'prop-types'
-// import { setVar } from '../libs/css'
+import React, { useEffect, useState, createContext, ReactChildren, ReactElement, Dispatch, SetStateAction } from 'react'
 
 const key = '__ALGORITHM_THEME__'
 
@@ -19,13 +17,33 @@ export const darkMode = {
   lineHeight: '21px'
 }
 
-// function setCssVars(theme) {
-//   setVar('--ion-background-color', theme.surface)
-// }
+type Theme = typeof darkMode
 
-export const ThemeContext = createContext({ theme: {} })
+type ThemeContextProps = {
+  readonly mode: string
+  readonly setMode: Dispatch<SetStateAction<string>>
+  readonly theme: Theme
+  readonly setTheme: Dispatch<SetStateAction<Theme>>
+}
 
-export function ThemeContextProvider({ children }) {
+export const ThemeContext = createContext<ThemeContextProps>(null)
+
+/**
+ * @typedef {object} ThemeContextProviderProps
+ * @property {object} children - Theme context provider children.
+ */
+
+type ThemeContextProviderProps = {
+  readonly children: ReactChildren
+}
+
+/**
+ * Theme context provider.
+ *
+ * @param {ThemeContextProviderProps} Props - Props.
+ * @returns {object} Theme context provider.
+ */
+export function ThemeContextProvider({ children }: ThemeContextProviderProps): ReactElement {
   const [mode, setMode] = useState(localStorage.getItem(key) || 'dark')
   const [theme, setTheme] = useState(darkMode)
 
@@ -49,9 +67,6 @@ export function ThemeContextProvider({ children }) {
       {children}
     </ThemeContext.Provider>
   )
-}
-ThemeContextProvider.propTypes = {
-  children: PropsTypes.node.isRequired
 }
 
 export const ThemeContextConsumer = ThemeContext.Consumer

@@ -1,8 +1,15 @@
 /**
  * @typedef {object} AddVarAction
  * @property {string} type - Action type.
- * @property {number} id - Action id.
+ * @property {string} text - Action text.
+ * @property {string} key - Action key.
  */
+
+export type AddVarAction = {
+  readonly type: 'VAR_ADD'
+  readonly text: string
+  readonly key: string
+}
 
 /**
  * Add Var Action.
@@ -13,7 +20,7 @@
  * addVarAction('Kassadin', 'string') // return { type: 'VAR_ADD', text: 'Kassadin', key: 'string' }
  * @returns {AddVarAction} Action.
  */
-export const addVarAction = (text, key) => ({
+export const addVarAction = (text: string, key: string): AddVarAction => ({
   type: 'VAR_ADD',
   text,
   key
@@ -24,6 +31,10 @@ export const addVarAction = (text, key) => ({
  * @property {string} type - Action type.
  */
 
+export type ResetVarAction = {
+  readonly type: 'VAR_RESET'
+}
+
 /**
  * Reset Var Action.
  *
@@ -31,6 +42,6 @@ export const addVarAction = (text, key) => ({
  * resetVarAction() // return { type: 'VAR_RESET' }
  * @returns {AddVarAction} Action.
  */
-export const resetVarAction = () => ({
+export const resetVarAction = (): ResetVarAction => ({
   type: 'VAR_RESET'
 })

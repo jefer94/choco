@@ -7,8 +7,21 @@ import locale from '@choco/i18n'
  * @property {string} id - Tab React key.
  * @property {string} name - Tab name.
  * @property {string} content - Tab content.
- * @property {string} active - Tab active.
+ * @property {boolean} active - Tab active.
  */
+
+type Tab = {
+  readonly id: number
+  readonly name: string
+  readonly content: string
+  readonly active: boolean
+}
+
+type LazyActions = {
+  readonly type: string
+  readonly id?: number
+  readonly content: string
+}
 
 /**
  * Get defaults tabs
@@ -16,7 +29,7 @@ import locale from '@choco/i18n'
  * getDefaults()
  * @returns {Tab[]} Array of tabs
  */
-function getDefaults() {
+function getDefaults(): readonly Tab[] {
   return [{
     id: 0,
     name: locale.one('editor'),
@@ -32,8 +45,9 @@ function getDefaults() {
  * @param {number} id - Tab id.
  * @example
  * title('hey apple!', 0) // return 'Hey apple! 0'
+ * @returns {string} Set first letter to uppercase.
  */
-function title(string, id) {
+function title(string, id): string {
   return `${string.charAt(0).toUpperCase()}${string.slice(1)} ${id}`
 }
 
@@ -43,9 +57,9 @@ function title(string, id) {
  * @param {Tab[]} state - Data store in reducer.
  * @example
  * add([])
- * @returns {Tab[]} Array of Tabs
+ * @returns {Tab[]} Array of Tabs.
  */
-function add(state) {
+function add(state: readonly Tab[]): readonly Tab[] {
   const id = state.length ? state[state.length - 1].id + 1 : 0
   return state.concat([{
     id,
@@ -72,8 +86,9 @@ function add(state) {
  *   type: 'DELETE_TAB'
  * }
  * remove(state, action) // return []
+ * @returns {Tab[]} Tabs.
  */
-function remove(state, action) {
+function remove(state: readonly Tab[], action: LazyActions): readonly Tab[] {
   const [first, ...filter] = state.filter((tab) => tab.id !== action.id)
   const active = { ...first, active: true }
   return [active, ...filter]
@@ -88,7 +103,7 @@ function remove(state, action) {
  * reducer([])
  * @returns {Tab[]} Data store in reducer.
  */
-export default function reducer(state = getDefaults(), action) {
+export default function reducer(state = getDefaults(), action: LazyActions): readonly Tab[] {
   switch (action.type) {
     case 'ADD_TAB':
       return add(state)
