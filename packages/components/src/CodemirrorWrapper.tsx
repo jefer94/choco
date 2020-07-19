@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, createRef, useState, FunctionComponent, ReactElement } from 'react'
+import React, { useRef, useEffect, createRef, useState, FunctionComponent, ReactElement, ReactNode } from 'react'
 import styled from 'styled-components'
 // import {EditorView} from "@codemirror/next/view"
 // import {EditorState} from "@codemirror/next/state"
@@ -20,22 +20,24 @@ import { GutterMarker } from '@codemirror/next/gutter'
 // `
 
 type Props = {
-  readonly className: string
+  readonly className?: string
   readonly content: string
 }
 
 function CodemirrorWrapperBase({ className, content }: Props): ReactElement {
   const [loading, setLoading] = useState(true)
-  let div = useRef()
-  let editor = useRef()
+  const div = useRef<HTMLHeadingElement>()
+  const editor = useRef<EditorView>()
 
   useEffect(() => {
     if (loading) {
-      editor.current = new EditorView({state: EditorState.create({doc: content, extensions: []}) })
+      editor.current = new EditorView({
+        state: EditorState.create({ doc: content, extensions: [] })
+      })
       setLoading(false)
     }
-  
-    else if (div.current && editor.current) div.current.appendChild(editor.current.dom)
+
+    else if (div && div.current && editor.current) div.current.appendChild(editor.current.dom)
   }, [loading])
 
   return (
@@ -54,10 +56,14 @@ function CodemirrorWrapperBase({ className, content }: Props): ReactElement {
   )
 }
 
-export const CodemirrorWrapper = styled(CodemirrorWrapper)`
+type CodemirrorWrapperProps = {
+  readonly height: string
+}
+
+export const CodemirrorWrapper = styled(CodemirrorWrapperBase)`
   & > div {
-    height: ${(v) => v.height};
-    max-height: ${(v) => v.height};
+    height: ${(v: CodemirrorWrapperProps) => v.height};
+    max-height: ${(v: CodemirrorWrapperProps) => v.height};
     outline: 0!important;
     background-color: ${(v) => v.theme.surface};
     color: ${(v) => v.theme.white};

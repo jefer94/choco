@@ -1,4 +1,4 @@
-import React, { useEffect, useState, createContext, ReactElement, ReactChildren } from 'react'
+import React, { useEffect, useState, createContext, ReactElement, ReactNode } from 'react'
 
 const key = '__ALGORITHM_MENU__'
 
@@ -10,7 +10,7 @@ export const MenuContext = createContext({})
  */
 
 type MenuContextProviderProps = {
-  readonly children: ReactChildren
+  readonly children: ReactNode
 }
 
 /**

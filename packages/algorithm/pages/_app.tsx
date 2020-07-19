@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
-import { faEdit, faTerminal, faBook } from '@fortawesome/free-solid-svg-icons'
+import { faEdit, faTerminal, faBook, IconDefinition } from '@fortawesome/free-solid-svg-icons'
 import { homeRoute, docsRoute, consoleRoute } from '../globals/routes'
 import keychain from '@choco/keychain'
 import { ThemeContext, MenuContext } from '../contexts'
@@ -8,7 +8,7 @@ import { Menu as MenuComponent } from '@choco/components'
 import dynamic from 'next/dynamic'
 import Head from 'next/head'
 
-function menuItem(url, name, icon, active) {
+function menuItem(url: string, name: string, icon: IconDefinition, active: boolean) {
   return { id: keychain('menu'), url, name, icon, active }
 }
 
@@ -28,9 +28,6 @@ function Menu({ children }) {
       {children}
     </MenuComponent>
   )
-}
-Menu.propTypes = {
-  children: PropTypes.node.isRequired
 }
 
 export default function App({ Component, pageProps }) {

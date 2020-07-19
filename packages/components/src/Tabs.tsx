@@ -1,11 +1,10 @@
 import React, { ReactElement } from 'react'
-import PropTypes from 'prop-types'
 import { faPlus, faBars } from '@fortawesome/free-solid-svg-icons'
-import Link from './Link'
+import { Link } from './Link'
 // import { faBars, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons'
-import Tab from './Tab'
-import TabButton from './TabButton'
-import Icon from './Icon'
+import { Tab } from './Tab'
+import { TabButton } from './TabButton'
+import { Icon } from './Icon'
 // import './Tabs.sass'
 import styled from 'styled-components' // eslint-disable-line
 import { StyledMenu } from './types'
@@ -79,7 +78,7 @@ type AddTabButtonProps = {
 function AddTabButton({ theme, add }: AddTabButtonProps): ReactElement {
   return add ? (
     <SimpleButtonLi>
-      <SimpleTabButton onClick={add} onKeyUp={add} label="Add tab" theme={theme}>
+      <SimpleTabButton click={add} label="Add tab" theme={theme}>
         <Icon name={faPlus} theme={theme} />
       </SimpleTabButton>
     </SimpleButtonLi>
@@ -132,9 +131,9 @@ type Props = {
  *   remove={id => removeCallback(id)}
  *   multiTabsFeature={false}
  * />
- * @returns {object} <Tabs ... />
+ * @returns {object} Tabs component.
  */
-function Tabs({ tabs, add, change, remove, theme = {}, menuIsOpen }: Props):
+export function Tabs({ tabs, add, change, remove, theme = {}, menuIsOpen }: Props):
   ReactElement {
   // console.log(add, change, remove, multiTabsFeature)
   return (
@@ -162,18 +161,3 @@ function Tabs({ tabs, add, change, remove, theme = {}, menuIsOpen }: Props):
     </Nav>
   )
 }
-Tabs.propTypes = {
-  tabs: PropTypes.arrayOf(PropTypes.object).isRequired,
-  add: PropTypes.func,
-  change: PropTypes.func,
-  remove: PropTypes.func,
-  theme: PropTypes.objectOf(PropTypes.string)
-}
-Tabs.defaultProps = {
-  add: () => {},
-  change: () => {},
-  remove: () => {},
-  multiTabsFeature: false
-}
-
-export default Tabs

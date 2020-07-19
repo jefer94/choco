@@ -1,8 +1,7 @@
 import React, { ReactElement } from 'react'
-import PropTypes from 'prop-types'
 // import './Icon.sass'
 import styled from 'styled-components'
-import { IconProp } from '@fortawesome/fontawesome-svg-core'
+import { IconDefinition } from '@fortawesome/fontawesome-svg-core'
 import FontAwesomeIcon from './FontAwesomeWrapper'
 
 /** @module components/Icon */
@@ -14,9 +13,9 @@ import FontAwesomeIcon from './FontAwesomeWrapper'
  */
 
 type IconProps = {
-  readonly className: string
-  readonly name: IconProp
-  readonly theme?: Record<string, string>
+  readonly className?: string
+  readonly name: IconDefinition
+  // readonly theme?: Record<string, string>
 }
 /**
  * Edidor wrapper.
@@ -26,8 +25,8 @@ type IconProps = {
  * <Icon name={FontAwesomeIcon} />
  * @returns {object} <Icon ... />.
  */
-function Icon({ className, name }: IconProps): ReactElement {
+function IconBase({ className, name }: IconProps): ReactElement {
   return <FontAwesomeIcon className={className} icon={name} />
 }
 
-export default styled(Icon)`color: ${(v) => v.theme.white};`
+export const Icon = styled(IconBase)`color: ${(v) => v.theme.white};`

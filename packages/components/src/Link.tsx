@@ -1,4 +1,4 @@
-import React, { useState, ReactElement, ReactChildren } from 'react'
+import React, { ReactElement, ReactNode } from 'react'
 import PropTypes from 'prop-types'
 import ServerLink from 'next/link'
 // import { Link as BrowserLink } from 'react-router-dom'
@@ -26,9 +26,10 @@ import ServerLink from 'next/link'
  * @property {object} children - Link children.
  */
 
-type Props = {
+type LinkProps = {
   readonly to: string
-  readonly children: ReactChildren
+  readonly children: ReactNode
+  // readonly children: ReactChildren
 }
 
 /**
@@ -39,15 +40,10 @@ type Props = {
  * <Link to="#" />
  * @returns {object} <Editor ... />
  */
-export default function Link({ to, children }: Props): ReactElement {
+export function Link({ to, children }: LinkProps): ReactElement {
   return (
     <ServerLink href={to}>
       {children}
     </ServerLink>
   )
-}
-
-Link.propTypes = {
-  to: PropTypes.string.isRequired,
-  children: PropTypes.element.isRequired
 }

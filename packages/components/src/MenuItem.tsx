@@ -1,9 +1,9 @@
 import React, { ReactElement } from 'react'
-import styled from 'styled-components' // eslint-disable-line
-import { IconProp } from '@fortawesome/fontawesome-svg-core'
+import styled, { StyledFunction } from 'styled-components' // eslint-disable-line
+import { IconDefinition } from '@fortawesome/fontawesome-svg-core'
 import { Dictionary } from '@choco/types'
-import Link from './Link'
-import Icon from './Icon'
+import { Link } from './Link'
+import { Icon } from './Icon'
 
 const BaseStyled = `
   display: flex;
@@ -26,10 +26,10 @@ const BaseStyled = `
  */
 
 export type MenuLinkProps = {
-  readonly className: string
-  readonly theme: Dictionary
-  readonly url: string
-  readonly icon: IconProp
+  readonly className?: string
+  readonly theme: Record<string, string>
+  readonly url?: string
+  readonly icon: IconDefinition
 }
 
 /**
@@ -48,9 +48,16 @@ function MenuLink({ className, theme, url, icon }: MenuLinkProps): ReactElement 
   )
 }
 
+type ActiveProp = {
+  readonly active: boolean
+}
+
+// const b = styled<ActiveProp & React.HTMLProps<HTMLInputElement>>(MenuLink)
+// const b = styled<ActiveProp & React.HTMLProps<HTMLInputElement>>(MenuLink)
+
 const MenuLinkStyled = styled(MenuLink)`
   ${BaseStyled}
-  filter: ${(v) => (v.active ? 'brightness(150%)' : 'unset')};
+  filter: ${(v: ActiveProp) => (v.active ? 'brightness(150%)' : 'unset')};
 `
 
 /**
@@ -59,19 +66,21 @@ const MenuLinkStyled = styled(MenuLink)`
  */
 
 type MenuItemProps = {
-  readonly className: string
-  readonly theme: typeof DarkTheme
-  readonly url: string
-  readonly icon: IconProp
+  readonly className?: string
+  readonly theme: Record<string, string>
+  readonly url?: string
+  readonly icon: IconDefinition
   readonly active: boolean
-  readonly onClick: () => void
+  readonly onClick?: () => void
 }
 
 /**
- * 
+ * Menu item component.
+ *
  * @param  Props - Props.
+ * @returns {object} Menu item component.
  */
-function MenuItem({ className, theme, url = '#', icon, active, onClick }: MenuItemProps): ReactElement {
+function MenuItemBase({ className, theme, url = '#', icon, active, onClick }: MenuItemProps): ReactElement {
   console.log('click', onClick)
   return (
     <li className={className} onClick={onClick}>
@@ -80,7 +89,12 @@ function MenuItem({ className, theme, url = '#', icon, active, onClick }: MenuIt
   )
 }
 
-export default styled(MenuItem)`
+// type ActiveProp = {
+//   readonly active: boolean
+// }
+
+// export default styled<MenuItemProps & ActiveProp>(MenuItem)`
+export const MenuItem = styled(MenuItemBase)`
   ${BaseStyled}
-  filter: ${(v) => (v.active ? 'brightness(150%)' : 'unset')};
+  filter: ${(v: ActiveProp) => (v.active ? 'brightness(150%)' : 'unset')};
 `

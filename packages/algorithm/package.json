@@ -9,6 +9,9 @@
   },
   "dependencies": {
     "@choco/algorithm-transpiler": "^1.0.0",
+    "@choco/components": "^1.0.0",
+    "@choco/i18n": "^1.0.0",
+    "@choco/keychain": "^1.0.0",
     "@codemirror/next": "^0.8.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.30",
     "@fortawesome/free-solid-svg-icons": "^5.14.0",

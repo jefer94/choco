@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useContext, ReactElement } from 'react'
 import Head from 'next/head'
 import { faPlay } from '@fortawesome/free-solid-svg-icons'
+import { Tabs as TabsComponent, Editor as EditorComponent, FloatingButton } from '@choco/components'
 import useTabs from '../hooks/useTabs'
 import { consoleRoute } from '../globals/routes'
 import { ThemeContext, MenuContext } from '../contexts'
 
-import { Tabs as TabsComponent, Editor as EditorComponent, FloatingButton } from '@choco/components'
 // import {Menu from '@choco/containers'
 
 // export const editor = {
@@ -69,9 +69,25 @@ export default function Index(): ReactElement {
         <title>Algorithm</title>
       </Head>
       {/* <Menu> */}
-        <FloatingButton horizontal="right" vertical="bottom" icon={faPlay} url={consoleRoute} />
-        <TabsComponent theme={theme} tabs={tabs} add={addTab} change={changeTab} remove={removeTab} menuIsOpen={isOpen} />
-        <EditorComponent content={content || ''} onChange={setContent} theme={theme} />
+      <FloatingButton
+        horizontal="right"
+        vertical="bottom"
+        icon={faPlay}
+        url={consoleRoute}
+      />
+      <TabsComponent
+        theme={theme}
+        tabs={tabs}
+        add={addTab}
+        change={changeTab}
+        remove={removeTab}
+        menuIsOpen={isOpen}
+      />
+      <EditorComponent
+        content={content || ''}
+        onChange={setContent}
+        theme={theme}
+      />
       {/* </Menu> */}
     </>
   )

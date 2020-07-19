@@ -50,7 +50,7 @@ import React, { ReactElement } from 'react'
  * const Component = () => <Docs />
  * @returns {object} Docs.
  */
-export default function Docs(): ReactElement {
+export function Docs(): ReactElement {
   // const docs = [
   //   addDoc('hola', 'asdasdsaddsasddsadsadaddsaa'),
   //   addDoc('hola', 'asdasdsaddsasddsadsadaddsaa'),

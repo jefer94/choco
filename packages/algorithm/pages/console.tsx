@@ -4,13 +4,13 @@ import Head from 'next/head'
 import { addVarAction, resetVarAction } from '../actions'
 // import store from '../reducers'
 import { setDispatch, setTabs, toJS, Vector as vector, io, write as writeInConsole, read as readInConsole } from '@choco/algorithm-transpiler'
+import { Console as ConsoleComponent } from '@choco/components'
+import { setLang } from '@choco/i18n'
+import keychain from '@choco/keychain'
 import varsReducer from '../reducers/variables'
 import useTabs from '../hooks/useTabs'
 // import Menu from '../containers/Menu'
-import keychain from '@choco/keychain'
 import { ThemeContext } from '../contexts'
-import { Console as ConsoleComponent } from '@choco/components'
-import { setLang } from '@choco/i18n'
 
 setLang('es')
 let cache = []

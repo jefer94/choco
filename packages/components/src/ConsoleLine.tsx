@@ -31,13 +31,17 @@ const LineWrapper = styled.div`
   padding: 0px 4px 0px 0px;
 `
 
+type LineProps = {
+  readonly firstLine?: boolean
+}
+
 const Line = styled.div`
   display: inline;
   float: left;
-  margin: {(v) => v.firstLine ? 0 : 'unset'};
-  padding: {(v) => v.firstLine ? '0 10px 0 0' : 'unset'};
-  color: {(v) => v.firstLine ? '#537f7e' : 'unset'};
-  margin-left: {(v) => !v.firstLine ? 0 : 'unset'};
+  margin: ${(v: LineProps) => (v.firstLine ? 0 : 'unset')};
+  padding: ${(v: LineProps) => (v.firstLine ? '0 10px 0 0' : 'unset')};
+  color: ${(v: LineProps) => (v.firstLine ? '#537f7e' : 'unset')};
+  margin-left: ${(v: LineProps) => (!v.firstLine ? 0 : 'unset')};
 `
 
 export type ConsoleLineProp = {
@@ -64,7 +68,7 @@ type Props = {
  * const Component = () => <Console />
  * @returns {object} Doc.
  */
-function ConsoleLine({ theme = {}, line, lineNumber }: Props): ReactElement {
+export function ConsoleLine({ theme = {}, line, lineNumber }: Props): ReactElement {
   return (
     <LineWrapper theme={theme}>
       { lineNumber === 0 ? (
@@ -85,10 +89,3 @@ const line = {
   content: PropTypes.string.isRequired,
   var: PropTypes.string
 }
-ConsoleLine.propTypes = {
-  theme: PropTypes.objectOf(PropTypes.string),
-  line: PropTypes.shape(line).isRequired,
-  lineNumber: PropTypes.number.isRequired
-}
-
-export default ConsoleLine

@@ -1,8 +1,7 @@
 import React, { ReactElement } from 'react'
-import PropTypes from 'prop-types'
 // import './Console.sass'
 import { Dictionary } from '@choco/types'
-import ConsoleLine, { ConsoleLineProp } from './ConsoleLine'
+import { ConsoleLine, ConsoleLineProp } from './ConsoleLine'
 // #393035
 
 /** @module components/Console */
@@ -35,7 +34,7 @@ type Props = {
  * const Component = () => <Console />
  * @returns {object} Doc.
  */
-function Console({ lines, theme = {} }: Props): ReactElement {
+export function Console({ lines, theme = {} }: Props): ReactElement {
   return (
     <main id="content2" className="tab">
       <div className="console">
@@ -49,9 +48,3 @@ function Console({ lines, theme = {} }: Props): ReactElement {
     </main>
   )
 }
-Console.propTypes = {
-  theme: PropTypes.objectOf(PropTypes.string),
-  lines: PropTypes.arrayOf(PropTypes.object).isRequired
-}
-
-export default Console

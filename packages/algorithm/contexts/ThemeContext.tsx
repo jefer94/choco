@@ -1,4 +1,4 @@
-import React, { useEffect, useState, createContext, ReactChildren, ReactElement, Dispatch, SetStateAction } from 'react'
+import React, { useEffect, useState, createContext, ReactNode, ReactElement, Dispatch, SetStateAction } from 'react'
 
 const key = '__ALGORITHM_THEME__'
 
@@ -34,7 +34,7 @@ export const ThemeContext = createContext<ThemeContextProps>(null)
  */
 
 type ThemeContextProviderProps = {
-  readonly children: ReactChildren
+  readonly children: ReactNode
 }
 
 /**

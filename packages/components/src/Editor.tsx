@@ -1,6 +1,5 @@
-import React, { useState, memo, useEffect, ReactElement } from 'react'
+import React, { useState, ReactElement } from 'react'
 // import React, { useState, memo, useEffect } from 'react'
-import PropTypes from 'prop-types'
 import { Dictionary } from '@choco/types'
 import { CodemirrorWrapper } from './CodemirrorWrapper'
 // import { editor as monaco } from 'monaco-editor/esm/vs/editor/editor.main'
@@ -55,7 +54,7 @@ type Props = {
  * }
  * @returns {object} <Editor ... />.
  */
-function Editor({ content, onChange, theme }: Props): ReactElement {
+export function Editor({ content, onChange, theme }: Props): ReactElement {
   const [height, setHeight] = useState(windowHeight())
   const [width, setWidth] = useState(windowWidth())
 
@@ -96,9 +95,3 @@ function Editor({ content, onChange, theme }: Props): ReactElement {
     </main>
   )
 }
-Editor.propTypes = {
-  content: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired
-}
-
-export default Editor

@@ -1,10 +1,9 @@
-import React, { memo, ReactElement, ReactChildren } from 'react'
-import PropTypes from 'prop-types'
+import React, { ReactElement, ReactNode } from 'react'
 import styled from 'styled-components'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { Dictionary } from '@choco/types'
-import { IconProp } from '@fortawesome/fontawesome-svg-core'
-import MenuItem from './MenuItem'
+import { IconDefinition } from '@fortawesome/fontawesome-svg-core'
+import { MenuItem } from './MenuItem'
 import { StyledMenu } from './types'
 
 // import './Menu.sass'
@@ -51,13 +50,13 @@ const ContentWrapper = styled.div`
 export type MenuItemProp = {
   readonly id: string
   readonly url: string
-  readonly icon: IconProp
+  readonly icon: IconDefinition
   readonly active: boolean
 }
 
 type Props = {
   readonly theme: Dictionary
-  readonly children: ReactChildren
+  readonly children: ReactNode
   readonly items: readonly MenuItemProp[]
   readonly isOpen: boolean
   readonly toggle: () => void
@@ -71,12 +70,12 @@ type Props = {
  * @todo Color of tabs menu.
  * @todo Hide menu when click an icon.
  */
-function Menu({ theme, children, items, isOpen, toggle }: Props): ReactElement {
+export function Menu({ theme, children, items, isOpen, toggle }: Props): ReactElement {
   return (
     <>
       <MenuWrapper theme={theme} show={isOpen}>
         <ul>
-          <MenuItem icon={faBars} active theme={theme} onClick={(v) => toggle()} />
+          <MenuItem icon={faBars} active theme={theme} onClick={() => toggle()} />
           {items.map(({ id, url, icon, active }) => (
             <MenuItem key={id} url={url} icon={icon} active={!!active} theme={theme} />
           ))}
@@ -88,19 +87,3 @@ function Menu({ theme, children, items, isOpen, toggle }: Props): ReactElement {
     </>
   )
 }
-const menuShape = {
-  id: PropTypes.string.isRequired,
-  url: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  icon: PropTypes.object.isRequired
-}
-Menu.propTypes = {
-  theme: PropTypes.objectOf(PropTypes.string).isRequired,
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.element),
-    PropTypes.element
-  ]).isRequired,
-  items: PropTypes.arrayOf(PropTypes.shape(menuShape)).isRequired
-}
-
-export default Menu

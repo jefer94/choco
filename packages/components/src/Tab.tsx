@@ -1,10 +1,9 @@
 import React, { ReactElement } from 'react'
-import PropTypes from 'prop-types'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import styled from 'styled-components' // eslint-disable-line
-import TabButton from './TabButton'
-import Icon from './Icon'
 import { Dictionary } from '@choco/types'
+import { TabButton } from './TabButton'
+import { Icon } from './Icon'
 
 // const styled = require('styled-component')
 // console.log('aaaaaaaaa', props)
@@ -51,9 +50,9 @@ const ActiveTab = styled(Li)`
  */
 
 type CloseTabProps = {
-  readonly theme: Dictionary
+  readonly theme: Record<string, string>
   readonly name: string
-  readonly remove: () => void
+  readonly remove?: () => void
 }
 
 /**
@@ -69,14 +68,6 @@ function CloseTab({ theme, name, remove }: CloseTabProps): ReactElement {
     </TabButton>
   ) : <></>
 }
-CloseTab.propTypes = {
-  theme: PropTypes.objectOf(PropTypes.string).isRequired,
-  name: PropTypes.string.isRequired,
-  remove: PropTypes.func
-}
-CloseTab.defaultProps = {
-  remove: () => {}
-}
 
 /**
  * @callback TabChange
@@ -90,9 +81,9 @@ CloseTab.defaultProps = {
  */
 
 type TitleAndSelectTabProps = {
-  readonly theme: Dictionary
+  readonly theme: Record<string, string>
   readonly name: string
-  readonly change: () => void
+  readonly change?: () => void
 }
 
 /**
@@ -112,14 +103,6 @@ function TitleAndSelectTab({ theme, name, change }: TitleAndSelectTabProps): Rea
     </TabButton>
   )
 }
-TitleAndSelectTab.propTypes = {
-  theme: PropTypes.objectOf(PropTypes.string).isRequired,
-  name: PropTypes.string.isRequired,
-  change: PropTypes.func
-}
-TitleAndSelectTab.defaultProps = {
-  change: () => {}
-}
 
 /**
  * @typedef {object} TabProps
@@ -136,8 +119,8 @@ type TabProps = {
   readonly active: boolean
   readonly name: string
   readonly id: string
-  readonly change: () => void
-  readonly remove: () => void
+  readonly change?: () => void
+  readonly remove?: () => void
 }
 
 /**
@@ -146,7 +129,7 @@ type TabProps = {
  * @param {TabProps} props - Close tab props.
  * @returns {object} Close tab element.
  */
-function Tab({ theme, active, name, id, change, remove }: TabProps): ReactElement {
+export function Tab({ theme, active, name, id, change, remove }: TabProps): ReactElement {
   const InnerLi = active ? ActiveTab : InactiveTab
   return (
     <InnerLi theme={theme}>
@@ -158,17 +141,3 @@ function Tab({ theme, active, name, id, change, remove }: TabProps): ReactElemen
     </InnerLi>
   )
 }
-Tab.propTypes = {
-  theme: PropTypes.objectOf(PropTypes.string).isRequired,
-  active: PropTypes.bool.isRequired,
-  name: PropTypes.string.isRequired,
-  id: PropTypes.number.isRequired,
-  change: PropTypes.func,
-  remove: PropTypes.func
-}
-Tab.defaultProps = {
-  change: () => {},
-  remove: () => {}
-}
-
-export default Tab

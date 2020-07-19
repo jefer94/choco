@@ -1,6 +1,6 @@
-import React, { memo, ReactElement } from 'react'
-import PropTypes from 'prop-types'
+import React, { ReactElement } from 'react'
 import PulseLoader from 'react-spinners/PulseLoader'
+import { background } from 'styled-system'
 // import './Loading.sass'
 import styled from 'styled-components'
 
@@ -16,7 +16,7 @@ type Props = {
  *
  * @example
  * <Loading />
- * @returns {object} <Loading />
+ * @returns {object} Loading spinner component.
  */
 function LoadingBase({ className, color }: Props): ReactElement {
   return (
@@ -25,10 +25,6 @@ function LoadingBase({ className, color }: Props): ReactElement {
     </div>
   )
 }
-LoadingBase.propTypes = {
-  className: PropTypes.string.isRequired,
-  color: PropTypes.string
-}
 
 export const Loading = styled(LoadingBase)`
   display: flex;
@@ -36,5 +32,5 @@ export const Loading = styled(LoadingBase)`
   height: 100vh;
   justify-content: center;
   align-items: center;
-  background-color: ${(v) => v.background}
+  ${background}
 `

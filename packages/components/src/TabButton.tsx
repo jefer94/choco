@@ -1,7 +1,6 @@
-import React, { ReactElement, ReactChildren } from 'react'
+import React, { ReactElement, ReactNode } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components' // eslint-disable-line
-import { Dictionary } from '@choco/types'
 
 export const TabButtonStyled = styled.button`
   color: ${(v) => v.theme.white};
@@ -25,11 +24,11 @@ export const TabButtonStyled = styled.button`
  */
 
 type TabButtonProps = {
-  readonly theme: Dictionary
+  readonly theme: Record<string, string>
   readonly label: string
-  readonly click: () => void
-  readonly children: ReactChildren
-  readonly className: string
+  readonly click?: () => void
+  readonly children: ReactNode // | string
+  readonly className?: string
 }
 
 /**
@@ -38,24 +37,10 @@ type TabButtonProps = {
  * @param {TabButtonProps} props - Tab button props.
  * @returns {object} Tab button element.
  */
-function TabButton({ theme, label, click, children, className }: TabButtonProps): ReactElement {
+export function TabButton({ theme, label, click, children, className }: TabButtonProps): ReactElement {
   return (
     <TabButtonStyled type="button" aria-label={label} onClick={click} className={className} theme={theme}>
       {children}
     </TabButtonStyled>
   )
 }
-TabButton.propTypes = {
-  theme: PropTypes.objectOf(PropTypes.string).isRequired,
-  label: PropTypes.string.isRequired,
-  click: PropTypes.func,
-  children: PropTypes.node.isRequired,
-  className: PropTypes.string
-}
-TabButton.defaultProps = {
-  // children: [],
-  click: () => {},
-  className: ''
-}
-
-export default TabButton

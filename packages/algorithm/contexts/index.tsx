@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactChildren } from 'react'
+import React, { ReactElement, ReactNode } from 'react'
 import { algorithmTranspilerLang } from '@choco/algorithm-transpiler'
 import lang from '../lang'
 
@@ -15,7 +15,7 @@ lang()
  */
 
 type ProviderProps = {
-  readonly children: ReactChildren
+  readonly children: ReactNode
 }
 
 /**
