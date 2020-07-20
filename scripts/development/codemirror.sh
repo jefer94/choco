@@ -18,6 +18,9 @@ sed -i 's/ "es6"/ "es5"/g' tsconfig.base.json
 sed -i '/"."/d' package.json
 sed -i '/"type": "module"/d' package.json
 
+yarn
+yarn prepare
+
 # add dist folder
 sed -i '5i    "outDir": "./dist",' tsconfig.json
 
@@ -26,6 +29,10 @@ yarn global add typescript
 
 # setup internal module to commonjs and build
 for folder in *; do
+  if [ -d $folder ] && [ -d $folder/src ] && [ -f $folder/package.json ]; then
+    echo all $folder
+  fi
+
   if [ -d $folder ] && [ -d $folder/src ]; then
     echo src $folder
   elif [ -d $folder ] && [ -f $folder/package.json ]; then
@@ -46,9 +53,6 @@ for folder in *; do
     cd ..
   fi
 done
-
-# yarn
-# yarn prepare
 
 cd ../..
 yarn
