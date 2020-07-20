@@ -1,7 +1,8 @@
 {
   "private": true,
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "libs/*"
   ],
   "scripts": {
     "lint": "./scripts/testing/lint.sh",
@@ -14,6 +15,7 @@
     "test:nginx": "./scripts/testing/test-nginx.sh",
     "update": "./scripts/yarn/update.sh",
     "execute": "./scripts/development/execute.sh",
+    "codemirror": "./scripts/development/codemirror.sh",
     "coverage": "./scripts/testing/coverage.sh",
     "pkg": "./scripts/yarn/pkg.sh",
     "docker:build": "./scripts/docker/docker-build.sh",
