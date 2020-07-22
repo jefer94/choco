@@ -13,10 +13,13 @@ echo checking out ${latesttag}
 git checkout ${latesttag}
 
 # setup to module commonjs
-sed -i 's/ "es6"/ "es5"/g' tsconfig.base.json
+# sed -i 's/ "es6"/ "es5"/g' tsconfig.base.json
+sed -i 's/"es6"/"es5"/g' tsconfig.base.json
 # sed -i 's/ "@codemirror/next"/ "@choco/codemirror"/g' package.json
 sed -i '/"."/d' package.json
 sed -i '/"type": "module"/d' package.json
+
+sed -i '5i    "module": "commonjs",' tsconfig.base.json
 
 yarn
 yarn prepare
@@ -30,19 +33,8 @@ yarn global add typescript
 # setup internal module to commonjs and build
 for folder in *; do
   if [ -d $folder ] && [ -d $folder/src ] && [ -f $folder/package.json ]; then
-    echo all $folder
-  fi
-
-  if [ -d $folder ] && [ -d $folder/src ]; then
-    echo src $folder
-  elif [ -d $folder ] && [ -f $folder/package.json ]; then
-    echo package $folder
-  else
-    echo nobody $folder
-  fi
-
-  if [ -d $folder ] && [ -d $folder/src ]; then
     cd $folder
+    echo build $folder
     sed -i 's/ "module"/ "commonjs"/g' package.json
     cp ../tsconfig.json ./tsconfig.json
     sed -i 's/"\*\//"/g' tsconfig.json

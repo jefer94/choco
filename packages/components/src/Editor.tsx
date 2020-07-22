@@ -75,7 +75,7 @@ export function Editor({ content, onChange, theme }: Props): ReactElement {
     }
   })
 
-  console.log(content, width, height, () => onChange)
+  // console.log(content, width, height, () => onChange)
 
   return (
     <main id="content1" className="tab show-content">

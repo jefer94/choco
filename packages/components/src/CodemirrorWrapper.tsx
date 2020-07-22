@@ -4,7 +4,10 @@ import styled from 'styled-components'
 // import {EditorState} from "@codemirror/next/state"
 import { EditorView } from '@codemirror/next/view'
 import { EditorState } from '@codemirror/next/state'
-import { GutterMarker } from '@codemirror/next/gutter'
+import { lineNumbers } from '@codemirror/next/gutter'
+import { defaultKeymap } from '@codemirror/next/commands'
+import { javascript } from '@codemirror/next/lang-javascript'
+import { oneDark } from '@codemirror/next/theme-one-dark'
 // import { UnControlled as CodeMirror } from 'react-codemirror2'
 
 // const Div = styled.div`
@@ -31,8 +34,16 @@ function CodemirrorWrapperBase({ className, content }: Props): ReactElement {
 
   useEffect(() => {
     if (loading) {
+      // eslint-disable-next-line functional/immutable-data
       editor.current = new EditorView({
-        state: EditorState.create({ doc: content, extensions: [] })
+        state: EditorState.create({
+          doc: content,
+          extensions: [lineNumbers(), javascript(), oneDark]
+        }),
+        dispatch: (v) => console.log('xxxxxxxxxx', v)
+        // extensions: [keymap(defaultKeymap)]
+        // extensions: []
+        // extensions: [keymap(defaultKeymap), new GutterMarker()]
       })
       setLoading(false)
     }
