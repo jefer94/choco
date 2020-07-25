@@ -1,10 +1,11 @@
 import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
-import { faEdit, faTerminal, faBook, IconDefinition } from '@fortawesome/free-solid-svg-icons'
+import { faEdit, faTerminal, faFolder, IconDefinition, faCog, faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
+// import { faQuestionCircle } from '@fortawesome/free-regular-svg-icons'
 import { homeRoute, docsRoute, consoleRoute } from '../globals/routes'
 import keychain from '@choco/keychain'
 import { ThemeContext, MenuContext } from '../contexts'
-import { Menu as MenuComponent } from '@choco/components'
+import { Menu as MenuComponent } from '../Components'
 import dynamic from 'next/dynamic'
 import Head from 'next/head'
 
@@ -19,8 +20,10 @@ function Menu({ children }) {
   const { isOpen, setIsOpen } = useContext(MenuContext)
   const items = [
     menuItem(homeRoute, 'Menu', faEdit, true),
-    menuItem(docsRoute, 'Docs', faBook),
-    menuItem(consoleRoute, 'Console', faTerminal)
+    menuItem(consoleRoute, 'Projects', faFolder),
+    menuItem(consoleRoute, 'Console', faTerminal),
+    menuItem(docsRoute, 'Docs', faQuestionCircle),
+    menuItem(docsRoute, 'Configs', faCog)
   ]
 
   return (

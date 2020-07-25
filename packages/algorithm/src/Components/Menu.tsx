@@ -1,17 +1,18 @@
 import React, { ReactElement, ReactNode } from 'react'
 import styled from 'styled-components'
-import { faBars } from '@fortawesome/free-solid-svg-icons'
+// import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { Dictionary } from '@choco/types'
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core'
 import { MenuItem } from './MenuItem'
-import { StyledMenu } from './types'
+import keychain from '@choco/keychain'
+// import { StyledMenu } from './types'
 
 // import './Menu.sass'
 
 /** @module components/Menu */
 
 const MenuWrapper = styled.div`
-  transform: ${(v: StyledMenu) => (v.show ? 'unset' : 'translateX(-64px)')};
+  /* transform: ${(v: StyledMenu) => (v.show ? 'unset' : 'translateX(-64px)')}; */
   transition-duration: 0.1s;
   width: 64px;
   height: 100vh;
@@ -31,13 +32,40 @@ const MenuWrapper = styled.div`
 
 const ContentWrapper = styled.div`
   top: 0px;
-  left: ${(v: StyledMenu) => (v.menuIsOpen ? '64px' : 'unset')};
-  width: ${(v: StyledMenu) => (v.menuIsOpen ? 'calc(100vw - 64px)' : '100vw')};
+  left: 64px;
+  width: calc(100vw - 64px);
   position: absolute;
   display: inline-block;
   height: 100vh;
   overflow: hidden;
 `
+
+/**
+ * @typedef {object} MenuItemProps
+ * @property {string} id - Menu id.
+ * @property {string} url - Menu url.
+ * @property {object} icon - Menu icon.
+ * @property {boolean} active - Menu active.
+ */
+
+export type MenuItemProps = {
+  readonly id: string
+  readonly url: string
+  readonly icon: IconDefinition
+  readonly active: boolean
+}
+
+/**
+ * Menu item config.
+ *
+ * @param {string} url - Menu url.
+ * @param {object} icon - Menu url.
+ * @param {boolean} active - Menu url.
+ * @returns {MenuItemProps} Menu item props.
+ */
+export function menuItem(url: string, icon: IconDefinition, active?: boolean): MenuItemProps {
+  return { id: keychain('menu'), url, icon, active }
+}
 
 /**
  * @typedef {object} MenuProps
@@ -47,19 +75,10 @@ const ContentWrapper = styled.div`
  * @property {boolean} active - Menu active.
  */
 
-export type MenuItemProp = {
-  readonly id: string
-  readonly url: string
-  readonly icon: IconDefinition
-  readonly active: boolean
-}
-
-type Props = {
+type MenuProps = {
   readonly theme: Dictionary
   readonly children: ReactNode
-  readonly items: readonly MenuItemProp[]
-  readonly isOpen: boolean
-  readonly toggle: () => void
+  readonly items: readonly MenuItemProps[]
 }
 
 /**
@@ -70,10 +89,11 @@ type Props = {
  * @todo Color of tabs menu.
  * @todo Hide menu when click an icon.
  */
-export function Menu({ theme, children, items, isOpen, toggle }: Props): ReactElement {
+export function Menu({ theme, children, items }: MenuProps): ReactElement {
+  console.log('asdasd', items)
   return (
     <>
-      <MenuWrapper theme={theme} show={isOpen}>
+      <MenuWrapper theme={theme}>
         <ul>
           {/* <MenuItem icon={faBars} active theme={theme} onClick={() => toggle()} /> */}
           {items.map(({ id, url, icon, active }) => (
@@ -81,7 +101,7 @@ export function Menu({ theme, children, items, isOpen, toggle }: Props): ReactEl
           ))}
         </ul>
       </MenuWrapper>
-      <ContentWrapper theme={theme} menuIsOpen={isOpen}>
+      <ContentWrapper theme={theme}>
         {children}
       </ContentWrapper>
     </>

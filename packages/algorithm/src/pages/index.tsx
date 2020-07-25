@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext, ReactElement } from 'react'
 import Head from 'next/head'
 import { faPlay } from '@fortawesome/free-solid-svg-icons'
-import { Tabs as TabsComponent, Editor as EditorComponent, FloatingButton } from '@choco/components'
+import { Tabs as TabsComponent, Editor as EditorComponent, FloatingButton } from '../Components'
 import useTabs from '../hooks/useTabs'
 import { consoleRoute } from '../globals/routes'
 import { ThemeContext, MenuContext } from '../contexts'

@@ -4,6 +4,7 @@ import lang from '../lang'
 
 import { ThemeContextProvider } from './ThemeContext' // eslint-disable-line
 import { MenuContextProvider } from './MenuContext' // eslint-disable-line
+import { ResizeContextProvider } from './ResizeContext' // eslint-disable-line
 
 // set locales
 algorithmTranspilerLang()

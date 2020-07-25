@@ -17,6 +17,8 @@
     "@fortawesome/free-solid-svg-icons": "^5.14.0",
     "@fortawesome/react-fontawesome": "^0.1.11",
     "@monaco-editor/react": "^3.4.2",
+    "@types/styled-components": "^5.1.1",
+    "@types/styled-system": "^5.1.9",
     "add": "^2.0.6",
     "monaco-editor": "^0.20.0",
     "next": "9.4.4",
@@ -25,6 +27,8 @@
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-spinners": "^0.9.0",
+    "styled-components": "^5.1.1",
+    "styled-system": "^5.1.5",
     "yarn": "^1.22.4"
   },
   "devDependencies": {

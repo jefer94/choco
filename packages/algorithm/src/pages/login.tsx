@@ -4,6 +4,15 @@ import { Docs as DocsComponent } from '../Components'
 // import Menu from '../containers/Menu'
 import { ThemeContext } from '../contexts'
 
+function PrintNames({ names = [] }) {
+  return (
+    <ol>
+      {/* use name as key for dom caching */}
+      {names.sort().map((v) => <li key={v}>{v}</li>)}
+    </ol>
+  )
+}
+
 /**
  * Get a Docs inside of Menu.
  *
@@ -15,15 +24,12 @@ import { ThemeContext } from '../contexts'
  * @returns {object} <Docs />
  */
 export default function () {
-  const { theme } = useContext(ThemeContext) || {}
   return (
     <>
       <Head>
         <title>Algorithm - Docs</title>
       </Head>
-      {/* <Menu theme={theme}> */}
-        <DocsComponent />
-      {/* </Menu> */}
+      <PrintNames names={["Barbara", "Carla", "Andres", ]} />
     </>
   )
 }
