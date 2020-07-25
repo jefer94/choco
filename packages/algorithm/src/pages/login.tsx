@@ -1,17 +1,8 @@
 import React, { useContext } from 'react'
 import Head from 'next/head'
-import { Docs as DocsComponent } from '../Components'
+import { Docs as DocsComponent, BrandSection } from '../Components'
 // import Menu from '../containers/Menu'
 import { ThemeContext } from '../contexts'
-
-function PrintNames({ names = [] }) {
-  return (
-    <ol>
-      {/* use name as key for dom caching */}
-      {names.sort().map((v) => <li key={v}>{v}</li>)}
-    </ol>
-  )
-}
 
 /**
  * Get a Docs inside of Menu.
@@ -29,7 +20,8 @@ export default function () {
       <Head>
         <title>Algorithm - Docs</title>
       </Head>
-      <PrintNames names={["Barbara", "Carla", "Andres", ]} />
+      {/* <BrandSection type="Header" /> */}
+      <BrandSection type="Aside" />
     </>
   )
 }

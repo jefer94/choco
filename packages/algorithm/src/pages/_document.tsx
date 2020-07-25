@@ -1,17 +1,15 @@
-// import { Suspense } from 'react'
-import Document, { Html, Head, Main, NextScript } from 'next/document'
-// import { Loading } from '@choco/components'
+/* eslint-disable functional/no-class */
+import Document, { Html, Head, Main, NextScript, DocumentInitialProps, DocumentContext } from 'next/document'
+import { ReactElement } from 'react'
 // import 'next-offline'
 
-class MyDocument extends Document {
-  static async getInitialProps(ctx) {
-
+export default class MyDocument extends Document {
+  static async getInitialProps(ctx: DocumentContext): Promise<DocumentInitialProps> {
     const initialProps = await Document.getInitialProps(ctx)
     return { ...initialProps }
   }
 
-  render() {
-
+  render(): ReactElement {
     return (
       <Html lang="en">
         <Head>
@@ -34,13 +32,9 @@ class MyDocument extends Document {
         <body>
           <noscript>You need to enable JavaScript to run this app.</noscript>
           <Main />
-          {/* <Suspense fallback={<Loading />}> */}
-            <NextScript />
-          {/* </Suspense> */}
+          <NextScript />
         </body>
       </Html>
     )
   }
 }
-
-export default MyDocument

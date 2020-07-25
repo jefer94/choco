@@ -40,6 +40,11 @@ const ContentWrapper = styled.div`
   overflow: hidden;
 `
 
+const BottomItems = styled.ul`
+  bottom: 0;
+  position: absolute;
+`
+
 /**
  * @typedef {object} MenuItemProps
  * @property {string} id - Menu id.
@@ -78,7 +83,8 @@ export function menuItem(url: string, icon: IconDefinition, active?: boolean): M
 type MenuProps = {
   readonly theme: Dictionary
   readonly children: ReactNode
-  readonly items: readonly MenuItemProps[]
+  readonly topItems: readonly MenuItemProps[]
+  readonly bottomItems: readonly MenuItemProps[]
 }
 
 /**
@@ -89,17 +95,26 @@ type MenuProps = {
  * @todo Color of tabs menu.
  * @todo Hide menu when click an icon.
  */
-export function Menu({ theme, children, items }: MenuProps): ReactElement {
-  console.log('asdasd', items)
+export function Menu({ theme, children, topItems, bottomItems }: MenuProps): ReactElement {
   return (
     <>
       <MenuWrapper theme={theme}>
-        <ul>
-          {/* <MenuItem icon={faBars} active theme={theme} onClick={() => toggle()} /> */}
-          {items.map(({ id, url, icon, active }) => (
-            <MenuItem key={id} url={url} icon={icon} active={!!active} theme={theme} />
-          ))}
-        </ul>
+        {topItems.length ? (
+          <ul>
+            {/* <MenuItem icon={faBars} active theme={theme} onClick={() => toggle()} /> */}
+            {topItems.map(({ id, url, icon, active }) => (
+              <MenuItem key={id} url={url} icon={icon} active={!!active} theme={theme} />
+            ))}
+          </ul>
+        ) : <></>}
+        {bottomItems.length ? (
+          <BottomItems>
+            {/* <MenuItem icon={faBars} active theme={theme} onClick={() => toggle()} /> */}
+            {bottomItems.map(({ id, url, icon, active }) => (
+              <MenuItem key={id} url={url} icon={icon} active={!!active} theme={theme} />
+            ))}
+          </BottomItems>
+        ) : <></>}
       </MenuWrapper>
       <ContentWrapper theme={theme}>
         {children}

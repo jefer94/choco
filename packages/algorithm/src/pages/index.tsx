@@ -5,6 +5,7 @@ import { Tabs as TabsComponent, Editor as EditorComponent, FloatingButton } from
 import useTabs from '../hooks/useTabs'
 import { consoleRoute } from '../globals/routes'
 import { ThemeContext, MenuContext } from '../contexts'
+import { MenuContainer } from '../Containers/MenuContainer'
 
 // import {Menu from '@choco/containers'
 
@@ -68,27 +69,27 @@ export default function Index(): ReactElement {
       <Head>
         <title>Algorithm</title>
       </Head>
-      {/* <Menu> */}
-      <FloatingButton
-        horizontal="right"
-        vertical="bottom"
-        icon={faPlay}
-        url={consoleRoute}
-      />
-      <TabsComponent
-        theme={theme}
-        tabs={tabs}
-        add={addTab}
-        change={changeTab}
-        remove={removeTab}
-        menuIsOpen={isOpen}
-      />
-      <EditorComponent
-        content={content || ''}
-        onChange={setContent}
-        theme={theme}
-      />
-      {/* </Menu> */}
+      <MenuContainer>
+        <FloatingButton
+          horizontal="right"
+          vertical="bottom"
+          icon={faPlay}
+          url={consoleRoute}
+        />
+        <TabsComponent
+          theme={theme}
+          tabs={tabs}
+          add={addTab}
+          change={changeTab}
+          remove={removeTab}
+          menuIsOpen={isOpen}
+        />
+        <EditorComponent
+          content={content || ''}
+          onChange={setContent}
+          theme={theme}
+        />
+      </MenuContainer>
     </>
   )
 }

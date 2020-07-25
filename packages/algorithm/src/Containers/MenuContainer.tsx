@@ -21,16 +21,18 @@ type MenuContainerProps = {
  */
 export function MenuContainer({ children }: MenuContainerProps): ReactElement {
   const { theme } = useContext(ThemeContext)
-  const items: readonly MenuItemProps[] = [
+  const top: readonly MenuItemProps[] = [
     menuItem(homeRoute, faEdit, true),
     menuItem(consoleRoute, faFolder),
-    menuItem(consoleRoute, faTerminal),
+    menuItem(consoleRoute, faTerminal)
+  ]
+  const bottom: readonly MenuItemProps[] = [
     menuItem(docsRoute, faQuestionCircle),
     menuItem(docsRoute, faCog)
   ]
 
   return (
-    <Menu items={items} theme={theme}>
+    <Menu topItems={top} bottomItems={bottom} theme={theme}>
       {children}
     </Menu>
   )

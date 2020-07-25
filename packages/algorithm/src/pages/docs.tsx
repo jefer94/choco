@@ -1,8 +1,7 @@
-import React, { useContext } from 'react'
+import React, { ReactElement } from 'react'
 import Head from 'next/head'
 import { Docs as DocsComponent } from '../Components'
-// import Menu from '../containers/Menu'
-import { ThemeContext } from '../contexts'
+import { MenuContainer } from '../Containers/MenuContainer'
 
 /**
  * Get a Docs inside of Menu.
@@ -14,16 +13,15 @@ import { ThemeContext } from '../contexts'
  * const component = <Docs />
  * @returns {object} <Docs />
  */
-export default function () {
-  const { theme } = useContext(ThemeContext) || {}
+export default function Docs(): ReactElement {
   return (
     <>
       <Head>
         <title>Algorithm - Docs</title>
       </Head>
-      {/* <Menu theme={theme}> */}
+      <MenuContainer>
         <DocsComponent />
-      {/* </Menu> */}
+      </MenuContainer>
     </>
   )
 }

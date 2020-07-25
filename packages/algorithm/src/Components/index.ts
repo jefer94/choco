@@ -1,4 +1,5 @@
 export * from './Console'
+export * from './BrandSection'
 export * from './ConsoleLine'
 export * from './Docs'
 export * from './Editor'
