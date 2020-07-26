@@ -1,1 +1,128 @@
-if(!self.define){const e=e=>{"require"!==e&&(e+=".js");let s=Promise.resolve();return a[e]||(s=new Promise(async s=>{if("document"in self){const a=document.createElement("script");a.src=e,document.head.appendChild(a),a.onload=s}else importScripts(e),s()})),s.then(()=>{if(!a[e])throw new Error(`Module ${e} didn’t register its module`);return a[e]})},s=(s,a)=>{Promise.all(s.map(e)).then(e=>a(1===e.length?e[0]:e))},a={require:Promise.resolve(s)};self.define=(s,c,r)=>{a[s]||(a[s]=Promise.resolve().then(()=>{let a={};const t={uri:location.origin+s.slice(1)};return Promise.all(c.map(s=>{switch(s){case"exports":return a;case"module":return t;default:return e(s)}})).then(e=>{const s=r(...e);return a.default||(a.default=s),a})}))}}define("./sw.js",["./workbox-d3e57396"],(function(e){"use strict";importScripts(),e.skipWaiting(),e.clientsClaim(),e.precacheAndRoute([{url:"/",revision:"HFP_qjBypBglfM6LQhNSk"},{url:"/_next/static/HFP_qjBypBglfM6LQhNSk/_buildManifest.js",revision:"fb96ae7926f5104f50f0cf1b3a23a9b5"},{url:"/_next/static/HFP_qjBypBglfM6LQhNSk/_ssgManifest.js",revision:"abee47769bf307639ace4945f9cfd4ff"},{url:"/_next/static/HFP_qjBypBglfM6LQhNSk/pages/_app.js",revision:"4bb40b301e2dec5c0462d15b697bb568"},{url:"/_next/static/HFP_qjBypBglfM6LQhNSk/pages/_error.js",revision:"476dacd193736f778675c99c8eae6878"},{url:"/_next/static/HFP_qjBypBglfM6LQhNSk/pages/console.js",revision:"14889f0e3bdca4c66d909d9d646c961a"},{url:"/_next/static/HFP_qjBypBglfM6LQhNSk/pages/docs.js",revision:"37c69874fdc70bcc9bd158220bac6ab9"},{url:"/_next/static/HFP_qjBypBglfM6LQhNSk/pages/index.js",revision:"a0809b6d3cb43f37361ff57b6b901b14"},{url:"/_next/static/chunks/124de700.4a404446f8e1d6786376.js",revision:"06eb7f9560880014e7fb4cb6c8505670"},{url:"/_next/static/chunks/1df474da.00d6a8a0d3871baa6fe8.js",revision:"75e810084dd2c56878b2b4df17808d93"},{url:"/_next/static/chunks/6099e6955f7a2a17477f26fc456c3ee8e4aae779.161ed7654e6a5711308d.js",revision:"20bf690518f5359744b87c8232287d4c"},{url:"/_next/static/chunks/commons.79511a6f6604c3c6dfeb.js",revision:"c7b50dbc2c0db5f9d83eecab9c93cc6f"},{url:"/_next/static/chunks/framework.2aa9b59b37131cc2f166.js",revision:"bb4f78f32fbda2581d8ffc7c5db70c6b"},{url:"/_next/static/runtime/main-db031fc41a3e44f829b6.js",revision:"a6d58de42de314106585aa48bd3d0890"},{url:"/_next/static/runtime/polyfills-f50e3710a530cc6000e0.js",revision:"da29be34c78144d9d8d054520dfeed2a"},{url:"/_next/static/runtime/webpack-91b117697e716c22a78b.js",revision:"40b4095b5b68a142c856f388ccb756f2"},{url:"/favicon.ico",revision:"412192267449ea67eebabd3e62acfe51"},{url:"/logo192.png",revision:"d4648d3a77a034c9779548cf57f821b3"},{url:"/logo512.png",revision:"1c6107fb72b46232bd54ba06efc2dc99"},{url:"/manifest.json",revision:"688128be216cc2f753fe641590f2fcd3"},{url:"/service-worker2222.js",revision:"cfa5f7e7ac714ad1bee3bb37461a6611"},{url:"/zeit.svg",revision:"7b2022f3692adf56949c7019f7ebb670"}],{ignoreURLParametersMatching:[]}),e.cleanupOutdatedCaches(),e.registerRoute(/^https:\/\/fonts\.(?:googleapis|gstatic)\.com\/.*/i,new e.CacheFirst({cacheName:"google-fonts",plugins:[new e.ExpirationPlugin({maxEntries:4,maxAgeSeconds:31536e3,purgeOnQuotaError:!0})]}),"GET"),e.registerRoute(/^https:\/\/use\.fontawesome\.com\/releases\/.*/i,new e.CacheFirst({cacheName:"font-awesome",plugins:[new e.ExpirationPlugin({maxEntries:1,maxAgeSeconds:31536e3,purgeOnQuotaError:!0})]}),"GET"),e.registerRoute(/\.(?:eot|otf|ttc|ttf|woff|woff2|font.css)$/i,new e.StaleWhileRevalidate({cacheName:"static-font-assets",plugins:[new e.ExpirationPlugin({maxEntries:4,maxAgeSeconds:604800,purgeOnQuotaError:!0})]}),"GET"),e.registerRoute(/\.(?:jpg|jpeg|gif|png|svg|ico|webp)$/i,new e.StaleWhileRevalidate({cacheName:"static-image-assets",plugins:[new e.ExpirationPlugin({maxEntries:64,maxAgeSeconds:86400,purgeOnQuotaError:!0})]}),"GET"),e.registerRoute(/\.(?:js)$/i,new e.StaleWhileRevalidate({cacheName:"static-js-assets",plugins:[new e.ExpirationPlugin({maxEntries:16,maxAgeSeconds:86400,purgeOnQuotaError:!0})]}),"GET"),e.registerRoute(/\.(?:css|less)$/i,new e.StaleWhileRevalidate({cacheName:"static-style-assets",plugins:[new e.ExpirationPlugin({maxEntries:16,maxAgeSeconds:86400,purgeOnQuotaError:!0})]}),"GET"),e.registerRoute(/\.(?:json|xml|csv)$/i,new e.StaleWhileRevalidate({cacheName:"static-data-assets",plugins:[new e.ExpirationPlugin({maxEntries:16,maxAgeSeconds:86400,purgeOnQuotaError:!0})]}),"GET"),e.registerRoute(/.*/i,new e.StaleWhileRevalidate({cacheName:"others",plugins:[new e.ExpirationPlugin({maxEntries:16,maxAgeSeconds:86400,purgeOnQuotaError:!0})]}),"GET")}));
+/**
+ * Copyright 2018 Google Inc. All Rights Reserved.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+// If the loader is already loaded, just stop.
+if (!self.define) {
+  const singleRequire = name => {
+    if (name !== 'require') {
+      name = name + '.js';
+    }
+    let promise = Promise.resolve();
+    if (!registry[name]) {
+      
+        promise = new Promise(async resolve => {
+          if ("document" in self) {
+            const script = document.createElement("script");
+            script.src = name;
+            document.head.appendChild(script);
+            script.onload = resolve;
+          } else {
+            importScripts(name);
+            resolve();
+          }
+        });
+      
+    }
+    return promise.then(() => {
+      if (!registry[name]) {
+        throw new Error(`Module ${name} didn’t register its module`);
+      }
+      return registry[name];
+    });
+  };
+
+  const require = (names, resolve) => {
+    Promise.all(names.map(singleRequire))
+      .then(modules => resolve(modules.length === 1 ? modules[0] : modules));
+  };
+  
+  const registry = {
+    require: Promise.resolve(require)
+  };
+
+  self.define = (moduleName, depsNames, factory) => {
+    if (registry[moduleName]) {
+      // Module is already loading or loaded.
+      return;
+    }
+    registry[moduleName] = Promise.resolve().then(() => {
+      let exports = {};
+      const module = {
+        uri: location.origin + moduleName.slice(1)
+      };
+      return Promise.all(
+        depsNames.map(depName => {
+          switch(depName) {
+            case "exports":
+              return exports;
+            case "module":
+              return module;
+            default:
+              return singleRequire(depName);
+          }
+        })
+      ).then(deps => {
+        const facValue = factory(...deps);
+        if(!exports.default) {
+          exports.default = facValue;
+        }
+        return exports;
+      });
+    });
+  };
+}
+define("./sw.js",['./workbox-6b860c84'], function (workbox) { 'use strict';
+
+  /**
+  * Welcome to your Workbox-powered service worker!
+  *
+  * You'll need to register this file in your web app.
+  * See https://goo.gl/nhQhGp
+  *
+  * The rest of the code is auto-generated. Please don't update this file
+  * directly; instead, make changes to your Workbox build configuration
+  * and re-run your build process.
+  * See https://goo.gl/2aRDsh
+  */
+
+  importScripts();
+  workbox.skipWaiting();
+  workbox.clientsClaim();
+  /**
+   * The precacheAndRoute() method efficiently caches and responds to
+   * requests for URLs in the manifest.
+   * See https://goo.gl/S9QRab
+   */
+
+  workbox.precacheAndRoute([{
+    "url": "/_next/static/runtime/amp.js",
+    "revision": "2778201d08e8b96f998c5e83cea76323"
+  }, {
+    "url": "/_next/static/runtime/main.js",
+    "revision": "e83dcb1127d3f5b8626c43f48498b5e0"
+  }, {
+    "url": "/_next/static/runtime/polyfills.js",
+    "revision": "fdf9dcca659a63c41c63f8f01ca6f572"
+  }, {
+    "url": "/_next/static/runtime/react-refresh.js",
+    "revision": "0020c07f68fe2f3fc80eb888f00ec6b7"
+  }, {
+    "url": "/_next/static/runtime/webpack.js",
+    "revision": "08b8a84be731363e6262f53bd464d544"
+  }], {
+    "ignoreURLParametersMatching": [/ts/]
+  });
+  workbox.cleanupOutdatedCaches();
+
+});
+//# sourceMappingURL=sw.js.map
