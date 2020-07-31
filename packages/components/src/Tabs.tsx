@@ -8,6 +8,7 @@ import { Icon } from './Icon'
 // import './Tabs.sass'
 import styled from 'styled-components' // eslint-disable-line
 import { StyledMenu } from './types'
+import theme from './theme'
 
 /** @module components/Tabs */
 
@@ -20,15 +21,15 @@ const SimpleTabButton = styled(TabButton)`
 `
 
 const Nav = styled.nav`
-  width: ${(v: StyledMenu) => (v.menuIsOpen ? 'calc(100vw - 48px)' : '100vw')};
-  background-color: ${(v) => v.theme.tabSurface};
+  width: ${(v: StyledMenu) => (v.menuIsOpen ? 'calc(100vw - 63px)' : '100vw')};
+  background-color: ${theme.gray1};
   display: table;
 `
 
 const Ul = styled.ul`
   list-style-type: none;
   margin: 0;
-  padding: 0 10px;
+  padding: 0;
   height: 48px;
   overflow: hidden;
   display: table-cell;
@@ -135,18 +136,9 @@ type Props = {
  */
 export function Tabs({ tabs, add, change, remove, theme = {}, menuIsOpen }: Props):
   ReactElement {
-  // console.log(add, change, remove, multiTabsFeature)
   return (
     <Nav theme={theme} menuIsOpen={menuIsOpen}>
       <Ul theme={theme}>
-        <SimpleButtonLi id="hamburger">
-          <Link to="/console">
-            <SimpleTabButton label="Menu" theme={theme}>
-              <Icon name={faBars} theme={theme} />
-              {' '}
-            </SimpleTabButton>
-          </Link>
-        </SimpleButtonLi>
         {tabs.map((tab) => (
           <Tab
             active={tab.active}

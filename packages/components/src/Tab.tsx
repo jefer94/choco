@@ -4,6 +4,7 @@ import styled from 'styled-components' // eslint-disable-line
 import { Dictionary } from '@choco/types'
 import { TabButton } from './TabButton'
 import { Icon } from './Icon'
+import theme from './theme'
 
 // const styled = require('styled-component')
 // console.log('aaaaaaaaa', props)
@@ -15,12 +16,10 @@ import { Icon } from './Icon'
 const Li = styled.li`
   position: relative;
   float: left;
-  width: 100px;
   text-align: center;
-  border-radius: 3px 3px 0px 0px;
-  padding: 11px 50px;
+  padding: 13px 32px;
+  /* height: 64px; */
   font-size: 16px;
-  margin-top: 6px;
   line-height: 20px;
 `
 
@@ -28,14 +27,18 @@ const InactiveTab = styled(Li)`
   border-radius: 0;
   border-right: 2px solid ${(v) => v.theme.surface};
   border-left: 3px solid ${(v) => v.theme.tabSurface};
-  background-color: ${(v) => v.theme.tabSurface};
-  color: ${(v) => v.theme.tabTextOpaque};
+  background-color: ${theme.gray2};
+  color: ${theme.white};
+  font-size: 18px;
+  line-height: 21px;
 `
 
 const ActiveTab = styled(Li)`
-  border-left: 3px solid ${(v) => v.theme.tabHighlighter};
-  background-color: ${(v) => v.theme.surface};
-  color: ${(v) => v.theme.white};
+  /* border-left: 3px solid ${(v) => v.theme.tabHighlighter}; */
+  background-color: ${theme.gray3};
+  color: ${theme.white};
+  font-size: 18px;
+  line-height: 21px;
 `
 
 /**

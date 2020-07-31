@@ -1,5 +1,4 @@
 import React, { ReactElement, ReactNode } from 'react'
-import PropTypes from 'prop-types'
 import styled from 'styled-components' // eslint-disable-line
 
 export const TabButtonStyled = styled.button`

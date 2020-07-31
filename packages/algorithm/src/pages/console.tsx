@@ -1,12 +1,12 @@
-import React, { useReducer, useState, useEffect, useContext } from 'react'
+import React, { useReducer, useState, useEffect, useContext, ReactElement } from 'react'
 import Head from 'next/head'
 // import _ from 'lodash'
 import { setLang } from '@choco/i18n'
 import keychain from '@choco/keychain'
 import { setDispatch, setTabs, toJS, Vector as vector, io, write as writeInConsole, read as readInConsole } from '@choco/algorithm-transpiler'
+import { Console as ConsoleComponent } from '@choco/components'
 import { addVarAction, resetVarAction } from '../actions'
 // import store from '../reducers'
-import { Console as ConsoleComponent } from '../Components'
 import varsReducer from '../reducers/variables'
 import useTabs from '../hooks/useTabs'
 // import Menu from '../containers/Menu'
@@ -15,7 +15,7 @@ import { ThemeContext } from '../contexts'
 setLang('es')
 let cache = []
 
-export default function () {
+export default function Console(): ReactElement {
   const { theme } = useContext(ThemeContext)
   const [runtimeObj, setRuntimeObj] = useState(null)
   const [variables, dispatch] = useReducer(varsReducer, [])
@@ -25,7 +25,7 @@ export default function () {
 
 
   // eslint-disable-next-line no-unused-vars
-  function read(toRead) {
+  function read(toRead: string): string {
     const { assign, lastLine } = readInConsole(toRead, variables, lines[lines.length - 1])
     cache[cache.length - 1] = { ...cache[cache.length - 1], var: lastLine.var }
     setLines([...cache])
@@ -33,7 +33,7 @@ export default function () {
   }
 
   // eslint-disable-next-line no-unused-vars
-  function write(...args) {
+  function write(...args: readonly WriteInput[]): string {
     cache.push(writeInConsole(args))
     setLines([...cache])
     // return content
@@ -112,7 +112,6 @@ export default function () {
     }
   }, [runtimeObj])
 
-
   // use eval for debug errors
   // eval(literals + code)
   return (
@@ -120,9 +119,7 @@ export default function () {
       <Head>
         <title>Algorithm - Console</title>
       </Head>
-      {/* <Menu theme={theme}> */}
-        <ConsoleComponent lines={lines} theme={theme} />
-      {/* </Menu> */}
+      <ConsoleComponent lines={lines} theme={theme} />
     </>
   )
 }

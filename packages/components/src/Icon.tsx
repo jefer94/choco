@@ -2,6 +2,7 @@ import React, { ReactElement } from 'react'
 // import './Icon.sass'
 import styled from 'styled-components'
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core'
+import { layout } from 'styled-system'
 import FontAwesomeIcon from './FontAwesomeWrapper'
 
 /** @module components/Icon */
@@ -29,4 +30,12 @@ function IconBase({ className, name }: IconProps): ReactElement {
   return <FontAwesomeIcon className={className} icon={name} />
 }
 
-export const Icon = styled(IconBase)`color: ${(v) => v.theme.white};`
+type IconStyleProps = {
+  readonly width: number | string
+  readonly theme: Record<string, string>
+}
+
+export const Icon = styled(IconBase)`
+  color: ${(v: IconStyleProps) => v.theme.white};
+  ${layout}
+`

@@ -1,4 +1,4 @@
-import React, { memo, ReactElement } from 'react'
+import React, { ReactElement } from 'react'
 import PropTypes from 'prop-types'
 // import './Console.sass'
 import styled from 'styled-components'

@@ -1,8 +1,8 @@
 import React, { useContext, ReactElement, ReactNode } from 'react'
 import { faEdit, faTerminal, faFolder, faCog, faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
+import { Menu, menuItem } from '@choco/components'
 import { homeRoute, docsRoute, consoleRoute } from '../globals/routes'
 import { ThemeContext } from '../contexts'
-import { Menu, menuItem, MenuItemProps } from '../Components'
 
 /**
  * @typedef {object} MenuContainerProps
@@ -21,12 +21,12 @@ type MenuContainerProps = {
  */
 export function MenuContainer({ children }: MenuContainerProps): ReactElement {
   const { theme } = useContext(ThemeContext)
-  const top: readonly MenuItemProps[] = [
+  const top = [
     menuItem(homeRoute, faEdit, true),
     menuItem(consoleRoute, faFolder),
     menuItem(consoleRoute, faTerminal)
   ]
-  const bottom: readonly MenuItemProps[] = [
+  const bottom = [
     menuItem(docsRoute, faQuestionCircle),
     menuItem(docsRoute, faCog)
   ]

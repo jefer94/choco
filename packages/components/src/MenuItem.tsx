@@ -1,49 +1,42 @@
 import React, { ReactElement } from 'react'
 import styled, { StyledFunction } from 'styled-components' // eslint-disable-line
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core'
-import { Dictionary } from '@choco/types'
 import { Link } from './Link'
 import { Icon } from './Icon'
+import theme from './theme'
 
 const BaseStyled = `
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  height: 100%;
-  padding: 7px 0px;
-  line-height: 21px;
-  font-size: 16px;
-  color: #D7DAE0;
+  width: 64px;
+  height: 64px;
+  color: ${theme.white};
 `
 
 /**
- * @typedef {object} MenuLinkProps
+ * @typedef {object} MenuIconProps
  * @property {string} id - Menu id.
- * @property {string} url - Menu url.
  * @property {object} icon - Menu icon.
  * @property {boolean} active - Menu active.
  */
 
-export type MenuLinkProps = {
+export type MenuIconProps = {
   readonly className?: string
   readonly theme: Record<string, string>
-  readonly url?: string
   readonly icon: IconDefinition
 }
 
 /**
  * Menu link element.
  *
- * @param {MenuLinkProps} props - Menu link props.
+ * @param {MenuIconProps} props - Menu link props.
  * @returns {object} Menu link.
  */
-function MenuLink({ className, theme, url, icon }: MenuLinkProps): ReactElement {
+function MenuIcon({ className, theme, icon }: MenuIconProps): ReactElement {
   return (
     <div className={className}>
-      <Link to={url}>
-        <Icon name={icon} theme={theme} />
-      </Link>
+      <Icon name={icon} theme={theme} width="24px!important" height={24} />
     </div>
   )
 }
@@ -55,7 +48,7 @@ type ActiveProp = {
 // const b = styled<ActiveProp & React.HTMLProps<HTMLInputElement>>(MenuLink)
 // const b = styled<ActiveProp & React.HTMLProps<HTMLInputElement>>(MenuLink)
 
-const MenuLinkStyled = styled(MenuLink)`
+const MenuIconStyled = styled(MenuIcon)`
   ${BaseStyled}
   filter: ${(v: ActiveProp) => (v.active ? 'brightness(150%)' : 'unset')};
 `
@@ -71,7 +64,6 @@ type MenuItemProps = {
   readonly url?: string
   readonly icon: IconDefinition
   readonly active: boolean
-  readonly onClick?: () => void
 }
 
 /**
@@ -80,12 +72,17 @@ type MenuItemProps = {
  * @param  Props - Props.
  * @returns {object} Menu item component.
  */
-function MenuItemBase({ className, theme, url = '#', icon, active, onClick }: MenuItemProps): ReactElement {
-  console.log('click', onClick)
-  return (
-    <li className={className} onClick={onClick}>
-      <MenuLinkStyled url={url} icon={icon} active={active} theme={theme} />
+function MenuItemBase({ className, theme, url = '#', icon, active }: MenuItemProps): ReactElement {
+  const base = (
+    <li className={className}>
+      <MenuIconStyled icon={icon} active={active} theme={theme} />
     </li>
+  )
+  if (active) return base
+  return (
+    <Link to={url}>
+      {base}
+    </Link>
   )
 }
 
@@ -96,5 +93,7 @@ function MenuItemBase({ className, theme, url = '#', icon, active, onClick }: Me
 // export default styled<MenuItemProps & ActiveProp>(MenuItem)`
 export const MenuItem = styled(MenuItemBase)`
   ${BaseStyled}
+  box-sizing: border-box;
+  border-left: ${(v: ActiveProp) => (v.active ? '3px' : 0)} solid ${theme.white};
   filter: ${(v: ActiveProp) => (v.active ? 'brightness(150%)' : 'unset')};
 `

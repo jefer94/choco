@@ -1,20 +1,14 @@
-import React, { useContext } from 'react'
+import React, { ReactElement } from 'react'
 import Head from 'next/head'
-import { Docs as DocsComponent, BrandSection } from '../Components'
-// import Menu from '../containers/Menu'
-import { ThemeContext } from '../contexts'
+import { BrandSection } from '@choco/components'
 
 /**
- * Get a Docs inside of Menu.
+ * Login container.
  *
- * @example
- * import React from 'react'
- * import Docs from '/containers/Docs'
- *
- * const component = <Docs />
- * @returns {object} <Docs />
+ * @returns {object} Login container.
  */
-export default function () {
+export default function Login(): ReactElement {
+  // router.prefetch('/dashboard')
   return (
     <>
       <Head>
