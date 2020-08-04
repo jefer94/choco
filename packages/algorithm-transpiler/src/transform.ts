@@ -21,7 +21,7 @@ export default function transform(code: string): string {
 
   Object.keys(line).map(Number).forEach((i) => {
     // ...
-    line[i] = compose<string, string>(purgeComment, purgeLine, vectorAdd)(line[i])
+    line[i] = compose<string, string>(comments, purgeLine, vectorAdd)(line[i])
 
     if (line[i].substr(0, 1) === ' ') {
       const length = line[i].length - 1
@@ -84,7 +84,13 @@ export default function transform(code: string): string {
   return js
 }
 
-export function forLoopCondition(lineArg) {
+/**
+ * Generate for loop.
+ *
+ * @param {string} lineArg - Line.
+ * @returns {string} Line with for loop.
+ */
+export function forLoopCondition(lineArg: string): string {
   const toWord = locale.one<string>('toWord')
 
   // for (...)
@@ -95,9 +101,14 @@ export function forLoopCondition(lineArg) {
     conditionsFor = conditionsFor.split(toWord)
     const ref = matchCondition[0].split(toWord)
     conditionsFor[0] += ';'
-    conditionsFor[1] = conditionsFor[1].replace('=', '<=')
-    if (conditionsFor[1].search('reversed') === -1) conditionsFor[1] = conditionsFor[1].replace(')', '; i++)')
-    else conditionsFor[1] = conditionsFor[1].replace(')', '; i--)')
+    if (conditionsFor[1].search('reversed') === -1) {
+      conditionsFor[1] = conditionsFor[1].replace('=', '<=')
+      conditionsFor[1] = conditionsFor[1].replace(')', '; i++)')
+    }
+    else {
+      conditionsFor[1] = conditionsFor[1].replace('=', '>=')
+      conditionsFor[1] = conditionsFor[1].replace(/ +reversed/, '').replace(')', '; i--)')
+    }
     line = line.replace(ref[0], conditionsFor[0])
     line = line.replace(ref[1], conditionsFor[1])
     line = line.replace(toWord, '')
@@ -115,13 +126,14 @@ export function doWhileLoopCondition(line: string): string {
   const toWord = locale.one<string>('toWord')
 
   // do ... while (!...)
-  if (line.match(RegExp(`${toWord}\\s+([\\s\\S]+)`))) {
+  if (RegExp(`${toWord}\\s+([\\s\\S]+)`).test(line)) {
     return line.replace('(', '(!(')
       .replace(/\)\s{0,}$/, '))')
       .replace(/=/g, '===')
   }
   return line
 }
+
 /**
  * Add assignment in Vector.
  *
@@ -130,10 +142,11 @@ export function doWhileLoopCondition(line: string): string {
  * vectorAdd('stuff.io(7) <- 9') // return 'stuff.io(7).add(9)'
  * @returns {string} Line of code.
  */
-export function vectorAdd(lineArg) {
+export function vectorAdd(lineArg: string): string {
   let line = lineArg
   // vector.io(n).add(value)
-  while (line.match(/\.io\([0-9a-zA-Z]+\)\s+<-\s+[a-zA-Z0-9 ]/)) {
+  // eslint-disable-next-line functional/no-loop-statement
+  while (/\.io\([0-9a-zA-Z]+\)\s+<-\s+[a-zA-Z0-9 ]/.test(line)) {
     line = line.replace(/<-/, '')
     const exp = line.match(/\S+/g)
     line = `${exp[0]}.add(`
@@ -151,56 +164,36 @@ export function vectorAdd(lineArg) {
  * @example
  * purgeLine('function stuff()do') // return 'function stuff () do'
  * purgeLine('array[13]') // return 'array.io(13)'
- * @returns {string} Line of code
+ * @returns {string} Line of code.
  */
-export function purgeLine(line) {
+export function purgeLine(line: string): string {
   return line
     .replace(/\(/g, ' (')
     .replace(/\)/g, ') ')
-    .replace(/ {2}/g, ' ')
+    .replace(/ +/g, ' ')
     .replace(/\[/g, '.io(')
     .replace(/\]/g, ')')
 }
 
 /**
- * Purge comments of code.
+ * Strip code.
  *
- * @param {string} lineArg - Line of code.
- * @example
- * purgeComment('for (bestADC === \'Tristana\') do // some stuff')
- * // return 'for (bestADC === \'Tristana\') do '
- * @returns {string} Line of code.
+ * @param {string} codeArg - Code to be striped.
+ * @returns {string[]} Code striped.
  */
-export function purgeComment(lineArg: string): string {
-  // ...
-  let line = lineArg
-  if (line.search('//') !== -1) {
-    const remove = line.substr(line.search('//'), line.length)
-    line = line.replace(remove, '')
-  }
-  return line
-}
-
 export function stripCode(codeArg: string): readonly string[] {
   const begin = locale.one<string>('begin')
   const end = locale.one<string>('end')
 
-  // good in this space we are going to make a separation between the code
-  // and the variables
   const [code] = codeArg.match(RegExp(`${begin}[\\s\\S]*?${end}$`, 'gm'))
-  // each line is separated into a array
   const lines = code.split('\n')
 
-  // the word "fin" is deleted
   if (lines[lines.length - 1].search(end) !== -1) lines.pop()
-
-  // reverse the line of array
   lines.reverse()
-  // the word "inicio" is deleted
+
   if (lines[lines.length - 1].search(begin) !== -1) lines.pop()
-
-  // reverse the line of array
   lines.reverse()
+
   return lines
 }
 
@@ -213,13 +206,13 @@ export function stripCode(codeArg: string): readonly string[] {
  * // return ['for (text === \'Not text\') do']
  * @returns {string[]} Lines of code.
  */
-function ifIsEqual(lines: readonly string[]): string[] {
+export function ifIsEqual(lines: readonly string[]): string[] {
   const openBracket = locale.one<LangOpenBracket>('openBracket')
 
   // if (x === y)
   return lines.map((line: string) =>
     openBracket.reduce((current: string, bracket: string) => {
-      if (line.match(RegExp(`=(.)+${bracket}`))) return line.replace(/=/g, ' === ')
+      if (line.match(RegExp(`=(.)+${bracket}`))) return line.replace(/ *= */g, ' === ')
       return current
     }, line))
 }

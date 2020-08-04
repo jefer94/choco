@@ -1,37 +1,81 @@
-import { forLoopCondition, doWhileLoopCondition } from './transform'
+import { forLoopCondition, doWhileLoopCondition, stripCode, ifIsEqual, purgeLine, vectorAdd } from './transform'
 import locale from '@choco/i18n'
 
 locale.setLang('es')
-const forLoopConditionCode = `para (i = 1 hasta i = 9) hacer
-  mostrar i
-finpara`
 
 test('for loop condition', () => {
-  const res = forLoopCondition(forLoopConditionCode)
-
-  expect(typeof res).toBe('string')
-
-  const [line1, line2, line3, ...restOfLines] = res.split('\n')
-
-  expect(line1).toBe('para (i = 1 ; i <= 9; i++) hacer')
-  expect(line2).toBe('  mostrar i')
-  expect(line3).toBe('finpara')
-  expect(restOfLines.length).toBe(0)
+  const code = [
+    'para (i = 1 hasta i = 9) hacer',
+    '  mostrar i',
+    'finpara'
+  ].join('\n')
+  const res = forLoopCondition(code).split('\n')
+  expect(res).toEqual([
+    'para (i = 1 ; i <= 9; i++) hacer',
+    '  mostrar i',
+    'finpara'
+  ])
 })
 
-const doWhileConditionCode = `repetir
-  mostrar i
-hasta (1 = 1)`
+test('for loop condition reversed', () => {
+  const code = [
+    'para (i = 9 hasta i = 1 reversed) hacer',
+    '  mostrar i',
+    'finpara'
+  ].join('\n')
+  const res = forLoopCondition(code).split('\n')
+  expect(res).toEqual([
+    'para (i = 9 ; i >= 1; i--) hacer',
+    '  mostrar i',
+    'finpara'
+  ])
+})
 
 test('do while loop condition', () => {
-  const res = doWhileLoopCondition(doWhileConditionCode)
+  const code = [
+    'repetir',
+    '  mostrar i',
+    'hasta (1 = 1)'
+  ].join('\n')
+  const res = doWhileLoopCondition(code).split('\n')
+  expect(res).toEqual([
+    'repetir',
+    '  mostrar i',
+    'hasta (!(1 === 1))'
+  ])
+  expect(doWhileLoopCondition('lobster')).toEqual('lobster')
+})
 
-  expect(typeof res).toBe('string')
+test('strip code', () => {
+  const code = [
+    'lalala1',
+    'lalala2',
+    'inicio',
+    '   x',
+    'fin'
+  ].join('\n')
+  const res = stripCode(code)
+  expect(res).toEqual([
+    '   x'
+  ])
+})
 
-  const [line1, line2, line3, ...restOfLines] = res.split('\n')
+test('if is equal', () => {
+  const code = [
+    'si (text = \'Not text\') hacer'
+  ]
+  const res = ifIsEqual(code)
+  expect(res).toEqual([
+    'si (text === \'Not text\') hacer'
+  ])
+})
 
-  expect(line1).toBe('repetir')
-  expect(line2).toBe('  mostrar i')
-  expect(line3).toBe('hasta (!(1 === 1))')
-  expect(restOfLines.length).toBe(0)
+test('purge line', () => {
+  expect(purgeLine('( ... )')).toEqual(' ( ... ) ')
+  expect(purgeLine('tree[1]')).toEqual('tree.io(1)')
+  expect(purgeLine('hey             apple')).toEqual('hey apple')
+})
+
+test('vector add', () => {
+  expect(vectorAdd('stuff.io(7) <- 9')).toEqual('stuff.io(7).add(9)')
 })
