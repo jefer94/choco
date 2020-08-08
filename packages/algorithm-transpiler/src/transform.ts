@@ -10,12 +10,6 @@ algorithmTranspilerLang()
 
 // transform between native languaje and javascipt
 export default function transform(code: string): string {
-  const tokens = locale.one<LangTokens>('tokens')
-  const transpiler = locale.one<LangTranspiler>('transpiler')
-  const openBracket = locale.one<LangOpenBracket>('openBracket')
-  const closeBracket = locale.one<LangCloseBracket>('closeBracket')
-  const read = locale.one<LangRead>('read')
-  const write = locale.one<LangWrite>('write')
   let line = compose<string[], string>(stripCode, comments)(code) // stripCode(code)
   let js = ''
 
@@ -23,13 +17,15 @@ export default function transform(code: string): string {
     // ...
     line[i] = compose<string, string>(comments, purgeLine, vectorAdd)(line[i])
 
-    if (line[i].substr(0, 1) === ' ') {
-      const length = line[i].length - 1
-      line[i] = line[i].substr(1, length)
-    }
+    // remove space in start
+    // if (line[i].substr(0, 1) === ' ') {
+    //   const length = line[i].length - 1
+    //   line[i] = line[i].substr(1, length)
+    // }
 
-    const length = line[i].length - 1
-    while (line[i].substr(length, 1) === ' ') line[i] = line[i].substr(0, length)
+    // remove space in end
+    // const length = line[i].length - 1
+    // while (line[i].substr(length, 1) === ' ') line[i] = line[i].substr(0, length)
 
     if (line[i] === '') return
 
@@ -40,13 +36,7 @@ export default function transform(code: string): string {
     // each word is separated into a array
     const word = line[i].split(' ')
 
-    Object.keys(word).map(Number).forEach((key) => {
-      if (openBracket.indexOf(word[key]) !== -1) js += '{ '
-      else if (closeBracket.indexOf(word[key]) !== -1) js += '}'
-      else if (transpiler[word[key]]) js += `${transpiler[word[key]]} `
-      else if (tokens[word[key]]) js += `${tokens[word[key]]} `
-      else js += `${word[key]} `
-    })
+    js += parser(word, js)
 
     word.reverse()
     // then in spaceInStart assign the last element in the stack
@@ -64,23 +54,64 @@ export default function transform(code: string): string {
 
     const lastLine = js.split('\n')[js.split('\n').length - 1]
     if (lastLine.search('{') !== -1 || lastLine.search('}') !== -1) js += '\n'
-
-    else if (write.indexOf(word[0]) !== -1) {
-      js = js.replace(
-        write[write.indexOf(word[0])],
-        'eval(write('
-      )
-      js += '));\n'
-    }
-    else if (read.indexOf(word[0]) !== -1) {
-      js = js.replace(
-        read[read.indexOf(word[0])],
-        'eval(read("'
-      )
-      js += '"));\n'
-    }
-    else js += ';\n'
+    else js += parseIO(word, js)
   })
+  return js
+}
+
+/**
+ * Parse IO words.
+ *
+ * @param {string[]} words - IO 2ords of line.
+ * @param {string} state - IO 2ords of line.
+ * @returns {string} Parsed IO words.
+ */
+export function parseIO(words: readonly string[], state: string): string {
+  const read = locale.one<LangRead>('read')
+  const write = locale.one<LangWrite>('write')
+  const firstWord = words[0]
+  let js = state || ''
+  if (write.indexOf(firstWord) !== -1) {
+    js = js.replace(
+      write[write.indexOf(firstWord)],
+      'eval(write('
+    )
+    js += '));\n'
+  }
+  else if (read.indexOf(firstWord) !== -1) {
+    js = js.replace(
+      read[read.indexOf(firstWord)],
+      'eval(read("'
+    )
+    js += '"));\n'
+  }
+  else js += ';\n'
+  return js
+}
+
+/**
+ * Parse words.
+ *
+ * @param {string} words - Words of line.
+ * @param {string} state - Javascript state.
+ * @returns {string} Parsed words.
+ */
+export function parser(words: readonly string[], state: string): string {
+  const tokens = locale.one<LangTokens>('tokens')
+  const transpiler = locale.one<LangTranspiler>('transpiler')
+  const openBracket = locale.one<LangOpenBracket>('openBracket')
+  const closeBracket = locale.one<LangCloseBracket>('closeBracket')
+  let js = state || ''
+
+  Object.keys(words).map(Number).forEach((key) => {
+    const word = words[key]
+    if (openBracket.indexOf(word) !== -1) js += '{ '
+    else if (closeBracket.indexOf(word) !== -1) js += '}'
+    else if (transpiler[word]) js += `${transpiler[word]} `
+    else if (tokens[word]) js += `${tokens[word]} `
+    else js += `${word} `
+  })
+
   return js
 }
 

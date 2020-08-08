@@ -1,4 +1,4 @@
-import { forLoopCondition, doWhileLoopCondition, stripCode, ifIsEqual, purgeLine, vectorAdd } from './transform'
+import transform, { forLoopCondition, doWhileLoopCondition, stripCode, ifIsEqual, purgeLine, vectorAdd, parser, parseIO } from './transform'
 import locale from '@choco/i18n'
 
 locale.setLang('es')
@@ -78,4 +78,37 @@ test('purge line', () => {
 
 test('vector add', () => {
   expect(vectorAdd('stuff.io(7) <- 9')).toEqual('stuff.io(7).add(9)')
+})
+
+test('parser', () => {
+  expect(parser(['para'], '')).toBe('for ')
+  expect(parser(['hacer'], '')).toBe('{ ')
+  expect(parser(['finsi'], '')).toBe('}')
+  expect(parser(['<-'], '')).toBe('= ')
+  expect(parser(['potato'], '')).toBe('potato ')
+})
+
+test('IO parser', () => {
+  expect(parseIO(['leer'], 'leer potato')).toBe('eval(read(" potato"));\n')
+  expect(parseIO(['imprimir'], 'imprimir potato')).toBe('eval(write( potato));\n')
+  expect(parseIO(['potato'], 'potato')).toBe('potato;\n')
+})
+
+test('transform', () => {
+  const code = [
+    'algoritmo facilito',
+    'variables',
+    'numero, i, tabla[10]: entero',
+    'inicio',
+    '  i <- 0',
+    '  mostrar "Ingrese numero a multiplicar: "',
+    '  leer numero',
+    '  mientras (i < 10) hacer',
+    '    i <- i + 1',
+    '    tabla[i] <- numero * i',
+    '    mostrar numero, " * ", i, " = ", numero * i',
+    '  finmientras',
+    'fin'
+  ].join('\n')
+  expect(transform(code)).toBe('')
 })
