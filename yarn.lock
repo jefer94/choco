@@ -1262,6 +1262,20 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
+"@codemirror/next@^0.8.0":
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/@codemirror/next/-/next-0.8.0.tgz#60d2f9045bb3a1bbed56167634d6d5907516fea7"
+  integrity sha512-bDKoKh8hGxTFRdGEJtVYiefb4Zj/sSOEZhjwWb4+G0kYt1EOkYkZiYzndqwPgB6hjyG+STyS1lDYASia5pOvRA==
+  dependencies:
+    lezer "^0.9.0"
+    lezer-css "^0.9.0"
+    lezer-html "^0.9.0"
+    lezer-javascript "^0.9.0"
+    lezer-python "^0.9.0"
+    lezer-tree "^0.9.0"
+    style-mod "^2.2.2"
+    w3c-keyname "^2.2.4"
+
 "@emotion/babel-utils@^0.6.4":
   version "0.6.10"
   resolved "https://registry.yarnpkg.com/@emotion/babel-utils/-/babel-utils-0.6.10.tgz#83dbf3dfa933fae9fc566e54fbb45f14674c6ccc"
@@ -12440,12 +12454,26 @@ levn@^0.4.1:
     prelude-ls "^1.2.1"
     type-check "~0.4.0"
 
+lezer-css@^0.10.0:
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/lezer-css/-/lezer-css-0.10.0.tgz#72b8db3a93920eafc8bf6eb34453cffaacce091c"
+  integrity sha512-JSIOGuVO+XQlM6OzKyD/WzcNG5m5YpP1cnLpABjhQOTasvfMqbt4xMPrn5nhAdenM/46q1ThKjz5qvDt2+bNYg==
+  dependencies:
+    lezer "^0.10.0"
+
 lezer-css@^0.9.0:
   version "0.9.0"
   resolved "https://registry.yarnpkg.com/lezer-css/-/lezer-css-0.9.0.tgz#fc18e5056c25a62706013d30e8661ed4052afb40"
   integrity sha512-rpK/O4++1K+zkHuo4rWZrJiFeaJ1vITWWPTqJK2wkwvbzd3FqvJmFC92oLC43eRhloOuiCD7R2nueRZAR6Oocg==
   dependencies:
     lezer "^0.9.0"
+
+lezer-html@^0.10.0:
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/lezer-html/-/lezer-html-0.10.0.tgz#363c43bc50f8c5521be22980f9080a560b0b7bcd"
+  integrity sha512-kLZRjP3wSHLpSS1R+x3LpZJ00iTk96Kzw1Lf02fxNxh3xGmcl19Q6+i54zyPwmr65H/3TBJtvXLfeNF0OIRyZw==
+  dependencies:
+    lezer "^0.10.0"
 
 lezer-html@^0.9.0:
   version "0.9.0"
@@ -12454,12 +12482,26 @@ lezer-html@^0.9.0:
   dependencies:
     lezer "^0.9.0"
 
+lezer-javascript@^0.10.0:
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/lezer-javascript/-/lezer-javascript-0.10.0.tgz#c42138f3d1514e825c20b41eb67228f682148ee4"
+  integrity sha512-SbWKr/HjbGupYgR108FDN2X1Z97QC00aoyyXguXpqfZv6QfrbrhVCqaAX2tSStrQH8SMiGBNtTtk0zuu1lIfsg==
+  dependencies:
+    lezer "^0.10.0"
+
 lezer-javascript@^0.9.0:
   version "0.9.1"
   resolved "https://registry.yarnpkg.com/lezer-javascript/-/lezer-javascript-0.9.1.tgz#0a06c260979c172a63f7dbbcf6e57dcfe1137d9e"
   integrity sha512-XoZeWiVAoo41jywONr5ajGxK8xaS1AeObB3amVXh3Jc4pqN8Y8uBY/bQ9deh1blm7bvZRbQmJWjrb1mCEEy8UQ==
   dependencies:
     lezer "^0.9.0"
+
+lezer-python@^0.10.0:
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/lezer-python/-/lezer-python-0.10.0.tgz#bd0e63c0b49ebd96258aea0852a49087a801c754"
+  integrity sha512-cMn88O/v3/91sZjvab4AcGZasT0r5QaLoyZi4thzLa3fWhpPXYriRtYSDjeBfQg4nuuRb473ADDInxGZKTllqA==
+  dependencies:
+    lezer "^0.10.0"
 
 lezer-python@^0.9.0:
   version "0.9.0"
@@ -12468,10 +12510,22 @@ lezer-python@^0.9.0:
   dependencies:
     lezer "^0.9.0"
 
+lezer-tree@^0.10.0:
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/lezer-tree/-/lezer-tree-0.10.0.tgz#e7bb3fbd604a718fa43d373e6240a2600d7c5ea2"
+  integrity sha512-77hwilCuD4azYqwazv4A6EL7mKiSPcqgJV4V173hLV3UkAKa6/smNHeROhIzzWHLU6Y5qtR1mRf22RFzE3fVrg==
+
 lezer-tree@^0.9.0:
   version "0.9.0"
   resolved "https://registry.yarnpkg.com/lezer-tree/-/lezer-tree-0.9.0.tgz#c62aee4ddcd18e210369162ea1c93cd10365f80f"
   integrity sha512-bz/jTNrQFCJ7GBQIkw8y44DWMKL+rrPh40GnrFhnnrezA22T8US38gJAnAAv23zYsoYQfHmwCHJpxv9A3E1OTQ==
+
+lezer@^0.10.0:
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/lezer/-/lezer-0.10.0.tgz#0e79ecf159a92b3764c4f12f09b97b1e8c45e308"
+  integrity sha512-9KbR/iPSopmq3AO0bRJmTyfE8EssOBHAAgwQIbfmKI/Kh+fjP37T7010E0O110Zntf8PljVOFAnJ9q1Un0CKDg==
+  dependencies:
+    lezer-tree "^0.10.0"
 
 lezer@^0.9.0:
   version "0.9.1"
@@ -13551,10 +13605,40 @@ mongodb@3.5.9:
   optionalDependencies:
     saslprep "^1.0.0"
 
+mongodb@3.6.0:
+  version "3.6.0"
+  resolved "https://registry.yarnpkg.com/mongodb/-/mongodb-3.6.0.tgz#babd7172ec717e2ed3f85e079b3f1aa29dce4724"
+  integrity sha512-/XWWub1mHZVoqEsUppE0GV7u9kanLvHxho6EvBxQbShXTKYF9trhZC2NzbulRGeG7xMJHD8IOWRcdKx5LPjAjQ==
+  dependencies:
+    bl "^2.2.0"
+    bson "^1.1.4"
+    denque "^1.4.1"
+    require_optional "^1.0.1"
+    safe-buffer "^5.1.2"
+  optionalDependencies:
+    saslprep "^1.0.0"
+
 mongoose-legacy-pluralize@1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/mongoose-legacy-pluralize/-/mongoose-legacy-pluralize-1.0.2.tgz#3ba9f91fa507b5186d399fb40854bff18fb563e4"
   integrity sha512-Yo/7qQU4/EyIS8YDFSeenIvXxZN+ld7YdV9LqFVQJzTLye8unujAWPZ4NWKfFA+RNjh+wvTWKY9Z3E5XM6ZZiQ==
+
+mongoose@^5.10.0:
+  version "5.10.0"
+  resolved "https://registry.yarnpkg.com/mongoose/-/mongoose-5.10.0.tgz#05a35f5a3d8485613c9988aeb9548285a97083f7"
+  integrity sha512-5itAvBMVDG4+zTDtuLg/IyoTxEMgvpOSHnigQ9Cyh8LR4BEgMAChJj7JSaGkg+tr1AjCSY9DgSdU8bHqCOoxXg==
+  dependencies:
+    bson "^1.1.4"
+    kareem "2.3.1"
+    mongodb "3.6.0"
+    mongoose-legacy-pluralize "1.0.2"
+    mpath "0.7.0"
+    mquery "3.2.2"
+    ms "2.1.2"
+    regexp-clone "1.0.0"
+    safe-buffer "5.2.1"
+    sift "7.0.1"
+    sliced "1.0.1"
 
 mongoose@^5.9.25:
   version "5.9.25"
@@ -13894,6 +13978,11 @@ node-forge@^0.7.1:
   version "0.7.6"
   resolved "https://registry.yarnpkg.com/node-forge/-/node-forge-0.7.6.tgz#fdf3b418aee1f94f0ef642cd63486c77ca9724ac"
   integrity sha512-sol30LUpz1jQFBjOKwbjxijiE3b6pjd74YwfD0fJOKPjF+fONKb2Yg8rYgS6+bK6VDl+/wfr4IYpC7jDzLUIfw==
+
+node-gyp-build@^4.1.0:
+  version "4.2.3"
+  resolved "https://registry.yarnpkg.com/node-gyp-build/-/node-gyp-build-4.2.3.tgz#ce6277f853835f718829efb47db20f3e4d9c4739"
+  integrity sha512-MN6ZpzmfNCRM+3t57PTJHgHyw/h4OWnZ6mR8P5j/uZtqQr46RRuDE/P+g3n0YR/AiYXeWixZZzaip77gdICfRg==
 
 node-gyp@^5.0.2:
   version "5.1.1"
@@ -21126,3 +21215,10 @@ yn@3.1.1:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/yn/-/yn-3.1.1.tgz#1e87401a09d767c1d5eab26a6e4c185182d2eb50"
   integrity sha512-Ux4ygGWsu2c7isFWe8Yu1YluJmqVhxqK2cLXNQA5AcC3QfbGNpM7fu0Y8b/z16pXLnFxZYvWhd3fhBY9DLmC6Q==
+
+zeromq@^6.0.0-beta.6:
+  version "6.0.0-beta.6"
+  resolved "https://registry.yarnpkg.com/zeromq/-/zeromq-6.0.0-beta.6.tgz#2b8934cafce735ea9007fd3074ec8aca9bf11204"
+  integrity sha512-wLf6M7pBHijl+BRltUL2VoDpgbQcOZetiX8UzycHL8CcYFxYnRrpoG5fi3UX3+Umavz1lk4/dGaQez8qiDgr/Q==
+  dependencies:
+    node-gyp-build "^4.1.0"

@@ -6,6 +6,7 @@
   ],
   "scripts": {
     "lint": "./scripts/testing/lint.sh",
+    "prepare": "node ./scripts/development/prepare.js",
     "lint:style": "./scripts/testing/lint-style.sh",
     "test": "./scripts/testing/test.sh",
     "debug:test:file": "./scripts/testing/debug-test-file.sh",

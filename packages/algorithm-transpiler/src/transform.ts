@@ -128,8 +128,8 @@ export function forLoopCondition(lineArg: string): string {
   let line = lineArg
   const matchCondition = line.match(RegExp(`([\\s\\S]+${toWord}[\\s\\S]+)`))
   if (matchCondition) {
-    let [conditionsFor] = matchCondition
-    conditionsFor = conditionsFor.split(toWord)
+    const [firstMatch] = matchCondition
+    const conditionsFor = firstMatch.split(toWord)
     const ref = matchCondition[0].split(toWord)
     conditionsFor[0] += ';'
     if (conditionsFor[1].search('reversed') === -1) {

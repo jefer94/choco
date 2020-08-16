@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  labels:
+    app: rabbit
+  name: rabbit
+  namespace: choco
+spec:
+  selector:
+    matchLabels:
+      app: rabbit
+  template:
+    metadata:
+      labels:
+        app: rabbit
+      namespace: choco
+    spec:
+      containers:
+      - image: rabbitmq:alpine
+        name: rabbitmq
+        resources: {}
+        ports:
+        - containerPort: 5672

@@ -1,11 +1,10 @@
 {
   "name": "@choco/algorithm-persistent",
   "version": "1.0.0",
-  "main": "./dist//algorithm-persistent.cjs.js",
-  "module": "./dist//algorithm-persistent.esm.js",
+  "main": "./dist/algorithm-persistent.cjs.js",
+  "module": "./dist/algorithm-persistent.esm.js",
   "author": "Jeferson De Freitas",
   "license": "MIT",
-  "type": "module",
   "dependencies": {
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
