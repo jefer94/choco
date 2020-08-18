@@ -5,12 +5,13 @@ const schema = new Schema({
   exp: { type: Number, required: true },
   active: { type: Boolean, required: true },
   userId: { ref: 'AuthUser', type: Schema.Types.ObjectId }
-}, {
-  // discriminatorKey: 'recordVersion',
-  versionKey: 'recordVersion',
-  id: true,
-  _id: false,
-  timestamps: true
+}, { timestamps: true })
+
+schema.method('transform', () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { _id, __v, ...obj } = this.toObject()
+
+  return { id: _id, ...obj }
 })
 
 export const Token = model('Token', schema)

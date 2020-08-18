@@ -9,28 +9,22 @@ type RegisterArg = {
 
 export default async function register(arg: RegisterArg): Promise<string> {
   try {
-    console.log('aaa111')
     const user = new AuthUser(arg)
-    console.log('aaa11211111111111')
     await user.save()
-    console.log('aaa112')
 
-    if (user) {
-      const t = getToken()
-      console.log('aaa113')
-      const token = new Token({ token: t, userId: user.id })
-      console.log('aaa114')
-      await token.save()
-      console.log('aaa115')
-      console.log('c', t)
+    const t = getToken()
+    const token = new Token({
+      token: t,
+      userId: user.id,
+      exp: Date.now(),
+      active: true
+    })
+    await token.save()
 
-      return t
-    }
-    console.log('a')
-    return ''
+    return t
   }
-  catch(e) {
-    console.log('b', e)
+  catch (e) {
+    // console.error('Register error: ', e)
     return ''
   }
 }

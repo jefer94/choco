@@ -6,18 +6,19 @@ const schema = new Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   scopes: { ref: 'Scope', type: Schema.Types.Array }
-}, {
-  // discriminatorKey: 'recordVersion',
-  versionKey: 'recordVersion',
-  id: true,
-  _id: false,
-  timestamps: true
-})
+}, { timestamps: true })
 
-schema.pre('save', (next) => {
-  // if (!this.isModified('password')) return next()
-  // this.password = encrypt(this.password)
-  return this
+// schema.pre('save', (next) => {
+//   // if (!this.isModified('password')) return next()
+//   // this.password = encrypt(this.password)
+//   return this
+// })
+
+schema.method('transform', () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { _id, __v, ...obj } = this.toObject()
+
+  return { id: _id, ...obj }
 })
 
 export const AuthUser = model('AuthUser', schema)
