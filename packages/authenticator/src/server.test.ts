@@ -53,6 +53,19 @@ const token5 = {
 jest.setTimeout(600000)
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000
 
+enum requestTypes {
+  checkToken = 'check token',
+  generateToken = 'generate token',
+  register = 'register',
+  addScope = 'add scope',
+  deleteScope = 'delete scope'
+}
+
+enum status {
+  success = 'Success',
+  reject = 'Reject'
+}
+
 // const mongod = new MongoMemoryServer()
 // process.env.MONGO_URI = await mongod.getUri()
 
@@ -77,11 +90,13 @@ function subscribe<T>(whoami: string): Promise<T> {
   })
 }
 
-const requestTypes = {
-  generateToken: 'generate token',
-  register: 'register',
-  deleteScope: 'delete scope'
-}
+// const requestTypes = {
+//   checkToken: 'checkToken',
+//   generateToken: 'generate token',
+//   register: 'register',
+//   addScope: 'add scope',
+//   deleteScope: 'delete scope'
+// }
 
 test('Not found', async () => {
   nc.publish(host, 'Hello asdasdasd', whoami)
@@ -145,4 +160,48 @@ test('generate token', async () => {
   expect(obj).toEqual({ status: 'Success' })
   const hasMoreOf60Characters = token.length > 60
   expect(hasMoreOf60Characters).toBeTruthy()
+})
+
+test('invalid token', async () => {
+  const token = 'hahahaha!'
+
+  nc.publish(host, { type: requestTypes.checkToken, token }, whoami)
+
+  const obj = await subscribe(whoami)
+  expect(obj).toEqual({ status: 'Reject' })
+})
+
+test('check token', async () => {
+  const message = {
+    username: 'user',
+    password: 'pass'
+  }
+
+  nc.publish(host, { type: requestTypes.generateToken, ...message }, whoami)
+  const { token } = await subscribe(whoami)
+
+  nc.publish(host, { type: requestTypes.checkToken, token }, whoami)
+
+  const obj = await subscribe(whoami)
+  expect(obj).toEqual({ status: 'Success' })
+})
+
+test('invalid delete scope', async () => {
+  nc.publish(host, { type: requestTypes.deleteScope, name: 'Can edit' }, whoami)
+  expect(await subscribe(whoami)).toEqual({ status: status.reject })
+})
+
+test('add scope', async () => {
+  nc.publish(host, { type: requestTypes.addScope, name: 'Can edit' }, whoami)
+  expect(await subscribe(whoami)).toEqual({ status: status.success })
+})
+
+test('reject duplicate scope', async () => {
+  nc.publish(host, { type: requestTypes.addScope, name: 'Can edit' }, whoami)
+  expect(await subscribe(whoami)).toEqual({ status: status.reject })
+})
+
+test('delete scope', async () => {
+  nc.publish(host, { type: requestTypes.deleteScope, name: 'Can edit' }, whoami)
+  expect(await subscribe(whoami)).toEqual({ status: status.success })
 })

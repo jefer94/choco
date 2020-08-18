@@ -22,45 +22,42 @@ export default async function server(): Promise<void> {
 
   sid = nc.subscribe('authenticator', async (msg, reply) => {
     if (reply) {
-      try {
-        const { type, ...data } = msg
+      const { type, ...data } = msg
 
-        if (type === 'check token') {
-          const bool = await checkToken(data.token)
-          const res = {
-            status: bool ? success : reject
-          }
-          nc.publish(reply, res)
+      if (type === 'check token') {
+        const bool = await checkToken(data.token)
+        const res = {
+          status: bool ? success : reject
         }
-        else if (type === 'generate token') {
-          const token = await generateToken(data)
-          const status = { status: token ? success : reject }
-          const res = token ? { ...status, token } : status
-          nc.publish(reply, res)
-        }
-        else if (type === 'add scope') {
-          const bool = await addScope(data.name)
-          const res = {
-            status: bool ? success : reject
-          }
-          nc.publish(reply, res)
-        }
-        else if (type === 'delete scope') {
-          const bool = await deleteScope(data.name)
-          const res = {
-            status: bool ? success : reject
-          }
-          nc.publish(reply, res)
-        }
-        else if (type === 'register') {
-          const token = await register(data)
-          const status = { status: token ? success : reject }
-          const res = token ? { ...status, token } : status
-          nc.publish(reply, res)
-        }
-        else nc.publish(reply, { status: 'Not found' })
+        nc.publish(reply, res)
       }
-      catch { nc.publish(reply, { status: 'Not found' }) }
+      else if (type === 'generate token') {
+        const token = await generateToken(data)
+        const status = { status: token ? success : reject }
+        const res = token ? { ...status, token } : status
+        nc.publish(reply, res)
+      }
+      else if (type === 'add scope') {
+        const bool = await addScope(data.name)
+        const res = {
+          status: bool ? success : reject
+        }
+        nc.publish(reply, res)
+      }
+      else if (type === 'delete scope') {
+        const bool = await deleteScope(data.name)
+        const res = {
+          status: bool ? success : reject
+        }
+        nc.publish(reply, res)
+      }
+      else if (type === 'register') {
+        const token = await register(data)
+        const status = { status: token ? success : reject }
+        const res = token ? { ...status, token } : status
+        nc.publish(reply, res)
+      }
+      else nc.publish(reply, { status: 'Not found' })
     }
   })
 }
