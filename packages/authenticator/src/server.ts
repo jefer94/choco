@@ -15,10 +15,10 @@ export function close(): typeof closeFunc {
 }
 
 export default async function server() {
-  // db()
+  await db()
   const hasInstance = !!sock
-  const success = 'success'
-  const reject = 'reject'
+  const success = 'Success'
+  const reject = 'Reject'
 
   sock = sock || new zmq.Reply()
 
@@ -28,47 +28,44 @@ export default async function server() {
 
   for await (const connection of sock) {
     const [msg] = connection
-    const { type, ...data } = msg.toJSON()
+    try {
+      const { type, ...data } = JSON.parse(msg.toString())
 
-    if (type === 'check token') {
-      const bool = await checkToken(data.token)
-      const res = JSON.stringify({
-        status: bool ? success : reject
-      })
-      sock.send(res)
+      if (type === 'check token') {
+        const bool = await checkToken(data.token)
+        const res = JSON.stringify({
+          status: bool ? success : reject
+        })
+        sock.send(res)
+      }
+      else if (type === 'generate token') {
+        const token = await generateToken(data)
+        const status = { status: token ? success : reject }
+        const res = JSON.stringify(token ? { ...status, token } : status)
+        sock.send(res)
+      }
+      else if (type === 'add scope') {
+        const bool = await addScope(data.name)
+        const res = JSON.stringify({
+          status: bool ? success : reject
+        })
+        sock.send(res)
+      }
+      else if (type === 'delete scope') {
+        const bool = await deleteScope(data.name)
+        const res = JSON.stringify({
+          status: bool ? success : reject
+        })
+        sock.send(res)
+      }
+      else if (type === 'register') {
+        const token = await register(data)
+        const status = { status: token ? success : reject }
+        const res = JSON.stringify(token ? { ...status, token } : status)
+        sock.send(res)
+      }
+      else await sock.send(JSON.stringify({ status: 'Not found' }))
     }
-    else if (type === 'generate token') {
-      const token = await generateToken(data)
-      const res = JSON.stringify({
-        status: token ? success : reject,
-        token
-      })
-      sock.send(res)
-    }
-    else if (type === 'add scope') {
-      const bool = await addScope(data.name)
-      const res = JSON.stringify({
-        status: bool ? success : reject
-      })
-      sock.send(res)
-    }
-    else if (type === 'delete scope') {
-      const bool = await deleteScope(data.name)
-      const res = JSON.stringify({
-        status: bool ? success : reject
-      })
-      sock.send(res)
-    }
-    else if (type === 'register') {
-      const token = await register(data)
-      const res = JSON.stringify({
-        status: token ? success : reject,
-        token
-      })
-      sock.send(res)
-    }
-    else await sock.send('World')
-    // console.log(msg.toJSON, 'json')
-    // console.log('Received ' + ': [' + msg.toString() + ']')
+    catch { await sock.send(JSON.stringify({ status: 'Not found' })) }
   }
 }

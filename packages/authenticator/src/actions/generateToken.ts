@@ -9,8 +9,8 @@ type GenerateTokenArg = {
 export default async function generateToken(arg: GenerateTokenArg): Promise<string> {
   try {
     const { username, password } = arg
-    const user = AuthUser.findOne(arg).exec() ||
-                 AuthUser.findOne({ email: username, password }).exec()
+    const user = await AuthUser.findOne(arg).exec() ||
+                 await AuthUser.findOne({ email: username, password }).exec()
 
     if (user) {
       const t = getToken()

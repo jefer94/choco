@@ -15,8 +15,8 @@ const schema = new Schema({
 })
 
 schema.pre('save', (next) => {
-  if (!this.isModified('password')) return next()
-  this.password = encrypt(this.password)
+  // if (!this.isModified('password')) return next()
+  // this.password = encrypt(this.password)
   return this
 })
 

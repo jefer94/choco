@@ -1,3 +1,5 @@
+/* eslint-disable functional/no-loop-statement */
+/* eslint-disable no-restricted-syntax */
 import * as zmq from 'zeromq'
 import server, { close } from './server'
 
@@ -6,10 +8,10 @@ server()
 //   await server()
 // })
 
-afterAll(() => {
-  close()()
-  // setT
-})
+// afterAll(() => {
+//   close()()
+//   // setT
+// })
 
 const token = {
   type: 'check token',
@@ -41,25 +43,73 @@ const token5 = {
   password: ''
 }
 
-test('tasdasd', async () => {
-  console.log('Connecting to hello world server…')
+describe('server', () => {
+  let sock
+  beforeAll(() => {
+    sock = new zmq.Request()
+    sock.connect('tcp://localhost:5555')
+  })
 
-  //  Socket to talk to server
-  const sock = new zmq.Request()
-  sock.connect('tcp://localhost:5555')
+  afterAll(() => {
+    // sock.close()
+  })
 
-  console.log('Sending Hello')
-  await sock.send('Hello asdasdasd')
-  // await sock.send('Hello')
-  const [result] = await sock.receive()
-  console.log('Received ', result.toString())
+  test('Not found', async () => {
+    await sock.send('Hello asdasdasd')
+    const [result] = await sock.receive()
+    expect(JSON.parse(result.toString())).toEqual({
+      status: 'Not found'
+    })
+  })
 
+  test('Invalid token request with username, password', async () => {
+    const messages = [{
+      username: 'user',
+      password: 'pass'
+    }, {
+      username: 'user'
+    }, {
+      password: 'pass'
+    }]
+    for (const message of messages) {
+      await sock.send(JSON.stringify({ type: 'generate token', ...message }))
+      const [result] = await sock.receive()
+      expect(JSON.parse(result.toString())).toEqual({
+        status: 'Reject'
+      })
+    }
+  })
 
-  // for (let i = 0; i < 2; i++) {
-  //   console.log('Sending Hello ', i, sock)
-  //   await sock.send(`Hello ${i} asdasdasd`)
-  //   // await sock.send('Hello')
-  //   const [result] = await sock.receive()
-  //   console.log('Received ', result.toString(), i)
-  // }
+  // test('Invalid register', async () => {
+  //   const messages = [{
+  //     username: 'user',
+  //     password: 'pass'
+  //   }, {
+  //     email: 'user',
+  //     password: 'pass'
+  //   }, {
+  //     username: 'user',
+  //     email: 'pass'
+  //   }]
+  //   for (const message of messages) {
+  //     await sock.send(JSON.stringify({ type: 'register', ...message }))
+  //     const [result] = await sock.receive()
+  //     expect(JSON.parse(result.toString())).toEqual({
+  //       status: 'Reject'
+  //     })
+  //   }
+  // })
+
+  test('Register', async () => {
+    const message = {
+      username: 'user',
+      email: 'email',
+      password: 'pass'
+    }
+    await sock.send(JSON.stringify({ type: 'register', ...message }))
+    const [result] = await sock.receive()
+    expect(JSON.parse(result.toString())).toEqual({
+      status: 'Success'
+    })
+  })
 })
