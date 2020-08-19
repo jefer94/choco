@@ -1,10 +1,10 @@
 import { Schema, model } from 'mongoose'
 
 const schema = new Schema({
-  userId: { type: String, required: true, unique: true },
+  user: { type: String, required: true, unique: true },
   name: { type: String, required: true },
   description: { type: String, required: true },
-  codes: { ref: 'Code', type: Schema.Types.Array }
+  codes: [{ ref: 'Code', type: Schema.Types.ObjectId }]
 }, { timestamps: true })
 
 schema.method('transform', () => {

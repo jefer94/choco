@@ -1,8 +1,8 @@
 import { ProjectPermission } from '../models'
 
 type ProjectPermissionArgs = {
-  readonly userId: string
-  readonly projectId: string
+  readonly user: string
+  readonly project: string
   readonly write?: string
   readonly create?: string
   readonly remove?: string

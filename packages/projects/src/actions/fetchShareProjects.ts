@@ -1,7 +1,7 @@
 import { Document } from 'mongoose'
-import { Project } from '../models'
+import { ProjectPermission } from '../models'
 
-export default async function fetchShareProjects(userId: string):
+export default async function fetchShareProjects(user: string):
   Promise<readonly Document[]> {
-  return Project.find({ userId }).exec()
+  return ProjectPermission.find({ user }).populate('user').exec()
 }

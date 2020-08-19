@@ -1,7 +1,7 @@
 import { Schema, model } from 'mongoose'
 
 const schema = new Schema({
-  projectId: { ref: 'Project', type: Schema.Types.ObjectId },
+  project: { ref: 'Project', type: Schema.Types.ObjectId },
   title: { type: String, required: true },
   code: { type: String, required: true }
 }, { timestamps: true })

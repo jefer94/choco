@@ -4,8 +4,8 @@ const schema = new Schema({
   write: Boolean,
   create: Boolean,
   remove: Boolean,
-  projectId: { ref: 'Project', type: Schema.Types.ObjectId },
-  userId: { type: String, required: true, unique: true }
+  project: { ref: 'Project', type: Schema.Types.ObjectId },
+  user: { type: String, required: true, unique: true }
 }, { timestamps: true })
 
 schema.method('transform', () => {

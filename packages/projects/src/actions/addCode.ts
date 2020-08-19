@@ -3,7 +3,7 @@ import { Code } from '../models'
 type CodeArgs = {
   readonly title: string
   readonly code: string
-  readonly projectId: string
+  readonly project: string
 }
 
 export default async function addCode(arg: CodeArgs): Promise<boolean> {
