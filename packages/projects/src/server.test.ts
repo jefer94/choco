@@ -10,8 +10,8 @@ jest.setTimeout(600000)
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000
 
 const nc = NATS.connect({ json: true })
-const host = 'authenticator'
-const whoami = 'authenticator-test'
+const host = 'projects'
+const whoami = 'projects-test'
 
 enum requestTypes {
   checkToken = 'check token',
