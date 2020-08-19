@@ -4,7 +4,7 @@ const schema = new Schema({
   token: { type: String, required: true, unique: true },
   exp: { type: Number, required: true },
   active: { type: Boolean, required: true },
-  userId: { ref: 'AuthUser', type: Schema.Types.ObjectId }
+  user: { ref: 'AuthUser', type: Schema.Types.ObjectId }
 }, { timestamps: true })
 
 schema.method('transform', () => {

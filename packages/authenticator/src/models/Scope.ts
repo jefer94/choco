@@ -2,7 +2,7 @@ import { Schema, model } from 'mongoose'
 
 const schema = new Schema({
   name: { type: String, required: true, unique: true },
-  user: { ref: 'AuthUser', type: Schema.Types.Array }
+  users: [{ ref: 'AuthUser', type: Schema.Types.ObjectId }]
 }, { timestamps: true })
 
 schema.method('transform', () => {
