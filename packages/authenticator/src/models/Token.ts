@@ -1,4 +1,13 @@
-import { Schema, model } from 'mongoose'
+import { Document, Schema, model } from 'mongoose'
+
+export type TokenFields = {
+  readonly token: string
+  readonly exp: number
+  readonly active: boolean
+  readonly user: typeof Schema.Types.ObjectId
+};
+
+export type TokenDocument = Document & TokenFields
 
 const schema = new Schema({
   token: { type: String, required: true, unique: true },
@@ -14,4 +23,4 @@ schema.method('transform', () => {
   return { id: _id, ...obj }
 })
 
-export const Token = model('Token', schema)
+export const Token = model<TokenDocument>('Token', schema)

@@ -1,7 +1,7 @@
-import { Document } from 'mongoose'
-import { Project } from '../models'
+import { Project, ProjectDocument } from '../models'
 
-export default async function fetchOwnProjects(user: string):
-  Promise<readonly Document[]> {
+type T = readonly ProjectDocument[]
+
+export default async function fetchOwnProjects(user: string): Promise<T> {
   return Project.find({ user }).exec()
 }

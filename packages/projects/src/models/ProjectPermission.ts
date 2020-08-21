@@ -1,4 +1,14 @@
-import { Schema, model } from 'mongoose'
+import { Document, Schema, model } from 'mongoose'
+
+export type ProjectPermissionFields = {
+  readonly write?: boolean
+  readonly create?: boolean
+  readonly remove?: boolean
+  readonly project?: typeof Schema.Types.ObjectId
+  readonly user?: string
+};
+
+export type ProjectPermissionDocument = Document & ProjectPermissionFields
 
 const schema = new Schema({
   write: Boolean,
@@ -11,8 +21,7 @@ const schema = new Schema({
 schema.method('transform', () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { _id, __v, ...obj } = this.toObject()
-
   return { id: _id, ...obj }
 })
 
-export const ProjectPermission = model('ProjectPermission', schema)
+export const ProjectPermission = model<ProjectPermissionDocument>('ProjectPermission', schema)

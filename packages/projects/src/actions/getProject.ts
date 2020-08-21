@@ -1,6 +1,8 @@
-import { DocumentQuery, Document } from 'mongoose'
-import { Project } from '../models'
+import { DocumentQuery } from 'mongoose'
+import { Project, ProjectDocument } from '../models'
 
-export default async function getProject(id: string): Promise<DocumentQuery<Document, Document>> {
+type ProjectQuery = DocumentQuery<ProjectDocument, ProjectDocument>
+
+export default async function getProject(id: string): Promise<ProjectQuery> {
   return Project.findOne({ _id: id })
 }

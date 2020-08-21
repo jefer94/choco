@@ -1,4 +1,11 @@
-import { Schema, model } from 'mongoose'
+import { Document, Schema, model } from 'mongoose'
+
+export type ScopeFields = {
+  readonly name: string
+  readonly users: readonly typeof Schema.Types.ObjectId[]
+};
+
+export type ScopeDocument = Document & ScopeFields
 
 const schema = new Schema({
   name: { type: String, required: true, unique: true },
@@ -12,4 +19,4 @@ schema.method('transform', () => {
   return { id: _id, ...obj }
 })
 
-export const Scope = model('Scope', schema)
+export const Scope = model<ScopeDocument>('Scope', schema)

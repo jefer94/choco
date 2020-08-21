@@ -1,6 +1,8 @@
-import { DocumentQuery, Document } from 'mongoose'
-import { Code } from '../models'
+import { DocumentQuery } from 'mongoose'
+import { Code, CodeDocument } from '../models'
 
-export default async function getCode(id: string): Promise<DocumentQuery<Document, Document>> {
+type CodeQuery = DocumentQuery<CodeDocument, CodeDocument>
+
+export default async function getCode(id: string): Promise<CodeQuery> {
   return Code.findOne({ _id: id })
 }

@@ -1,4 +1,12 @@
-import { Schema, model } from 'mongoose'
+import { Document, Schema, model } from 'mongoose'
+
+export type CodeFields = {
+  readonly project: typeof Schema.Types.ObjectId
+  readonly title: string
+  readonly code: string
+};
+
+export type CodeDocument = Document & CodeFields
 
 const schema = new Schema({
   project: { ref: 'Project', type: Schema.Types.ObjectId },
@@ -9,8 +17,7 @@ const schema = new Schema({
 schema.method('transform', () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { _id, __v, ...obj } = this.toObject()
-
   return { id: _id, ...obj }
 })
 
-export const Code = model('Code', schema)
+export const Code = model<CodeDocument>('Code', schema)

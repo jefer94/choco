@@ -1,5 +1,14 @@
-import { Schema, model } from 'mongoose'
-import { encrypt } from '@choco/password'
+import { Document, Schema, model } from 'mongoose'
+// import { encrypt } from '@choco/password'
+
+export type AuthUserFields = {
+  readonly username: string
+  readonly email: string
+  readonly password: string
+  readonly scopes: readonly typeof Schema.Types.ObjectId[]
+};
+
+export type AuthUserDocument = Document & AuthUserFields
 
 const schema = new Schema({
   username: { type: String, required: true, unique: true },
@@ -17,8 +26,7 @@ const schema = new Schema({
 schema.method('transform', () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { _id, __v, ...obj } = this.toObject()
-
   return { id: _id, ...obj }
 })
 
-export const AuthUser = model('AuthUser', schema)
+export const AuthUser = model<AuthUserDocument>('AuthUser', schema)
