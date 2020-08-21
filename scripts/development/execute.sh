@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-cd ./packages
+cd ./services
 
 if [ $1 ]; then
   cd $1
