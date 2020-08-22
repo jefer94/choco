@@ -43,9 +43,8 @@ const service1 = 'algorithm'
 const service2 = 'killer'
 
 let serviceId1
-let serviceId2
 let activityId1
-let activityId2
+let activityLogId1
 
 test('Not found', async () => {
   nc.publish(host, 'Hello asdasdasd', whoami)
@@ -129,14 +128,52 @@ test('add one activity in log', async () => {
   expect(await subscribe(whoami)).toEqual({ status: statusRefs.success })
 })
 
+function checkActivitySubsection(obj: Record<string, any>): void {
+  const { id, createdAt, updatedAt, service, ...obj2 } = obj
+
+  expect(Date.parse(createdAt)).toBeTruthy()
+  expect(Date.parse(updatedAt)).toBeTruthy()
+  expect(id).toBe(activityId1)
+  expect(service).toBe(serviceId1)
+  expect(obj2).toEqual({ name: 'Is henrietta' })
+}
+
 test('check fetch with content', async () => {
   nc.publish(host, { type: requestRefs.fetchAllActivities }, whoami)
-  expect(await subscribe(whoami)).toEqual({ status: statusRefs.success, data: [] })
+
+  const { data, ...obj1 } = await subscribe(whoami)
+  const [current, ...less] = data
+  const { id, createdAt, updatedAt, activity, user, ...obj2 } = current
+
+  expect(Date.parse(createdAt)).toBeTruthy()
+  expect(Date.parse(updatedAt)).toBeTruthy()
+  expect(/^[a-zA-Z0-9]+$/.test(id)).toBeTruthy()
+  expect(user).toBe(henrietta)
+  expect(obj1).toEqual({ status: statusRefs.success })
+  expect(obj2).toEqual({})
+  expect(less).toEqual([])
+
+  activityLogId1 = id
+
+  checkActivitySubsection(activity)
 })
 
 test('check fetch all with content', async () => {
-  nc.publish(host, { type: requestRefs.fetchActivities, user: henrietta }, whoami)
-  expect(await subscribe(whoami)).toEqual({ status: statusRefs.success, data: [] })
+  nc.publish(host, { type: requestRefs.fetchAllActivities }, whoami)
+
+  const { data, ...obj1 } = await subscribe(whoami)
+  const [current, ...less] = data
+  const { id, createdAt, updatedAt, activity, user, ...obj2 } = current
+
+  expect(Date.parse(createdAt)).toBeTruthy()
+  expect(Date.parse(updatedAt)).toBeTruthy()
+  expect(id).toBe(activityLogId1)
+  expect(user).toBe(henrietta)
+  expect(obj1).toEqual({ status: statusRefs.success })
+  expect(obj2).toEqual({})
+  expect(less).toEqual([])
+
+  checkActivitySubsection(activity)
 })
 
 test('delete service', async () => {

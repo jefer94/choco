@@ -1,8 +1,9 @@
 import { Document, Schema, model } from 'mongoose'
+import { ActivityFields, ActivityDocument } from './Activity';
 
 export type ActivityLogFields = {
   readonly user: string
-  readonly activity: string
+  readonly activity: Pick<ActivityDocument, '_id' | '__v' | 'name' | 'service'>
 };
 
 export type ActivityLogDocument = Document & ActivityLogFields

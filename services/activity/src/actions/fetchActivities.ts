@@ -1,6 +1,29 @@
-import { ActivityLog, ActivityLogDocument } from '../models'
+import { ActivityLog, ActivityLogDocument, ActivityLogFields } from '../models'
 
-type FA = readonly ActivityLogDocument[]
-export default async function fetchActivities(user: string): Promise<FA> {
-  return ActivityLog.find({ user }).populate('activity').populate('service').exec()
+// type FA = readonly ActivityLogFields[]
+// type FA = readonly ActivityLogDocument[]
+type FA = {
+  readonly id?: any
+  readonly user: string
+  readonly activity: Pick<ActivityLogDocument, 'id'>
+}
+
+export default async function fetchActivities(user: string): Promise<readonly FA[]> {
+  const activities = await ActivityLog.find({ user }).populate('activity').populate('service').lean()
+
+  return activities.map((act) => {
+    const { activity, ...obj } = transformId(act)
+
+    return { ...obj, activity: transformActivityId(activity) }
+  })
+}
+
+function transformId(model: Pick<ActivityLogDocument, '_id' | '__v' | 'user' | 'activity'>): Pick<ActivityLogDocument, 'id' | 'user' | 'activity'> {
+  const { _id, __v, ...obj } = model
+  return { id: _id, ...obj }
+}
+
+function transformActivityId(model: Pick<ActivityLogDocument, '_id' | '__v'>): Pick<ActivityLogDocument, 'id'> {
+  const { _id, __v, ...obj } = model
+  return { id: _id, ...obj }
 }
