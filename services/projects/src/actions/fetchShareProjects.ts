@@ -1,8 +1,14 @@
 import { ProjectPermission, ProjectPermissionDocument } from '../models'
 
-type T = readonly ProjectPermissionDocument[]
+type FSP = readonly ProjectPermissionDocument[]
 
-export default async function fetchShareProjects(user: string): Promise<T> {
+/**
+ * Fetch share projects.
+ *
+ * @param user - User id.
+ * @returns Share projects.
+ */
+export default async function fetchShareProjects(user: string): Promise<FSP> {
   const permissions = await ProjectPermission.find({ user }).populate('project').exec()
   if (!permissions.length) return permissions
   return permissions.reduce((current, { project, ...obj }) =>

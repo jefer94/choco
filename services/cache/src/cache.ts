@@ -4,8 +4,6 @@ import { createClient, print, RedisClient } from 'redis'
 import chalk from 'chalk'
 import { middlewares, listen as httpListen, close as httpClose } from '@choco/middlewares'
 
-/** @module @choco/cache */
-
 const app = express()
 let client: RedisClient
 
@@ -30,9 +28,11 @@ export const close = httpClose
  * Get value from key.
  *
  * @example
+ * ```
  * clientGet('key') // return redis promise
- * @param {string} key - Key.
- * @returns {Promise} Value.
+ * ```
+ * @param key - Key.
+ * @returns Value.
  */
 function clientGet(key: string): Promise<string> {
   return new Promise((resolve, reject) => {

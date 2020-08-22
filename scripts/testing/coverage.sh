@@ -1,7 +1,5 @@
 #!/usr/bin/env sh
 
-cd ./packages
-
 jest() {
   if ! yarn jest --coverage --forceExit --passWithNoTests --detectOpenHandles --notify --preset ts-jest --testEnvironment $1 ./ $2; then
     exit 1
@@ -19,11 +17,25 @@ jestEnv() {
 }
 
 if [ $1 ]; then
-  jestEnv $1 $2
+  if [ -d ./packages/$1 ]; then
+    cd ./packages
+    jestEnv $1 $2
+  else
+    cd ./services
+    jestEnv $1 $2
+  fi
 else
+  cd ./packages
   for folder in *; do
     jestEnv $folder
   done
+  cd ..
+
+  cd ./services
+  for folder in *; do
+    jestEnv $folder
+  done
+  cd ..
 fi
 
 cd ..

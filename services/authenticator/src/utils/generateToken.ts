@@ -3,7 +3,7 @@ import crypto from 'crypto'
 /**
  * Generate token.
  *
- * @returns {string} Token.
+ * @returns Token.
  */
 export default function generateToken(): string {
   const rand = crypto.randomBytes(28).toString('base64')

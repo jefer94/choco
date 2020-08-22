@@ -8,7 +8,13 @@ type ProjectPermissionArgs = {
   readonly remove?: string
 }
 
-export default async function addProject(obj: ProjectPermissionArgs): Promise<boolean> {
+/**
+ * Add new project permission.
+ *
+ * @param obj - Project permission object.
+ * @returns Was saved?.
+ */
+export default async function addProjectPermission(obj: ProjectPermissionArgs): Promise<boolean> {
   try {
     const scope = new ProjectPermission(obj)
     await scope.save()

@@ -16,6 +16,7 @@ export function close(): void {
   nc.unsubscribe(sid)
 }
 
+/** Server. */
 export default async function server(): Promise<void> {
   const success = 'Success'
   const reject = 'Reject'

@@ -1,63 +1,83 @@
 /* eslint-disable functional/no-loop-statement */
 /* eslint-disable no-restricted-syntax */
-import * as zmq from 'zeromq'
 import * as NATS from 'nats'
-import db from './db'
-import checkToken from './actions/checkToken'
-import generateToken from './actions/generateToken'
-import addScope from './actions/addScope'
-import deleteScope from './actions/deleteScope'
-import register from './actions/register'
+import addActivityLog from './actions/addActivityLog'
+import addOnceActivity from './actions/addOnceActivity'
+import addOnceService from './actions/addOnceService'
+import deleteService from './actions/deleteService'
+import fetchActivities from './actions/fetchActivities'
+import fetchAllActivities from './actions/fetchAllActivities'
 
 const nc = NATS.connect({ json: true })
 
 let sid = 0
+export const host = 'activity'
 export function close(): void {
   nc.unsubscribe(sid)
 }
 
-export default async function server(): Promise<void> {
-  const success = 'Success'
-  const reject = 'Reject'
+export enum requestRefs {
+  addActivityLog = 'add activity log',
+  addOnceActivity = 'add once activity',
+  addOnceService = 'add once service',
+  deleteService = 'delete service',
+  fetchActivities = 'fetch activities',
+  fetchAllActivities = 'fetch all activities'
+}
 
-  sid = nc.subscribe('authenticator', async (msg, reply) => {
+export enum statusRefs {
+  success = 'Success',
+  reject = 'Reject',
+  notFound = 'Not found'
+}
+
+export default async function server(): Promise<void> {
+  sid = nc.subscribe(host, async (msg, reply) => {
     if (reply) {
       const { type, ...data } = msg
+      // console.log(type)
 
-      if (type === 'check token') {
-        const bool = await checkToken(data.token)
+      if (type === requestRefs.addActivityLog) {
+        const bool = await addActivityLog(data.user, data.activity)
         const res = {
-          status: bool ? success : reject
+          status: bool ? statusRefs.success : statusRefs.reject
         }
         nc.publish(reply, res)
       }
-      else if (type === 'generate token') {
-        const token = await generateToken(data)
-        const status = { status: token ? success : reject }
-        const res = token ? { ...status, token } : status
-        nc.publish(reply, res)
-      }
-      else if (type === 'add scope') {
-        const bool = await addScope(data.name)
+      else if (type === requestRefs.addOnceActivity) {
+        const value = await addOnceActivity(data.name, data.service)
         const res = {
-          status: bool ? success : reject
+          status: statusRefs.success,
+          data: value
         }
         nc.publish(reply, res)
       }
-      else if (type === 'delete scope') {
-        const bool = await deleteScope(data.name)
+      else if (type === requestRefs.addOnceService) {
+        const value = await addOnceService(data.name)
         const res = {
-          status: bool ? success : reject
+          status: statusRefs.success,
+          data: value
         }
         nc.publish(reply, res)
       }
-      else if (type === 'register') {
-        const token = await register(data)
-        const status = { status: token ? success : reject }
-        const res = token ? { ...status, token } : status
+      else if (type === requestRefs.deleteService) {
+        await deleteService(data.name)
+        const res = {
+          status: statusRefs.success
+        }
         nc.publish(reply, res)
       }
-      else nc.publish(reply, { status: 'Not found' })
+      else if (type === requestRefs.fetchActivities) {
+        const arr = await fetchActivities(data.user)
+        const res = { status: statusRefs.success, data: arr }
+        nc.publish(reply, res)
+      }
+      else if (type === requestRefs.fetchAllActivities) {
+        const arr = await fetchAllActivities()
+        const res = { status: statusRefs.success, data: arr }
+        nc.publish(reply, res)
+      }
+      else nc.publish(reply, { status: statusRefs.notFound })
     }
   })
 }

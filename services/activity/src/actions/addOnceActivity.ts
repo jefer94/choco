@@ -1,9 +1,14 @@
+/* eslint-disable no-underscore-dangle */
 import { Activity } from '../models'
 
-export default async function addOnceActivity(name: string, service: string): Promise<void> {
+export default async function addOnceActivity(name: string, service: string): Promise<number> {
   try {
-    const scope = new Activity({ name, service })
-    await scope.save()
+    const activity = new Activity({ name, service })
+    await activity.save()
+    return activity._id
   }
-  catch {}
+  catch {
+    const activity = await Activity.findOne({ name, service }).exec()
+    return activity._id
+  }
 }

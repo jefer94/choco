@@ -3,16 +3,10 @@ import Head from 'next/head'
 import { AppProps } from 'next/app'
 
 /**
- * @typedef {object} AppProps
- * @property {object} Component - Next component.
- * @property {object} pageProps - Next component props.
- */
-
-/**
  * Next app.
  *
- * @param {AppProps} Props - Props.
- * @returns {object} Next app.
+ * @param Props - Props.
+ * @returns Next app.
  */
 export default function App({ Component, pageProps }: AppProps): ReactElement {
   return (

@@ -9,7 +9,7 @@ type ProjectArgs = {
 /**
  * Add new project.
  *
- * @param obj - Projects args.
+ * @param obj - Projects object.
  * @returns Was added project.
  */
 export default async function addProject(obj: ProjectArgs): Promise<boolean> {

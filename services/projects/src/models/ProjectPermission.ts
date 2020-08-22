@@ -4,7 +4,7 @@ export type ProjectPermissionFields = {
   readonly write?: boolean
   readonly create?: boolean
   readonly remove?: boolean
-  readonly project?: typeof Schema.Types.ObjectId
+  readonly project?: typeof Schema.Types.ObjectId | string
   readonly user?: string
 };
 

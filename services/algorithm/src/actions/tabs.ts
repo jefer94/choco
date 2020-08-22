@@ -1,27 +1,11 @@
 /**
- * @typedef {object} SimpleAction
- * @property {string} type - Action type.
- */
-
-/**
- * @typedef {object} IdAction
- * @property {string} type - Action type.
- * @property {number} id - Action id.
- */
-
-/**
- * @typedef {object} IdContentAction
- * @property {string} type - Action type.
- * @property {number} id - Action id.
- * @property {string} content - Action type.
- */
-
-/**
  * Add tab action.
  *
  * @example
+ * ```
  * addTabAction() // return { type: 'ADD_TAB' }
- * @returns {SimpleAction} Action.
+ * ```
+ * @returns Action.
  */
 export const addTabAction = () => ({
   type: 'ADD_TAB'
@@ -30,10 +14,12 @@ export const addTabAction = () => ({
 /**
  * Remove tab action.
  *
- * @param {number} id - Action id.
+ * @param id - Action id.
  * @example
+ * ```
  * removeTabAction(5) // return { type: 'DELETE_TAB', id: 5 }
- * @returns {IdAction} Action.
+ * ```
+ * @returns Action.
  */
 export const removeTabAction = (id) => ({
   type: 'DELETE_TAB',
@@ -43,10 +29,12 @@ export const removeTabAction = (id) => ({
 /**
  * Change tab action.
  *
- * @param {number} id - Action id.
+ * @param id - Action id.
  * @example
+ * ```
  * changeTabAction(5) // return { type: 'CHANGE_TAB', id: 5 }
- * @returns {IdAction} Action.
+ * ```
+ * @returns Action.
  */
 export const changeTabAction = (id) => ({
   type: 'CHANGE_TAB',
@@ -56,11 +44,13 @@ export const changeTabAction = (id) => ({
 /**
  * Save tab action.
  *
- * @param {number} id - Action id.
- * @param {string} content - Action content.
+ * @param id - Action id.
+ * @param content - Action content.
  * @example
+ * ```
  * saveTabAction(5, 'Kassadin') // return { type: 'SAVE_TAB', id: 5, content: 'Kassadin' }
- * @returns {IdContentAction} Action.
+ * ```
+ * @returns Action.
  */
 export const saveTabAction = (id, content) => ({
   type: 'SAVE_TAB',
@@ -72,8 +62,10 @@ export const saveTabAction = (id, content) => ({
  * Defaults Tabs Action.
  *
  * @example
+ * ```
  * defaultsTabsAction() // return { type: 'DEFAULTS_TABS' }
- * @returns {SimpleAction} Action.
+ * ```
+ * @returns Action.
  */
 export const defaultsTabsAction = () => ({
   type: 'DEFAULTS_TABS'

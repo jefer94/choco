@@ -1,8 +1,11 @@
-import { DocumentQuery } from 'mongoose'
 import { ProjectPermission, ProjectPermissionDocument } from '../models'
 
-type ProjectQueryPermission = DocumentQuery<ProjectPermissionDocument, ProjectPermissionDocument>
-
-export default async function getProjectPermission(id: string): Promise<ProjectQueryPermission> {
-  return ProjectPermission.findOne({ _id: id })
+/**
+ * Get project permission.
+ *
+ * @param id - ProjectPermission id.
+ * @returns ProjectPermission object.
+ */
+export default async function getProjectPermission(id: string): Promise<ProjectPermissionDocument> {
+  return ProjectPermission.findOne({ _id: id }).exec()
 }

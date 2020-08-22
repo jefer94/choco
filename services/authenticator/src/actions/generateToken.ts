@@ -6,10 +6,16 @@ type GenerateTokenArg = {
   readonly password: string
 }
 
+/**
+ * Generate token.
+ *
+ * @param arg - Token object
+ * @returns Token.
+ */
 export default async function generateToken(arg: GenerateTokenArg): Promise<string> {
   const { username, password } = arg
   const user = await AuthUser.findOne(arg).exec() ||
-                await AuthUser.findOne({ email: username, password }).exec()
+               await AuthUser.findOne({ email: username, password }).exec()
 
   if (user) {
     const t = getToken()

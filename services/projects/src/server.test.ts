@@ -3,29 +3,14 @@
 /* eslint-disable no-restricted-syntax */
 import * as NATS from 'nats'
 import { MongoMemoryServer } from 'mongodb-memory-server-core'
-import server, { close } from './server'
+import server, { host, requestRefs, statusRefs } from './server'
 import db from './db'
 
 jest.setTimeout(600000)
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000
 
 const nc = NATS.connect({ json: true })
-const host = 'projects'
-const whoami = 'projects-test'
-
-enum requestTypes {
-  checkToken = 'check token',
-  generateToken = 'generate token',
-  register = 'register',
-  addScope = 'add scope',
-  deleteScope = 'delete scope'
-}
-
-enum status {
-  success = 'Success',
-  reject = 'Reject',
-  notFound = 'Not found'
-}
+const whoami = `${host}-test`
 
 // const mongod = new MongoMemoryServer()
 // process.env.MONGO_URI = await mongod.getUri()
@@ -43,40 +28,25 @@ afterAll(() => {
 
 function subscribe<T>(whoami: string): Promise<T> {
   return new Promise((resolve) => {
-    const id = nc.subscribe(whoami, (arg1, arg2, arg3, arg4) => {
-      resolve(arg1)
+    const id = nc.subscribe(whoami, (msg) => {
+      resolve(msg)
       nc.unsubscribe(id)
       // resolve(arg1, arg2, arg3, arg4)
     })
   })
 }
 
-// const requestTypes = {
-//   checkToken: 'checkToken',
-//   generateToken: 'generate token',
-//   register: 'register',
-//   addScope: 'add scope',
-//   deleteScope: 'delete scope'
-// }
-
 test('Not found', async () => {
   nc.publish(host, 'Hello asdasdasd', whoami)
-  expect(await subscribe(whoami)).toEqual({ status: status.notFound })
+  expect(await subscribe(whoami)).toEqual({ status: statusRefs.notFound })
 })
 
-test('Invalid token request with username, password', async () => {
-  const messages = [{
-    username: 'user',
-    password: 'pass'
-  }, {
-    username: 'user'
-  }, {
-    password: 'pass'
-  }]
-  for (const message of messages) {
-    nc.publish(host, { type: requestTypes.generateToken, ...message }, whoami)
-    expect(await subscribe(whoami)).toEqual({ status: status.reject })
-  }
+test('Add project', async () => {
+  // const message = {
+  //   user: 
+  // }
+  nc.publish(host, { type: requestRefs.addProject, ...message }, whoami)
+  expect(await subscribe(whoami)).toEqual({ status: statusRefs.reject })
 })
 
 test('Invalid register', async () => {
@@ -92,7 +62,7 @@ test('Invalid register', async () => {
   }]
   for (const message of messages) {
     nc.publish(host, { type: requestTypes.register, ...message }, whoami)
-    expect(await subscribe(whoami)).toEqual({ status: status.reject })
+    expect(await subscribe(whoami)).toEqual({ status: statusRefs.reject })
   }
 })
 
@@ -105,7 +75,7 @@ test('Register', async () => {
 
   nc.publish(host, { type: requestTypes.register, ...message }, whoami)
   const { token, ...obj } = await subscribe(whoami)
-  expect(obj).toEqual({ status: status.success })
+  expect(obj).toEqual({ status: statusRefs.success })
   const hasMoreOf60Characters = token.length > 60
   expect(hasMoreOf60Characters).toBeTruthy()
 })
@@ -118,7 +88,7 @@ test('generate token', async () => {
 
   nc.publish(host, { type: requestTypes.generateToken, ...message }, whoami)
   const { token, ...obj } = await subscribe(whoami)
-  expect(obj).toEqual({ status: status.success })
+  expect(obj).toEqual({ status: statusRefs.success })
   const hasMoreOf60Characters = token.length > 60
   expect(hasMoreOf60Characters).toBeTruthy()
 })
@@ -129,7 +99,7 @@ test('invalid token', async () => {
   nc.publish(host, { type: requestTypes.checkToken, token }, whoami)
 
   const obj = await subscribe(whoami)
-  expect(obj).toEqual({ status: status.reject })
+  expect(obj).toEqual({ status: statusRefs.reject })
 })
 
 test('check token', async () => {
@@ -144,25 +114,25 @@ test('check token', async () => {
   nc.publish(host, { type: requestTypes.checkToken, token }, whoami)
 
   const obj = await subscribe(whoami)
-  expect(obj).toEqual({ status: status.success })
+  expect(obj).toEqual({ status: statusRefs.success })
 })
 
 test('invalid delete scope', async () => {
   nc.publish(host, { type: requestTypes.deleteScope, name: 'Can edit' }, whoami)
-  expect(await subscribe(whoami)).toEqual({ status: status.reject })
+  expect(await subscribe(whoami)).toEqual({ status: statusRefs.reject })
 })
 
 test('add scope', async () => {
   nc.publish(host, { type: requestTypes.addScope, name: 'Can edit' }, whoami)
-  expect(await subscribe(whoami)).toEqual({ status: status.success })
+  expect(await subscribe(whoami)).toEqual({ status: statusRefs.success })
 })
 
 test('reject duplicate scope', async () => {
   nc.publish(host, { type: requestTypes.addScope, name: 'Can edit' }, whoami)
-  expect(await subscribe(whoami)).toEqual({ status: status.reject })
+  expect(await subscribe(whoami)).toEqual({ status: statusRefs.reject })
 })
 
 test('delete scope', async () => {
   nc.publish(host, { type: requestTypes.deleteScope, name: 'Can edit' }, whoami)
-  expect(await subscribe(whoami)).toEqual({ status: status.success })
+  expect(await subscribe(whoami)).toEqual({ status: statusRefs.success })
 })

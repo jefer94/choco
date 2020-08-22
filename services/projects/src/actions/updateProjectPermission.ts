@@ -8,6 +8,11 @@ type ProjectPermissionArgs = {
   readonly remove?: string
 }
 
+/**
+ * Update permission project.
+ *
+ * @param arg - ProjectPermission object.
+ */
 export default async function updateProjectPermission(arg: ProjectPermissionArgs): Promise<void> {
   const { user, project, ...obj } = arg
   await ProjectPermission.updateOne({ user, project }, { $set: obj })

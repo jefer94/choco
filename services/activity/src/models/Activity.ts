@@ -2,14 +2,14 @@ import { Document, Schema, model } from 'mongoose'
 
 export type ActivityFields = {
   readonly name: string
-  readonly service: typeof Schema.Types.ObjectId
+  readonly service: string
 };
 
 export type ActivityDocument = Document & ActivityFields
 
 const schema = new Schema({
-  name: { type: String, required: true },
-  service: { ref: 'Service', type: Schema.Types.ObjectId }
+  name: { type: String, required: true, unique: true },
+  service: { ref: 'Service', type: Schema.Types.ObjectId, required: true }
 }, { timestamps: true })
 
 schema.method('transform', () => {

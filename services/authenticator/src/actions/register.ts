@@ -7,6 +7,12 @@ type RegisterArg = {
   readonly password: string
 };
 
+/**
+ * Register.
+ *
+ * @param arg - User object.
+ * @returns Token.
+ */
 export default async function register(arg: RegisterArg): Promise<string> {
   try {
     const user = new AuthUser(arg)

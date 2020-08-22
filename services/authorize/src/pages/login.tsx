@@ -5,7 +5,7 @@ import { BrandSection } from '@choco/components'
 /**
  * Login container.
  *
- * @returns {object} Login container.
+ * @returns Login container.
  */
 export default function Login(): ReactElement {
   // router.prefetch('/dashboard')
