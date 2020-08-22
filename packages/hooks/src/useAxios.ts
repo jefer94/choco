@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Dictionary } from '@choco/types'
 import axios from 'axios'
-axios.he
+// axios.he
 type Methods = 'get' | 'post' | 'put' | 'delete' | 'patch' | 'head'
 
 type Props<Type> = {
@@ -19,31 +19,11 @@ type useAxios<Response, Error> = {
 }
 
 /**
- * @callback FieldSetter
- * @param {object} Event - React event.
- */
-
-/**
- * @typedef {object} Props
- * @property {string} method - Filed key, name and id.
- * @property {string} url - Field type.
- * @property {any} object - Field label.
- * @property {object} headers - Field Placeholder.
- * @property {boolean} wait - Setter.
- */
-
-/**
- * @typedef {object} UseAxios
- * @property {any} data - Filed key, name and id.
- * @property {boolean} loaded - Field type.
- * @property {any} error - Field label.
- */
-
-/**
  * Use axios hook.
  *
- * @param {Props} Props - Properties.
+ * @param Props - Properties.
  * @example
+ * ```
  * import React from 'react'
  *
  * function Component() {
@@ -53,6 +33,7 @@ type useAxios<Response, Error> = {
  *   })
  *   return <></>
  * }
+ * ```
  * @returns {UseAxios} Use axios object.
  */
 export function useAxios<Type, Response, Error>(

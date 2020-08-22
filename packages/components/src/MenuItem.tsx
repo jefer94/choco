@@ -14,13 +14,6 @@ const BaseStyled = `
   color: ${theme.white};
 `
 
-/**
- * @typedef {object} MenuIconProps
- * @property {string} id - Menu id.
- * @property {object} icon - Menu icon.
- * @property {boolean} active - Menu active.
- */
-
 export type MenuIconProps = {
   readonly className?: string
   readonly theme: Record<string, string>
@@ -30,8 +23,8 @@ export type MenuIconProps = {
 /**
  * Menu link element.
  *
- * @param {MenuIconProps} props - Menu link props.
- * @returns {object} Menu link.
+ * @param props - Menu link props.
+ * @returns Menu link.
  */
 function MenuIcon({ className, theme, icon }: MenuIconProps): ReactElement {
   return (
@@ -53,11 +46,6 @@ const MenuIconStyled = styled(MenuIcon)`
   filter: ${(v: ActiveProp) => (v.active ? 'brightness(150%)' : 'unset')};
 `
 
-/**
- * @typedef {object} MenuItemProps
- * @property {}
- */
-
 type MenuItemProps = {
   readonly className?: string
   readonly theme: Record<string, string>
@@ -69,8 +57,8 @@ type MenuItemProps = {
 /**
  * Menu item component.
  *
- * @param  Props - Props.
- * @returns {object} Menu item component.
+ * @param Props - Props.
+ * @returns Menu item component.
  */
 function MenuItemBase({ className, theme, url = '#', icon, active }: MenuItemProps): ReactElement {
   const base = (

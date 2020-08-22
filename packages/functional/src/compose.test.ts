@@ -7,10 +7,12 @@ test('compose returns correct value', () => {
 /**
  * Add.
  *
- * @param {number} n - Number.
+ * @param n - Number.
  * @example
+ * ```
  * add(1, 2) // returns 3
- * @returns {number} Numbers addeds.
+ * ```
+ * @returns Numbers addeds.
  */
 function add(n): number {
   return n + n
@@ -19,10 +21,10 @@ function add(n): number {
 /**
  * Square.
  *
- * @param {number} n - Number.
+ * @param n - Number.
  * @example
  * square(3) // returns 9
- * @returns {number} Result of n * n.
+ * @returns Result of n * n.
  */
 function square(n): number {
   return n * n
@@ -31,10 +33,10 @@ function square(n): number {
 /**
  * Cube.
  *
- * @param {number} n - Number.
+ * @param n - Number.
  * @example
  * square(3) // returns 27
- * @returns {number} Result of n * n * n.
+ * @returns Result of n * n * n.
  */
 function cube(n): number {
   return n * n * n

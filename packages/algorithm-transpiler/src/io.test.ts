@@ -191,7 +191,6 @@ test('read float throw if pass string', () => {
   expect(lastLine.var).toBe('error')
 })
 
-
 test('read bool throw if not pass 0 or 1', () => {
   const list = [2, 'y']
   const vars = {

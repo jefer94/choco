@@ -3,9 +3,6 @@ import AWS, { S3 } from 'aws-sdk'
 import { env } from '@choco/env'
 import { Request, Response, NextFunction } from 'express'
 
-/** @module @choco/middlewares */
-
-
 declare global {
   namespace Express {
       interface Request {
@@ -73,12 +70,12 @@ export async function uploadToS3(req: Request, res: Response, next: NextFunction
 /**
  * Upload file to bucket.
  *
- * @param {object} item - File.
- * @param {object} s3bucket - Bucket name.
- * @param {object} req - Request.
- * @param {number} key - Array key.
- * @param {number} length - Array length.
- * @returns {Promise<boolean>} Was uploaded.
+ * @param item - File.
+ * @param s3bucket - Bucket name.
+ * @param req - Request.
+ * @param key - Array key.
+ * @param length - Array length.
+ * @returns Was uploaded.
  */
 async function upload(item: Express.Multer.File, s3bucket: S3, req: Request, key = 0, length = 1):
   Promise<boolean> {

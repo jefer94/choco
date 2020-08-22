@@ -5,26 +5,21 @@ import { IconDefinition } from '@fortawesome/fontawesome-svg-core'
 import { layout } from 'styled-system'
 import FontAwesomeIcon from './FontAwesomeWrapper'
 
-/** @module components/Icon */
-
-/**
- * @typedef {object} IconProps
- * @property {string} className - CSS class.
- * @property {string} name - Icon from FontAwesome.
- */
-
 type IconProps = {
   readonly className?: string
   readonly name: IconDefinition
   // readonly theme?: Record<string, string>
 }
+
 /**
- * Edidor wrapper.
+ * Icon component.
  *
- * @param {IconProps} props - Icon props.
+ * @param props - Icon props.
  * @example
+ * ```
  * <Icon name={FontAwesomeIcon} />
- * @returns {object} <Icon ... />.
+ * ```
+ * @returns Icon component.
  */
 function IconBase({ className, name }: IconProps): ReactElement {
   return <FontAwesomeIcon className={className} icon={name} />

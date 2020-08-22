@@ -5,9 +5,9 @@ const langKey = '__I18N_LANG__'
 /**
  * Get key.
  *
- * @param {string} key - Name of translation.
- * @param {string} lang - Language of translation.
- * @returns {string} Key.
+ * @param key - Name of translation.
+ * @param lang - Language of translation.
+ * @returns Key.
  */
 function valueKey(key: string, lang?: string): string {
   const locale = lang || getLang()
@@ -18,9 +18,7 @@ type Cache = {
   readonly [key: string]: Record<string, unknown>
 }
 
-const cache: I18nDictionary = {}
-
-/** @module @choco/i18n */
+// const cache: I18nDictionary = {}
 
 type I18nValue = string | {
   readonly [key: string]: string | I18nValue
@@ -41,8 +39,10 @@ type I18nDictionary = {
  * Get manually the locales.
  *
  * @example
+ * ```
  * locale.getLang()
- * @returns {string} Locale.
+ * ```
+ * @returns Locale.
  */
 export function getLang(): string {
   return memo<string>(langKey) || 'en'

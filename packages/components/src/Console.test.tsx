@@ -56,7 +56,7 @@ test('var section is right', () => {
     item('line1', '1'),
     item('line2', '2')
   ]
-  
+
   const { container } = render(<Console lines={lines} />)
 
   const [line1, line2, ...restOfLines] = container.querySelectorAll('.var')

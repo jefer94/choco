@@ -1,8 +1,6 @@
 import sharp from 'sharp'
 import { Request, Response, NextFunction } from 'express'
 
-/** @module @choco/middlewares */
-
 type File = Express.Multer.File
 
 function generateResize(files: readonly File[], sizes: readonly number[]):

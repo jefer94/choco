@@ -4,8 +4,6 @@ import { background } from 'styled-system'
 // import './Loading.sass'
 import styled from 'styled-components'
 
-/** @module components/Loading */
-
 type Props = {
   readonly className: string
   readonly color: string | undefined
@@ -15,8 +13,10 @@ type Props = {
  * Loading spinner component.
  *
  * @example
+ * ```
  * <Loading />
- * @returns {object} Loading spinner component.
+ * ```
+ * @returns Loading spinner component.
  */
 function LoadingBase({ className, color }: Props): ReactElement {
   return (

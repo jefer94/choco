@@ -1,5 +1,3 @@
-/* eslint-disable no-shadow */
-/* eslint-disable jsdoc/check-examples */
 import React, { useState, useEffect } from 'react'
 import Router from 'next/router'
 // import Cookies from 'js-cookie'
@@ -12,10 +10,11 @@ type UseNextAuth = {
 /**
  * Auth redirections.
  *
- * @param {string} key - The localStorage key.
- * @param {string} redirectTo - Redirect to.
- * @param {boolean} whereInLogin - Where in login.
+ * @param key - The localStorage key.
+ * @param redirectTo - Redirect to.
+ * @param whereInLogin - Where in login.
  * @example
+ * ```
  * import React from 'react'
  *
  * function InHome() {
@@ -27,7 +26,8 @@ type UseNextAuth = {
  *   const { isAuth, setIsAuth } = useNextAuth('__AUTH_TOKEN__', '/')
  *   return <></>
  * }
- * @returns {object} Auth handler.
+ * ```
+ * @returns Auth handler.
  */
 export function useNextAuth(key: string, redirectTo: string, whereInLogin = false): UseNextAuth {
   // spinner
@@ -46,7 +46,7 @@ export function useNextAuth(key: string, redirectTo: string, whereInLogin = fals
   /**
    * Set auth state.
    *
-   * @param {string} token - New auth state.
+   * @param token - New auth state.
    */
   function setToken(token: string): void {
     localStorage.setItem(key, token)

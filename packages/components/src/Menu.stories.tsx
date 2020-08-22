@@ -3,7 +3,6 @@ import React, { ReactElement } from 'react'
 import { faHome } from '@fortawesome/free-solid-svg-icons'
 import Menu from './Menu'
 
-
 export default { title: 'Menu' }
 
 export const emplyMenu = (): ReactElement => (

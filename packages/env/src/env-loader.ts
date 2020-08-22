@@ -2,14 +2,14 @@ import { config } from 'dotenv'
 import { memo } from '@choco/functional'
 import { keys, externalKey } from './keys'
 
-/** @module @choco/env */
-
 /**
  * Load env.
  *
- * @param {boolean} externalEnv - Value.
+ * @param externalEnv - Value.
  * @example
+ * ```
  * loadEnv()
+ * ```
  */
 export function loadEnv(externalEnv?: boolean): void {
   if (externalEnv && typeof externalEnv === 'object') { memo(externalKey, externalEnv) }

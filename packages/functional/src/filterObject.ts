@@ -1,5 +1,3 @@
-/** @module @choco/functional */
-
 type Obj = {
   readonly [key: string]: unknown
 }
@@ -7,15 +5,17 @@ type Obj = {
 /**
  * Filter a object.
  *
- * @param {object} obj - Object.
- * @param {string[]} rules - Array of properties.
+ * @param obj - Object.
+ * @param rules - Array of properties.
  * @example
+ * ```
  * const obj = {
  *   name: 'Pedro',
  *   rol: 'adc'
  * }
  * filterObject(obj, ['rol']) // returns { rol: 'adc' }
- * @returns {object} Object fltered.
+ * ```
+ * @returns Object fltered.
  */
 export function filterObject<Type>(obj: Type, rules: readonly string[]):
   Obj | Record<string, unknown> {

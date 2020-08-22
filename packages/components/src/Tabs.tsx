@@ -10,8 +10,6 @@ import styled from 'styled-components' // eslint-disable-line
 import { StyledMenu } from './types'
 import theme from './theme'
 
-/** @module components/Tabs */
-
 const SimpleTabButton = styled(TabButton)`
   width: 24px;
   height: 24px;
@@ -47,24 +45,6 @@ const SimpleButtonLi = styled(Li)`
   float: left;
 `
 
-/**
- * @callback AddTab
- */
-
-/**
- * @callback ChangeTab
- */
-
-/**
- * @callback RemoveTab
- */
-
-/**
- * @typedef {object} AddTabButtonProps
- * @property {object} theme - Icon from theme.
- * @property {AddTab} add - Icon from FontAwesome.
- */
-
 type AddTabButtonProps = {
   readonly theme: Record<string, string>
   readonly add: () => void
@@ -73,8 +53,8 @@ type AddTabButtonProps = {
 /**
  * Tab button element.
  *
- * @param {AddTabButtonProps} props - Tab button props.
- * @returns {object} Tab button element.
+ * @param props - Tab button props.
+ * @returns Tab button element.
  */
 function AddTabButton({ theme, add }: AddTabButtonProps): ReactElement {
   return add ? (
@@ -85,24 +65,6 @@ function AddTabButton({ theme, add }: AddTabButtonProps): ReactElement {
     </SimpleButtonLi>
   ) : <></>
 }
-
-/**
- * @typedef {object} Tab
- * @property {string} id - Tab React key.
- * @property {string} name - Tab name.
- * @property {string} content - Tab content.
- * @property {string} active - Tab active.
- */
-
-/**
- * @typedef {object} TabsProps
- * @property {Tab[]} tabs - Icon from FontAwesome.
- * @property {AddTab} add - Icon from FontAwesome.
- * @property {ChangeTab} change - Icon from FontAwesome.
- * @property {RemoveTab} remove - Icon from FontAwesome.
- * @property {object} theme - Icon from theme.
- * @property {boolean} menuIsOpen - Icon from menuIsOpen.
- */
 
 type Tab = {
   readonly id: string
@@ -123,8 +85,9 @@ type Props = {
 /**
  * Tabs component.
  *
- * @param {TabsProps} props - Tabs props.
+ * @param props - Tabs props.
  * @example
+ * ```
  * <Tabs
  *   tabs={[]}
  *   add={() => addCallback()}
@@ -132,7 +95,8 @@ type Props = {
  *   remove={id => removeCallback(id)}
  *   multiTabsFeature={false}
  * />
- * @returns {object} Tabs component.
+ * ```
+ * @returns Tabs component.
  */
 export function Tabs({ tabs, add, change, remove, theme = {}, menuIsOpen }: Props):
   ReactElement {

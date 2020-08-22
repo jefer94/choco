@@ -1,12 +1,4 @@
-/** @module @choco/functional */
-
 type Func = (...args: readonly unknown[]) => unknown
-
-/**
- * @callback ComposeFunc
- * @param {any} arg - Argument.
- * @returns {any} Callback.
- */
 
 /**
  * Compose a function and pipe each return.

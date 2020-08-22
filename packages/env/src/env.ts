@@ -2,13 +2,11 @@ import { Dictionary } from '@choco/types'
 import { memo } from '@choco/functional'
 import { keys, externalKey } from './keys'
 
-/** @module @choco/env */
-
 /**
  * Prevent that one env key was replaced.
  *
- * @param {string} key - Env key.
- * @returns {string} Key prefixed.
+ * @param key - Env key.
+ * @returns Key prefixed.
  */
 function envKeyPrefix(key: string): string {
   const prefix = '__ENV__'
@@ -30,14 +28,16 @@ export function resetEnv(): void {
 /**
  * Get/set env.
  *
- * @param {string} key - Key.
- * @param {string} value - Value.
+ * @param key - Key.
+ * @param value - Value.
  * @example
+ * ```
  * env('pokemon') // returns undefined
  * env('pokemon', 'potato') // returns 'potato'
  * env('pokemon') // returns 'potato'
  * env() // returns { pokemon: 'potato' }
- * @returns {string|object} Env var.
+ * ```
+ * @returns Env var.
  */
 export function env(key?: string, value?: string): string | Dictionary {
   const memokey = envKeyPrefix(key)

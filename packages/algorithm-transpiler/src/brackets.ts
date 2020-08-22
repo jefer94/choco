@@ -5,9 +5,9 @@ import { LangOpenBracket, LangCloseBracket } from '../dist/lang/common'
 /**
  * Generate javascript brackets.
  *
- * @param {string[]} keywords - Keywords.
- * @param {string} currentJS - Current JS.
- * @returns {string} Javascript brackets.
+ * @param keywords - Keywords.
+ * @param currentJS - Current JS.
+ * @returns Javascript brackets.
  */
 export default function brackets(keywords: readonly string[], currentJS: string): string {
   let js = currentJS
@@ -20,8 +20,8 @@ export default function brackets(keywords: readonly string[], currentJS: string)
 /**
  * Generate javascript brackets for line.
  *
- * @param {string} keyword - Keyword.
- * @returns {string} Javascript brackets for line.
+ * @param keyword - Keyword.
+ * @returns Javascript brackets for line.
  */
 function bracketsLine(keyword: string): string {
   const openBracket = locale.one<LangOpenBracket>('openBracket')

@@ -22,7 +22,7 @@
     "pkg": "./scripts/yarn/pkg.sh",
     "docker:build": "./scripts/docker/docker-build.sh",
     "docker:push": "./scripts/docker/docker-push.sh",
-    "docs": "jsdoc -c ./jsdoc.json",
+    "docs": "typedoc --out docs/references",
     "docs:api:build": "./scripts/docs/api-build.sh",
     "docs:api:serve": "./scripts/docs/api-serve.sh",
     "clean": "./scripts/yarn/clean.sh",

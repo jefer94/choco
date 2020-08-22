@@ -9,10 +9,12 @@ const app = express()
 /**
  * Get path from current folder.
  *
- * @param {string} dir - Path.
+ * @param dir - Path.
  * @example
+ * ```
  * fromRoot(__dirname, 'potato') // returns '/home/potato/project/potato'
- * @returns {string} Path.
+ * ```
+ * @returns Path.
  */
 function fromRoot(dir) {
   return path.join(__dirname, dir)

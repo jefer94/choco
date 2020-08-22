@@ -2,7 +2,6 @@ import styled from 'styled-components'
 import { Button } from './Button'
 import theme from './theme'
 
-/** @module components/FloatingButton */
 type FloatingButtonProps = {
   readonly vertical: string
   readonly horizontal: string

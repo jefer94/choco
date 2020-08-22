@@ -1,35 +1,5 @@
 /* eslint functional/no-class: 0 */
 
-/** @module @choco/algorithm-transpiler/vector */
-
-/**
- * @callback FunctionAdd
- * @param {any} value - Value to be added.
- */
-
-/**
- * @callback FunctionShow
- * @returns {any} Value store in index argument.
- */
-
-/**
- * @callback FunctionToString
- * @returns {any} Value store in index argument.
- */
-
-/**
- * @callback FunctionIsVector
- * @returns {boolean} Value store in index argument.
- */
-
-/**
- * @typedef {object} VectorIO
- * @property {FunctionAdd} add - Assign value in vector.
- * @property {FunctionShow} show - Get a value of vector.
- * @property {FunctionToString} toString - Get value of vector if it's parse to string.
- * @property {FunctionIsVector} isVector - Confirm that is a vector.
- */
-
 export type VectorIO<Type> = {
   readonly add: (value: Type) => void
   readonly show: () => Type
@@ -37,7 +7,7 @@ export type VectorIO<Type> = {
   readonly isVector: () => boolean
 }
 
-/** @classdesc Represent a Array of algorithms. */
+/** Represent a Array of algorithms. */
 export class Vector<Type> {
   size: number
   array: Array<Type>
@@ -45,9 +15,11 @@ export class Vector<Type> {
   /**
    * Constructor.
    *
-   * @param {number} size - Vector size.
+   * @param size - Vector size.
    * @example
+   * ```
    * const arr = new Vector(10)
+   * ```
    */
   constructor(size: number) {
     if (size <= 0 || typeof size !== 'number') throw new Error('ERROR: invalid array argument')
@@ -62,8 +34,8 @@ export class Vector<Type> {
   /**
    * Assign value in vector.
    *
-   * @param {any} value - Value to be added.
-   * @param {number} index - Index in vector.
+   * @param value - Value to be added.
+   * @param index - Index in vector.
    */
   add(value: Type, index: number): void {
     const fixIndex = index - 1
@@ -75,8 +47,8 @@ export class Vector<Type> {
   /**
    * Get a value of vector.
    *
-   * @param {number} index - Index of vector.
-   * @returns {any} Value store in index argument.
+   * @param index - Index of vector.
+   * @returns Value store in index argument.
    */
   show(index: number): Type {
     const start = index - 1
@@ -87,9 +59,9 @@ export class Vector<Type> {
   /**
    * Provide an alternative interface, used in libs/algorithm/transform.
    *
-   * @param {number} index - Index of Vector.
+   * @param index - Index of Vector.
    * @see {@link transform}
-   * @returns {VectorIO} Array IO interface.
+   * @returns Array IO interface.
    */
   io(index: number): VectorIO<Type> {
     return {

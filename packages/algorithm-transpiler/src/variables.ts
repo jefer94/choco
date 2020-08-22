@@ -4,8 +4,6 @@ import comments from './comments'
 import removeSpaces from './spaces'
 import { LangType, LangTypeError, LangError, LangVariables } from './lang/common'
 
-/** @module @choco/algorithm-transpiler/variables */
-
 export type VariableStore = {
   readonly varAdd: (value: string, name: string) => void
   readonly varReset: () => void
@@ -14,9 +12,10 @@ export type VariableStore = {
 /**
  * Transform Algorithm variables in Javascript variables.
  *
- * @param {string} code - Algorithm code.
- * @param {object} store - Store of variables.
+ * @param code - Algorithm code.
+ * @param store - Store of variables.
  * @example
+ * ```
  * import variables from 'libs/algorithm/variables'
  *
  * const store = {}
@@ -29,7 +28,8 @@ export type VariableStore = {
  *   'end'
  * ]
  * variables(code, store) // return 'var stuff;\n'
- * @returns {string} Javascript variables.
+ * ```
+ * @returns Javascript variables.
  */
 export default function variables(code: string, store?: VariableStore): string {
   const [firstLine, ...lines] = compose<string, string>(comments, removeSpaces, ignoreSentences)(code).split('\n')
@@ -55,15 +55,16 @@ export default function variables(code: string, store?: VariableStore): string {
 /**
  * Is this line the beginning of the variable area?.
  *
- * @param {string} keyword - First word of line.
- * @param {string[]} restOfVarLine - Rest of words.
+ * @param keyword - First word of line.
+ * @param restOfVarLine - Rest of words.
  * @example
+ * ```
  * // libs/i18n/variables = ['variables']
  * isVarsZone('variables', []) // return true
  * isVarsZone('variables', ['', '', '', '']) // return true
  * isVarsZone('Another', []) // return false
- * @see libs/i18n/variables
- * @returns {boolean} Is this line the beginning of the variable area?.
+ * ```
+ * @returns Is this line the beginning of the variable area?.
  */
 function isVarsZone(keyword: string, restOfVarLine: readonly string[]): boolean {
   const variables = locale.one<LangVariables>('variables')
@@ -73,16 +74,17 @@ function isVarsZone(keyword: string, restOfVarLine: readonly string[]): boolean 
 /**
  * Purge variable name of tokens.
  *
- * @param {string} word - Algorithm variable with token.
- * @todo Understand purgeVarName('=') use.
+ * @param word - Algorithm variable with token.
  * @example
+ * ```
  * purgeVarName('=') // return ' = '
  * purgeVarName(' ') // return ''
  * purgeVarName('\t') // return ''
  * purgeVarName(',') // return ''
  * purgeVarName(':') // return ''
  * purgeVarName('array[10]') // return 'array'
- * @returns {string} Javascript variable without token.
+ * ```
+ * @returns Javascript variable without token.
  */
 function purgeVarName(word: string): string {
   return word
@@ -98,15 +100,17 @@ function purgeVarName(word: string): string {
  * Transform in var section, Algorithm equal, assign type, extra spaces or tabs, separators and
  * vectors to Javascript.
  *
- * @param {string} word - A Algorithm word.
+ * @param word - A Algorithm word.
  * @example
+ * ```
  * prepareWord('=') // return ' = '
  * prepareWord(' ') // return ''
  * prepareWord('\t') // return ''
  * prepareWord(',') // return ''
  * prepareWord(':') // return ''
  * prepareWord('array[10]') // return 'array = new Vector(10)'
- * @returns {string} A Javacript word.
+ * ```
+ * @returns A Javacript word.
  */
 function prepareWord(word: string): string {
   return word
@@ -122,10 +126,11 @@ function prepareWord(word: string): string {
 /**
  * Reserve vars in the store.
  *
- * @param {object} store - Store of variables.
- * @param {string} isA - Variable type.
- * @param {string} word - Variable name.
+ * @param store - Store of variables.
+ * @param isA - Variable type.
+ * @param word - Variable name.
  * @example
+ * ```
  * // store generally is a reducer dispatchers
  * const store = {
  *   varAdd: () => {} // dispatch callback
@@ -140,6 +145,7 @@ function prepareWord(word: string): string {
  * //   adc: 'string',
  * //   mid: 'bool'
  * // }
+ * ```
  */
 function reserveVars(store, isA: string, word: string): void {
   const type = locale.one<LangType>('type')
@@ -167,8 +173,9 @@ function reserveVars(store, isA: string, word: string): void {
 /**
  * Ignore algorithm body.
  *
- * @param {string} code - Algorithm code.
+ * @param code - Algorithm code.
  * @example
+ * ```
  * const code = [
  *   'algorithm easy',
  *   'variables',
@@ -178,7 +185,8 @@ function reserveVars(store, isA: string, word: string): void {
  *   'end'
  * ].join('\n')
  * ignoreSentences(code) // return the same code but start ... end block
- * @returns {string} Get the code, less the body (start ... end).
+ * ```
+ * @returns Get the code, less the body (start ... end).
  */
 function ignoreSentences(code: string): string {
   const begin = locale.one<string>('begin')

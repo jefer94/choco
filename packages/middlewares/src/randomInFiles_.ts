@@ -1,14 +1,12 @@
-/** @module @choco/middlewares */
-
 /**
  * Generate random string.
  *
- * @param {number} length - Length.
+ * @param length - Length.
  * @example
  * random(5) // returns '1Ft%y'
- * @returns {string} Random string.
+ * @returns Random string.
  */
-function random(length) {
+function random(length: number): string {
   let result = ''
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
   const charactersLength = characters.length

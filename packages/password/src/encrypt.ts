@@ -1,10 +1,5 @@
 import bcrypt from 'bcrypt'
 
-/**
- * @typedef {object} PasswordOptions
- * @property {number} rounds - Rounds.
- */
-
 type PasswordOptions = {
   readonly rounds?: number
 }
@@ -12,9 +7,9 @@ type PasswordOptions = {
 /**
  * Encrypt password.
  *
- * @param {string} password - Password.
- * @param {PasswordOptions} opts - Password options.
- * @returns {Promise<string>} Hash.
+ * @param password - Password.
+ * @param opts - Password options.
+ * @returns Hash.
  */
 export async function encrypt(password: string, opts?: PasswordOptions): Promise<string> {
   const { rounds } = { rounds: 6, ...opts }

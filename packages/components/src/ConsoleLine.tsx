@@ -1,24 +1,8 @@
 import React, { ReactElement } from 'react'
-import PropTypes from 'prop-types'
 // import './Console.sass'
 import styled from 'styled-components'
 import { Dictionary } from '@choco/types'
 // #393035
-
-/** @module components/Console */
-
-/**
- * @typedef {object} Line
- * @property {string} id - Line id.
- * @property {string} value - Line value.
- * @property {string} var - Line var.
- */
-
-/**
- * @typedef {object} ConsoleProps
- * @property {Line} line - Line.
- * @property {number} lineNumber - Line number.
- */
 
 const LineWrapper = styled.div`
   font-family: monospace;
@@ -60,13 +44,13 @@ type Props = {
 /**
  * Console component, base in C/C++ style.
  *
- * @param {ConsoleProps} props - Console line props.
+ * @param props - Console line props.
  * @example
  * import React from 'react'
  * import Console from 'components/Console'
  *
  * const Component = () => <Console />
- * @returns {object} Doc.
+ * @returns Doc.
  */
 export function ConsoleLine({ theme = {}, line, lineNumber }: Props): ReactElement {
   return (
@@ -83,9 +67,4 @@ export function ConsoleLine({ theme = {}, line, lineNumber }: Props): ReactEleme
       </Line>
     </LineWrapper>
   )
-}
-const line = {
-  id: PropTypes.string.isRequired,
-  content: PropTypes.string.isRequired,
-  var: PropTypes.string
 }

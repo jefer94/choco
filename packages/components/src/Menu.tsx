@@ -9,8 +9,6 @@ import keychain from '@choco/keychain'
 
 // import './Menu.sass'
 
-/** @module components/Menu */
-
 const MenuWrapper = styled.div`
   transition-duration: 0.1s;
   width: 64px;
@@ -44,14 +42,6 @@ const BottomItems = styled.ul`
   position: absolute;
 `
 
-/**
- * @typedef {object} MenuItemProps
- * @property {string} id - Menu id.
- * @property {string} url - Menu url.
- * @property {object} icon - Menu icon.
- * @property {boolean} active - Menu active.
- */
-
 export type MenuItemProps = {
   readonly id: string
   readonly url: string
@@ -62,22 +52,14 @@ export type MenuItemProps = {
 /**
  * Menu item config.
  *
- * @param {string} url - Menu url.
- * @param {object} icon - Menu url.
- * @param {boolean} active - Menu url.
- * @returns {MenuItemProps} Menu item props.
+ * @param url - Menu url.
+ * @param icon - Menu url.
+ * @param active - Menu url.
+ * @returns Menu item props.
  */
 export function menuItem(url: string, icon: IconDefinition, active?: boolean): MenuItemProps {
   return { id: keychain('menu'), url, icon, active }
 }
-
-/**
- * @typedef {object} MenuProps
- * @property {string} id - Menu id.
- * @property {string} url - Menu url.
- * @property {object} icon - Menu icon.
- * @property {boolean} active - Menu active.
- */
 
 type MenuProps = {
   readonly theme: Dictionary
@@ -89,10 +71,8 @@ type MenuProps = {
 /**
  * App Menu.
  *
- * @param {MenuProps} props - Link props.
- * @returns {object} Menu element.
- * @todo Color of tabs menu.
- * @todo Hide menu when click an icon.
+ * @param props - Link props.
+ * @returns Menu element.
  */
 export function Menu({ theme, children, topItems, bottomItems }: MenuProps): ReactElement {
   return (

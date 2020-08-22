@@ -5,14 +5,13 @@ import morgan from 'morgan'
 import bodyParser from 'body-parser'
 import methodOverride from 'method-override'
 
-/** @module @choco/middlewares */
-
 /**
  * Inject common middlewares.
  *
- * @param {object} app - Express app.
- * @param {string} dir - Express static directory.
+ * @param app - Express app.
+ * @param dir - Express static directory.
  * @example
+ * ```
  * import express from 'express'
  * import common from '@choco/express-common'
  *
@@ -20,6 +19,7 @@ import methodOverride from 'method-override'
  *
  * common(app)
  * common(app, __dirname)
+ * ```
  */
 export function middlewares(app: Application, dir?: string): void {
   app

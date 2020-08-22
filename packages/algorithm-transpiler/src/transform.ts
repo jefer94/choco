@@ -6,8 +6,6 @@ import { LangOpenBracket, LangRead, LangWrite, LangCloseBracket, LangTokens, Lan
 
 algorithmTranspilerLang()
 
-/** @module libs/algorithm/transform */
-
 // transform between native languaje and javascipt
 export default function transform(code: string): string {
   let line = compose<string[], string>(stripCode, comments)(code) // stripCode(code)
@@ -62,9 +60,9 @@ export default function transform(code: string): string {
 /**
  * Parse IO words.
  *
- * @param {string[]} words - IO 2ords of line.
- * @param {string} state - IO 2ords of line.
- * @returns {string} Parsed IO words.
+ * @param words - IO 2ords of line.
+ * @param state - IO 2ords of line.
+ * @returns Parsed IO words.
  */
 export function parseIO(words: readonly string[], state: string): string {
   const read = locale.one<LangRead>('read')
@@ -92,9 +90,9 @@ export function parseIO(words: readonly string[], state: string): string {
 /**
  * Parse words.
  *
- * @param {string} words - Words of line.
- * @param {string} state - Javascript state.
- * @returns {string} Parsed words.
+ * @param words - Words of line.
+ * @param state - Javascript state.
+ * @returns Parsed words.
  */
 export function parser(words: readonly string[], state: string): string {
   const tokens = locale.one<LangTokens>('tokens')
@@ -118,8 +116,8 @@ export function parser(words: readonly string[], state: string): string {
 /**
  * Generate for loop.
  *
- * @param {string} lineArg - Line.
- * @returns {string} Line with for loop.
+ * @param lineArg - Line.
+ * @returns Line with for loop.
  */
 export function forLoopCondition(lineArg: string): string {
   const toWord = locale.one<string>('toWord')
@@ -150,8 +148,8 @@ export function forLoopCondition(lineArg: string): string {
 /**
  * Generate white loop.
  *
- * @param {string} line - Line of code.
- * @returns {string} Line of code.
+ * @param line - Line of code.
+ * @returns Line of code.
  */
 export function doWhileLoopCondition(line: string): string {
   const toWord = locale.one<string>('toWord')
@@ -168,10 +166,12 @@ export function doWhileLoopCondition(line: string): string {
 /**
  * Add assignment in Vector.
  *
- * @param {string} lineArg - Line of code.
+ * @param lineArg - Line of code.
  * @example
+ * ```
  * vectorAdd('stuff.io(7) <- 9') // return 'stuff.io(7).add(9)'
- * @returns {string} Line of code.
+ * ```
+ * @returns Line of code.
  */
 export function vectorAdd(lineArg: string): string {
   let line = lineArg
@@ -191,11 +191,13 @@ export function vectorAdd(lineArg: string): string {
 /**
  * Add space to prevent bad transpile, and transform array to class Vector.
  *
- * @param {string} line - Line of code.
+ * @param line - Line of code.
  * @example
+ * ```
  * purgeLine('function stuff()do') // return 'function stuff () do'
  * purgeLine('array[13]') // return 'array.io(13)'
- * @returns {string} Line of code.
+ * ```
+ * @returns Line of code.
  */
 export function purgeLine(line: string): string {
   return line
@@ -209,8 +211,8 @@ export function purgeLine(line: string): string {
 /**
  * Strip code.
  *
- * @param {string} codeArg - Code to be striped.
- * @returns {string[]} Code striped.
+ * @param codeArg - Code to be striped.
+ * @returns Code striped.
  */
 export function stripCode(codeArg: string): readonly string[] {
   const begin = locale.one<string>('begin')
@@ -231,11 +233,13 @@ export function stripCode(codeArg: string): readonly string[] {
 /**
  * Parse equal token from Algorithm to Javascript.
  *
- * @param {string[]} lines - Line of code.
+ * @param lines - Line of code.
  * @example
+ * ```
  * ifIsEqual(['for (text = \'Not text\') do'])
  * // return ['for (text === \'Not text\') do']
- * @returns {string[]} Lines of code.
+ * ```
+ * @returns Lines of code.
  */
 export function ifIsEqual(lines: readonly string[]): string[] {
   const openBracket = locale.one<LangOpenBracket>('openBracket')

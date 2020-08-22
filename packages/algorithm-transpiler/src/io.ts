@@ -4,8 +4,6 @@ import spaces from './spaces'
 import { LangError, LangTypeError, JavascriptType, LangVariables } from './lang/common'
 import { VectorIO } from './vector'
 
-/** @module @choco/algorithm-transpiler/io */
-
 export const io = {
   show: true,
   text: undefined,
@@ -33,12 +31,6 @@ export type IoLine = {
   readonly content: string
   readonly var?: string
 }
-
-/**
- * @typedef {object} ReadResponse
- * @property {string} assign - Read response assign.
- * @property {string} lastLine - Read response lastLine.
- */
 
 type ReadResponse = {
   readonly assign: string
@@ -116,20 +108,13 @@ function fixInputToBoolean(type: string, input: string): string {
   return input
 }
 
-/**
- * @typedef {object} WriteResponse
- * @property {string} id - Write response id.
- * @property {boolean} error - Write response error.
- * @property {string} content - Write response content.
- */
-
 type WriteInput = string | number | VectorIO<string> | VectorIO<number> | VectorIO<boolean>
 
 /**
  * Print an array of elements.
  *
- * @param {...any} args - Array the elements.
- * @returns {WriteResponse} Write object.
+ * @param args - Array the elements.
+ * @returns Write object.
  */
 export function write(...args: readonly WriteInput[]): IoLine {
   const error = locale.one<LangError>('error')

@@ -9,19 +9,6 @@ export const TabButtonStyled = styled.button`
   border: 0;
 `
 
-/**
- * @callback TabButtonClick
- */
-
-/**
- * @typedef {object} TabButtonProps
- * @property {object} theme - Tab button theme.
- * @property {string} label - Tab button label.
- * @property {TabButtonClick} click - Tab button click.
- * @property {object} children - Tab button children.
- * @property {string} className - Tab button className.
- */
-
 type TabButtonProps = {
   readonly theme: Record<string, string>
   readonly label: string
@@ -33,10 +20,11 @@ type TabButtonProps = {
 /**
  * Tab button element.
  *
- * @param {TabButtonProps} props - Tab button props.
- * @returns {object} Tab button element.
+ * @param props - Tab button props.
+ * @returns Tab button element.
  */
-export function TabButton({ theme, label, click, children, className }: TabButtonProps): ReactElement {
+export function TabButton({ theme, label, click, children, className }: TabButtonProps):
+  ReactElement {
   return (
     <TabButtonStyled type="button" aria-label={label} onClick={click} className={className} theme={theme}>
       {children}

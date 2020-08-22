@@ -1,20 +1,12 @@
 import locale from '@choco/i18n'
 
-
-/** @module libs/algorithm/files */
-
-/**
- * @typedef {object} Files
- * @param {string} code - Algorithm lines.
- */
-
 export type Files = readonly [string, string]
 
 /**
  * Get name of algorithm.
  *
- * @param {string} code - Algorithm lines.
- * @returns {Files} Algorithm name and lines but first line.
+ * @param code - Algorithm lines.
+ * @returns Algorithm name and lines but first line.
  */
 export default function files(code: string): Files {
   const algorithmWord = locale.one<string>('algorithmWord')

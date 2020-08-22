@@ -4,7 +4,6 @@ import express from 'express'
 import * as path from 'path'
 import AWSMock from 'mock-aws-s3'
 
-
 AWSMock.config.basePath = fromRoot('public')
 const mockS3 = AWSMock.S3({
   params: { Bucket: 'adc' }
@@ -27,12 +26,12 @@ const app = express()
 /**
  * Get path from current folder.
  *
- * @param {string} dir - Path.
+ * @param dir - Path.
  * @example
  * fromRoot(__dirname, 'potato') // returns '/home/potato/project/potato'
- * @returns {string} Path.
+ * @returns Path.
  */
-function fromRoot(dir) {
+function fromRoot(dir: string): string {
   return path.join(__dirname, dir)
 }
 

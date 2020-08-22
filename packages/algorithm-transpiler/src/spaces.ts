@@ -1,10 +1,12 @@
 /**
  * Remove spaces from code.
  *
- * @param {string} code - Code to remove spaces.
+ * @param code - Code to remove spaces.
  * @example
+ * ```
  * spaces([' hello   ', '  apple    ']) // returns ['hello', 'apple']
- * @returns {string} Code without spaces.
+ * ```
+ * @returns Code without spaces.
  */
 export default function spaces(code: string): string {
   const lines = code.split('\n')
@@ -19,10 +21,10 @@ type SpaceResult = {
 /**
  * Remove spaces from line.
  *
- * @param {string} line - Line to remove spaces.
+ * @param line - Line to remove spaces.
  * @example
  * spaces(' hello   ') // returns 'hello'
- * @returns {string} Line without spaces.
+ * @returns Line without spaces.
  */
 function removeSpacesInLine(line: string): string {
   const init: SpaceResult = {

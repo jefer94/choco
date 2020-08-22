@@ -1,9 +1,9 @@
 /**
  * Get CSS variable.
  *
- * @param {string} key - Key of CSS variable.
- * @param {boolean} camelCaseMode - Selector in camel case format.
- * @returns {string} CSS variable.
+ * @param key - Key of CSS variable.
+ * @param camelCaseMode - Selector in camel case format.
+ * @returns CSS variable.
  */
 export function getVar(key: string, camelCaseMode?: boolean): string {
   const selector = camelCaseMode ? camelCaseToCssVariable(key) : key
@@ -14,9 +14,9 @@ export function getVar(key: string, camelCaseMode?: boolean): string {
 /**
  * Set CSS variable.
  *
- * @param {string} key - Key of CSS variable.
- * @param {string} value - Value of CSS variable.
- * @param {boolean} camelCaseMode - Selector in camel case format.
+ * @param key - Key of CSS variable.
+ * @param value - Value of CSS variable.
+ * @param camelCaseMode - Selector in camel case format.
  */
 export function setVar(key: string, value: string, camelCaseMode?: boolean): void {
   const selector = camelCaseMode ? camelCaseToCssVariable(key) : key
@@ -26,8 +26,8 @@ export function setVar(key: string, value: string, camelCaseMode?: boolean): voi
 /**
  * Transform camel case selector to CSS selector.
  *
- * @param {string} s - Selector in camel case format.
- * @returns {string} CSS selector.
+ * @param s - Selector in camel case format.
+ * @returns CSS selector.
  */
 export function camelCaseToCssVariable(s: string): string {
   return `-${s.replace(/([A-Z])/g, (v) => `-${v.toLowerCase()}`)}`
