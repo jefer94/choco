@@ -3,11 +3,13 @@ import * as path from 'path'
 /**
  * Generate url.
  *
- * @param {string} host - Hostname.
- * @param {string[]} paths - Paths.
+ * @param host - Hostname.
+ * @param paths - Paths.
  * @example
+ * ```
  * url('potato.io', 'path', 'subpath') // 'potato.io/path/subpath'
- * @returns {string} Url.
+ * ```
+ * @returns Url.
  */
 export function url(host = '', ...paths: readonly string[]): string {
   const hostname = host.replace(/\/$/, '')

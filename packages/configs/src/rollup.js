@@ -7,23 +7,14 @@ import { eslint } from 'rollup-plugin-eslint'
 import { terser } from 'rollup-plugin-terser'
 // import typescript from '@rollup/plugin-typescript'
 
-/** @module @choco/configs */
-
-/**
- * @typedef RollupOptions
- * @property {boolean} debug - Is debug.
- * @property {boolean} ignoreEslint - Ignore eslint checking.
- * @property {boolean} types - Use types.
- */
-
 /**
  * Rollup config.
  *
- * @param {string} module - Module name.
- * @param {RollupOptions} opts - Rollup config.
+ * @param module - Module name.
+ * @param opts - Rollup config.
  * @example
  * rollup('module-name')
- * @returns {object} Rollup config.
+ * @returns Rollup config.
  */
 export function rollup(module, { debug, ignoreEslint, types } = {}) {
   return {
@@ -60,11 +51,11 @@ export function rollup(module, { debug, ignoreEslint, types } = {}) {
 /**
  * Last Rollup plugins.
  *
- * @param {boolean} debug - Is debug.
+ * @param debug - Is debug.
  * @example
  * lastPlugins(true)
  * lastPlugins()
- * @returns {object[]} Array of plugins.
+ * @returns Array of plugins.
  */
 function lastPlugins(debug) {
   return debug ? [
@@ -78,8 +69,8 @@ function lastPlugins(debug) {
 /**
  * Eslint config.
  *
- * @param {boolean} ignore - Ignore eslint?.
- * @returns {object[]} Eslint config.
+ * @param ignore - Ignore eslint?.
+ * @returns Eslint config.
  */
 function eslintConfig(ignore) {
   return !ignore ? [eslint()] : []

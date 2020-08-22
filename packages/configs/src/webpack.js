@@ -5,15 +5,15 @@ import { env, loadEnv } from '@choco/env'
 
 loadEnv()
 
-/** @module @choco/configs */
-
 /**
  * Webpack config.
  *
+ * @param dirname - __dirname.
  * @example
+ * ```
  * webpack(__dirname)
- * @param {string} dirname - __dirname.
- * @returns {object} Webpack config.
+ * ```
+ * @returns Webpack config.
  */
 export function webpack(dirname) {
   return {

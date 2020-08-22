@@ -1,16 +1,8 @@
-/** @module @choco/configs */
-
-/**
- * @typedef EslintOptions
- * @property {boolean} next - Is Next App.
- * @property {boolean} types - Use types.
- */
-
 /**
  * Eslint config.
  *
- * @param {EslintOptions} opts - Rollup config.
- * @returns {object} Eslint config.
+ * @param opts - Rollup config.
+ * @returns Eslint config.
  */
 export function eslint({ next, types } = {}) {
   return {
@@ -50,7 +42,9 @@ export function eslint({ next, types } = {}) {
       ...[
         'react',
         'eslint-plugin-react-hooks',
-        'jsdoc',
+        // 'jsdoc',
+        '@typescript-eslint/eslint-plugin',
+        'eslint-plugin-tsdoc',
         'functional'
       ],
       ...(types ? ['@typescript-eslint'] : [])
@@ -72,32 +66,32 @@ export function eslint({ next, types } = {}) {
       'no-eval': 'off',
       'import/first': 'off',
       'import/no-mutable-exports': 'off',
-      'jsdoc/check-alignment': 1,
-      'jsdoc/check-examples': 1,
-      'jsdoc/check-indentation': 1,
-      'jsdoc/check-param-names': 1,
-      'jsdoc/check-syntax': 1,
-      'jsdoc/check-tag-names': 1,
-      'jsdoc/check-types': 1,
-      'jsdoc/implements-on-classes': 1,
-      'jsdoc/match-description': 1,
-      'jsdoc/newline-after-description': 1,
-      // 'jsdoc/no-types': 1,
-      'jsdoc/no-undefined-types': 1,
-      'jsdoc/require-description': 1,
-      'jsdoc/require-description-complete-sentence': 1,
-      'jsdoc/require-example': 0,
-      'jsdoc/require-hyphen-before-param-description': 1,
-      'jsdoc/require-jsdoc': 1,
-      'jsdoc/require-param': 0,
-      'jsdoc/require-param-description': 1,
-      'jsdoc/require-param-name': 1,
-      'jsdoc/require-param-type': 1,
-      'jsdoc/require-returns': 1,
-      'jsdoc/require-returns-check': 1,
-      'jsdoc/require-returns-description': 1,
-      'jsdoc/require-returns-type': 1,
-      'jsdoc/valid-types': 1,
+      // 'jsdoc/check-alignment': 1,
+      // 'jsdoc/check-examples': 1,
+      // 'jsdoc/check-indentation': 1,
+      // 'jsdoc/check-param-names': 1,
+      // 'jsdoc/check-syntax': 1,
+      // 'jsdoc/check-tag-names': 1,
+      // 'jsdoc/check-types': 1,
+      // 'jsdoc/implements-on-classes': 1,
+      // 'jsdoc/match-description': 1,
+      // 'jsdoc/newline-after-description': 1,
+      // // 'jsdoc/no-types': 1,
+      // 'jsdoc/no-undefined-types': 1,
+      // 'jsdoc/require-description': 1,
+      // 'jsdoc/require-description-complete-sentence': 1,
+      // 'jsdoc/require-example': 0,
+      // 'jsdoc/require-hyphen-before-param-description': 1,
+      // 'jsdoc/require-jsdoc': 1,
+      // 'jsdoc/require-param': 0,
+      // 'jsdoc/require-param-description': 1,
+      // 'jsdoc/require-param-name': 1,
+      // 'jsdoc/require-param-type': 1,
+      // 'jsdoc/require-returns': 1,
+      // 'jsdoc/require-returns-check': 1,
+      // 'jsdoc/require-returns-description': 1,
+      // 'jsdoc/require-returns-type': 1,
+      // 'jsdoc/valid-types': 1,
       'react/react-in-jsx-scope': !next ? 2 : 0,
       'import/no-extraneous-dependencies': 1,
       'import/prefer-default-export': 0,
@@ -119,7 +113,8 @@ export function eslint({ next, types } = {}) {
       'import/extensions': [2, 'never', { ts: 'never', tsx: 'never' }],
       'import/no-unresolved': 0,
       'functional/no-mixed-type': 0,
-      'react/prop-types': types ? 0 : 2
+      'react/prop-types': types ? 0 : 2,
+      'tsdoc/syntax': 'warn'
     }
   }
 }

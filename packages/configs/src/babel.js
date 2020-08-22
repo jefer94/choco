@@ -1,21 +1,14 @@
-/** @module @choco/configs */
-
-/**
- * @typedef {object} BabelConfig
- * @property {boolean} isServer - Is server.
- * @property {boolean} useTransformRuntime - Use transform runtime.
- * @property {boolean} types - Use types.
- */
-
 /**
  * Babel config.
  *
- * @param {BabelConfig} BabelConfig - Babel configs.
+ * @param BabelConfig - Babel configs.
  * @example
+ * ```
  * const isServer = true
  * const useTransformRuntime = true
  * babel(isServer, useTransformRuntime)
- * @returns {object} Babel config.
+ * ```
+ * @returns Babel config.
  */
 export function babel({ isServer = true, useTransformRuntime = true, types } = {}) {
   return {

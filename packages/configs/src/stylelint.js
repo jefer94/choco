@@ -1,7 +1,7 @@
 /**
  * Stylelint config.
  *
- * @returns {object} Stylelint config.
+ * @returns Stylelint config.
  */
 export function stylelint() {
   return {

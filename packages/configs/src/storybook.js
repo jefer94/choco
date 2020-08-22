@@ -3,7 +3,7 @@
  *
  * @example
  * storybook()
- * @returns {object} Storybook config.
+ * @returns Storybook config.
  */
 export function storybook() {
   return {
