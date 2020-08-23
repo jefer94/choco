@@ -1,4 +1,5 @@
-import { startDB, listen } from './cache'
+import server from './server'
+import db from './db'
 
-startDB()
-listen()
+db()
+server()
