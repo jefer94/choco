@@ -1,0 +1,74 @@
+# type Status {
+#   status: String!
+# }
+
+# type Id { 
+#   id: ID!
+# }
+
+type Query {
+  "Hello"
+  hello: String
+
+  "Check token"
+  checkToken(token: String!): Boolean
+
+  # "Fetch Activities by user id"
+  # userActivities(user: ID!): String
+
+  # "Fetch all Activities in logs"
+  # allActivities(user: ID!): String
+}
+
+type Mutation {
+  # "Log one activity of one user"
+  # addActivityLog(user: ID!, activity: ID!): ActivityLogMutation
+
+  # "Add once activity"
+  # addOnceActivity(name: String, service: ID!): ActivityMutation
+
+  # "Add once service"
+  # addOnceService(name: String): ServiceMutation
+
+  # "Delete service in cascade"
+  # deleteService(name: String): DeleteService
+
+  
+}
+
+# type ActivityMutation {
+#   status: String!
+#   data: ID!
+# }
+
+# type Activity {
+#   id: ID!
+#   name: String!
+#   service: String!
+#   createdAt: String!
+#   updatedAt: String!
+# }
+
+# type ActivityLogMutation {
+#   status: String!
+# }
+
+# type ActivityLog {
+#   id: ID!
+#   user: ID!
+#   activity: ID!
+# }
+
+# type ServiceMutation {
+#   status: String!
+#   data: ID!
+# }
+
+# type DeleteService {
+#   status: String!
+# }
+
+# type Service {
+#   id: ID!
+#   name: String!
+# }

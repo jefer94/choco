@@ -4,6 +4,11 @@
 /* eslint-disable no-underscore-dangle */
 import { Service, Activity, ActivityLog } from '../models'
 
+/**
+ * Delete service in cascade.
+ *
+ * @param name - Service name.
+ */
 export default async function deleteService(name: string): Promise<void> {
   const service = await Service.findOne({ name }).exec()
   const activities = await Activity.find({ service: service._id }).exec()

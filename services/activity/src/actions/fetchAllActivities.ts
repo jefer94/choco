@@ -7,6 +7,11 @@ type FAA = {
   readonly activity: Pick<ActivityLogDocument, 'id'>
 }
 
+/**
+ * Fetch all Activities in logs.
+ *
+ * @returns All activities.
+ */
 export default async function fetchActivities(): Promise<readonly FAA[]> {
   const activities = await ActivityLog.find({}).populate('activity').populate('service').lean()
 

@@ -1,12 +1,13 @@
 #!/usr/bin/env sh
 
-cd ./packages
-
 if [ $1 ]; then
-  cd $1
-  shift
-  yarn $@
-  cd ..
+  if [ -d ./packages/$1 ]; then
+    cd ./packages/$1
+    shift
+    yarn $@
+  else
+    cd ./services/$1
+    shift
+    yarn $@
+  fi
 fi
-
-cd ..

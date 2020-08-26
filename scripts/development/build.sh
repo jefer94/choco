@@ -89,39 +89,26 @@ build() {
   cd ..
 }
 
-cd ./packages
-
 if [ $1 ]; then
-  # seed $1
-  build $1 $2
+  if [ -d ./packages/$1 ]; then
+    cd ./packages
+    build $1 $2
+  else
+    cd ./services
+    build $1 $2
+  fi
 else
-  # for folder in *; do
-  #   if [ ! $folder == "configs" ]; then
-  #     seed $folder
-  #   fi
-  # done
-
+  cd ./packages
   for folder in *; do
     build $folder
   done
-  # echo ${order0[@]}
-  # for folder in ${order0[@]}; do
-  #   echo aaaa $folder
-  # done
+  cd ..
 
-  # for folder in ${order0[@]}; do
-  #   echo bbbb $folder
-  #   build $folder
-  #   echo cccc $folder
-  # done
-
-  # for folder in ${order1[@]}; do
-  #   build $folder
-  # done
-
-  # for folder in ${order2[@]}; do
-  #   build $folder
-  # done
+  cd ./services
+  for folder in *; do
+    build $folder
+  done
+  cd ..
 fi
 
 # cd ..

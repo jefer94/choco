@@ -8,9 +8,18 @@ type FA = {
   readonly activity: Pick<ActivityLogDocument, 'id'>
 }
 
+/**
+ * Fetch Activities by user id.
+ *
+ * @param user - User id.
+ * @returns User activities.
+ */
 export default async function fetchActivities(user: string): Promise<readonly FA[]> {
   const activities = await ActivityLog.find({ user }).populate('activity').populate('service').lean()
+  // const activities2 = await ActivityLog.find({}).populate('activity').populate('service').lean()
 
+  // console.log('vv', activities)
+  // console.log('vv2', activities2)
   return activities.map((act) => {
     const { activity, ...obj } = transformId(act)
 
