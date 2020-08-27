@@ -1,7 +1,7 @@
 import { memo } from '@choco/functional'
 
 /**
- * Get a unique React key.
+ * Get a unique key from namespace.
  *
  * @param key - Namespace of counter.
  * @example
