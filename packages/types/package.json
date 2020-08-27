@@ -1,6 +1,6 @@
 {
   "name": "@chocolab/types",
-  "version": "0.0.1",
+  "version": "1.0.0-alpha.0",
   "license": "MIT",
   "types": "./src/index.d.ts"
 }

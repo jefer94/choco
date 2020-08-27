@@ -1,13 +1,13 @@
 {
   "name": "@chocolab/algorithm-transpiler",
-  "version": "0.0.1",
+  "version": "1.0.0-alpha.0",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "author": "Jeferson De Freitas",
   "license": "MIT",
   "dependencies": {
-    "@chocolab/i18n": "^0.0.1",
-    "@chocolab/types": "^0.0.1"
+    "@chocolab/i18n": "^1.0.0-alpha.0",
+    "@chocolab/types": "^1.0.0-alpha.0"
   }
 }
