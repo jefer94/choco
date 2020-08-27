@@ -1,6 +1,6 @@
 {
   "name": "@choco/cache",
-  "version": "1.0.0",
+  "version": "1.0.0-alpha.0",
   "main": "index.js",
   "author": "Jeferson De Freitas",
   "license": "MIT",
