@@ -9,5 +9,6 @@
   "dependencies": {
     "@types/bcrypt": "^3.0.0",
     "bcrypt": "^5.0.0"
-  }
+  },
+  "gitHead": "007d18f42da43564a21d37c992363514d61d4692"
 }

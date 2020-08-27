@@ -31,5 +31,5 @@
     "mock-aws-s3": "^4.0.1",
     "supertest": "^4.0.2"
   },
-  "gitHead": "a4e1881f6726fe8a66d207a684608ca815431c2b"
+  "gitHead": "007d18f42da43564a21d37c992363514d61d4692"
 }

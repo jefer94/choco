@@ -2,5 +2,6 @@
   "name": "@chocolab/types",
   "version": "1.0.0-alpha.0",
   "license": "MIT",
-  "types": "./src/index.d.ts"
+  "types": "./src/index.d.ts",
+  "gitHead": "007d18f42da43564a21d37c992363514d61d4692"
 }

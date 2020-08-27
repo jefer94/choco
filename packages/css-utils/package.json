@@ -4,5 +4,6 @@
   "main": "./dist/css-utils.cjs.js",
   "module": "./dist/css-utils.esm.js",
   "author": "Jeferson De Freitas",
-  "license": "MIT"
+  "license": "MIT",
+  "gitHead": "007d18f42da43564a21d37c992363514d61d4692"
 }
