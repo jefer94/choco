@@ -1,12 +1,12 @@
 {
   "name": "@choco/authenticator",
-  "version": "0.0.1",
+  "version": "1.0.0-alpha.0",
   "private": true,
   "main": "index.js",
   "author": "Jeferson De Freitas",
   "license": "MIT",
   "dependencies": {
-    "@choco/password": "^0.0.1",
+    "@choco/password": "^1.0.0-alpha.0",
     "mongoose": "^5.10.0",
     "nats": "^1.4.12"
   },

@@ -1,13 +1,13 @@
 {
   "name": "@choco/hooks",
-  "version": "0.0.1",
+  "version": "1.0.0-alpha.0",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "author": "Jeferson De Freitas",
   "license": "MIT",
   "dependencies": {
-    "@choco/configs": "^0.0.1",
+    "@choco/configs": "^1.0.0-alpha.0",
     "@types/react-dom": "^16.9.8",
     "axios": "^0.19.2",
     "js-cookie": "^2.2.1",

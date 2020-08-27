@@ -1,11 +1,11 @@
 {
   "name": "@choco/functional",
-  "version": "0.0.1",
+  "version": "1.0.0-alpha.0",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "license": "MIT",
   "dependencies": {
-    "@choco/configs": "^0.0.1"
+    "@choco/configs": "^1.0.0-alpha.0"
   }
 }
