@@ -10,6 +10,9 @@
     "/dist",
     "/src"
   ],
+  "scripts": {
+    "prepare": "tsc --build ./tsconfig.json"
+  },
   "devDependencies": {
     "@babel/core": "^7.10.5",
     "@babel/preset-react": "^7.10.4",

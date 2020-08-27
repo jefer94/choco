@@ -10,6 +10,9 @@
     "/dist",
     "/src"
   ],
+  "scripts": {
+    "prepare": "tsc --build ./tsconfig.json"
+  },
   "dependencies": {
     "@chocolab/configs": "^1.0.2-alpha.0",
     "@chocolab/functional": "^1.0.2-alpha.0"

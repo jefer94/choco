@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "prepare": "node ../../scripts/development/prepare.js"
   },
   "dependencies": {
     "@chocolab/algorithm-transpiler": "^1.0.2-alpha.0",

@@ -14,7 +14,7 @@ build() {
   cp ../tsconfig.json ./$1/original-tsconfig.json
   docker build ./$1 \
     --rm=false \
-    -t choco/$1
+    -t chocolab/$1
   rm ./$1/original-tsconfig.json
 }
 

@@ -10,6 +10,9 @@
     "/dist",
     "/src"
   ],
+  "scripts": {
+    "prepare": "tsc --build ./tsconfig.json"
+  },
   "dependencies": {
     "@types/bcrypt": "^3.0.0",
     "bcrypt": "^5.0.0"

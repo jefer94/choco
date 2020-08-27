@@ -1,13 +1,17 @@
 {
   "name": "@chocolab/css-utils",
   "version": "1.0.2-alpha.0",
-  "main": "./dist/css-utils.cjs.js",
-  "module": "./dist/css-utils.esm.js",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "author": "Jeferson De Freitas",
   "license": "MIT",
   "files": [
     "/dist",
     "/src"
   ],
+  "scripts": {
+    "prepare": "tsc --build ./tsconfig.json"
+  },
   "gitHead": "106f40a81398fce01084d5a47e528655f06283e4"
 }
