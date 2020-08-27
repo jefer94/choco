@@ -1,14 +1,14 @@
 {
   "name": "@choco/env",
-  "version": "1.0.1-alpha.0",
+  "version": "0.0.1",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "author": "Jeferson De Freitas",
   "license": "MIT",
   "dependencies": {
-    "@choco/configs": "^1.0.1-alpha.0",
-    "@choco/functional": "^1.0.1-alpha.0",
+    "@choco/configs": "^0.0.1",
+    "@choco/functional": "^0.0.1",
     "dotenv": "^8.2.0"
   },
   "devDependencies": {
