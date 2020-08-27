@@ -1,9 +1,6 @@
 import * as path from 'path'
 import nodeExternals from 'webpack-node-externals'
 import NodemonPlugin from 'nodemon-webpack-plugin'
-import { env, loadEnv } from '@choco/env'
-
-loadEnv()
 
 /**
  * Webpack config.
@@ -24,12 +21,12 @@ export function webpack(dirname) {
       filename: '[name].js'
     },
     target: 'node',
-    mode: env('APP_ENV') === 'production' ? 'production' : 'development',
+    mode: process.env.APP_ENV === 'production' ? 'production' : 'development',
     node: {
       __dirname: true,
       __filename: true
     },
-    devtool: env('APP_ENV') === 'development' ? 'eval-cheap-source-map' : 'eval',
+    devtool: process.env.APP_ENV === 'development' ? 'eval-cheap-source-map' : 'eval',
     externals: [nodeExternals({
       modulesDir: path.join(dirname, '../../node_modules')
     })],

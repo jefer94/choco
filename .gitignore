@@ -17,3 +17,4 @@ dist/
 dist
 docs
 libs/
+lerna-debug.log
