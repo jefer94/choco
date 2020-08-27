@@ -21,7 +21,7 @@
 [chat-url]: https://gitter.im/jefer94/choco
 
   <br>
-  <h1>@choco/express-common</h1>
+  <h1>@chocolab/express-common</h1>
   <p>
     Common Middlewares used in Express.
   </p>
@@ -30,7 +30,7 @@
 <h2 align="center">Install</h2>
 
 ```bash
-yarn add @choco/express-common
+yarn add @chocolab/express-common
 ```
 
 <h2 align="center">Usage</h2>

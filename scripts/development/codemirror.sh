@@ -15,7 +15,7 @@ git checkout ${latesttag}
 # setup to module commonjs
 # sed -i 's/ "es6"/ "es5"/g' tsconfig.base.json
 sed -i 's/"es6"/"es5"/g' tsconfig.base.json
-# sed -i 's/ "@codemirror/next"/ "@choco/codemirror"/g' package.json
+# sed -i 's/ "@codemirror/next"/ "@chocolab/codemirror"/g' package.json
 sed -i '/"."/d' package.json
 sed -i '/"type": "module"/d' package.json
 

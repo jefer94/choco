@@ -21,7 +21,7 @@
 [chat-url]: https://gitter.im/jefer94/choco
 
   <br>
-  <h1>@choco/css-utils</h1>
+  <h1>@chocolab/css-utils</h1>
   <p>
     Handle CSS variables.
   </p>
@@ -30,13 +30,13 @@
 <h2 align="center">Install</h2>
 
 ```bash
-yarn add @choco/css-utils
+yarn add @chocolab/css-utils
 ```
 
 <h2 align="center">Usage</h2>
 
 ```javascript
-import { getVar, setVar } from '@choco/css-utils'
+import { getVar, setVar } from '@chocolab/css-utils'
 
 // CSS variable format
 setVar('--potato', '#000')

@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose'
-import { encrypt } from '@choco/password'
+import { encrypt } from '@chocolab/password'
 
 const schema = new Schema({
   username: String,

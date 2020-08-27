@@ -13,7 +13,7 @@ import methodOverride from 'method-override'
  * @example
  * ```
  * import express from 'express'
- * import common from '@choco/express-common'
+ * import common from '@chocolab/express-common'
  *
  * const app = express()
  *

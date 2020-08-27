@@ -2,7 +2,7 @@ import React from 'react'
 import { render, fireEvent } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 import Tabs from './Tabs'
-import keychain from '@choco/keychain'
+import keychain from '@chocolab/keychain'
 
 // remove svg icon
 jest.mock('./Icon')

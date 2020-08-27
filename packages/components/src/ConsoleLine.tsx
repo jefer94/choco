@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 // import './Console.sass'
 import styled from 'styled-components'
-import { Dictionary } from '@choco/types'
+import { Dictionary } from '@chocolab/types'
 // #393035
 
 const LineWrapper = styled.div`

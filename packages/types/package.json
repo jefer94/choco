@@ -1,5 +1,5 @@
 {
-  "name": "@choco/types",
+  "name": "@chocolab/types",
   "version": "1.0.0-alpha.0",
   "license": "MIT",
   "types": "./src/index.d.ts"

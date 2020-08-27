@@ -1,5 +1,5 @@
-import { Dictionary } from '@choco/types'
-import { memo } from '@choco/functional'
+import { Dictionary } from '@chocolab/types'
+import { memo } from '@chocolab/functional'
 import { keys, externalKey } from './keys'
 
 /**

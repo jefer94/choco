@@ -1,6 +1,6 @@
 import brackets from './brackets'
 import { algorithmTranspilerLang } from './lang'
-import locale from '@choco/i18n'
+import locale from '@chocolab/i18n'
 
 locale.setLang('en')
 algorithmTranspilerLang()

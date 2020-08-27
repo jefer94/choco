@@ -1,5 +1,5 @@
 {
-  "name": "@choco/i18n",
+  "name": "@chocolab/i18n",
   "version": "1.0.0-alpha.0",
   "main": "./dist/index.js",
   "module": "./dist/index.js",

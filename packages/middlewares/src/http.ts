@@ -1,7 +1,7 @@
 /* eslint-disable no-shadow */
 import { Application } from 'express'
 import http from 'http'
-import { env } from '@choco/env'
+import { env } from '@chocolab/env'
 import chalk from 'chalk'
 
 let server: http.Server

@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 // import './Console.sass'
-import { Dictionary } from '@choco/types'
+import { Dictionary } from '@chocolab/types'
 import { ConsoleLine, ConsoleLineProp } from './ConsoleLine'
 // #393035
 

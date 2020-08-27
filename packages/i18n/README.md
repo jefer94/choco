@@ -21,7 +21,7 @@
 [chat-url]: https://gitter.im/jefer94/choco
 
   <br>
-  <h1>@choco/i18n</h1>
+  <h1>@chocolab/i18n</h1>
   <p>
     Load dynamically our string, in we language.
   </p>
@@ -30,13 +30,13 @@
 <h2 align="center">Install</h2>
 
 ```bash
-yarn add @choco/i18n
+yarn add @chocolab/i18n
 ```
 
 <h2 align="center">Usage</h2>
 
 ```javascript
-import locale from '@choco/keychain'
+import locale from '@chocolab/keychain'
 
 // loading locales
 locale.set('en', 'cow', 'cow')

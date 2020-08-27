@@ -1,4 +1,4 @@
-// import { loadEnv } from '@choco/env'
+// import { loadEnv } from '@chocolab/env'
 
 // loadEnv()
 
@@ -8,7 +8,7 @@
 //   }
 // }
 
-const { loadEnv } = require('@choco/env')
+const { loadEnv } = require('@chocolab/env')
 const withPWA = require('next-pwa')
 
 loadEnv()

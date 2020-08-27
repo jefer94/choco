@@ -21,7 +21,7 @@
 [chat-url]: https://gitter.im/jefer94/choco
 
   <br>
-  <h1>@choco/i18n</h1>
+  <h1>@chocolab/i18n</h1>
   <p>
     Load .env for monorepos.
   </p>
@@ -30,13 +30,13 @@
 <h2 align="center">Install</h2>
 
 ```bash
-yarn add @choco/env
+yarn add @chocolab/env
 ```
 
 <h2 align="center">Usage</h2>
 
 ```javascript
-import '@choco/env'
+import '@chocolab/env'
 ```
 
 <h2 align="center">Maintainers</h2>

@@ -1,6 +1,6 @@
 import React, { useContext, ReactElement, ReactNode } from 'react'
 import { faEdit, faTerminal, faFolder, faCog, faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
-import { Menu, menuItem } from '@choco/components'
+import { Menu, menuItem } from '@chocolab/components'
 import { homeRoute, docsRoute, consoleRoute } from '../globals/routes'
 import { ThemeContext } from '../contexts'
 

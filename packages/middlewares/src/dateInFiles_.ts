@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express'
-/** @module @choco/middlewares */
+/** @module @chocolab/middlewares */
 
 // eslint-disable-next-line jsdoc/require-jsdoc
 export function dateInFiles(req: Request, res: Response, next: NextFunction): void {

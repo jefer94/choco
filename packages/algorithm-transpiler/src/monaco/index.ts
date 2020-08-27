@@ -1,5 +1,5 @@
 import { languages, editor } from 'monaco-editor/esm/vs/editor/editor.main'
-import locale from '@choco/i18n'
+import locale from '@chocolab/i18n'
 import { LangTranspiler, LangOpenBracket, LangCloseBracket, LangWrite, LangRead, LangType, LangVariables } from '../lang/common'
 
 const algorithmWord = locale.one<string>('algorithmWord')

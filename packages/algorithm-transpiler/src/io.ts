@@ -1,5 +1,5 @@
-import keychain from '@choco/keychain'
-import locale from '@choco/i18n'
+import keychain from '@chocolab/keychain'
+import locale from '@chocolab/i18n'
 import spaces from './spaces'
 import { LangError, LangTypeError, JavascriptType, LangVariables } from './lang/common'
 import { VectorIO } from './vector'

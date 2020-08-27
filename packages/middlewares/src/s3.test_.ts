@@ -1,5 +1,5 @@
 import request from 'supertest'
-import { env } from '@choco/env'
+import { env } from '@chocolab/env'
 import express from 'express'
 import * as path from 'path'
 import AWSMock from 'mock-aws-s3'

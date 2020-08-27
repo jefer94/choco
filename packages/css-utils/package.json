@@ -1,5 +1,5 @@
 {
-  "name": "@choco/css-utils",
+  "name": "@chocolab/css-utils",
   "version": "1.0.0-alpha.0",
   "main": "./dist/css-utils.cjs.js",
   "module": "./dist/css-utils.esm.js",

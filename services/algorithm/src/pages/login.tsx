@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import Head from 'next/head'
-import { BrandSection } from '@choco/components'
+import { BrandSection } from '@chocolab/components'
 
 /**
  * Login container.

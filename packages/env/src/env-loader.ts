@@ -1,5 +1,5 @@
 import { config } from 'dotenv'
-import { memo } from '@choco/functional'
+import { memo } from '@chocolab/functional'
 import { keys, externalKey } from './keys'
 
 /**

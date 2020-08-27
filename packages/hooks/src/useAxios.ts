@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Dictionary } from '@choco/types'
+import { Dictionary } from '@chocolab/types'
 import axios from 'axios'
 // axios.he
 type Methods = 'get' | 'post' | 'put' | 'delete' | 'patch' | 'head'

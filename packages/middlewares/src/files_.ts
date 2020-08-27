@@ -3,7 +3,7 @@
 import multer from 'multer'
 import { Request, Response, NextFunction, RequestHandler } from 'express'
 
-/** @module @choco/middlewares */
+/** @module @chocolab/middlewares */
 
 const storage = multer.memoryStorage()
 

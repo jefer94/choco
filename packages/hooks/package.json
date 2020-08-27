@@ -1,5 +1,5 @@
 {
-  "name": "@choco/hooks",
+  "name": "@chocolab/hooks",
   "version": "2.0.0-alpha.0",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -7,11 +7,12 @@
   "author": "Jeferson De Freitas",
   "license": "MIT",
   "dependencies": {
-    "@choco/configs": "^2.0.0-alpha.0",
+    "@chocolab/configs": "^2.0.0-alpha.0",
     "@types/react-dom": "^16.9.8",
     "axios": "^0.19.2",
     "js-cookie": "^2.2.1",
     "next": "^9.4.4",
     "react": "^16.13.1"
-  }
+  },
+  "gitHead": "a4e1881f6726fe8a66d207a684608ca815431c2b"
 }

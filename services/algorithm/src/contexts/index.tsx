@@ -1,5 +1,5 @@
 import React, { ReactElement, ReactNode } from 'react'
-import { algorithmTranspilerLang } from '@choco/algorithm-transpiler'
+import { algorithmTranspilerLang } from '@chocolab/algorithm-transpiler'
 import lang from '../lang'
 
 import { ThemeContextProvider } from './ThemeContext' // eslint-disable-line

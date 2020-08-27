@@ -1,4 +1,4 @@
-import locale from '@choco/i18n'
+import locale from '@chocolab/i18n'
 import files from './files'
 import { algorithmTranspilerLang } from './lang'
 

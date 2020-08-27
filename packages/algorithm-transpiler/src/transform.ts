@@ -1,5 +1,5 @@
-import locale from '@choco/i18n'
-import { compose } from '@choco/functional'
+import locale from '@chocolab/i18n'
+import { compose } from '@chocolab/functional'
 import comments from './comments'
 import { algorithmTranspilerLang } from './lang'
 import { LangOpenBracket, LangRead, LangWrite, LangCloseBracket, LangTokens, LangTranspiler } from './lang/common'

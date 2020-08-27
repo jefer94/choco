@@ -1,5 +1,5 @@
-import { compose } from '@choco/functional'
-import locale from '@choco/i18n'
+import { compose } from '@chocolab/functional'
+import locale from '@chocolab/i18n'
 import comments from './comments'
 import removeSpaces from './spaces'
 import { LangType, LangTypeError, LangError, LangVariables } from './lang/common'

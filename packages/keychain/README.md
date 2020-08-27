@@ -21,7 +21,7 @@
 [chat-url]: https://gitter.im/jefer94/choco
 
   <br>
-  <h1>@choco/keychain</h1>
+  <h1>@chocolab/keychain</h1>
   <p>
     Unique key generator for React, prevent unnecessary renders.
   </p>
@@ -30,13 +30,13 @@
 <h2 align="center">Install</h2>
 
 ```bash
-yarn add @choco/keychain
+yarn add @chocolab/keychain
 ```
 
 <h2 align="center">Usage</h2>
 
 ```javascript
-import keychain from '@choco/keychain'
+import keychain from '@chocolab/keychain'
 
 keychain('products') // returns 'products_0'
 keychain('products') // returns 'products_1'

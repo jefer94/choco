@@ -1,10 +1,10 @@
 import React, { ReactElement, ReactNode } from 'react'
 import styled from 'styled-components'
 // import { faBars } from '@fortawesome/free-solid-svg-icons'
-import { Dictionary } from '@choco/types'
+import { Dictionary } from '@chocolab/types'
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core'
 import { MenuItem } from './MenuItem'
-import keychain from '@choco/keychain'
+import keychain from '@chocolab/keychain'
 // import { StyledMenu } from './types'
 
 // import './Menu.sass'

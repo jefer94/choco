@@ -1,5 +1,5 @@
 {
-  "name": "@choco/env",
+  "name": "@chocolab/env",
   "version": "2.0.0-alpha.0",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -7,11 +7,12 @@
   "author": "Jeferson De Freitas",
   "license": "MIT",
   "dependencies": {
-    "@choco/configs": "^2.0.0-alpha.0",
-    "@choco/functional": "^2.0.0-alpha.0",
+    "@chocolab/configs": "^2.0.0-alpha.0",
+    "@chocolab/functional": "^2.0.0-alpha.0",
     "dotenv": "^8.2.0"
   },
   "devDependencies": {
     "@babel/preset-react": "^7.10.4"
-  }
+  },
+  "gitHead": "a4e1881f6726fe8a66d207a684608ca815431c2b"
 }

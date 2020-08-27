@@ -1,4 +1,4 @@
-import locale from '@choco/i18n'
+import locale from '@chocolab/i18n'
 
 /**
  * Diff between Algorithm code and Javascript code.

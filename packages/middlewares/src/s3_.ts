@@ -1,6 +1,6 @@
 // https://aws.amazon.com/es/sdk-for-node-js/
 import AWS, { S3 } from 'aws-sdk'
-import { env } from '@choco/env'
+import { env } from '@chocolab/env'
 import { Request, Response, NextFunction } from 'express'
 
 declare global {

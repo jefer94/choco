@@ -1,5 +1,5 @@
 import reducer from './tabs'
-import locale, { setLang } from '@choco/i18n'
+import locale, { setLang } from '@chocolab/i18n'
 import { addTabAction, removeTabAction, changeTabAction, saveTabAction, defaultsTabsAction } from '../actions/tabs'
 
 const algorithmWord = locale.one<string>('algorithmWord')

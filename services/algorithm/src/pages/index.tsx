@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useContext, ReactElement } from 'react'
 import Head from 'next/head'
 import { faPlay } from '@fortawesome/free-solid-svg-icons'
-import { Tabs as TabsComponent, FloatingButton } from '@choco/components'
+import { Tabs as TabsComponent, FloatingButton } from '@chocolab/components'
 import { Editor as EditorComponent } from '../Components'
 import useTabs from '../hooks/useTabs'
 import { consoleRoute } from '../globals/routes'
 import { ThemeContext, MenuContext } from '../contexts'
 import { MenuContainer } from '../Containers/MenuContainer'
 
-// import {Menu from '@choco/containers'
+// import {Menu from '@chocolab/containers'
 
 // export const editor = {
 //   getValue() {

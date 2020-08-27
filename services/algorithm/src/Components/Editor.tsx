@@ -1,6 +1,6 @@
 import React, { useState, ReactElement } from 'react'
 // import React, { useState, memo, useEffect } from 'react'
-import { Dictionary } from '@choco/types'
+import { Dictionary } from '@chocolab/types'
 import { CodemirrorWrapper } from './CodemirrorWrapper'
 // import { editor as monaco } from 'monaco-editor/esm/vs/editor/editor.main'
 // export { ControlledEditor } from '@monaco-editor/react'

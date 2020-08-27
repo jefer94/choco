@@ -1,5 +1,5 @@
 import transform, { forLoopCondition, doWhileLoopCondition, stripCode, ifIsEqual, purgeLine, vectorAdd, parser, parseIO } from './transform'
-import locale from '@choco/i18n'
+import locale from '@chocolab/i18n'
 
 locale.setLang('es')
 

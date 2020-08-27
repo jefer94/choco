@@ -18,7 +18,7 @@ Trace:
 
 npm manifest: 
   {
-    "name": "@choco/configs",
+    "name": "@chocolab/configs",
     "version": "1.0.0",
     "main": "./dist/configs.cjs.js",
     "module": "./dist/configs.esm.js",
@@ -26,7 +26,7 @@ npm manifest:
     "license": "MIT",
     "dependencies": {
       "@babel/plugin-transform-runtime": "^7.9.6",
-      "@choco/env": "^1.0.0",
+      "@chocolab/env": "^1.0.0",
       "@zeit/next-css": "^1.0.1",
       "babel-plugin-styled-components": "^1.10.7",
       "eslint-loader": "^4.0.2",

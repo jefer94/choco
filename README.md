@@ -25,7 +25,7 @@
 
 
   <br>
-  <h1>@choco/algorithm</h1>
+  <h1>@chocolab/algorithm</h1>
   <p>
     Algorithm runtime emulator, like a IDE.
   </p>
@@ -79,17 +79,17 @@ yarn start
 
 | Name | Description |
 | :--- | :--- |
-| [@choco/components][choco-components] | React components, common UI. |
-| [@choco/algorithm-transpiler][choco-transpiler] | Algorithm to Javascript transpiler. |
-| [@choco/configs][configs] | Configuration files |
-| [@choco/css-utils][choco-css] | Handle CSS variables. |
-| [@choco/env][choco-env] | Load .env for monorepos. |
-| [@choco/functional][choco-functional] | Functional utilities. |
-| [@choco/hooks][choco-hooks] | React hooks. |
-| [@choco/i18n][choco-i18n] | Load dynamically our string, in we language. |
-| [@choco/keychain][choco-keychain] | Unique key generator for React, prevent unnecessary renders. |
-| [@choco/middlewares][choco-middlewares] | Common Middlewares used in Express. |
-| [@choco/password][choco-password] | Encrypt and decrypt password. |
+| [@chocolab/components][choco-components] | React components, common UI. |
+| [@chocolab/algorithm-transpiler][choco-transpiler] | Algorithm to Javascript transpiler. |
+| [@chocolab/configs][configs] | Configuration files |
+| [@chocolab/css-utils][choco-css] | Handle CSS variables. |
+| [@chocolab/env][choco-env] | Load .env for monorepos. |
+| [@chocolab/functional][choco-functional] | Functional utilities. |
+| [@chocolab/hooks][choco-hooks] | React hooks. |
+| [@chocolab/i18n][choco-i18n] | Load dynamically our string, in we language. |
+| [@chocolab/keychain][choco-keychain] | Unique key generator for React, prevent unnecessary renders. |
+| [@chocolab/middlewares][choco-middlewares] | Common Middlewares used in Express. |
+| [@chocolab/password][choco-password] | Encrypt and decrypt password. |
 
 [choco-components]: https://github.com/jefer94/choco/tree/master/packages/components
 [choco-transpiler]: https://github.com/jefer94/choco/tree/master/packages/algorithm-transpiler

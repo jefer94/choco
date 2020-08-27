@@ -1,5 +1,5 @@
-import locale from '@choco/i18n'
-import { Dictionary } from '@choco/types'
+import locale from '@chocolab/i18n'
+import { Dictionary } from '@chocolab/types'
 import { LangOpenBracket, LangCloseBracket } from '../dist/lang/common'
 
 /**

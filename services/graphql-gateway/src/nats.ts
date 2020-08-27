@@ -1,5 +1,5 @@
 import * as NATS from 'nats'
-import keychain from '@choco/keychain'
+import keychain from '@chocolab/keychain'
 
 const nc = NATS.connect({ json: true })
 

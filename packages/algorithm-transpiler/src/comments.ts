@@ -4,7 +4,7 @@
  * @param code - Line(s) to be replaced.
  * @example
  * ```
- * import removeComments from '@choco/algorithm-transpiler'
+ * import removeComments from '@chocolab/algorithm-transpiler'
  *
  * removeComments('hi //') // returns 'hi'
  * removeComments(['hi //', 'apple //']) // returns ['hi', 'apple']

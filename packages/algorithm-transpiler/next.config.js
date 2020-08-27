@@ -1,4 +1,4 @@
-const { loadEnv } = require('@choco/env')
+const { loadEnv } = require('@chocolab/env')
 
 loadEnv()
 

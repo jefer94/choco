@@ -1,3 +1,3 @@
-const configs = require('@choco/configs')
+const configs = require('@chocolab/configs')
 
 module.exports = configs.eslint()

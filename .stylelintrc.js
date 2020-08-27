@@ -1,3 +1,3 @@
-const { stylelint } = require('@choco/configs')
+const { stylelint } = require('@chocolab/configs')
 
 module.exports = stylelint()

@@ -1,4 +1,4 @@
-import locale from '@choco/i18n'
+import locale from '@chocolab/i18n'
 import { read, write, io, IoVariables, IoLine } from './io'
 import { algorithmTranspilerLang } from './lang'
 import { Vector } from './vector'

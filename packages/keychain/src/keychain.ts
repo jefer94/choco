@@ -1,4 +1,4 @@
-import { memo } from '@choco/functional'
+import { memo } from '@chocolab/functional'
 
 /**
  * Get a unique key from namespace.

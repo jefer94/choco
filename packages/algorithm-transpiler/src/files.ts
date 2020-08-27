@@ -1,4 +1,4 @@
-import locale from '@choco/i18n'
+import locale from '@chocolab/i18n'
 
 export type Files = readonly [string, string]
 

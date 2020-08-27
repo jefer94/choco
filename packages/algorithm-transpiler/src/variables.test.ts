@@ -1,4 +1,4 @@
-import locale from '@choco/i18n'
+import locale from '@chocolab/i18n'
 import variables, { VariableStore } from './variables'
 import { algorithmTranspilerLang } from './lang'
 

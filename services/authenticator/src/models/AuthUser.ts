@@ -1,5 +1,5 @@
 import { Document, Schema, model } from 'mongoose'
-// import { encrypt } from '@choco/password'
+// import { encrypt } from '@chocolab/password'
 
 export type AuthUserFields = {
   readonly username: string

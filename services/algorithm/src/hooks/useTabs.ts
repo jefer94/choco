@@ -1,5 +1,5 @@
 import { useReducer, useEffect, useCallback } from 'react'
-import locale from '@choco/i18n'
+import locale from '@chocolab/i18n'
 import tabsReducer from '../reducers/tabs'
 import { addTabAction, removeTabAction, changeTabAction, saveTabAction, defaultsTabsAction } from '../actions/tabs'
 

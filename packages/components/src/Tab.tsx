@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import styled from 'styled-components' // eslint-disable-line
-import { Dictionary } from '@choco/types'
+import { Dictionary } from '@chocolab/types'
 import { TabButton } from './TabButton'
 import { Icon } from './Icon'
 import theme from './theme'

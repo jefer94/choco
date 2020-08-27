@@ -1,4 +1,4 @@
-import { memo } from '@choco/functional'
+import { memo } from '@chocolab/functional'
 
 const langKey = '__I18N_LANG__'
 
