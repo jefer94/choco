@@ -22,7 +22,7 @@
     "@choco/configs": "^1.0.1-alpha.0",
     "@choco/functional": "^1.0.1-alpha.0",
     "@choco/keychain": "^1.0.1-alpha.0",
-    "@choco/types": "^1.0.0-alpha.0",
+    "@choco/types": "^0.0.1",
     "@fortawesome/fontawesome-svg-core": "^1.2.30",
     "@fortawesome/free-regular-svg-icons": "^5.14.0",
     "@fortawesome/free-solid-svg-icons": "^5.14.0",
