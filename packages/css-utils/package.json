@@ -1,6 +1,6 @@
 {
   "name": "@chocolab/css-utils",
-  "version": "1.0.0-alpha.0",
+  "version": "2.0.0-alpha.1",
   "main": "./dist/css-utils.cjs.js",
   "module": "./dist/css-utils.esm.js",
   "author": "Jeferson De Freitas",

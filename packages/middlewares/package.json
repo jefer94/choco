@@ -1,14 +1,14 @@
 {
   "name": "@chocolab/middlewares",
-  "version": "2.0.0-alpha.0",
+  "version": "2.0.0-alpha.1",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "author": "Jeferson De Freitas",
   "license": "MIT",
   "dependencies": {
-    "@chocolab/configs": "^2.0.0-alpha.0",
-    "@chocolab/env": "^2.0.0-alpha.0",
+    "@chocolab/configs": "^2.0.0-alpha.1",
+    "@chocolab/env": "^2.0.0-alpha.1",
     "@types/cors": "^2.8.6",
     "@types/express": "^4.17.7",
     "@types/helmet": "^0.0.47",

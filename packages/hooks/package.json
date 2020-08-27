@@ -1,13 +1,13 @@
 {
   "name": "@chocolab/hooks",
-  "version": "2.0.0-alpha.0",
+  "version": "2.0.0-alpha.1",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "author": "Jeferson De Freitas",
   "license": "MIT",
   "dependencies": {
-    "@chocolab/configs": "^2.0.0-alpha.0",
+    "@chocolab/configs": "^2.0.0-alpha.1",
     "@types/react-dom": "^16.9.8",
     "axios": "^0.19.2",
     "js-cookie": "^2.2.1",
