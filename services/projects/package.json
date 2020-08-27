@@ -1,6 +1,6 @@
 {
   "name": "@choco/projects",
-  "version": "0.0.1",
+  "version": "1.0.0-alpha.0",
   "private": true,
   "main": "index.js",
   "author": "Jeferson De Freitas",
