@@ -1,6 +1,6 @@
 {
   "name": "@chocolab/algorithm",
-  "version": "2.0.0-alpha.1",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -8,10 +8,10 @@
     "start": "next start"
   },
   "dependencies": {
-    "@chocolab/algorithm-transpiler": "^2.0.0-alpha.1",
-    "@chocolab/components": "^2.0.0-alpha.1",
-    "@chocolab/i18n": "^2.0.0-alpha.1",
-    "@chocolab/keychain": "^2.0.0-alpha.1",
+    "@chocolab/algorithm-transpiler": "^0.0.1",
+    "@chocolab/components": "^0.0.1",
+    "@chocolab/i18n": "^0.0.1",
+    "@chocolab/keychain": "^0.0.1",
     "@codemirror/next": "^0.8.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.30",
     "@fortawesome/free-solid-svg-icons": "^5.14.0",
