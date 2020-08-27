@@ -6,6 +6,10 @@
   "types": "./dist/index.d.ts",
   "author": "Jeferson De Freitas",
   "license": "MIT",
+  "files": [
+    "/dist",
+    "/src"
+  ],
   "dependencies": {
     "@chocolab/configs": "^1.0.0-alpha.0",
     "@chocolab/functional": "^1.0.0-alpha.0"

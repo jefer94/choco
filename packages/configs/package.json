@@ -5,6 +5,10 @@
   "module": "./index.esm.js",
   "author": "Jeferson De Freitas",
   "license": "MIT",
+  "files": [
+    "/dist",
+    "/src"
+  ],
   "dependencies": {
     "@babel/plugin-transform-runtime": "^7.10.5",
     "@babel/preset-typescript": "^7.10.4",

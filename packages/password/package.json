@@ -6,6 +6,10 @@
   "types": "./dist/index.d.ts",
   "author": "Jeferson De Freitas",
   "license": "MIT",
+  "files": [
+    "/dist",
+    "/src"
+  ],
   "dependencies": {
     "@types/bcrypt": "^3.0.0",
     "bcrypt": "^5.0.0"

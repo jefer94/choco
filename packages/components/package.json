@@ -6,6 +6,10 @@
   "types": "./dist/index.d.ts",
   "author": "Jeferson De Freitas",
   "license": "MIT",
+  "files": [
+    "/dist",
+    "/src"
+  ],
   "devDependencies": {
     "@babel/core": "^7.10.5",
     "@babel/preset-react": "^7.10.4",
