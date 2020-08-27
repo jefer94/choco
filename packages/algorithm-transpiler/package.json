@@ -1,6 +1,6 @@
 {
   "name": "@chocolab/algorithm-transpiler",
-  "version": "1.0.0-alpha.0",
+  "version": "1.0.1-alpha.0",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -11,8 +11,8 @@
     "/src"
   ],
   "dependencies": {
-    "@chocolab/i18n": "^1.0.0-alpha.0",
-    "@chocolab/types": "^1.0.0-alpha.0"
+    "@chocolab/i18n": "^1.0.1-alpha.0",
+    "@chocolab/types": "^1.0.1-alpha.0"
   },
   "gitHead": "007d18f42da43564a21d37c992363514d61d4692"
 }
