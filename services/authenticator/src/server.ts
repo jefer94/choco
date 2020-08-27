@@ -1,8 +1,6 @@
 /* eslint-disable functional/no-loop-statement */
 /* eslint-disable no-restricted-syntax */
-import * as zmq from 'zeromq'
 import * as NATS from 'nats'
-import db from './db'
 import checkToken from './actions/checkToken'
 import generateToken from './actions/generateToken'
 import addScope from './actions/addScope'

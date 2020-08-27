@@ -18,11 +18,13 @@ build() {
   rm ./$1/original-tsconfig.json
 }
 
+build activity
 build algorithm
-# build world-cities-seed
-# build cache
-# build activity
-# build projects
+build authenticator
+build cache
+build graphql-gateway
+build projects
+build world-cities-seed
 
 # docker build . \
 #   --rm=false \
