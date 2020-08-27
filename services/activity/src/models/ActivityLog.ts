@@ -1,5 +1,5 @@
 import { Document, Schema, model } from 'mongoose'
-import { ActivityFields, ActivityDocument } from './Activity';
+import { ActivityDocument } from './Activity'
 
 export type ActivityLogFields = {
   readonly user: string
@@ -13,10 +13,12 @@ const schema = new Schema({
   activity: { ref: 'Activity', type: Schema.Types.ObjectId, required: true }
 }, { timestamps: true })
 
-schema.method('transform', () => {
+function transform(): Record<string, unknown> {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { _id, __v, ...obj } = this.toObject()
   return { id: _id, ...obj }
-})
+}
+
+schema.method('transform', transform)
 
 export const ActivityLog = model<ActivityLogDocument>('ActivityLog', schema)

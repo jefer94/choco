@@ -1,65 +1,40 @@
 version: "3"
 
 services:
-  hub-web:
-    image: choco/interpreter-hub:${TAG}
-    command: web
-    ports:
-      - 2000:2000
-    environment:
-      - HUB_API=${HUB_API}
+  # api gateway
+  graphql-gateway:
+    image: choco/graphql-gateway
+    links:
+      - nats
 
-  hub-api:
-    image: choco/interpreter-hub:${TAG}
-    command: api
-    ports:
-      - 3000:3000
-    environment:
-      - SESSION_SECRET=${SESSION_SECRET}
-      - SESSION_EXPIRATION=${SESSION_EXPIRATION}
-      - SALT_ROUNDS=${SALT_ROUNDS}
-      - MONGO_URI=${MONGO_URI}
-      - BUCKET=${BUCKET}
-      - IAM_KEY=${IAM_KEY}
-      - IAM_SECRET=${IAM_SECRET}
-    # restart: always
+  activity:
+    image: choco/activity
     links:
       - mongo
-      # - redis
-
-
-  mongo:
-    image: mongo
-    volumes:
-      - data:/data/db
+      - nats
+  
+  algorithm:
+    image: choco/algorithm
     ports:
-      - 27017:27017
+      - 3000:3000
 
-  nginx:
-    image: choco/nginx:${TAG}
-    volumes:
-      - letsencrypt:/etc/letsencrypt
-      - certbot:/var/www/certbot
-      # - ./configs/nginx/InterpreterHub:/etc/nginx/conf.d
-      # - ./configs/nginx/nginx.conf:/etc/nginx/nginx.conf
-    environment:
-      - DOMAINS=${DOMAINS}
-      - SERVICES=${SERVICES}
-      - PORTS=${PORTS}
-      - EMAIL=${EMAIL}
+  authenticator:
+    image: choco/authenticator
     links:
-      - hub-web
-      - hub-api
-    ports:
-      - 80:80
-      - 443:443
+      - mongo
+      - nats
 
-  nats:
-    image: nats:alpine
-    ports:
-      - 4222:4222
-      - 6222:6222
-      - 8222:8222
+  cache:
+    image: choco/cache
+    links:
+      - mongo
+      - nats
+
+  projects:
+    image: choco/projects
+    links:
+      - mongo
+      - nats
 
   world-cities-seed:
     image: choco/world-cities-seed
@@ -68,10 +43,24 @@ services:
     links:
       - mongo
 
-  # redis:
-  #   image: redis:latest
-  #   ports:
-  #     - 6379$
+  mongo:
+    image: mongo
+    volumes:
+      - data:/data/db
+    ports:
+      - 27017:27017
+
+  redis:
+    image: redis:alpine
+    ports:
+      - 6379:6379
+
+  nats:
+    image: nats:alpine
+    ports:
+      - 4222:4222
+      - 6222:6222
+      - 8222:8222
   
 volumes:
   data:

@@ -10,9 +10,19 @@
 
 cd ./services
 
-docker build world-cities-seed/ \
-  --rm=false \
-  -t choco/world-cities-seed
+build() {
+  cp ../tsconfig.json ./$1/original-tsconfig.json
+  docker build ./$1 \
+    --rm=false \
+    -t choco/$1
+  rm ./$1/original-tsconfig.json
+}
+
+build algorithm
+# build world-cities-seed
+# build cache
+# build activity
+# build projects
 
 # docker build . \
 #   --rm=false \

@@ -17,7 +17,7 @@ app.use('/', graphqlHTTP({
 }))
 
 export function server(): void {
-  app.listen(process.env.PORT || 3000)
+  app.listen(process.env.PORT || 5000)
 }
 
 // graphql(schema, '{ hello }', resolvers)

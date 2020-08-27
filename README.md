@@ -34,6 +34,10 @@
 <h2 align="center">Install</h2>
 
 ```bash
+# Clone
+git clone https://github.com/jefer94/choco.git
+cd choco
+
 # Install
 yarn
 
@@ -48,58 +52,56 @@ yarn build
 yarn start
 ```
 
+<h2 align="center">Services</h2>
+
+| Name | Description |
+| :--- | :--- |
+| [algorithm][choco-algorithm] | Algorithm frontend. |
+| [graphql-gateway][choco-graphql-gateway] | GraphQL API Gateway. |
+| [activity][choco-activity] | Log of user activities. |
+| [authenticator][choco-authenticator] | Manage auth and tokens. |
+| [authorize][choco-authorize] | Legacy authorization manager. |
+| [cache][choco-cache] | Manage in memory cache. |
+| [projects][choco-projects] | User projects. |
+| [world-cities-seed][choco-world-cities-seed] | Countries, cities and language database seed. |
+
+[choco-algorithm]: https://github.com/jefer94/choco/tree/master/services/algorithm
+[choco-graphql-gateway]: https://github.com/jefer94/choco/tree/master/services/graphql-gateway
+[choco-activity]: https://github.com/jefer94/choco/tree/master/services/activity
+[choco-authenticator]: https://github.com/jefer94/choco/tree/master/services/authenticator
+[choco-authorize]: https://github.com/jefer94/choco/tree/master/services/authorize
+[choco-cache]: https://github.com/jefer94/choco/tree/master/services/cache
+[choco-projects]: https://github.com/jefer94/choco/tree/master/services/projects
+[choco-world-cities-seed]: https://github.com/jefer94/choco/tree/master/services/world-cities-seed
+
+
 <h2 align="center">Packages</h2>
 
-### Clients
-
-|                   Name                | Description                             |
-| :-----------------------------------: | :-------------------------------------- |
-| [@choco/algorithm][choco-algorithm]   | Algorithm runtime emulator, like a IDE. |
-| [@choco/authorize][choco-authorize]   | Authorization service.                  |
-
-[choco-algorithm]: https://github.com/jefer94/choco/tree/master/packages/algorithm
-[choco-authorize]: https://github.com/jefer94/choco/tree/master/packages/authorize
-
-### Components
-
-|                   Name                | Description                  |
-| :-----------------------------------: | :--------------------------- |
+| Name | Description |
+| :--- | :--- |
 | [@choco/components][choco-components] | React components, common UI. |
+| [@choco/algorithm-transpiler][choco-transpiler] | Algorithm to Javascript transpiler. |
+| [@choco/configs][configs] | Configuration files |
+| [@choco/css-utils][choco-css] | Handle CSS variables. |
+| [@choco/env][choco-env] | Load .env for monorepos. |
+| [@choco/functional][choco-functional] | Functional utilities. |
+| [@choco/hooks][choco-hooks] | React hooks. |
+| [@choco/i18n][choco-i18n] | Load dynamically our string, in we language. |
+| [@choco/keychain][choco-keychain] | Unique key generator for React, prevent unnecessary renders. |
+| [@choco/middlewares][choco-middlewares] | Common Middlewares used in Express. |
+| [@choco/password][choco-password] | Encrypt and decrypt password. |
 
 [choco-components]: https://github.com/jefer94/choco/tree/master/packages/components
-
-### Tools
-
-|                   Name                          | Description                                                  |
-| :---------------------------------------------: | :----------------------------------------------------------- |
-| [@choco/algorithm-transpiler][choco-transpiler] | Algorithm to Javascript transpiler.                          |
-| [@choco/css-utils][choco-css]                   | Handle CSS variables.                                        |
-| [@choco/env][choco-env]                         | Load .env for monorepos.                                     |
-| [@choco/express-common][choco-express]          | Common Middlewares used in Express.                          |
-| [@choco/i18n][choco-i18n]                       | Load dynamically our string, in we language.                 |
-| [@choco/keychain][choco-keychain]               | Unique key generator for React, prevent unnecessary renders. |
-
 [choco-transpiler]: https://github.com/jefer94/choco/tree/master/packages/algorithm-transpiler
 [choco-css]: https://github.com/jefer94/choco/tree/master/packages/css-utils
+[configs]: https://github.com/jefer94/choco/tree/master/packages/configs
 [choco-env]: https://github.com/jefer94/choco/tree/master/packages/env
-[choco-express]: https://github.com/jefer94/choco/tree/master/packages/express-common
+[choco-functional]: https://github.com/jefer94/choco/tree/master/packages/functional
+[choco-hooks]: https://github.com/jefer94/choco/tree/master/packages/hooks
+[choco-middlewares]: https://github.com/jefer94/choco/tree/master/packages/middlewares
 [choco-i18n]: https://github.com/jefer94/choco/tree/master/packages/i18n
 [choco-keychain]: https://github.com/jefer94/choco/tree/master/packages/keychain
-
-### Services
-
-|                   Name                          | Description                            |
-| :---------------------------------------------: | :------------------------------------- |
-| [@choco/algorithm-persistent][choco-persistent] | Persist state of @choco/algorithm.     |
-| [@choco/authorize][choco-authorize]             | Authorization service.                 |
-| [@choco/cache][choco-cache]                     | Cache service, improve response times. |
-| [@choco/express-common][choco-express]          | Common Middlewares used in Express.    |
-| [@choco/token-killer][choco-killer]             | Clean old token in database.           |
-
-[choco-persistent]: https://github.com/jefer94/choco/tree/master/packages/algorithm-persistent
-[choco-authorize]: https://github.com/jefer94/choco/tree/master/packages/authorize
-[choco-cache]: https://github.com/jefer94/choco/tree/master/packages/cache
-[choco-killer]: https://github.com/jefer94/choco/tree/master/packages/token-killer
+[choco-password]: https://github.com/jefer94/choco/tree/master/packages/password
 
 <h2 align="center">Maintainers</h2>
 

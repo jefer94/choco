@@ -14,10 +14,12 @@ const schema = new Schema({
   code: { type: String, required: true }
 }, { timestamps: true })
 
-schema.method('transform', () => {
+function transform(): Record<string, unknown> {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { _id, __v, ...obj } = this.toObject()
   return { id: _id, ...obj }
-})
+}
+
+schema.method('transform', transform)
 
 export const Code = model<CodeDocument>('Code', schema)
