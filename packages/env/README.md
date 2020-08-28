@@ -2,44 +2,55 @@
   <br>
   <br>
 
-<a href="https://github.com/jefer94/algorithm">
+  <a href="https://github.com/jefer94/algorithm">
     <img width="400"
       src="https://img.shields.io/badge/choco-env-green.svg?style=for-the-badge&colorA=21252b&colorB=568af2">
   </a>
 
-[![deps][deps]][deps-url]
-[![dev-deps][dev-deps]][dev-deps-url]
-[![chat][chat]][chat-url]
-
-[deps]: https://david-dm.org/jefer94/choco.svg
-[deps-url]: https://david-dm.org/jefer94/choco
-
-[dev-deps]: https://david-dm.org/jefer94/choco/dev-status.svg
-[dev-deps-url]: https://david-dm.org/jefer94/choco
-
-[chat]: https://badges.gitter.im/jefer94/choco.svg
-[chat-url]: https://gitter.im/jefer94/choco
+  [![deps](https://img.shields.io/david/jefer94/choco?path=packages%2Fenv)](https://david-dm.org/jefer94/choco?path=packages/env)
+  [![dev-deps](https://img.shields.io/david/dev/jefer94/choco?path=packages%2Fenv)](https://david-dm.org/jefer94/choco?path=packages/env)
+  [![chat](https://badges.gitter.im/jefer94/choco.svg)](https://gitter.im/jefer94/choco)
+  [![Maintainability](https://api.codeclimate.com/v1/badges/5a4fd7ce7e0345f692fb/maintainability)](https://codeclimate.com/github/jefer94/choco/maintainability)
+  [![Codacy Badge](https://app.codacy.com/project/badge/Grade/ee185db880024f3b81a5699acde77b06)](https://www.codacy.com/manual/jefer94/choco?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=jefer94/choco&amp;utm_campaign=Badge_Grade)
+  [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg?style=flat)](https://www.gnu.org/licenses/gpl-3.0)
+  [![npm version](https://img.shields.io/npm/v/%40chocolab%2Fenv.svg?style=flat)](https://www.npmjs.com/package/@chocolab/env)
+  [![npm size](https://img.shields.io/bundlephobia/min/%40chocolab%2Fenv)](https://www.npmjs.com/package/@chocolab/env)
+  [![npm downloads](https://img.shields.io/npm/dt/@chocolab/env)](https://www.npmjs.com/package/@chocolab/env)
+  [![npm vulnerabilities](https://img.shields.io/snyk/vulnerabilities/npm/@chocolab/env)](https://www.npmjs.com/package/@chocolab/env)
 
   <br>
-  <h1>@chocolab/i18n</h1>
-  <p>
-    Load .env for monorepos.
-  </p>
+  <h1>@chocolab/env</h1>
+  <p>Load .env for monorepos.</p>
 </div>
 
-<h2 align="center">Install</h2>
+## Install
 
 ```bash
 yarn add @chocolab/env
 ```
 
-<h2 align="center">Usage</h2>
+## Usage
 
 ```javascript
-import '@chocolab/env'
+import { resetEnv } from '@chocolab/env'
+
+// Load env
+loadEnv()
+
+// Set 'PATH'
+env('PATH', './')
+
+// Get path
+env('PATH') // return './'
+
+// Get env
+env() // return { PATH: './' }
+
+// Reset env vars
+resetEnv()
 ```
 
-<h2 align="center">Maintainers</h2>
+## Maintainers
 
 <table>
   <tbody>

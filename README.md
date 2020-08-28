@@ -9,29 +9,26 @@
     />
   </a>
 
-[![deps][deps]][deps-url]
-[![dev-deps][dev-deps]][dev-deps-url]
-[![chat][chat]][chat-url]
-
-
-[deps]: https://david-dm.org/jefer94/choco.svg
-[deps-url]: https://david-dm.org/jefer94/choco
-
-[dev-deps]: https://david-dm.org/jefer94/choco/dev-status.svg
-[dev-deps-url]: https://david-dm.org/jefer94/choco
-
-[chat]: https://badges.gitter.im/jefer94/choco.svg
-[chat-url]: https://gitter.im/jefer94/choco
-
+  [![deps](https://david-dm.org/jefer94/choco.svg)](https://david-dm.org/jefer94/choco)
+  [![dev-deps](https://david-dm.org/jefer94/choco/dev-status.svg)](https://david-dm.org/jefer94/choco)
+  [![chat](https://badges.gitter.im/jefer94/choco.svg)](https://gitter.im/jefer94/choco)
+  [![Maintainability](https://api.codeclimate.com/v1/badges/5a4fd7ce7e0345f692fb/maintainability)](https://codeclimate.com/github/jefer94/choco/maintainability)
+  [![Codacy Badge](https://app.codacy.com/project/badge/Grade/ee185db880024f3b81a5699acde77b06)](https://www.codacy.com/manual/jefer94/choco?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=jefer94/choco&amp;utm_campaign=Badge_Grade)
+  [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg?style=flat)](https://www.gnu.org/licenses/gpl-3.0)
+  [![github commits](https://img.shields.io/github/commit-activity/m/jefer94/choco)](https://github.com/jefer94/choco)
+  [![github contributors](https://img.shields.io/github/contributors/jefer94/choco)](https://github.com/jefer94/choco)
+  [![github last commit](https://img.shields.io/github/last-commit/jefer94/choco)](https://github.com/jefer94/choco)
+  [![github vulnerabilities](https://img.shields.io/snyk/vulnerabilities/github/jefer94/choco)](https://github.com/jefer94/choco)
+  <!-- [![security headers](https://img.shields.io/security-headers?url=https%3A%2F%2Fchoco-algorithm.herokuapp.com%2F)](https://choco-algorithm.herokuapp.com/) -->
+  <!-- [![website up](https://img.shields.io/website?url=https%3A%2F%2Fchoco-algorithm.herokuapp.com%2F)](https://choco-algorithm.herokuapp.com/) -->
+  <!-- [![w3c validation](https://img.shields.io/w3c-validation/html?targetUrl=https%3A%2F%2Fchoco-algorithm.herokuapp.com%2F)](https://choco-algorithm.herokuapp.com/) -->
 
   <br>
-  <h1>@chocolab/algorithm</h1>
-  <p>
-    Algorithm runtime emulator, like a IDE.
-  </p>
+  <h1>Choco Algorithm</h1>
+  <p>Services that provide a algorithm runtime emulator, and an IDE.</p>
 </div>
 
-<h2 align="center">Install</h2>
+## Install
 
 ```bash
 # Clone
@@ -42,17 +39,18 @@ cd choco
 yarn
 
 # Compile deps
-yarn build
+yarn build:deps
+yarn build:deps --scope=@chocolab/i18n
+yarn build:deps --scope=@chocolab/algorithm-transpiler
 
-# Compile Algorithm
-cd packages/algorithm
-yarn build
+# Execute service
+yarn execute SERVICE_NAME
 
-# Run
-yarn start
+# Run in docker
+docker-compose up -d
 ```
 
-<h2 align="center">Services</h2>
+## Services
 
 | Name | Description |
 | :--- | :--- |
@@ -74,14 +72,13 @@ yarn start
 [choco-projects]: https://github.com/jefer94/choco/tree/master/services/projects
 [choco-world-cities-seed]: https://github.com/jefer94/choco/tree/master/services/world-cities-seed
 
-
-<h2 align="center">Packages</h2>
+## Packages
 
 | Name | Description |
 | :--- | :--- |
 | [@chocolab/components][choco-components] | React components, common UI. |
 | [@chocolab/algorithm-transpiler][choco-transpiler] | Algorithm to Javascript transpiler. |
-| [@chocolab/configs][configs] | Configuration files |
+| [@chocolab/configs][configs] | Configuration files. |
 | [@chocolab/css-utils][choco-css] | Handle CSS variables. |
 | [@chocolab/env][choco-env] | Load .env for monorepos. |
 | [@chocolab/functional][choco-functional] | Functional utilities. |
@@ -103,7 +100,7 @@ yarn start
 [choco-keychain]: https://github.com/jefer94/choco/tree/master/packages/keychain
 [choco-password]: https://github.com/jefer94/choco/tree/master/packages/password
 
-<h2 align="center">Maintainers</h2>
+## Maintainers
 
 <table>
   <tbody>

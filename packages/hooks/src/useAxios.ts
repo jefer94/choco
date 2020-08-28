@@ -7,8 +7,8 @@ type Methods = 'get' | 'post' | 'put' | 'delete' | 'patch' | 'head'
 type Props<Type> = {
   readonly method: Methods
   readonly url: string
-  readonly object: Type
-  readonly headers: Dictionary
+  readonly object?: Type
+  readonly headers?: Dictionary
   readonly wait: boolean
 }
 

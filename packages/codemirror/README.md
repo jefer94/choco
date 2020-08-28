@@ -2,13 +2,13 @@
   <br>
   <br>
 
-  <a href="https://github.com/jefer94/algorithm">
+<a href="https://github.com/jefer94/algorithm">
     <img width="400"
       src="https://img.shields.io/badge/choco-keychain-green.svg?style=for-the-badge&colorA=21252b&colorB=568af2">
   </a>
 
-  [![deps](https://img.shields.io/david/jefer94/choco?path=packages%2Fkeychain)](https://david-dm.org/jefer94/choco?path=packages/keychain)
-  [![dev-deps](https://img.shields.io/david/dev/jefer94/choco?path=packages%2Fkeychain)](https://david-dm.org/jefer94/choco?path=packages/keychain)
+  [![deps](https://david-dm.org/jefer94/choco.svg)](https://david-dm.org/jefer94/choco)
+  [![dev-deps](https://david-dm.org/jefer94/choco/dev-status.svg)](https://david-dm.org/jefer94/choco)
   [![chat](https://badges.gitter.im/jefer94/choco.svg)](https://gitter.im/jefer94/choco)
   [![Maintainability](https://api.codeclimate.com/v1/badges/5a4fd7ce7e0345f692fb/maintainability)](https://codeclimate.com/github/jefer94/choco/maintainability)
   [![Codacy Badge](https://app.codacy.com/project/badge/Grade/ee185db880024f3b81a5699acde77b06)](https://www.codacy.com/manual/jefer94/choco?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=jefer94/choco&amp;utm_campaign=Badge_Grade)
@@ -20,29 +20,33 @@
 
   <br>
   <h1>@chocolab/keychain</h1>
-  <p>Unique key generator for React, prevent unnecessary renders.</p>
+  <p>
+    Unique key generator for React, prevent unnecessary renders.
+  </p>
 </div>
 
-## Install
+<h2 align="center">Install</h2>
 
 ```bash
 yarn add @chocolab/keychain
 ```
 
-## Usage
+<h2 align="center">Usage</h2>
 
 ```javascript
 import keychain from '@chocolab/keychain'
 
-keychain('products') // return 'products_0'
-keychain('products') // return 'products_1'
-keychain('products') // return 'products_2'
+keychain('products') // returns 'products_0'
+keychain('products') // returns 'products_1'
+keychain('products') // returns 'products_2'
+// ...
 
-keychain('cows') // return 'cows_0'
-keychain('cows') // return 'cows_1'
+keychain('cows') // returns 'cows_0'
+keychain('cows') // returns 'cows_1'
+// ...
 ```
 
-## Maintainers
+<h2 align="center">Maintainers</h2>
 
 <table>
   <tbody>

@@ -5,7 +5,7 @@
   <a href="https://github.com/jefer94/choco">
     <img
       width="400"
-      src="https://img.shields.io/badge/choco-algorithm-green.svg?style=for-the-badge&colorA=21252b&colorB=568af2"
+      src="https://img.shields.io/badge/choco-cache-green.svg?style=for-the-badge&colorA=21252b&colorB=568af2"
     />
   </a>
 
@@ -25,18 +25,18 @@
 
 
   <br>
-  <h1>Choco Algorithm</h1>
-  <p>Algorithm IDE, frontend.</p>
+  <h1>Choco cache</h1>
+  <p>Manage in memory cache.</p>
 </div>
 
 ## Run
 
 ```bash
 # Execute service
-yarn execute algorithm
+yarn execute cache
 
 # Run in docker
-docker-compose up -d algorithm
+docker-compose up -d cache
 ```
 
 ## Maintainers

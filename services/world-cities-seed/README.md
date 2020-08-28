@@ -5,7 +5,7 @@
   <a href="https://github.com/jefer94/choco">
     <img
       width="400"
-      src="https://img.shields.io/badge/choco-algorithm-green.svg?style=for-the-badge&colorA=21252b&colorB=568af2"
+      src="https://img.shields.io/badge/choco-seed-green.svg?style=for-the-badge&colorA=21252b&colorB=568af2"
     />
   </a>
 
@@ -25,18 +25,15 @@
 
 
   <br>
-  <h1>Choco Algorithm</h1>
-  <p>Algorithm IDE, frontend.</p>
+  <h1>Choco world cities seed</h1>
+  <p>Countries, cities and language database seed.</p>
 </div>
 
 ## Run
 
 ```bash
-# Execute service
-yarn execute algorithm
-
 # Run in docker
-docker-compose up -d algorithm
+docker-compose up -d world-cities-seed
 ```
 
 ## Maintainers

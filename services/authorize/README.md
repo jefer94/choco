@@ -1,30 +1,54 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/zeit/next.js/tree/canary/packages/create-next-app).
+<div align="center">
+  <br>
+  <br>
 
-## Getting Started
+  <a href="https://github.com/jefer94/choco">
+    <img
+      width="400"
+      src="https://img.shields.io/badge/choco-authorize-green.svg?style=for-the-badge&colorA=21252b&colorB=568af2"
+    />
+  </a>
 
-First, run the development server:
+[![deps][deps]][deps-url]
+[![dev-deps][dev-deps]][dev-deps-url]
+[![chat][chat]][chat-url]
+
+
+[deps]: https://david-dm.org/jefer94/choco.svg
+[deps-url]: https://david-dm.org/jefer94/choco
+
+[dev-deps]: https://david-dm.org/jefer94/choco/dev-status.svg
+[dev-deps-url]: https://david-dm.org/jefer94/choco
+
+[chat]: https://badges.gitter.im/jefer94/choco.svg
+[chat-url]: https://gitter.im/jefer94/choco
+
+
+  <br>
+  <h1>Choco authorize</h1>
+  <p>Legacy authorization manager.</p>
+</div>
+
+## Run
 
 ```bash
-npm run dev
-# or
-yarn dev
+# Execute service
+yarn execute authorize
+
+# Run in docker
+docker-compose up -d authorize
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Maintainers
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/zeit/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on ZEIT Now
-
-The easiest way to deploy your Next.js app is to use the [ZEIT Now Platform](https://zeit.co/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="top">
+        <img width="150" height="150" src="https://github.com/jefer94.png?s=150">
+        <br>
+        <a href="https://github.com/jefer94">jefer94</a>
+      </td>
+     </tr>
+  </tbody>
+</table>
