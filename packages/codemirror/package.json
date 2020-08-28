@@ -1,0 +1,19 @@
+{
+  "name": "@chocolab/codemirror",
+  "version": "1.0.2-alpha.0",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "author": "Jeferson De Freitas",
+  "license": "MIT",
+  "files": [
+    "/dist",
+    "/src"
+  ],
+  "scripts": {
+    "prepare": "tsc --build ./tsconfig.json"
+  },
+  "dependencies": {
+    "@codemirror/next": "^0.10.0"
+  }
+}

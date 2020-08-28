@@ -1,22 +1,53 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const util = require('util')
 const fs = require('fs')
-const process = require('process');
+const process = require('process')
+const path = require('path')
 
-const lockfile = 'prepare.lock'
-const rootDir = process.cwd()
-const libsDir = `${rootDir}/libs`
-const codemirrorDir = `${libsDir}/codemirror`
+// const lockfile = 'prepare.lock'
+const rootDir = path.resolve(process.cwd(), '../..')
+const libsDir = path.resolve(rootDir, 'libs')
+const codemirrorDir = path.resolve(libsDir, 'codemirror')
+// const rootPackageJson = path.resolve(rootDir, 'package.json')
+const rootTsconfigJson = path.resolve(rootDir, 'tsconfig.json')
+// const algorithmPackageJson = path.resolve(rootDir, 'services', 'algorithm', 'package.json')
+// const algorithmTsconfigJson = path.resolve(rootDir, 'services', 'algorithm', 'tsconfig.json')
+const codemirrorPackageJson = path.resolve(rootDir, 'libs', 'codemirror', 'package.json')
+const codemirrorTsconfigJson = path.resolve(rootDir, 'libs', 'codemirror', 'tsconfig.json')
+
+const packagePackageJson = (package) =>
+  path.resolve(rootDir, 'libs', 'codemirror', package, 'package.json')
+
+const packageTsconfigJson = (package) =>
+  path.resolve(rootDir, 'libs', 'codemirror', package, 'tsconfig.json')
+
+const packageTsconfigString = `{
+  "extends": "../../../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "lib": ["DOM"]
+  },
+  "include": [
+    "src/index.ts"
+  ],
+  "exclude": [
+    "**/*.test.ts",
+    "**/*.test.tsx"
+  ]
+}`
+
 const exec = util.promisify(require('child_process').exec)
-const unlink = util.promisify(fs.unlink)
+
+// const unlink = util.promisify(fs.unlink)
 const writeFile = util.promisify(fs.writeFile)
 const copyFile = util.promisify(fs.copyFile)
 // const spawn = util.promisify(require('child_process').spawn);
 // const { spawn, exec } = require('child_process')
 // var isWin = require('os').platform().indexOf('ruby') > -1;
 
-function lockFileError() {
-  console.log('E: Could not get lock prepare hook')
-}
+// function lockFileError() {
+//   console.log('E: Could not get lock prepare hook')
+// }
 
 async function existCommand(command) {
   const { stderr } = await exec(`${command} --help`)
@@ -42,63 +73,67 @@ async function cloneCodemirror() {
   await codemirror
 
   const tags = await exec('git describe --tags')
-  console.log(`tag ${tags.stdout}`)
-  await exec(`git checkout ${tags.stdout}`)
+  const [tag] = tags.stdout.split('-')
+  console.log(`tag ${tag}`)
+  await exec(`git checkout ${tag}`)
 
-  const tsconfigBaseJson = fs.readFileSync(`${codemirrorDir}/tsconfig.base.json`)
-  const f1 = writeFile(`${codemirrorDir}/tsconfig.base.json`, tsconfigBaseJson
-    .toString()
-    .replace(/ "es6"/g, ' "es5"')
-    .replace(/"compilerOptions": \{\n/g, '"compilerOptions": {\n    "module": "commonjs",\n'))
+  const rootTsconfigBuffer = fs.readFileSync(rootTsconfigJson)
+  fs.writeFileSync(codemirrorTsconfigJson, rootTsconfigBuffer)
 
-  const packageJson = fs.readFileSync(`${codemirrorDir}/package.json`)
-  const f2 = writeFile(`${codemirrorDir}/package.json`, packageJson
+  const codemirrorPackageBuffer = fs.readFileSync(codemirrorPackageJson)
+  fs.writeFileSync(codemirrorPackageJson, codemirrorPackageBuffer
     .toString()
     .replace('    "@codemirror/next": ".",\n', '')
-    .replace('  "type": "module",\n', '  "type": "commonjs",\n'))
-
-  await f1
-  await f2
+    .replace('  "type": "module",\n', '')
+    .replace('    "prepare": "bin/cm.js build",\n', ''))
 
   await exec('yarn')
-  await exec('yarn prepare')
-
-  const tsconfigJson = fs.readFileSync(`${codemirrorDir}/tsconfig.json`)
-  await writeFile(`${codemirrorDir}/tsconfig.json`, tsconfigJson
-    .toString()
-    .replace('"compilerOptions": {\n', '"compilerOptions": {\n    "outDir": "./dist",\n'))
+  // await exec('yarn prepare')
 
   const directories = getDirectories(process.cwd())
 
   const baseDir = process.cwd()
+
   await Promise.all(directories.map(async (folder) => {
     const dir = `${baseDir}/${folder}`
     if (fs.existsSync(dir) && fs.existsSync(`${dir}/src`) && fs.existsSync(`${dir}/package.json`)) {
       process.chdir(dir)
 
-      const packageJson = fs.readFileSync(`${dir}/package.json`)
-      const f1 = writeFile(`${dir}/package.json`, packageJson
+      const packageBuffer = fs.readFileSync(packagePackageJson(folder))
+      const f1 = writeFile(packagePackageJson(folder), packageBuffer
         .toString()
-        .replace(' "module"', ' "commonjs"'))
+        .replace(',\n  "type": "module"\n', ''))
 
-      await copyFile(`${codemirrorDir}/tsconfig.json`, `${dir}/tsconfig.json`)
+      await copyFile(codemirrorTsconfigJson, packageTsconfigJson(folder))
 
-      const tsconfigJson = fs.readFileSync(`${dir}/tsconfig.json`)
-      const f2 = writeFile(`${dir}/tsconfig.json`, tsconfigJson
-        .toString()
-        .replace('"*/', '"')
-        .replace(', "test/*.ts"', '')
-        .replace(', "demo/demo.ts"', ''))
-
-      const f3 = copyFile(`${codemirrorDir}/tsconfig.base.json`, `${dir}/tsconfig.base.json`)
+      const f2 = writeFile(packageTsconfigJson(folder), packageTsconfigString)
 
       await f1
       await f2
-      await f3
 
-      const package = exec(`tsc --build ${dir}/tsconfig.json`)
-      process.chdir(codemirrorDir)
-      return package
+      const files = getFiles(`${baseDir}/${folder}/src`)
+
+      if (files.indexOf('index.ts') < 0) {
+        const indexTsString = files.reduce((acc, value) => {
+          if (/\.ts/.test(value)) {
+            const name = value.replace(/^(.+)\.ts$/, '$1')
+            return `${acc}export * from './${name}'\n`
+          }
+          return acc
+        }, '')
+        await writeFile(`${baseDir}/${folder}/src/index.ts`, indexTsString)
+      }
+      try {
+        const out = exec(`tsc --build ${packageTsconfigJson(folder)}`)
+        process.chdir(codemirrorDir)
+        await out
+        // console.log(await out)
+        return out
+      }
+      catch(e) {
+        console.error(folder, e)
+        return ''
+      }
     }
     process.chdir(baseDir)
     return Promise.resolve()
@@ -108,6 +143,11 @@ async function cloneCodemirror() {
 const getDirectories = (source) =>
   fs.readdirSync(source, { withFileTypes: true })
     .filter((dirent) => dirent.isDirectory())
+    .map((dirent) => dirent.name)
+
+const getFiles = (source) =>
+  fs.readdirSync(source, { withFileTypes: true })
+    .filter((dirent) => dirent.isFile())
     .map((dirent) => dirent.name)
 
 async function main() {
@@ -123,13 +163,13 @@ async function main() {
     await typescript
     await codemirror
 
-    console.log('packages')
-    process.chdir(rootDir)
-    const packages = ['configs', 'functional', 'env', 'i18n', 'keychain', 'algorithm-transpiler', 'components']
-    // Promise.all(packages.map((package) => exec('yarn build configs')))
-    for (let package of packages) {
-      await exec(`yarn build ${package}`)
-    }
+    // console.log('packages')
+    // process.chdir(rootDir)
+    // const packages = ['configs', 'functional', 'env', 'i18n', 'keychain', 'algorithm-transpiler', 'components']
+    // // Promise.all(packages.map((package) => exec('yarn build configs')))
+    // for (let package of packages) {
+    //   await exec(`yarn build ${package}`)
+    // }
     // await exec('yarn build configs')
     // await exec('yarn build functional')
     // await exec('yarn build env')
@@ -138,7 +178,7 @@ async function main() {
     // await exec('yarn build algorithm-transpiler')
     // await exec('yarn build components')
 
-    console.log('fetch depedencies')
+    // console.log('fetch depedencies')
     // exec('yarn')
   }
   catch(e) { console.error(e) }

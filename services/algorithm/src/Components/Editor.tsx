@@ -7,12 +7,10 @@ import { CodemirrorWrapper } from './CodemirrorWrapper'
 // import { ControlledEditor } from '@monaco-editor/react'
 // import register from '../libs/algorithm/monaco'
 
-/** @module components/Editor */
-
 /**
  * Get height less navbar.
  *
- * @returns {number} Height less navbar.
+ * @returns Height less navbar.
  */
 function windowHeight(): number {
   // return +window.innerHeight - 71
@@ -22,17 +20,11 @@ function windowHeight(): number {
 /**
  * Get width less navbar.
  *
- * @returns {number} Width less navbar.
+ * @returns Width less navbar.
  */
 function windowWidth(): number {
   return +window.innerWidth
 }
-
-/**
- * @typedef {object} EditorProps
- * @property {string} content - Value of editor.
- * @property {callback} onChange - On change send current content.
- */
 
 type Props = {
   readonly content: string
@@ -43,8 +35,9 @@ type Props = {
 /**
  * Edidor wrapper.
  *
- * @param {EditorProps} props - Editor props.
+ * @param props - Editor props.
  * @example
+ * ```
  * // returns <Editor ... />
  * import React from 'react'
  * import Editor from '/components/Editor'
@@ -52,7 +45,8 @@ type Props = {
  * export default function () {
  *   return <Editor content="Content" onChange={value => console.log(value) } />
  * }
- * @returns {object} <Editor ... />.
+ * ```
+ * @returns Editor component.
  */
 export function Editor({ content, onChange, theme }: Props): ReactElement {
   const [height, setHeight] = useState(windowHeight())

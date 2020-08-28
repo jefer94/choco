@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@chocolab/algorithm-transpiler": "^1.0.2-alpha.0",
+    "@chocolab/codemirror": "^1.0.2-alpha.0",
     "@chocolab/components": "^1.0.2-alpha.0",
     "@chocolab/i18n": "^1.0.2-alpha.0",
     "@chocolab/keychain": "^1.0.2-alpha.0",
@@ -30,8 +31,7 @@
     "react-dom": "16.13.1",
     "react-spinners": "^0.9.0",
     "styled-components": "^5.1.1",
-    "styled-system": "^5.1.5",
-    "yarn": "^1.22.4"
+    "styled-system": "^5.1.5"
   },
   "devDependencies": {
     "@svgr/webpack": "^5.4.0",
