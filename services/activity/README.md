@@ -9,7 +9,6 @@
     />
   </a>
 
-
   [![deps](https://david-dm.org/jefer94/choco.svg)](https://david-dm.org/jefer94/choco)
   [![dev-deps](https://david-dm.org/jefer94/choco/dev-status.svg)](https://david-dm.org/jefer94/choco)
   [![chat](https://badges.gitter.im/jefer94/choco.svg)](https://gitter.im/jefer94/choco)
@@ -19,8 +18,6 @@
   [![docker pulls](https://img.shields.io/docker/pulls/chocolab/activity)](https://hub.docker.com/repository/docker/chocolab/activity)
   [![docker starts](https://img.shields.io/docker/stars/chocolab/activity)](https://hub.docker.com/repository/docker/chocolab/activity)
   [![docker version](https://img.shields.io/docker/v/chocolab/activity)](https://hub.docker.com/repository/docker/chocolab/activity)
-
-
 
   <br>
   <h1>Choco Activity</h1>
