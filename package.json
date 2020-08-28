@@ -13,6 +13,7 @@
     "test:file": "./scripts/testing/test-file.sh",
     "seed:countries": "./scripts/seeds/generate-countries.sh",
     "build": "./scripts/development/build.sh",
+    "build:deps": "lerna run --no-bail --include-dependencies prepare",
     "test:nginx": "./scripts/testing/test-nginx.sh",
     "update": "./scripts/yarn/update.sh",
     "execute": "./scripts/development/execute.sh",

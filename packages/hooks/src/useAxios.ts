@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Dictionary } from '@chocolab/types'
-import axios from 'axios'
+import axios, { AxiosResponse } from 'axios'
 // axios.he
 type Methods = 'get' | 'post' | 'put' | 'delete' | 'patch' | 'head'
 
@@ -34,7 +34,7 @@ type useAxios<Response, Error> = {
  *   return <></>
  * }
  * ```
- * @returns {UseAxios} Use axios object.
+ * @returns Use axios object.
  */
 export function useAxios<Type, Response, Error>(
   { method = 'get', url, object, headers, wait }: Props<Type>
@@ -46,10 +46,13 @@ export function useAxios<Type, Response, Error>(
     /** Execute axios request. */
     async function execute(): Promise<void> {
       try {
-        const m = method.toLowerCase()
-        const response = m === 'post' || m === 'put' ?
-          axios[method](url, object, { headers }) :
-          axios[method](url, { headers })
+        let response: Promise<AxiosResponse<any>>
+        if (method === 'get') response = axios.get(url, { headers })
+        else if (method === 'post') response = axios.post(url, object, { headers })
+        else if (method === 'put') response = axios.put(url, object, { headers })
+        else if (method === 'patch') response = axios.patch(url, object, { headers })
+        else if (method === 'delete') response = axios.delete(url, { headers })
+        else if (method === 'head') response = axios.head(url, { headers })
 
         const { data } = await response
         setData(data)
