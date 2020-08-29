@@ -131,7 +131,7 @@ async function cloneCodemirror() {
         return out
       }
       catch(e) {
-        console.error(folder, e)
+        console.error(folder, 'asdasdsasdaasddsads', e)
         return ''
       }
     }

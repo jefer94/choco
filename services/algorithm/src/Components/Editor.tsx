@@ -1,11 +1,11 @@
-import React, { useState, ReactElement } from 'react'
-// import React, { useState, memo, useEffect } from 'react'
+import React, { useState, ReactElement, useEffect } from 'react'
 import { Dictionary } from '@chocolab/types'
-import { CodemirrorWrapper } from './CodemirrorWrapper'
+import { ControlledEditor } from '@monaco-editor/react'
+// import { CodemirrorWrapper } from './CodemirrorWrapper'
 // import { editor as monaco } from 'monaco-editor/esm/vs/editor/editor.main'
 // export { ControlledEditor } from '@monaco-editor/react'
-// import { ControlledEditor } from '@monaco-editor/react'
 // import register from '../libs/algorithm/monaco'
+import { monaco as register } from '@chocolab/algorithm-transpiler'
 
 /**
  * Get height less navbar.
@@ -52,7 +52,7 @@ export function Editor({ content, onChange, theme }: Props): ReactElement {
   const [height, setHeight] = useState(windowHeight())
   const [width, setWidth] = useState(windowWidth())
 
-  // useEffect(register, [])
+  useEffect(register, [])
 
   const loop = setInterval(() => {
     const currentHeight = windowHeight()
@@ -73,7 +73,7 @@ export function Editor({ content, onChange, theme }: Props): ReactElement {
 
   return (
     <main id="content1" className="tab show-content">
-      {/* <ControlledEditor
+      <ControlledEditor
         value={content}
         width={width}
         height={height}
@@ -84,8 +84,8 @@ export function Editor({ content, onChange, theme }: Props): ReactElement {
           fontSize: '14px',
           autoIndent: 'full'
         }}
-      /> */}
-      <CodemirrorWrapper height="calc(100vh - 48px)" theme={theme} content={content} />
+      />
+      {/* <CodemirrorWrapper height="calc(100vh - 48px)" theme={theme} content={content} /> */}
     </main>
   )
 }

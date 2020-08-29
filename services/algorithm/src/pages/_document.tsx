@@ -19,6 +19,7 @@ export default class MyDocument extends Document {
           <link rel="preconnect" href="https://cdn.jsdelivr.net" />
           <link rel="manifest" href="/manifest.json" />
 
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.20.0/min/vs/editor/editor.main.js" integrity="sha512-vD1ifhYyIEQYZJguKoErn/aCjrmj73YSeKXO59JLt8RFrw95Hpx2hgcEvvj5VuSnR3oRBd2YZLUw0HreEx1uHw==" crossOrigin="anonymous" />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <meta name="theme-color" content="#000000" />
           <meta

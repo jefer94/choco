@@ -15,21 +15,11 @@ const write = locale.one<LangWrite>('write')
 const read = locale.one<LangRead>('read')
 const type = locale.one<LangType>('type')
 
-
-/** @module libs/algorithm/Monaco */
-
-/**
- * Name of new language for Monaco.
- *
- * @constant {string}
- * @default
- */
+/** Name of new language for Monaco. */
 const id = 'algorithm'
 
-/**
- * Register a new language for Monaco
- */
-export default function () {
+/** Register a new language for Monaco. */
+export function monaco(): void {
   languages.register({ id })
   // console.log({ tokenizer: lang.language.tokenizer })
   // languages.setMonarchTokensProvider(id, { tokenizer: lang.language.tokenizer })

@@ -3,10 +3,10 @@
 cd ./services
 
 if [ $1 ]; then
-  cd $1
+  cd "$1"
   if test -f ./rollup.config.js; then
-    node ./dist/$1.cjs.js ||
-    node ./dist/$1.esm.js
+    node "./dist/$1.cjs.js" ||
+    node "./dist/$1.esm.js"
   elif test -f ./dist/index.js; then
     node ./dist/index.js
   elif test -f ./next.config.js; then
