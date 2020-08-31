@@ -1,6 +1,16 @@
 import React, { useState, ReactElement, useEffect } from 'react'
-import EditorContainer from '@chocolab/editor'
-import { chocolabTokens } from '@chocolab/algorithm-transpiler'
+import { Dictionary } from '@chocolab/types'
+import { ControlledEditor } from '@monaco-editor/react'
+// import { CodemirrorWrapper } from './CodemirrorWrapper'
+// import { editor as monaco } from 'monaco-editor/esm/vs/editor/editor.main'
+// export { ControlledEditor } from '@monaco-editor/react'
+// import register from '../libs/algorithm/monaco'
+// import { monaco as register } from '@chocolab/algorithm-transpiler'
+
+// const ControlledEditor = lazy(async () => {
+//   const { MonacoWrapper } = await import('@chocolab/components')
+//   return MonacoWrapper
+// })
 
 /**
  * Get height less navbar.
@@ -24,11 +34,11 @@ function windowWidth(): number {
 type Props = {
   readonly content: string
   readonly onChange: () => void
-  readonly theme: Record<string, unknown>
+  readonly theme: Dictionary
 }
 
 /**
- * Editor wrapper.
+ * Edidor wrapper.
  *
  * @param props - Editor props.
  * @example
@@ -68,7 +78,19 @@ export function Editor({ content, onChange, theme }: Props): ReactElement {
 
   return (
     <main id="content1" className="tab show-content">
-      <EditorContainer content={content} lang={chocolabTokens()} />
+      <ControlledEditor
+        value={content}
+        width={width}
+        height={height}
+        language="algorithm"
+        theme="dark"
+        onChange={(x, v) => onChange(v)}
+        options={{
+          fontSize: '14px',
+          autoIndent: 'full'
+        }}
+      />
+      {/* <CodemirrorWrapper height="calc(100vh - 48px)" theme={theme} content={content} /> */}
     </main>
   )
 }

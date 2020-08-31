@@ -6,7 +6,7 @@ if [ $1 ]; then
   mkdir $1
   cd $1
   shift
-  yarn init $@
+  npm init --scope=@chocolab $@
   cd ..
 fi
 
