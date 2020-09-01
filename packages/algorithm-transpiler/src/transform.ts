@@ -217,16 +217,10 @@ export function stripCode(codeArg: string): readonly string[] {
   const begin = locale.one<string>('begin')
   const end = locale.one<string>('end')
 
-  const [code] = codeArg.match(RegExp(`${begin}[\\s\\S]*?${end}$`, 'gm'))
+  const code = codeArg.replace(RegExp(`^[\\s\\S]*?${begin}([\\s\\S]*?)${end}$`, 'gm'), (_, v) => v)
   const lines = code.split('\n')
 
-  if (lines[lines.length - 1].search(end) !== -1) lines.pop()
-  lines.reverse()
-
-  if (lines[lines.length - 1].search(begin) !== -1) lines.pop()
-  lines.reverse()
-
-  return lines
+  return lines.splice(1, lines.length - 2)
 }
 
 /**
