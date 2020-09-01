@@ -34,8 +34,7 @@ export default function transform(code: string): string {
     // each word is separated into a array
     const word = line[i].split(' ')
 
-    js += parser(word, js)
-
+    js = parser(word, js)
     word.reverse()
     // then in spaceInStart assign the last element in the stack
     let spaceInStart = word.pop()
@@ -52,7 +51,7 @@ export default function transform(code: string): string {
 
     const lastLine = js.split('\n')[js.split('\n').length - 1]
     if (lastLine.search('{') !== -1 || lastLine.search('}') !== -1) js += '\n'
-    else js += parseIO(word, js)
+    else js = parseIO(word, js)
   })
   return js
 }

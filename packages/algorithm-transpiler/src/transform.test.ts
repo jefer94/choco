@@ -110,5 +110,15 @@ test('transform', () => {
     '  finmientras',
     'fin'
   ].join('\n')
-  expect(transform(code)).toBe('')
+  expect(transform(code)).toBe([
+    ' i = 0 ;',
+    ' eval(write( "Ingrese numero a multiplicar: " ));',
+    ' eval(read(" numero "));',
+    ' while (i < 10) { ',
+    ' i = i + 1 ;',
+    'tabla.io(i).add("numero") ;',
+    ' eval(write( numero, " * ", i, " = ", numero * i ));',
+    ' }',
+    ''
+  ].join('\n'))
 })
