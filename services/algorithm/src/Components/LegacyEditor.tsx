@@ -33,7 +33,7 @@ function windowWidth(): number {
 
 type Props = {
   readonly content: string
-  readonly onChange: () => void
+  readonly onChange: (v: string) => void
   readonly theme: Dictionary
 }
 
@@ -86,7 +86,7 @@ export function Editor({ content, onChange, theme }: Props): ReactElement {
         theme="dark"
         onChange={(x, v) => onChange(v)}
         options={{
-          fontSize: '14px',
+          fontSize: 14, // '14px'
           autoIndent: 'full'
         }}
       />

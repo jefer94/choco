@@ -3,7 +3,7 @@ import Head from 'next/head'
 // import _ from 'lodash'
 import { setLang } from '@chocolab/i18n'
 import keychain from '@chocolab/keychain'
-import { setDispatch, setTabs, toJS, Vector as vector, io, write as writeInConsole, read as readInConsole } from '@chocolab/algorithm-transpiler'
+import { WriteInput, setDispatch, setTabs, toJS, Vector as vector, io, write as writeInConsole, read as readInConsole } from '@chocolab/algorithm-transpiler'
 import { Console as ConsoleComponent } from '@chocolab/components'
 import { addVarAction, resetVarAction } from '../actions'
 // import store from '../reducers'
@@ -19,7 +19,7 @@ let cache = []
 export default function Console(): ReactElement {
   const { theme } = useContext(ThemeContext)
   const [runtimeObj, setRuntimeObj] = useState(null)
-  const [variables, dispatch] = useReducer(varsReducer, [])
+  const [variables, dispatch] = useReducer(varsReducer, {})
   const { tabs } = useTabs()
   // const lines = []
   const [lines, setLines] = useState([])
@@ -34,7 +34,7 @@ export default function Console(): ReactElement {
 
   // eslint-disable-next-line no-unused-vars
   function write(...args: readonly WriteInput[]): string {
-    cache.push(writeInConsole(args))
+    cache.push(writeInConsole(...args))
     setLines([...cache])
     // return content
     return ''

@@ -1,6 +1,8 @@
+import { JavascriptType } from '@chocolab/algorithm-transpiler'
+
 export type AddVarAction = {
   readonly type: 'VAR_ADD'
-  readonly text: string
+  readonly text: JavascriptType
   readonly key: string
 }
 
@@ -15,7 +17,7 @@ export type AddVarAction = {
  * ```
  * @returns Action.
  */
-export const addVarAction = (text: string, key: string): AddVarAction => ({
+export const addVarAction = (text: JavascriptType, key: string): AddVarAction => ({
   type: 'VAR_ADD',
   text,
   key

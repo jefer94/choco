@@ -2,6 +2,7 @@ import files from './files'
 import vars from './variables'
 import diffAlg from './diff'
 import transform from './transform'
+import { JavascriptType } from './lang/common'
 
 // function joinCodes(tabs) {
 //   return tabs
@@ -10,8 +11,8 @@ import transform from './transform'
 //     .join()
 // }
 
-type Tab = {
-  readonly id: number
+export type Tab = {
+  readonly id: string
   readonly name: string
   readonly content: string
   readonly active: boolean
@@ -21,7 +22,7 @@ let tabs: readonly Tab[]
 let store: VariableStore
 
 export type VariableStore = {
-  readonly varAdd: (value: string, name: string) => void
+  readonly varAdd: (value: JavascriptType, name: string) => void
   readonly varReset: () => void
 }
 

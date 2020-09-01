@@ -19,7 +19,7 @@ const SimpleTabButton = styled(TabButton)`
 `
 
 const Nav = styled.nav`
-  width: ${(v: StyledMenu) => (v.menuIsOpen ? 'calc(100vw - 63px)' : '100vw')};
+  width: calc(100vw - 63px);
   background-color: ${theme.gray1};
   display: table;
 `
@@ -79,7 +79,6 @@ type Props = {
   readonly change?: () => void
   readonly remove?: () => void
   readonly theme?: Record<string, string>
-  readonly menuIsOpen?: boolean
 }
 
 /**
@@ -98,10 +97,10 @@ type Props = {
  * ```
  * @returns Tabs component.
  */
-export function Tabs({ tabs, add, change, remove, theme = {}, menuIsOpen }: Props):
+export function Tabs({ tabs, add, change, remove, theme = {} }: Props):
   ReactElement {
   return (
-    <Nav theme={theme} menuIsOpen={menuIsOpen}>
+    <Nav theme={theme}>
       <Ul theme={theme}>
         {tabs.map((tab) => (
           <Tab

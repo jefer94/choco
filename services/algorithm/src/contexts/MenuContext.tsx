@@ -2,12 +2,10 @@ import React, { useEffect, useState, createContext, ReactElement, ReactNode } fr
 
 const key = '__ALGORITHM_MENU__'
 
-export const MenuContext = createContext({})
-
-/**
- * @typedef {object} MenuContextProviderProps
- * @property {object} children - Menu context provider children.
- */
+export const MenuContext = createContext({
+  isOpen: false,
+  setIsOpen: (isOpen: boolean) => { console.log('set is open', isOpen) }
+})
 
 type MenuContextProviderProps = {
   readonly children: ReactNode
@@ -16,16 +14,20 @@ type MenuContextProviderProps = {
 /**
  * Menu context provider.
  *
- * @param {MenuContextProviderProps} Props - Props.
- * @returns {object} Menu context provider.
+ * @param Props - Props.
+ * @returns Menu context provider.
  */
 export function MenuContextProvider({ children }: MenuContextProviderProps): ReactElement {
-  const [isOpen, setIsOpen] = useState<boolean>(!!localStorage.getItem(key) || false)
+  const [isOpen, localSetIsOpen] = useState<boolean>(!!localStorage.getItem(key) || false)
 
   useEffect(() => {
     const value = JSON.stringify(isOpen)
     localStorage.setItem(key, value)
   }, [isOpen])
+
+  function setIsOpen(isOpen: boolean): void {
+    localSetIsOpen(isOpen)
+  }
 
   return (
     <MenuContext.Provider value={{ isOpen, setIsOpen }}>

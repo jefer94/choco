@@ -23,7 +23,7 @@ function windowWidth(): number {
 
 type Props = {
   readonly content: string
-  readonly onChange: () => void
+  readonly onChange: (content: string) => void
   readonly theme: Record<string, unknown>
 }
 

@@ -1,19 +1,20 @@
-/** @module reducers/variables */
-
-import { ResetVarAction, AddVarAction } from "../actions"
+import { JavascriptType } from '@chocolab/algorithm-transpiler'
+import { ResetVarAction, AddVarAction } from '../actions'
 
 /**
  * Functional store that mutate state of variables.
  *
- * @param {object.<string, string>} state - Data store in reducer.
- * @param {object} action - Action dispathed.
+ * @param state - Data store in reducer.
+ * @param action - Action dispathed.
  * @example
+ * ```
  * reducer({}, { type: 'VAR_ADD', key: 'senna', text: 'string' }) // return { senna: 'string' }
  * reducer({ senna: 'string' }, { type: 'VAR_RESET' }) // return {}
- * @returns {object.<string, string>} - Data store in reducer.
+ * ```
+ * @returns Data store in reducer.
  */
-export default function reducer(state: Record<string, string> = {},
-  action: AddVarAction | ResetVarAction): Record<string, string> {
+export default function reducer(state: Record<string, JavascriptType> = {},
+  action: AddVarAction | ResetVarAction): Record<string, JavascriptType> {
   switch (action.type) {
     case 'VAR_ADD':
       return ({ ...state, ...{ [action.key]: action.text } })

@@ -32,16 +32,13 @@ export type IoLine = {
   readonly var?: string
 }
 
-type ReadResponse = {
+export type ReadResponse = {
   readonly assign: string
   readonly lastLine: IoLine
 }
 
-export type IoVariables = {
-  readonly [key: string]: JavascriptType
-}
-
-export function read(toRead: string, variables: IoVariables, lastLine?: IoLine): ReadResponse {
+export function read(toRead: string, variables: Record<string, JavascriptType>, lastLine?: IoLine):
+  ReadResponse {
   let toReadCopy = spaces(toRead)
 
   // flags
@@ -108,7 +105,7 @@ function fixInputToBoolean(type: string, input: string): string {
   return input
 }
 
-type WriteInput = string | number | VectorIO<string> | VectorIO<number> | VectorIO<boolean>
+export type WriteInput = string | number | VectorIO<string> | VectorIO<number> | VectorIO<boolean>
 
 /**
  * Print an array of elements.

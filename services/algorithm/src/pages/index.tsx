@@ -49,10 +49,10 @@ export default function Index(): ReactElement {
   // const { tabs } = useTabs()
   // const [id, setId] = useState(0)
   const [id, setId] = useState(getActiveId(tabs))
-  const [content, setContent] = useState(getActiveContent(tabs))
+  const [content, setContent] = useState<string>(getActiveContent(tabs))
   useEffect(() => () => {
     const tab = tabs.filter((v) => v.active)[0]
-    if (tab && tab.name) saveTab(tab.name)
+    if (tab && tab.name) saveTab(tab.name, content)
   })
 
   useEffect(() => {
@@ -64,26 +64,26 @@ export default function Index(): ReactElement {
     }
   }, [content, tabs])
 
-
   return (
     <>
       <Head>
         <title>Algorithm</title>
       </Head>
       <MenuContainer>
-        <FloatingButton
+        {/* <FloatingButton
           horizontal="right"
           vertical="bottom"
           icon={faPlay}
           url={consoleRoute}
-        />
+        /> */}
         <TabsComponent
           theme={theme}
           tabs={tabs}
           add={addTab}
-          change={changeTab}
-          remove={removeTab}
-          menuIsOpen={isOpen}
+          change={console.log}
+          remove={console.log}
+          // change={changeTab}
+          // remove={removeTab}
         />
         <EditorComponent
           content={content || ''}
