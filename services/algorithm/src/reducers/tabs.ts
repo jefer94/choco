@@ -1,37 +1,29 @@
 import locale from '@chocolab/i18n'
 
-/** @module reducers/tabs */
-
-/**
- * @typedef {object} Tab
- * @property {string} id - Tab React key.
- * @property {string} name - Tab name.
- * @property {string} content - Tab content.
- * @property {boolean} active - Tab active.
- */
-
-type Tab = {
-  readonly id: number
+export type Tab = {
+  readonly id: string
   readonly name: string
   readonly content: string
   readonly active: boolean
 }
 
-type LazyActions = {
+export type LazyActions = {
   readonly type: string
-  readonly id?: number
-  readonly content: string
+  readonly id?: string
+  readonly content?: string
 }
 
 /**
  * Get defaults tabs
  * @example
+ * ```
  * getDefaults()
- * @returns {Tab[]} Array of tabs
+ * ```
+ * @returns Array of tabs
  */
 function getDefaults(): readonly Tab[] {
   return [{
-    id: 0,
+    id: '0',
     name: locale.one('editor'),
     content: locale.one('code'),
     active: true
@@ -41,11 +33,13 @@ function getDefaults(): readonly Tab[] {
 /**
  * Set first letter to uppercase.
  *
- * @param {string} string - Tab title.
- * @param {number} id - Tab id.
+ * @param string - Tab title.
+ * @param id - Tab id.
  * @example
+ * ```
  * title('hey apple!', 0) // return 'Hey apple! 0'
- * @returns {string} Set first letter to uppercase.
+ * ```
+ * @returns Set first letter to uppercase.
  */
 function title(string, id): string {
   return `${string.charAt(0).toUpperCase()}${string.slice(1)} ${id}`
@@ -54,15 +48,17 @@ function title(string, id): string {
 /**
  * Add new tab.
  *
- * @param {Tab[]} state - Data store in reducer.
+ * @param state - Data store in reducer.
  * @example
+ * ```
  * add([])
- * @returns {Tab[]} Array of Tabs.
+ * ```
+ * @returns Array of Tabs.
  */
 function add(state: readonly Tab[]): readonly Tab[] {
-  const id = state.length ? state[state.length - 1].id + 1 : 0
+  const id = state.length ? +state[state.length - 1].id + 1 : 0
   return state.concat([{
-    id,
+    id: id.toString(),
     name: title(locale.one('algorithmWord'), id),
     content: '',
     active: false
@@ -72,9 +68,10 @@ function add(state: readonly Tab[]): readonly Tab[] {
 /**
  * Remove a tab by id.
  *
- * @param {Tab[]} state - Data store in reducer.
- * @param {object} action - Action dispathed.
+ * @param state - Data store in reducer.
+ * @param action - Action dispathed.
  * @example
+ * ```
  * const state = [{
  *   id: 0,
  *   name: editor,
@@ -86,7 +83,8 @@ function add(state: readonly Tab[]): readonly Tab[] {
  *   type: 'DELETE_TAB'
  * }
  * remove(state, action) // return []
- * @returns {Tab[]} Tabs.
+ * ```
+ * @returns Tabs.
  */
 function remove(state: readonly Tab[], action: LazyActions): readonly Tab[] {
   const [first, ...filter] = state.filter((tab) => tab.id !== action.id)
@@ -97,11 +95,11 @@ function remove(state: readonly Tab[], action: LazyActions): readonly Tab[] {
 /**
  * Functional store that mutate state of variables.
  *
- * @param {Tab[]} state - Data store in reducer.
- * @param {object} action - Action dispathed.
+ * @param state - Data store in reducer.
+ * @param action - Action dispathed.
  * @example
  * reducer([])
- * @returns {Tab[]} Data store in reducer.
+ * @returns Data store in reducer.
  */
 export default function reducer(state = getDefaults(), action: LazyActions): readonly Tab[] {
   switch (action.type) {

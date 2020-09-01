@@ -11,6 +11,7 @@ import varsReducer from '../reducers/variables'
 import useTabs from '../hooks/useTabs'
 // import Menu from '../containers/Menu'
 import { ThemeContext } from '../contexts'
+import { MenuContainer } from '../Containers/MenuContainer'
 
 setLang('es')
 let cache = []
@@ -22,7 +23,6 @@ export default function Console(): ReactElement {
   const { tabs } = useTabs()
   // const lines = []
   const [lines, setLines] = useState([])
-
 
   // eslint-disable-next-line no-unused-vars
   function read(toRead: string): string {
@@ -39,7 +39,6 @@ export default function Console(): ReactElement {
     // return content
     return ''
   }
-
 
   /* non-existent code for name of algorithm */
   setDispatch({
@@ -119,7 +118,9 @@ export default function Console(): ReactElement {
       <Head>
         <title>Algorithm - Console</title>
       </Head>
-      <ConsoleComponent lines={lines} theme={theme} />
+      <MenuContainer>
+        <ConsoleComponent lines={lines} theme={theme} />
+      </MenuContainer>
     </>
   )
 }

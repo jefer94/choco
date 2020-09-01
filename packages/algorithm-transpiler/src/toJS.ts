@@ -10,8 +10,15 @@ import transform from './transform'
 //     .join()
 // }
 
-let tabs
-let store
+type Tab = {
+  readonly id: number
+  readonly name: string
+  readonly content: string
+  readonly active: boolean
+}
+
+let tabs: readonly Tab[]
+let store: VariableStore
 
 export type VariableStore = {
   readonly varAdd: (value: string, name: string) => void
@@ -22,11 +29,19 @@ export function setDispatch({ varAdd, varReset }: VariableStore): void {
   store = { varAdd, varReset }
 }
 
-export function setTabs(externalTabs): void {
+export function setTabs(externalTabs: readonly Tab[]): void {
   tabs = externalTabs
 }
 
-export function toJS() {
+type ToJS = {
+  readonly title: string
+  readonly literals: string
+  readonly code: string
+  readonly diff: number
+  readonly map: readonly string[]
+}
+
+export function toJS(): ToJS {
   store.varReset()
 
   // and execute a interpreter

@@ -1,3 +1,7 @@
+type AddTabAction = {
+  readonly type: 'ADD_TAB'
+}
+
 /**
  * Add tab action.
  *
@@ -7,9 +11,14 @@
  * ```
  * @returns Action.
  */
-export const addTabAction = () => ({
+export const addTabAction = (): AddTabAction => ({
   type: 'ADD_TAB'
 })
+
+type RemoveTabAction = {
+  readonly type: 'DELETE_TAB'
+  readonly id: string
+}
 
 /**
  * Remove tab action.
@@ -21,10 +30,15 @@ export const addTabAction = () => ({
  * ```
  * @returns Action.
  */
-export const removeTabAction = (id) => ({
+export const removeTabAction = (id: string): RemoveTabAction => ({
   type: 'DELETE_TAB',
   id
 })
+
+type ChangeTabAction = {
+  readonly type: 'CHANGE_TAB'
+  readonly id: string
+}
 
 /**
  * Change tab action.
@@ -36,10 +50,16 @@ export const removeTabAction = (id) => ({
  * ```
  * @returns Action.
  */
-export const changeTabAction = (id) => ({
+export const changeTabAction = (id: string): ChangeTabAction => ({
   type: 'CHANGE_TAB',
   id
 })
+
+type SaveTabAction = {
+  readonly type: 'SAVE_TAB'
+  readonly id: string
+  readonly content: string
+}
 
 /**
  * Save tab action.
@@ -52,11 +72,15 @@ export const changeTabAction = (id) => ({
  * ```
  * @returns Action.
  */
-export const saveTabAction = (id, content) => ({
+export const saveTabAction = (id: string, content: string): SaveTabAction => ({
   type: 'SAVE_TAB',
   id,
   content
 })
+
+type DefaultsTabsAction = {
+  readonly type: 'DEFAULTS_TABS'
+}
 
 /**
  * Defaults Tabs Action.
@@ -67,6 +91,6 @@ export const saveTabAction = (id, content) => ({
  * ```
  * @returns Action.
  */
-export const defaultsTabsAction = () => ({
+export const defaultsTabsAction = (): DefaultsTabsAction => ({
   type: 'DEFAULTS_TABS'
 })
