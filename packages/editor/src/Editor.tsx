@@ -71,7 +71,7 @@ export default function Editor({ content, lang }: EditorProps): ReactElement {
   }
 
   return (
-    <div contentEditable onInput={input} style={{ marginLeft: 20, outline: 0 }}>
+    <div contentEditable onInput={input} style={{ marginLeft: 20, outline: '0px' }}>
       {localContent.current}
     </div>
   )

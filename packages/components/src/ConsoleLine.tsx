@@ -21,11 +21,13 @@ type LineProps = {
 
 const Line = styled.div`
   display: inline;
-  float: left;
   margin: ${(v: LineProps) => (v.firstLine ? 0 : 'unset')};
   padding: ${(v: LineProps) => (v.firstLine ? '0 10px 0 0' : 'unset')};
   color: ${(v: LineProps) => (v.firstLine ? '#537f7e' : 'unset')};
   margin-left: ${(v: LineProps) => (!v.firstLine ? 0 : 'unset')};
+  p {
+    display: inline;
+  }
 `
 
 export type ConsoleLineProp = {

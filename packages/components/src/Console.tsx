@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react'
 // import './Console.sass'
 import { Dictionary } from '@chocolab/types'
+import styled from 'styled-components'
 import { ConsoleLine, ConsoleLineProp } from './ConsoleLine'
 // #393035
 
@@ -8,6 +9,10 @@ type Props = {
   readonly lines: readonly ConsoleLineProp[]
   readonly theme?: Dictionary
 }
+
+const Base = styled.div`
+  margin-left: 20px;
+`
 
 /**
  * Console component, base in C/C++ style.
@@ -24,15 +29,13 @@ type Props = {
  */
 export function Console({ lines, theme = {} }: Props): ReactElement {
   return (
-    <main id="content2" className="tab">
-      <div className="console">
-        { lines.map((line, key) => (
-          <div key={line.id}>
-            <ConsoleLine line={line} lineNumber={key} theme={theme} />
-            <br />
-          </div>
-        )) }
-      </div>
-    </main>
+    <Base>
+      { lines.map((line, key) => (
+        <div key={line.id}>
+          <ConsoleLine line={line} lineNumber={key} theme={theme} />
+          {/* <br /> */}
+        </div>
+      )) }
+    </Base>
   )
 }
