@@ -6,13 +6,13 @@
   "author": "Jeferson De Freitas",
   "license": "MIT",
   "dependencies": {
-    "mongoose": "^5.10.0",
+    "mongoose": "^5.10.2",
     "nats": "^1.4.12",
     "redis": "^3.0.2"
   },
   "devDependencies": {
-    "@shelf/jest-mongodb": "^1.2.2",
-    "mongodb-memory-server-core": "^6.6.4",
+    "@shelf/jest-mongodb": "^1.2.3",
+    "mongodb-memory-server-core": "^6.6.7",
     "redis-mock": "^0.51.0"
   }
 }

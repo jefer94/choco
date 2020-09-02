@@ -14,16 +14,16 @@
     "prepare": "tsc --build ./tsconfig.json"
   },
   "devDependencies": {
-    "@babel/core": "^7.10.5",
+    "@babel/core": "^7.11.5",
     "@babel/preset-react": "^7.10.4",
-    "@storybook/react": "^5.3.19",
-    "@testing-library/jest-dom": "^5.11.1",
-    "@testing-library/react": "^10.4.7",
-    "@types/styled-system": "^5.1.9",
-    "babel-plugin-styled-components": "^1.10.7",
-    "jest-styled-components": "^7.0.2",
+    "@storybook/react": "^6.0.21",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^10.4.9",
+    "@types/styled-system": "^5.1.10",
+    "babel-plugin-styled-components": "^1.11.1",
+    "jest-styled-components": "^7.0.3",
     "react-test-renderer": "^16.13.1",
-    "webpack": "^4.43.0"
+    "webpack": "^4.44.1"
   },
   "dependencies": {
     "@chocolab/configs": "^1.0.2-alpha.0",
@@ -34,9 +34,9 @@
     "@fortawesome/free-regular-svg-icons": "^5.14.0",
     "@fortawesome/free-solid-svg-icons": "^5.14.0",
     "@fortawesome/react-fontawesome": "^0.1.11",
-    "@types/styled-components": "^5.1.1",
-    "bootstrap": "^4.5.0",
-    "codemirror": "^5.55.0",
+    "@types/styled-components": "^5.1.2",
+    "bootstrap": "^4.5.2",
+    "codemirror": "^5.57.0",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-codemirror2": "^7.2.1",

@@ -1,13 +1,13 @@
 import locale from '@chocolab/i18n'
-import { read, write, io, IoVariables, IoLine } from './io'
-import { algorithmTranspilerLang } from './lang'
+import { read, write, io, IoLine } from './io'
+import { algorithmTranspilerLang, JavascriptType } from './lang'
 import { Vector } from './vector'
 
 algorithmTranspilerLang()
 locale.setLang('en')
 
 let id = -1
-const type: IoVariables = Object.freeze({
+const type: Record<string, JavascriptType> = Object.freeze({
   int: 'int',
   double: 'double',
   string: 'string',
@@ -118,7 +118,7 @@ test('write Vector', () => {
 })
 
 test('read var', () => {
-  const vars: IoVariables = {
+  const vars: Record<string, JavascriptType> = {
     senna: type.int,
     tristana: type.string,
     sona: type.double,

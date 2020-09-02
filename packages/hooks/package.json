@@ -16,9 +16,9 @@
   "dependencies": {
     "@chocolab/configs": "^1.0.2-alpha.0",
     "@types/react-dom": "^16.9.8",
-    "axios": "^0.19.2",
+    "axios": "^0.20.0",
     "js-cookie": "^2.2.1",
-    "next": "^9.4.4",
+    "next": "^9.5.3",
     "react": "^16.13.1"
   },
   "gitHead": "106f40a81398fce01084d5a47e528655f06283e4"

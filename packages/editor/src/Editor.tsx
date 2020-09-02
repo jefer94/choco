@@ -7,6 +7,7 @@ import Number from './keywords/Number'
 import String from './keywords/String'
 import Text from './keywords/Text'
 import Type from './keywords/Type'
+import Background from './Background'
 
 type EditorProps = {
   readonly content?: string
@@ -15,6 +16,7 @@ type EditorProps = {
 
 export default function Editor({ content, lang }: EditorProps): ReactElement {
   // const [localContent, setLocalContet] = useState(content || '')
+  const [reRender, setReRender] = useState(false)
   const localContent = useRef(tokenizer(content))
 
   /**
@@ -26,15 +28,16 @@ export default function Editor({ content, lang }: EditorProps): ReactElement {
     const current = v.target.innerText
     // eslint-disable-next-line functional/immutable-data
     localContent.current = tokenizer(current)
+    // setReRender(!reRender)
   }
 
   function highlight(s: string): ReactElement {
     const { comments, handlers, numbers, strings, types } = lang
-    if (comments[0] && comments.some((exp) => exp[0].test(s))) return <Comment>{s}</Comment>
-    if (handlers[0] && handlers.some((exp) => exp[0].test(s))) return <Handler>{s}</Handler>
-    if (numbers[0] && numbers.some((exp) => exp[0].test(s))) return <Number>{s}</Number>
-    if (strings[0] && strings.some((exp) => exp[0].test(s))) return <String>{s}</String>
-    if (types[0] && types.some((exp) => exp[0].test(s))) return <Type>{s}</Type>
+    if (comments[0] && comments.some((exp) => exp[0].test(s))) return <Comment dark>{s}</Comment>
+    if (handlers[0] && handlers.some((exp) => exp[0].test(s))) return <Handler dark>{s}</Handler>
+    if (numbers[0] && numbers.some((exp) => exp[0].test(s))) return <Number dark>{s}</Number>
+    if (strings[0] && strings.some((exp) => exp[0].test(s))) return <String dark>{s}</String>
+    if (types[0] && types.some((exp) => exp[0].test(s))) return <Type dark>{s}</Type>
     return <Text>{s}</Text>
   }
 
@@ -65,14 +68,16 @@ export default function Editor({ content, lang }: EditorProps): ReactElement {
 
   function tokenizer(s = ''): readonly ReactElement[] {
     return s.split('\n').map((line) =>
-      <Line key={line}>{tokenizeLine(line)}</Line>)
+      <Line key={line} dark>{tokenizeLine(line)}</Line>)
     // return s.replace(/(algorithm)/, '<span>$1</span>')
     //
   }
 
   return (
-    <div contentEditable onInput={input} style={{ marginLeft: 20, outline: '0px' }}>
-      {localContent.current}
-    </div>
+    <Background dark>
+      <div contentEditable onInput={input} style={{ marginLeft: 20, outline: '0px' }}>
+        {localContent.current}
+      </div>
+    </Background>
   )
 }

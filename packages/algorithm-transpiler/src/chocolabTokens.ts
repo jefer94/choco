@@ -1,19 +1,6 @@
 import locale from '@chocolab/i18n'
 import { LangTranspiler, LangOpenBracket, LangCloseBracket, LangWrite, LangRead, LangType, LangVariables } from './lang/common'
 
-const algorithmWord = locale.one<string>('algorithmWord')
-const begin = locale.one<string>('begin')
-const end = locale.one<string>('end')
-const forWord = locale.one<string>('forWord')
-const toWord = locale.one<string>('toWord')
-const variables = locale.one<LangVariables>('variables')
-const transpiler = locale.one<LangTranspiler>('transpiler')
-const openBracket = locale.one<LangOpenBracket>('openBracket')
-const closeBracket = locale.one<LangCloseBracket>('closeBracket')
-const write = locale.one<LangWrite>('write')
-const read = locale.one<LangRead>('read')
-const type = locale.one<LangType>('type')
-
 type Replacer = (substring?: readonly string[]) => string
 type Token = readonly [RegExp, Replacer?]
 
@@ -30,7 +17,20 @@ export type ChocolabTokens = {
   readonly types: readonly Token[],
 }
 
-export function chocolabTokens(): ChocolabTokens {
+export function chocolabTokens(/* lang: string */): ChocolabTokens {
+  const algorithmWord = locale.one<string>('algorithmWord')
+  const begin = locale.one<string>('begin')
+  const end = locale.one<string>('end')
+  const forWord = locale.one<string>('forWord')
+  const toWord = locale.one<string>('toWord')
+  const variables = locale.one<LangVariables>('variables')
+  const transpiler = locale.one<LangTranspiler>('transpiler')
+  const openBracket = locale.one<LangOpenBracket>('openBracket')
+  const closeBracket = locale.one<LangCloseBracket>('closeBracket')
+  const write = locale.one<LangWrite>('write')
+  const read = locale.one<LangRead>('read')
+  const type = locale.one<LangType>('type')
+
   return {
     handlers: [
       [new RegExp(`(${read.join('|')})`, 'g')],
