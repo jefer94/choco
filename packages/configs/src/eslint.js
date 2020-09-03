@@ -27,7 +27,11 @@ export function eslint({ next, types } = {}) {
       jest: true,
       beforeAll: true,
       afterAll: true,
-      jasmine: true
+      jasmine: true,
+      context: true,
+      beforeEach: true,
+      it: true,
+      cy: true
     },
     parser: types ? '@typescript-eslint/parser' : undefined,
     parserOptions: {
