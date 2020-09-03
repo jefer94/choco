@@ -29,7 +29,10 @@ export function eslint({ next, types } = {}) {
       afterAll: true,
       jasmine: true,
       context: true,
+      before: true,
       beforeEach: true,
+      after: true,
+      afterEach: true,
       it: true,
       cy: true
     },
