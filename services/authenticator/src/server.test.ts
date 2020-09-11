@@ -129,8 +129,15 @@ test('check token', async () => {
 
   nc.publish(host, { type: requestTypes.checkToken, token }, whoami)
 
-  const obj = await subscribe(whoami)
+  const { data, ...obj } = await subscribe(whoami)
   expect(obj).toEqual({ status: status.success })
+
+  const { exp, userId, iat, ...res } = data
+
+  expect(Object.values(res).length).toBe(0)
+  expect(typeof exp === 'number').toBeTruthy()
+  expect(userId.length > 0).toBeTruthy()
+  expect(typeof iat === 'number').toBeTruthy()
 })
 
 test('invalid delete scope', async () => {

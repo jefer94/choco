@@ -6,11 +6,12 @@ import jwt from 'jsonwebtoken'
  * @param token - Token.
  * @returns Token is valid.
  */
-export default async function checkToken(token: string): Promise<boolean> {
+// eslint-disable-next-line @typescript-eslint/ban-types
+export default async function checkToken(token: string): Promise<string | object> {
   try {
-    return !!jwt.verify(token, process.env.SECRET)
+    return jwt.verify(token, process.env.SECRET)
   }
   catch {
-    return false
+    return ''
   }
 }

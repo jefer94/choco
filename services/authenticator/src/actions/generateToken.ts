@@ -18,10 +18,7 @@ export default async function generateToken(arg: GenerateTokenArg): Promise<stri
   const user = await AuthUser.findOne({ $or: [arg, { email: username, password }] })
 
   if (user) {
-    return jwt.sign({
-      userId: user.id,
-      iat: Math.floor(Date.now() / 1000) - 30
-    }, process.env.SECRET, {
+    return jwt.sign({ userId: user.id }, process.env.SECRET, {
       // expiresIn: 3600 * 24 * 7,
       expiresIn: '7d',
       algorithm: 'HS512'

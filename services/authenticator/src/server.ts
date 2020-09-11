@@ -25,9 +25,11 @@ export default async function server(): Promise<void> {
 
       if (type === 'check token') {
         const bool = await checkToken(data.token)
-        const res = {
+        const status = {
           status: bool ? success : reject
         }
+        const res = bool ? { ...status, data: bool } : status
+
         nc.publish(reply, res)
       }
       else if (type === 'generate token') {
