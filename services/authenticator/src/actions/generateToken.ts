@@ -1,3 +1,4 @@
+import jwt from 'jsonwebtoken'
 import { Token, AuthUser } from '../models'
 import getToken from '../utils/generateToken'
 
@@ -14,19 +15,17 @@ type GenerateTokenArg = {
  */
 export default async function generateToken(arg: GenerateTokenArg): Promise<string> {
   const { username, password } = arg
-  const user = await AuthUser.findOne(arg).exec() ||
-               await AuthUser.findOne({ email: username, password }).exec()
+  const user = await AuthUser.findOne({ $or: [arg, { email: username, password }] })
 
   if (user) {
-    const t = getToken()
-    const token = new Token({
-      token: t,
+    return jwt.sign({
       userId: user.id,
-      exp: Date.now(),
-      active: true
+      iat: Math.floor(Date.now() / 1000) - 30
+    }, process.env.SECRET, {
+      // expiresIn: 3600 * 24 * 7,
+      expiresIn: '7d',
+      algorithm: 'HS512'
     })
-    await token.save()
-    return t
   }
   return ''
 }

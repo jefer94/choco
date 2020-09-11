@@ -1,4 +1,4 @@
-import { Token } from '../models'
+import jwt from 'jsonwebtoken'
 
 /**
  * Check token.
@@ -7,5 +7,10 @@ import { Token } from '../models'
  * @returns Token is valid.
  */
 export default async function checkToken(token: string): Promise<boolean> {
-  return !!await Token.findOne({ token }).exec()
+  try {
+    return !!jwt.verify(token, process.env.SECRET)
+  }
+  catch {
+    return false
+  }
 }

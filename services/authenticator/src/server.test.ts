@@ -27,37 +27,23 @@ enum status {
   notFound = 'Not found'
 }
 
-// const mongod = new MongoMemoryServer()
-// process.env.MONGO_URI = await mongod.getUri()
-
 beforeAll(async () => {
+  process.env.SECRET = 'Konan'
   const mongod = new MongoMemoryServer()
   await db(await mongod.getUri())
   await server()
 })
 
-afterAll(() => {
-  // sock.close()
-  // mongod.close()
-})
+// afterAll(() => {})
 
 function subscribe<T>(whoami: string): Promise<T> {
   return new Promise((resolve) => {
-    const id = nc.subscribe(whoami, (arg1, arg2, arg3, arg4) => {
-      resolve(arg1)
+    const id = nc.subscribe(whoami, (msg) => {
+      resolve(msg)
       nc.unsubscribe(id)
-      // resolve(arg1, arg2, arg3, arg4)
     })
   })
 }
-
-// const requestTypes = {
-//   checkToken: 'checkToken',
-//   generateToken: 'generate token',
-//   register: 'register',
-//   addScope: 'add scope',
-//   deleteScope: 'delete scope'
-// }
 
 test('Not found', async () => {
   nc.publish(host, 'Hello asdasdasd', whoami)
