@@ -14,7 +14,7 @@ const schema = new Schema({
   exp: { type: Number, required: true },
   active: { type: Boolean, required: true },
   user: { ref: 'AuthUser', type: Schema.Types.ObjectId }
-}, { timestamps: true })
+}, { timestamps: true, versionKey: false })
 
 function transform(): Record<string, unknown> {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

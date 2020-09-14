@@ -1,5 +1,5 @@
 import server from './server'
 import db from './db'
 
-db()
+db(process.env.MONGO)
 server()

@@ -1,5 +1,13 @@
-import { Token, AuthUser } from '../models'
-import getToken from '../utils/generateToken'
+import jwt from 'jsonwebtoken'
+import { AuthUser } from '../models'
+
+type Register = {
+  readonly data?: {
+    readonly user: string
+    readonly token: string
+  }
+  readonly error?: string
+}
 
 type RegisterArg = {
   readonly username: string
@@ -13,24 +21,23 @@ type RegisterArg = {
  * @param arg - User object.
  * @returns Token.
  */
-export default async function register(arg: RegisterArg): Promise<string> {
+export default async function register(arg: RegisterArg): Promise<Register> {
   try {
     const user = new AuthUser(arg)
     await user.save()
 
-    const t = getToken()
-    const token = new Token({
-      token: t,
-      userId: user.id,
-      exp: Date.now(),
-      active: true
-    })
-    await token.save()
-
-    return t
+    return {
+      data: {
+        // eslint-disable-next-line no-underscore-dangle
+        user: user._id,
+        token: jwt.sign({ user: user.id }, process.env.SECRET, {
+          expiresIn: '7d',
+          algorithm: 'HS512'
+        })
+      }
+    }
   }
   catch (e) {
-    // console.error('Register error: ', e)
-    return ''
+    return { error: e.message }
   }
 }

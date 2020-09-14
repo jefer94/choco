@@ -1,17 +1,22 @@
 import jwt from 'jsonwebtoken'
 
+type CheckToken = {
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  readonly data?: object | string
+  readonly error?: string
+}
+
 /**
  * Check token.
  *
  * @param token - Token.
  * @returns Token is valid.
  */
-// eslint-disable-next-line @typescript-eslint/ban-types
-export default async function checkToken(token: string): Promise<string | object> {
+export default async function checkToken(token: string): Promise<CheckToken> {
   try {
-    return jwt.verify(token, process.env.SECRET)
+    return { data: jwt.verify(token, process.env.SECRET) }
   }
-  catch {
-    return ''
+  catch (e) {
+    return { error: e.message }
   }
 }

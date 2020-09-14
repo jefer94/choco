@@ -7,58 +7,36 @@ import addScope from './actions/addScope'
 import deleteScope from './actions/deleteScope'
 import register from './actions/register'
 
-const nc = NATS.connect({ json: true })
+const nc = NATS.connect(process.env.BROKER ?
+  { json: true, url: process.env.BROKER } : { json: true })
 
 let sid = 0
 export function close(): void {
   nc.unsubscribe(sid)
 }
 
+export enum requestRefs {
+  checkToken = 'check token',
+  generateToken = 'generate token',
+  register = 'register',
+  addScope = 'add scope',
+  deleteScope = 'delete scope'
+}
+
+export const notFound = 'command not found'
+
 /** Server. */
 export default async function server(): Promise<void> {
-  const success = 'Success'
-  const reject = 'Reject'
-
   sid = nc.subscribe('authenticator', async (msg, reply) => {
     if (reply) {
       const { type, ...data } = msg
 
-      if (type === 'check token') {
-        const bool = await checkToken(data.token)
-        const status = {
-          status: bool ? success : reject
-        }
-        const res = bool ? { ...status, data: bool } : status
-
-        nc.publish(reply, res)
-      }
-      else if (type === 'generate token') {
-        const token = await generateToken(data)
-        const status = { status: token ? success : reject }
-        const res = token ? { ...status, token } : status
-        nc.publish(reply, res)
-      }
-      else if (type === 'add scope') {
-        const bool = await addScope(data.name)
-        const res = {
-          status: bool ? success : reject
-        }
-        nc.publish(reply, res)
-      }
-      else if (type === 'delete scope') {
-        const bool = await deleteScope(data.name)
-        const res = {
-          status: bool ? success : reject
-        }
-        nc.publish(reply, res)
-      }
-      else if (type === 'register') {
-        const token = await register(data)
-        const status = { status: token ? success : reject }
-        const res = token ? { ...status, token } : status
-        nc.publish(reply, res)
-      }
-      else nc.publish(reply, { status: 'Not found' })
+      if (type === requestRefs.checkToken) nc.publish(reply, await checkToken(data.token))
+      else if (type === requestRefs.generateToken) nc.publish(reply, await generateToken(data))
+      else if (type === requestRefs.addScope) nc.publish(reply, await addScope(data.name))
+      else if (type === requestRefs.deleteScope) nc.publish(reply, await deleteScope(data.name))
+      else if (type === requestRefs.register) nc.publish(reply, await register(data))
+      else nc.publish(reply, { error: 'command not found' })
     }
   })
 }

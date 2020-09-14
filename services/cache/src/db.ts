@@ -1,6 +1,6 @@
 import { createClient } from 'redis'
 
-const client = createClient()
+const client = createClient(process.env.REDIS)
 
 // client.on('error', (error) => {
 //   // console.log(chalk.red(error))

@@ -17,6 +17,7 @@
     "test:nginx": "./scripts/testing/test-nginx.sh",
     "update": "./scripts/yarn/update.sh",
     "execute": "./scripts/development/execute.sh",
+    "services": "./scripts/development/services.sh",
     "codemirror": "./scripts/development/codemirror.sh",
     "coverage": "./scripts/testing/coverage.sh",
     "pkg": "./scripts/yarn/pkg.sh",

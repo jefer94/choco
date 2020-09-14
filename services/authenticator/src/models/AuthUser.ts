@@ -15,7 +15,7 @@ const schema = new Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   scopes: [{ ref: 'Scope', type: Schema.Types.ObjectId }]
-}, { timestamps: true })
+}, { timestamps: true, versionKey: false })
 
 // schema.pre('save', (next) => {
 //   // if (!this.isModified('password')) return next()

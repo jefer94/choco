@@ -11,6 +11,7 @@
 cd ./services
 
 build() {
+  echo ======================= $1 =======================
   cp ../tsconfig.json ./$1/original-tsconfig.json
   docker build ./$1 \
     --rm=false \
@@ -18,13 +19,13 @@ build() {
   rm ./$1/original-tsconfig.json
 }
 
-# build activity
-build algorithm
-# build authenticator
-# build cache
-# build graphql-gateway
-# build projects
-# build world-cities-seed
+build activity
+# build algorithm
+build authenticator
+build cache
+build graphql-gateway
+build projects
+build world-cities-seed
 
 # docker build . \
 #   --rm=false \

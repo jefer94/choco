@@ -6,12 +6,23 @@
 #   id: ID!
 # }
 
+type Token { 
+  user: String!
+  ext: Number!
+  iat: Number!
+}
+
+type CheckToken { 
+  status: String!
+  data: Token
+}
+
 type Query {
   "Hello"
   hello: String
 
   "Check token"
-  checkToken(token: String!): Boolean
+  checkToken(token: String!): CheckToken!
 
   # "Fetch Activities by user id"
   # userActivities(user: ID!): String
@@ -36,39 +47,39 @@ type Mutation {
   
 }
 
-# type ActivityMutation {
-#   status: String!
-#   data: ID!
-# }
+type ActivityMutation {
+  status: String!
+  data: ID!
+}
 
-# type Activity {
-#   id: ID!
-#   name: String!
-#   service: String!
-#   createdAt: String!
-#   updatedAt: String!
-# }
+type Activity {
+  id: ID!
+  name: String!
+  service: String!
+  createdAt: String!
+  updatedAt: String!
+}
 
-# type ActivityLogMutation {
-#   status: String!
-# }
+type ActivityLogMutation {
+  status: String!
+}
 
-# type ActivityLog {
-#   id: ID!
-#   user: ID!
-#   activity: ID!
-# }
+type ActivityLog {
+  id: ID!
+  user: ID!
+  activity: ID!
+}
 
-# type ServiceMutation {
-#   status: String!
-#   data: ID!
-# }
+type ServiceMutation {
+  status: String!
+  data: ID!
+}
 
-# type DeleteService {
-#   status: String!
-# }
+type DeleteService {
+  status: String!
+}
 
-# type Service {
-#   id: ID!
-#   name: String!
-# }
+type Service {
+  id: ID!
+  name: String!
+}

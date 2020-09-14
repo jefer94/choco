@@ -1,6 +1,6 @@
 FROM node:alpine
 
-EXPOSE 4222 6222 8222
+EXPOSE 4000
 
 WORKDIR /usr/src
 COPY original-tsconfig.json tsconfig.json
@@ -13,6 +13,6 @@ RUN yarn install --production=true && \
     yarn global add typescript
 
 COPY src src
-RUN tsc --build ./tsconfig.json
+RUN yarn build
 
-CMD node ./dist/index.js
+CMD yarn start

@@ -19,7 +19,8 @@ import updateCode from './actions/updateCode'
 import updateProject from './actions/updateProject'
 import updateProjectPermission from './actions/updateProjectPermission'
 
-const nc = NATS.connect({ json: true })
+const nc = NATS.connect(process.env.BROKER ?
+  { json: true, url: process.env.BROKER } : { json: true })
 
 let sid = 0
 export function close(): void {

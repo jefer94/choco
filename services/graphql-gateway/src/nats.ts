@@ -1,7 +1,8 @@
 import * as NATS from 'nats'
 import keychain from '@chocolab/keychain'
 
-const nc = NATS.connect({ json: true })
+const nc = NATS.connect(process.env.BROKER ?
+  { json: true, url: process.env.BROKER } : { json: true })
 
 export enum activityRefs {
   addActivityLog = 'add activity log',

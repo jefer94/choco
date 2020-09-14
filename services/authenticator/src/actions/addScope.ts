@@ -1,4 +1,9 @@
-import { Scope } from '../models'
+import { Scope, ScopeDocument } from '../models'
+
+type AddScope = {
+  readonly data?: ScopeDocument
+  readonly error?: string
+}
 
 /**
  * Add scope.
@@ -6,13 +11,13 @@ import { Scope } from '../models'
  * @param name - Scope name.
  * @returns Was added?.
  */
-export default async function addScope(name: string): Promise<boolean> {
+export default async function addScope(name: string): Promise<AddScope> {
   try {
     const scope = new Scope({ name })
     await scope.save()
-    return true
+    return { data: scope }
   }
-  catch {
-    return false
+  catch (e) {
+    return { error: e.message }
   }
 }

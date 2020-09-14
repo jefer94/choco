@@ -5,7 +5,7 @@ type ProjectPermissionArgs = {
   readonly project: string
   readonly write?: string
   readonly create?: string
-  readonly remove?: string
+  readonly delete?: string
 }
 
 /**

@@ -8,7 +8,8 @@ import deleteService from './actions/deleteService'
 import fetchActivities from './actions/fetchActivities'
 import fetchAllActivities from './actions/fetchAllActivities'
 
-const nc = NATS.connect({ json: true })
+const nc = NATS.connect(process.env.BROKER ?
+  { json: true, url: process.env.BROKER } : { json: true })
 
 let sid = 0
 export const host = 'activity'
