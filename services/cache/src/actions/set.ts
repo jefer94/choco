@@ -1,6 +1,14 @@
 import { print } from 'redis'
 import client from '../db'
 
-export default async function addActivityLog(key: string, value: string): Promise<boolean> {
-  return client.set(key, value, print)
+type Set = {
+  readonly data: {
+    readonly key: string
+    readonly value: string
+  }
+}
+
+export default async function addActivityLog(key: string, value: string): Promise<Set> {
+  client.set(key, value, print)
+  return { data: { key, value } }
 }

@@ -1,7 +1,18 @@
 import client from '../db'
 
-export default function get(key: string): Promise<string> {
-  return getPromise(key)
+// type Get = {
+//   readonly data: string
+// }
+
+type Get = {
+  readonly data: {
+    readonly key: string
+    readonly value: string
+  }
+}
+
+export default async function get(key: string): Promise<Get> {
+  return { data: { key, value: await getPromise(key) } }
 }
 
 /**

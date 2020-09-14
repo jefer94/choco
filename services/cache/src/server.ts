@@ -22,50 +22,18 @@ export enum requestRefs {
   setObject = 'set object'
 }
 
-export enum statusRefs {
-  success = 'Success',
-  reject = 'Reject',
-  notFound = 'Not found'
-}
+export const notFound = 'command not found'
 
 export default async function server(): Promise<void> {
   sid = nc.subscribe(host, async (msg, reply) => {
     if (reply) {
       const { type, key, value } = msg
 
-      if (type === requestRefs.get) {
-        const data = await get(key)
-        const status = {
-          status: data === null ? statusRefs.reject : statusRefs.success
-        }
-        const res = data === null ? status : { ...status, data }
-        nc.publish(reply, res)
-      }
-      else if (type === requestRefs.set) {
-        const data = await set(key, value)
-        const res = {
-          status: statusRefs.success,
-          data
-        }
-        nc.publish(reply, res)
-      }
-      else if (type === requestRefs.getObject) {
-        const data = await getObject(key)
-        const status = {
-          status: data === null ? statusRefs.reject : statusRefs.success
-        }
-        const res = data === null ? status : { ...status, data }
-        nc.publish(reply, res)
-      }
-      else if (type === requestRefs.setObject) {
-        const data = await setObject(key, value)
-        const res = {
-          status: statusRefs.success,
-          data
-        }
-        nc.publish(reply, res)
-      }
-      else nc.publish(reply, { status: statusRefs.notFound })
+      if (type === requestRefs.get) nc.publish(reply, await get(key))
+      else if (type === requestRefs.set) nc.publish(reply, await set(key, value))
+      else if (type === requestRefs.getObject) nc.publish(reply, await getObject(key))
+      else if (type === requestRefs.setObject) nc.publish(reply, await setObject(key, value))
+      else nc.publish(reply, { error: 'command not found' })
     }
   })
 }
