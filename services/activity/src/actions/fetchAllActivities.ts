@@ -7,19 +7,24 @@ type FAA = {
   readonly activity: Pick<ActivityLogDocument, 'id'>
 }
 
+type FetchActivities = {
+  readonly data?: readonly FAA[]
+  readonly error?: string
+}
+
 /**
  * Fetch all Activities in logs.
  *
  * @returns All activities.
  */
-export default async function fetchActivities(): Promise<readonly FAA[]> {
+export default async function fetchActivities(): Promise<FetchActivities> {
   const activities = await ActivityLog.find({}).populate('activity').populate('service').lean()
 
-  return activities.map((act) => {
+  return { data: activities.map((act) => {
     const { activity, ...obj } = transformId(act)
 
     return { ...obj, activity: transformActivityId(activity) }
-  })
+  }) }
 }
 
 function transformId(model: Pick<ActivityLogDocument, '_id' | '__v' | 'user' | 'activity'>): Pick<ActivityLogDocument, 'id' | 'user' | 'activity'> {

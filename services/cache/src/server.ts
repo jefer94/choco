@@ -33,7 +33,7 @@ export default async function server(): Promise<void> {
       else if (type === requestRefs.set) nc.publish(reply, await set(key, value))
       else if (type === requestRefs.getObject) nc.publish(reply, await getObject(key))
       else if (type === requestRefs.setObject) nc.publish(reply, await setObject(key, value))
-      else nc.publish(reply, { error: 'command not found' })
+      else nc.publish(reply, { error: notFound })
     }
   })
 }

@@ -10,7 +10,7 @@ export type ActivityDocument = Document & ActivityFields
 const schema = new Schema({
   name: { type: String, required: true, unique: true },
   service: { ref: 'Service', type: Schema.Types.ObjectId, required: true }
-}, { timestamps: true })
+}, { timestamps: true, versionKey: false })
 
 function transform(): Record<string, unknown> {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

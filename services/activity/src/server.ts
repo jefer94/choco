@@ -26,59 +26,32 @@ export enum requestRefs {
   fetchAllActivities = 'fetch all activities'
 }
 
-export enum statusRefs {
-  success = 'Success',
-  reject = 'Reject',
-  notFound = 'Not found'
-}
+export const notFound = 'command not found'
 
 export default async function server(): Promise<void> {
   sid = nc.subscribe(host, async (msg, reply) => {
     if (reply) {
       const { type, ...data } = msg
-      // console.log(type)
 
       if (type === requestRefs.addActivityLog) {
-        const bool = await addActivityLog(data.user, data.activity)
-        const res = {
-          status: bool ? statusRefs.success : statusRefs.reject
-        }
-        nc.publish(reply, res)
+        nc.publish(reply, await addActivityLog(data.user, data.activity))
       }
       else if (type === requestRefs.addOnceActivity) {
-        const value = await addOnceActivity(data.name, data.service)
-        const res = {
-          status: statusRefs.success,
-          data: value
-        }
-        nc.publish(reply, res)
+        nc.publish(reply, await addOnceActivity(data.name, data.service))
       }
       else if (type === requestRefs.addOnceService) {
-        const value = await addOnceService(data.name)
-        const res = {
-          status: statusRefs.success,
-          data: value
-        }
-        nc.publish(reply, res)
+        nc.publish(reply, await addOnceService(data.name))
       }
       else if (type === requestRefs.deleteService) {
-        await deleteService(data.name)
-        const res = {
-          status: statusRefs.success
-        }
-        nc.publish(reply, res)
+        nc.publish(reply, await deleteService(data.name))
       }
       else if (type === requestRefs.fetchActivities) {
-        const arr = await fetchActivities(data.user)
-        const res = { status: statusRefs.success, data: arr }
-        nc.publish(reply, res)
+        nc.publish(reply, await fetchActivities(data.user))
       }
       else if (type === requestRefs.fetchAllActivities) {
-        const arr = await fetchAllActivities()
-        const res = { status: statusRefs.success, data: arr }
-        nc.publish(reply, res)
+        nc.publish(reply, await fetchAllActivities())
       }
-      else nc.publish(reply, { status: statusRefs.notFound })
+      else nc.publish(reply, { error: notFound })
     }
   })
 }

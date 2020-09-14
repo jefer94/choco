@@ -8,23 +8,27 @@ type FA = {
   readonly activity: Pick<ActivityLogDocument, 'id'>
 }
 
+type FetchActivities = {
+  readonly data: readonly FA[]
+}
+
 /**
  * Fetch Activities by user id.
  *
  * @param user - User id.
  * @returns User activities.
  */
-export default async function fetchActivities(user: string): Promise<readonly FA[]> {
+export default async function fetchActivities(user: string): Promise<FetchActivities> {
   const activities = await ActivityLog.find({ user }).populate('activity').populate('service').lean()
   // const activities2 = await ActivityLog.find({}).populate('activity').populate('service').lean()
 
   // console.log('vv', activities)
   // console.log('vv2', activities2)
-  return activities.map((act) => {
+  return { data: activities.map((act) => {
     const { activity, ...obj } = transformId(act)
 
     return { ...obj, activity: transformActivityId(activity) }
-  })
+  }) }
 }
 
 function transformId(model: Pick<ActivityLogDocument, '_id' | '__v' | 'user' | 'activity'>): Pick<ActivityLogDocument, 'id' | 'user' | 'activity'> {

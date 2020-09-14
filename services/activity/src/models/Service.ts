@@ -10,7 +10,7 @@ export type ServiceDocument = Document & ServiceFields
 const schema = new Schema({
   // namespace: { type: String, required: true, unique: true },
   name: { type: String, required: true, unique: true }
-}, { timestamps: true })
+}, { timestamps: true, versionKey: false })
 
 function transform(): Record<string, unknown> {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

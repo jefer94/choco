@@ -1,4 +1,9 @@
-import { ActivityLog } from '../models'
+import { ActivityLog, ActivityLogDocument } from '../models'
+
+type AddActivityLog = {
+  readonly data?: ActivityLogDocument
+  readonly error?: string
+}
 
 /**
  * Log one activity of one user.
@@ -7,13 +12,14 @@ import { ActivityLog } from '../models'
  * @param activity - Activity id.
  * @returns Was added?.
  */
-export default async function addActivityLog(user: string, activity: string): Promise<boolean> {
+export default async function addActivityLog(user: string, activity: string):
+  Promise<AddActivityLog> {
   try {
     const scope = new ActivityLog({ user, activity })
     await scope.save()
-    return true
+    return { data: scope }
   }
-  catch {
-    return false
+  catch (e) {
+    return { error: e.message }
   }
 }

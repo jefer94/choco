@@ -1,5 +1,9 @@
 /* eslint-disable no-underscore-dangle */
-import { Service } from '../models'
+import { Service, ServiceDocument } from '../models'
+
+type AddOnceService = {
+  readonly data: ServiceDocument
+}
 
 /**
  * Add once service.
@@ -7,14 +11,14 @@ import { Service } from '../models'
  * @param name - Service name.
  * @returns Service id.
  */
-export default async function addOnceService(name: string): Promise<number> {
+export default async function addOnceService(name: string): Promise<AddOnceService> {
   try {
     const service = new Service({ name })
     await service.save()
-    return service._id
+    return { data: service }
   }
   catch {
     const service = await Service.findOne({ name }).exec()
-    return service._id
+    return { data: service }
   }
 }

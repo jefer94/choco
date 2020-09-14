@@ -3,7 +3,7 @@
 /* eslint-disable no-restricted-syntax */
 import * as NATS from 'nats'
 import { MongoMemoryServer } from 'mongodb-memory-server-core'
-import server, { host, requestRefs, statusRefs } from './server'
+import server, { host, requestRefs, notFound } from './server'
 import db from './db'
 
 jest.setTimeout(600000)
@@ -48,42 +48,54 @@ let activityLogId1
 
 test('Not found', async () => {
   nc.publish(host, 'Hello asdasdasd', whoami)
-  expect(await subscribe(whoami)).toEqual({ status: statusRefs.notFound })
+  expect(await subscribe(whoami)).toEqual({ error: notFound })
 })
 
 test('fetch nobody', async () => {
   nc.publish(host, { type: requestRefs.fetchAllActivities }, whoami)
-  expect(await subscribe(whoami)).toEqual({ status: statusRefs.success, data: [] })
+  expect(await subscribe(whoami)).toEqual({ data: [] })
 })
 
 test('fetch all nobody', async () => {
   nc.publish(host, { type: requestRefs.fetchActivities, user: henrietta }, whoami)
-  expect(await subscribe(whoami)).toEqual({ status: statusRefs.success, data: [] })
+  expect(await subscribe(whoami)).toEqual({ data: [] })
 })
 
 test('add once service', async () => {
   nc.publish(host, { type: requestRefs.addOnceService, name: service1 }, whoami)
   const { data, ...obj } = await subscribe(whoami)
-  expect(obj).toEqual({ status: statusRefs.success })
-  expect(/^[a-zA-Z0-9]+$/.test(data)).toBeTruthy()
-  serviceId1 = data
+  expect(Object.keys(obj)).toHaveLength(0)
+
+  const { _id, createdAt, updatedAt, ...rest } = data
+
+  expect(/^[^ ]+$/.test(_id)).toBeTruthy()
+  expect(Date.parse(createdAt)).toBeTruthy()
+  expect(Date.parse(updatedAt)).toBeTruthy()
+  expect(rest).toEqual({ name: 'algorithm' })
+  serviceId1 = _id
 })
 
 test('add once service again', async () => {
   nc.publish(host, { type: requestRefs.addOnceService, name: service1 }, whoami)
   const { data, ...obj } = await subscribe(whoami)
-  expect(obj).toEqual({ status: statusRefs.success })
-  expect(data).toBe(serviceId1)
+  expect(Object.keys(obj)).toHaveLength(0)
+
+  const { _id, createdAt, updatedAt, ...rest } = data
+
+  expect(/^[^ ]+$/.test(_id)).toBeTruthy()
+  expect(Date.parse(createdAt)).toBeTruthy()
+  expect(Date.parse(updatedAt)).toBeTruthy()
+  expect(rest).toEqual({ name: 'algorithm' })
 })
 
 test('check that fetch nothing 1', async () => {
   nc.publish(host, { type: requestRefs.fetchAllActivities }, whoami)
-  expect(await subscribe(whoami)).toEqual({ status: statusRefs.success, data: [] })
+  expect(await subscribe(whoami)).toEqual({ data: [] })
 })
 
 test('check that fetch all nothing 1', async () => {
   nc.publish(host, { type: requestRefs.fetchActivities, user: henrietta }, whoami)
-  expect(await subscribe(whoami)).toEqual({ status: statusRefs.success, data: [] })
+  expect(await subscribe(whoami)).toEqual({ data: [] })
 })
 
 test('add once activity', async () => {
@@ -93,9 +105,16 @@ test('add once activity', async () => {
   }
   nc.publish(host, { type: requestRefs.addOnceActivity, ...message }, whoami)
   const { data, ...obj } = await subscribe(whoami)
-  expect(obj).toEqual({ status: statusRefs.success })
-  expect(/^[a-zA-Z0-9]+$/.test(data)).toBeTruthy()
-  activityId1 = data
+
+  expect(Object.keys(obj)).toHaveLength(0)
+  const { _id, createdAt, updatedAt, service, ...rest } = data
+
+  expect(/^[^ ]+$/.test(_id)).toBeTruthy()
+  expect(/^[^ ]+$/.test(service)).toBeTruthy()
+  expect(Date.parse(createdAt)).toBeTruthy()
+  expect(Date.parse(updatedAt)).toBeTruthy()
+  expect(rest).toEqual({ name: 'Is henrietta' })
+  activityId1 = _id
 })
 
 test('add once activity again', async () => {
@@ -105,18 +124,25 @@ test('add once activity again', async () => {
   }
   nc.publish(host, { type: requestRefs.addOnceActivity, ...message }, whoami)
   const { data, ...obj } = await subscribe(whoami)
-  expect(obj).toEqual({ status: statusRefs.success })
-  expect(data).toBe(activityId1)
+
+  expect(Object.keys(obj)).toHaveLength(0)
+  const { _id, createdAt, updatedAt, service, ...rest } = data
+
+  expect(/^[^ ]+$/.test(_id)).toBeTruthy()
+  expect(/^[^ ]+$/.test(service)).toBeTruthy()
+  expect(Date.parse(createdAt)).toBeTruthy()
+  expect(Date.parse(updatedAt)).toBeTruthy()
+  expect(rest).toEqual({ name: 'Is henrietta' })
 })
 
 test('check that fetch nothing 2', async () => {
   nc.publish(host, { type: requestRefs.fetchAllActivities }, whoami)
-  expect(await subscribe(whoami)).toEqual({ status: statusRefs.success, data: [] })
+  expect(await subscribe(whoami)).toEqual({ data: [] })
 })
 
 test('check that fetch all nothing 2', async () => {
   nc.publish(host, { type: requestRefs.fetchActivities, user: henrietta }, whoami)
-  expect(await subscribe(whoami)).toEqual({ status: statusRefs.success, data: [] })
+  expect(await subscribe(whoami)).toEqual({ data: [] })
 })
 
 test('add one activity in log', async () => {
@@ -125,7 +151,17 @@ test('add one activity in log', async () => {
     activity: activityId1
   }
   nc.publish(host, { type: requestRefs.addActivityLog, ...message }, whoami)
-  expect(await subscribe(whoami)).toEqual({ status: statusRefs.success })
+  const { data, ...obj } = await subscribe(whoami)
+
+  expect(Object.keys(obj)).toHaveLength(0)
+  const { _id, createdAt, updatedAt, activity, user, ...rest } = data
+
+  expect(Object.keys(rest)).toHaveLength(0)
+  expect(/^[^ ]+$/.test(_id)).toBeTruthy()
+  expect(/^[^ ]+$/.test(activity)).toBeTruthy()
+  expect(/^[^ ]+$/.test(user)).toBeTruthy()
+  expect(Date.parse(createdAt)).toBeTruthy()
+  expect(Date.parse(updatedAt)).toBeTruthy()
 })
 
 function checkActivitySubsection(obj: Record<string, any>): void {
@@ -149,7 +185,7 @@ test('check fetch with content', async () => {
   expect(Date.parse(updatedAt)).toBeTruthy()
   expect(/^[a-zA-Z0-9]+$/.test(id)).toBeTruthy()
   expect(user).toBe(henrietta)
-  expect(obj1).toEqual({ status: statusRefs.success })
+  expect(obj1).toEqual({})
   expect(obj2).toEqual({})
   expect(less).toEqual([])
 
@@ -169,7 +205,7 @@ test('check fetch all with content', async () => {
   expect(Date.parse(updatedAt)).toBeTruthy()
   expect(id).toBe(activityLogId1)
   expect(user).toBe(henrietta)
-  expect(obj1).toEqual({ status: statusRefs.success })
+  expect(obj1).toEqual({})
   expect(obj2).toEqual({})
   expect(less).toEqual([])
 
@@ -178,15 +214,23 @@ test('check fetch all with content', async () => {
 
 test('delete service', async () => {
   nc.publish(host, { type: requestRefs.deleteService, name: service1 }, whoami)
-  expect(await subscribe(whoami)).toEqual({ status: statusRefs.success })
+  const { data, ...obj } = await subscribe(whoami)
+  expect(Object.keys(obj)).toHaveLength(0)
+
+  const { _id, createdAt, updatedAt, ...rest } = data
+
+  expect(/^[^ ]+$/.test(_id)).toBeTruthy()
+  expect(Date.parse(createdAt)).toBeTruthy()
+  expect(Date.parse(updatedAt)).toBeTruthy()
+  expect(rest).toEqual({ name: 'algorithm' })
 })
 
 test('check that fetch nothing 3', async () => {
   nc.publish(host, { type: requestRefs.fetchAllActivities }, whoami)
-  expect(await subscribe(whoami)).toEqual({ status: statusRefs.success, data: [] })
+  expect(await subscribe(whoami)).toEqual({ data: [] })
 })
 
 test('check that fetch all nothing 3', async () => {
   nc.publish(host, { type: requestRefs.fetchActivities, user: henrietta }, whoami)
-  expect(await subscribe(whoami)).toEqual({ status: statusRefs.success, data: [] })
+  expect(await subscribe(whoami)).toEqual({ data: [] })
 })

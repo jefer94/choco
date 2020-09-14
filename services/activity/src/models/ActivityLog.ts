@@ -11,7 +11,7 @@ export type ActivityLogDocument = Document & ActivityLogFields
 const schema = new Schema({
   user: { type: Schema.Types.ObjectId, required: true },
   activity: { ref: 'Activity', type: Schema.Types.ObjectId, required: true }
-}, { timestamps: true })
+}, { timestamps: true, versionKey: false })
 
 function transform(): Record<string, unknown> {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

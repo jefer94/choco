@@ -1,5 +1,9 @@
 /* eslint-disable no-underscore-dangle */
-import { Activity } from '../models'
+import { Activity, ActivityDocument } from '../models'
+
+type AddOnceActivity = {
+  readonly data: ActivityDocument
+}
 
 /**
  * Add once activity.
@@ -8,14 +12,15 @@ import { Activity } from '../models'
  * @param service - Service id.
  * @returns Activity id.
  */
-export default async function addOnceActivity(name: string, service: string): Promise<number> {
+export default async function addOnceActivity(name: string, service: string):
+  Promise<AddOnceActivity> {
   try {
     const activity = new Activity({ name, service })
     await activity.save()
-    return activity._id
+    return { data: activity }
   }
   catch {
     const activity = await Activity.findOne({ name, service }).exec()
-    return activity._id
+    return { data: activity }
   }
 }
