@@ -1,4 +1,9 @@
-import { Code } from '../models'
+import { Code, CodeDocument } from '../models'
+
+type DeleteScope = {
+  readonly data?: CodeDocument
+  readonly error?: string
+}
 
 /**
  * Delete code.
@@ -6,7 +11,6 @@ import { Code } from '../models'
  * @param id - Code id.
  * @returns Was delete.
  */
-export default async function deleteCode(id: string): Promise<boolean> {
-  const { deletedCount } = await Code.deleteOne({ _id: id })
-  return !!deletedCount
+export default async function deleteCode(id: string): Promise<DeleteScope> {
+  return { data: await Code.findOneAndDelete({ _id: id }) }
 }

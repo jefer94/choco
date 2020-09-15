@@ -1,4 +1,8 @@
-import { Code, CodeDocument } from '../models'
+import { Code, CodeFields } from '../models'
+
+type GetCode = {
+  readonly data: CodeFields
+}
 
 /**
  * Get code.
@@ -6,6 +10,6 @@ import { Code, CodeDocument } from '../models'
  * @param id - Code id.
  * @returns Code object.
  */
-export default async function getCode(id: string): Promise<CodeDocument> {
-  return Code.findOne({ _id: id }).exec()
+export default async function getCode(id: string): Promise<GetCode> {
+  return { data: await Code.findOne({ _id: id }).lean() }
 }

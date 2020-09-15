@@ -1,12 +1,13 @@
 import { Document, Schema, model } from 'mongoose'
+import { ProjectFields } from './Project'
 
 export type ProjectPermissionFields = {
   readonly write?: boolean
   readonly create?: boolean
   readonly delete?: boolean
-  readonly project?: typeof Schema.Types.ObjectId | string
+  readonly project?: string | ProjectFields
   readonly user?: string
-};
+}
 
 export type ProjectPermissionDocument = Document & ProjectPermissionFields
 
@@ -16,7 +17,7 @@ const schema = new Schema({
   delete: Boolean,
   project: { ref: 'Project', type: Schema.Types.ObjectId },
   user: { type: String, required: true, unique: true }
-}, { timestamps: true })
+}, { timestamps: true, versionKey: false })
 
 function transform(): Record<string, unknown> {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

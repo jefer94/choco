@@ -1,4 +1,9 @@
-import { Project } from '../models'
+import { Project, ProjectDocument } from '../models'
+
+type DeleteProject = {
+  readonly data?: ProjectDocument
+  readonly error?: string
+}
 
 /**
  * Delete project.
@@ -6,7 +11,6 @@ import { Project } from '../models'
  * @param id - Project id.
  * @returns Was delete.
  */
-export default async function deleteProject(id: string): Promise<boolean> {
-  const { deletedCount } = await Project.deleteOne({ _id: id })
-  return !!deletedCount
+export default async function deleteProject(id: string): Promise<DeleteProject> {
+  return { data: await Project.findOneAndDelete({ _id: id }) }
 }

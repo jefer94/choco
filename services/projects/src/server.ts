@@ -7,7 +7,6 @@ import addProjectPermission from './actions/addProjectPermission'
 import deleteCode from './actions/deleteCode'
 import deleteProject from './actions/deleteProject'
 import deleteProjectPermission from './actions/deleteProjectPermission'
-import fetchAllProjects from './actions/fetchAllProjects'
 import fetchOwnCodes from './actions/fetchOwnCodes'
 import fetchOwnProjects from './actions/fetchOwnProjects'
 import fetchShareCodes from './actions/fetchShareCodes'
@@ -36,7 +35,6 @@ export enum requestRefs {
   deleteCode = 'delete code',
   deleteProject = 'delete project',
   deleteProjectPermission = 'delete project permission',
-  fetchAllProjects = 'fetch all projects',
   fetchOwnCodes = 'fetch own codes',
   fetchOwnProjects = 'fetch own projects',
   fetchShareCodes = 'fetch share codes',
@@ -49,145 +47,46 @@ export enum requestRefs {
   updateProjectPermission = 'update project permission'
 }
 
-export enum statusRefs {
-  success = 'Success',
-  reject = 'Reject',
-  notFound = 'Not found'
-}
+export const notFound = 'command not found'
 
 export default async function server(): Promise<void> {
   sid = nc.subscribe(host, async (msg, reply) => {
     if (reply) {
       const { type, ...data } = msg
 
-      if (type === requestRefs.addCode) {
-        const bool = await addCode(data)
-        const res = {
-          status: bool ? statusRefs.success : statusRefs.reject
-        }
-        nc.publish(reply, res)
-      }
-      else if (type === requestRefs.addProject) {
-        const bool = await addProject(data)
-        const res = {
-          status: bool ? statusRefs.success : statusRefs.reject
-        }
-        nc.publish(reply, res)
-      }
+      if (type === requestRefs.addCode) nc.publish(reply, await addCode(data))
+      else if (type === requestRefs.addProject) nc.publish(reply, await addProject(data))
       else if (type === requestRefs.addProjectPermission) {
-        const bool = await addProjectPermission(data)
-        const res = {
-          status: bool ? statusRefs.success : statusRefs.reject
-        }
-        nc.publish(reply, res)
+        nc.publish(reply, await addProjectPermission(data))
       }
-      else if (type === requestRefs.deleteCode) {
-        const bool = await deleteCode(data.id)
-        const res = {
-          status: bool ? statusRefs.success : statusRefs.reject
-        }
-        nc.publish(reply, res)
-      }
-      else if (type === requestRefs.deleteProject) {
-        const bool = await deleteProject(data.id)
-        const res = {
-          status: bool ? statusRefs.success : statusRefs.reject
-        }
-        nc.publish(reply, res)
-      }
+      else if (type === requestRefs.deleteCode) nc.publish(reply, await deleteCode(data.id))
+      else if (type === requestRefs.deleteProject) nc.publish(reply, await deleteProject(data.id))
       else if (type === requestRefs.deleteProjectPermission) {
-        const bool = await deleteProjectPermission(data.id)
-        const res = {
-          status: bool ? statusRefs.success : statusRefs.reject
-        }
-        nc.publish(reply, res)
-      }
-      else if (type === requestRefs.fetchAllProjects) {
-        const arr = await fetchAllProjects(data.user)
-        const res = {
-          status: arr ? statusRefs.success : statusRefs.reject,
-          data: arr
-        }
-        nc.publish(reply, res)
+        nc.publish(reply, await deleteProjectPermission(data.id))
       }
       else if (type === requestRefs.fetchOwnCodes) {
-        const arr = await fetchOwnCodes(data.project)
-        const res = {
-          status: arr ? statusRefs.success : statusRefs.reject,
-          data: arr
-        }
-        nc.publish(reply, res)
+        nc.publish(reply, await fetchOwnCodes(data.project))
       }
       else if (type === requestRefs.fetchOwnProjects) {
-        const arr = await fetchOwnProjects(data.user)
-        const res = {
-          status: arr ? statusRefs.success : statusRefs.reject,
-          data: arr
-        }
-        nc.publish(reply, res)
+        nc.publish(reply, await fetchOwnProjects(data.user))
       }
       else if (type === requestRefs.fetchShareCodes) {
-        const arr = await fetchShareCodes(data.project)
-        const res = {
-          status: arr ? statusRefs.success : statusRefs.reject,
-          data: arr
-        }
-        nc.publish(reply, res)
+        nc.publish(reply, await fetchShareCodes(data.project))
       }
       else if (type === requestRefs.fetchShareProjects) {
-        const arr = await fetchShareProjects(data.user)
-        const res = {
-          status: arr ? statusRefs.success : statusRefs.reject,
-          data: arr
-        }
-        nc.publish(reply, res)
+        nc.publish(reply, await fetchShareProjects(data.user))
       }
-      else if (type === requestRefs.getCode) {
-        const current = await getCode(data.id)
-        const res = {
-          status: current ? statusRefs.success : statusRefs.reject,
-          data: current
-        }
-        nc.publish(reply, res)
-      }
-      else if (type === requestRefs.getProject) {
-        const current = await getProject(data.id)
-        const res = {
-          status: current ? statusRefs.success : statusRefs.reject,
-          data: current
-        }
-        nc.publish(reply, res)
-      }
+      else if (type === requestRefs.getCode) nc.publish(reply, await getCode(data.id))
+      else if (type === requestRefs.getProject) nc.publish(reply, await getProject(data.id))
       else if (type === requestRefs.getProjectPermission) {
-        const current = await getProjectPermission(data.id)
-        const res = {
-          status: current ? statusRefs.success : statusRefs.reject,
-          data: current
-        }
-        nc.publish(reply, res)
+        nc.publish(reply, await getProjectPermission(data.id))
       }
-      else if (type === requestRefs.updateCode) {
-        await updateCode(data)
-        const res = {
-          status: statusRefs.success
-        }
-        nc.publish(reply, res)
-      }
-      else if (type === requestRefs.updateProject) {
-        await updateProject(data)
-        const res = {
-          status: statusRefs.success
-        }
-        nc.publish(reply, res)
-      }
+      else if (type === requestRefs.updateCode) nc.publish(reply, await updateCode(data))
+      else if (type === requestRefs.updateProject) nc.publish(reply, await updateProject(data))
       else if (type === requestRefs.updateProjectPermission) {
-        await updateProjectPermission(data)
-        const res = {
-          status: statusRefs.success
-        }
-        nc.publish(reply, res)
+        nc.publish(reply, await updateProjectPermission(data))
       }
-      else nc.publish(reply, { status: statusRefs.notFound })
+      else nc.publish(reply, { error: notFound })
     }
   })
 }

@@ -4,8 +4,8 @@ export type ProjectFields = {
   readonly user: string
   readonly name: string
   readonly description: string
-  readonly codes: readonly typeof Schema.Types.ObjectId[]
-  readonly collaborators: readonly typeof Schema.Types.ObjectId[]
+  readonly codes: readonly string[]
+  readonly collaborators: readonly string[]
 };
 
 export type ProjectDocument = Document & ProjectFields
@@ -16,7 +16,7 @@ const schema = new Schema({
   description: { type: String, required: true },
   codes: [{ ref: 'Code', type: Schema.Types.ObjectId }],
   collaborators: [{ ref: 'ProjectPermission', type: Schema.Types.ObjectId }]
-}, { timestamps: true })
+}, { timestamps: true, versionKey: false })
 
 function transform(): Record<string, unknown> {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

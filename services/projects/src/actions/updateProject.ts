@@ -1,4 +1,9 @@
-import { Project } from '../models'
+import { Project, ProjectDocument } from '../models'
+
+type UpdateProject = {
+  readonly data?: ProjectDocument
+  readonly error?: string
+}
 
 type ProjectArgs = {
   readonly id: string
@@ -11,7 +16,12 @@ type ProjectArgs = {
  *
  * @param arg - Project object.
  */
-export default async function updateProject(arg: ProjectArgs): Promise<void> {
+export default async function updateProject(arg: ProjectArgs): Promise<UpdateProject> {
   const { id, ...obj } = arg
-  await Project.updateOne({ _id: id }, { $set: obj })
+  try {
+    return { data: await Project.findOneAndUpdate({ _id: id }, obj, { new: true }) }
+  }
+  catch (e) {
+    return { error: e.message }
+  }
 }

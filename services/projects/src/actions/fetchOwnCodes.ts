@@ -1,7 +1,8 @@
 import { Code, CodeDocument } from '../models'
-import { Schema } from 'mongoose'
 
-type FOC = readonly CodeDocument[]
+type FetchOwnCodes = {
+  readonly data: readonly CodeDocument[]
+}
 
 /**
  * Fetch own codes.
@@ -9,6 +10,7 @@ type FOC = readonly CodeDocument[]
  * @param project - User id.
  * @returns Own codes.
  */
-export default async function fetchOwnCodes(project: typeof Schema.Types.ObjectId): Promise<FOC> {
-  return Code.find({ project }).exec()
+export default async function fetchOwnCodes(project: string):
+  Promise<FetchOwnCodes> {
+  return { data: await Code.find({ project }).lean() }
 }

@@ -1,7 +1,8 @@
-import { Schema } from 'mongoose'
 import { Code, CodeDocument } from '../models'
 
-type FSC = readonly CodeDocument[]
+type FetchShareCodes = {
+  readonly data: readonly CodeDocument[]
+}
 
 /**
  * Fetch share codes.
@@ -9,6 +10,6 @@ type FSC = readonly CodeDocument[]
  * @param project - User id.
  * @returns Share codes.
  */
-export default async function fetchShareCodes(project: typeof Schema.Types.ObjectId): Promise<FSC> {
-  return Code.find({ project }).exec()
+export default async function fetchShareCodes(project: string): Promise<FetchShareCodes> {
+  return { data: await Code.find({ project }).lean() }
 }

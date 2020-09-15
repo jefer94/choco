@@ -1,4 +1,9 @@
-import { ProjectPermission } from '../models'
+import { ProjectPermission, ProjectPermissionDocument } from '../models'
+
+type DeleteProjectPermission = {
+  readonly data?: ProjectPermissionDocument
+  readonly error?: string
+}
 
 /**
  * Delete project permission.
@@ -6,7 +11,7 @@ import { ProjectPermission } from '../models'
  * @param id - ProjectPermission id.
  * @returns Was delete.
  */
-export default async function deleteProjectPermission(id: string): Promise<boolean> {
-  const { deletedCount } = await ProjectPermission.deleteOne({ _id: id })
-  return !!deletedCount
+export default async function deleteProjectPermission(id: string):
+  Promise<DeleteProjectPermission> {
+  return { data: await ProjectPermission.findOneAndDelete({ _id: id }) }
 }

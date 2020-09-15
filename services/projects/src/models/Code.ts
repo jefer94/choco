@@ -1,7 +1,7 @@
 import { Document, Schema, model } from 'mongoose'
 
 export type CodeFields = {
-  readonly project: typeof Schema.Types.ObjectId
+  readonly project: string
   readonly title: string
   readonly code: string
 };
@@ -12,7 +12,7 @@ const schema = new Schema({
   project: { ref: 'Project', type: Schema.Types.ObjectId },
   title: { type: String, required: true },
   code: { type: String, required: true }
-}, { timestamps: true })
+}, { timestamps: true, versionKey: false })
 
 function transform(): Record<string, unknown> {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

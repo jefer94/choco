@@ -1,4 +1,9 @@
-import { ProjectPermission } from '../models'
+import { ProjectPermission, ProjectPermissionDocument } from '../models'
+
+type AddProjectPermission = {
+  readonly data?: ProjectPermissionDocument
+  readonly error?: string
+}
 
 type ProjectPermissionArgs = {
   readonly user: string
@@ -14,13 +19,14 @@ type ProjectPermissionArgs = {
  * @param obj - Project permission object.
  * @returns Was saved?.
  */
-export default async function addProjectPermission(obj: ProjectPermissionArgs): Promise<boolean> {
+export default async function addProjectPermission(obj: ProjectPermissionArgs):
+  Promise<AddProjectPermission> {
   try {
-    const scope = new ProjectPermission(obj)
-    await scope.save()
-    return true
+    const perm = new ProjectPermission(obj)
+    await perm.save()
+    return { data: perm }
   }
-  catch {
-    return false
+  catch (e) {
+    return { error: e.message }
   }
 }

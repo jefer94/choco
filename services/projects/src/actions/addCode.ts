@@ -1,4 +1,9 @@
-import { Code } from '../models'
+import { Code, CodeDocument } from '../models'
+
+type AddCode = {
+  readonly data?: CodeDocument
+  readonly error?: string
+}
 
 type CodeArgs = {
   readonly title: string
@@ -12,13 +17,13 @@ type CodeArgs = {
  * @param arg - Code object.
  * @returns Was saved?.
  */
-export default async function addCode(arg: CodeArgs): Promise<boolean> {
+export default async function addCode(arg: CodeArgs): Promise<AddCode> {
   try {
     const code = new Code(arg)
     await code.save()
-    return true
+    return { data: code }
   }
-  catch {
-    return false
+  catch (e) {
+    return { error: e.message }
   }
 }

@@ -1,6 +1,8 @@
 import { Project, ProjectDocument } from '../models'
 
-type FOP = readonly ProjectDocument[]
+type FetchOwnProjects = {
+  readonly data: readonly ProjectDocument[]
+}
 
 /**
  * Fetch own projects.
@@ -8,6 +10,6 @@ type FOP = readonly ProjectDocument[]
  * @param user - User id.
  * @returns Own projects.
  */
-export default async function fetchOwnProjects(user: string): Promise<FOP> {
-  return Project.find({ user }).exec()
+export default async function fetchOwnProjects(user: string): Promise<FetchOwnProjects> {
+  return { data: await Project.find({ user }).lean() }
 }
