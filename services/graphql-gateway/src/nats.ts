@@ -1,5 +1,6 @@
 import * as NATS from 'nats'
 import keychain from '@chocolab/keychain'
+import { Request } from './middlewares/authorization'
 
 const nc = NATS.connect(process.env.BROKER ?
   { json: true, url: process.env.BROKER } : { json: true })
@@ -62,9 +63,10 @@ export enum serviceRefs {
 }
 
 export function subscribe<T>(service: string): Promise<T> {
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     const id = nc.subscribe(service, (msg) => {
-      resolve(msg)
+      if (msg.error) reject(msg.error)
+      resolve(msg.data)
       nc.unsubscribe(id)
     })
   })
@@ -74,4 +76,34 @@ export function publish<T>(service: string, action: string, message: Record<stri
   const channel = keychain(service)
   nc.publish(service, { type: action, ...message }, channel)
   return channel
+}
+
+type Msg = Record<string, unknown>
+type FetchMsg = (_: unknown, message: Msg, ctx: Request) => Promise<Msg>
+
+export function fetchMsgWithAuth(service: string, project: string): FetchMsg {
+  return (_, message, ctx) => {
+    if (ctx.auth?.user) {
+      const channel = publish(service, project, message)
+      return subscribe(channel)
+    }
+    throw ctx.error
+  }
+}
+
+export function fetchMsgWithAuthUser(service: string, project: string): FetchMsg {
+  return (_, message, ctx) => {
+    if (ctx.auth?.user) {
+      const channel = publish(service, project, { ...message, user: ctx.auth.user })
+      return subscribe(channel)
+    }
+    throw ctx.error
+  }
+}
+
+export function fetchMsg(service: string, project: string): FetchMsg {
+  return (_, message, ctx) => {
+    const channel = publish(service, project, message)
+    return subscribe(channel)
+  }
 }

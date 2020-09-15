@@ -4,13 +4,15 @@ import { graphqlHTTP } from 'express-graphql'
 import { readFileSync } from 'fs'
 import * as path from 'path'
 import resolvers from './resolvers'
+import authorization from './middlewares/authorization'
 
 export const app = express()
-// /* GraphQL */
+
+// GraphQL.
 const typeDefs = readFileSync(path.resolve(__dirname, '..', 'src', 'schema.gql'), 'utf-8')
 const schema = makeExecutableSchema({ typeDefs, resolvers })
 
-app.use('/', graphqlHTTP({
+app.use('/', authorization, graphqlHTTP({
   schema,
   rootValue: resolvers,
   // customFormatErrorFn: (err) => {
@@ -23,5 +25,3 @@ app.use('/', graphqlHTTP({
 export function server(): void {
   app.listen(process.env.PORT || 5000)
 }
-
-// graphql(schema, '{ hello }', resolvers)

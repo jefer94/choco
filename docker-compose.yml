@@ -6,6 +6,8 @@ services:
     image: chocolab/graphql-gateway
     environment:
       - BROKER=nats://nats:4222
+    ports:
+      - 5000:5000
     links:
       - nats
 

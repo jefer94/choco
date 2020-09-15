@@ -1,85 +1,131 @@
-# type Status {
-#   status: String!
-# }
-
-# type Id { 
-#   id: ID!
-# }
-
-type Token { 
-  user: String!
-  ext: Number!
-  iat: Number!
-}
-
-type CheckToken { 
-  status: String!
-  data: Token
-}
-
 type Query {
-  "Hello"
-  hello: String
+  "Generate token"
+  generateToken(username: String!, password: String!): Auth!
 
-  "Check token"
-  checkToken(token: String!): CheckToken!
+  "Fetch own codes"
+  codes(project: String!): [Code!]!
 
-  # "Fetch Activities by user id"
-  # userActivities(user: ID!): String
+  "Fetch own projects"
+  projects: [Project!]!
 
-  # "Fetch all Activities in logs"
-  # allActivities(user: ID!): String
+  "Fetch share codes"
+  sharedCodes(project: String!): [Code!]!
+
+  "Fetch share projects"
+  sharedProjects: [Project!]!
+
+  "Get code"
+  getCode(id: ID!): Code!
+
+  "Get project"
+  getProject(id: ID!): Project!
+
+  "Get project permission"
+  getProjectPermission(id: ID!): ProjectPermission!
 }
 
 type Mutation {
-  # "Log one activity of one user"
-  # addActivityLog(user: ID!, activity: ID!): ActivityLogMutation
+  "Register"
+  register(input: UserInput): Auth!
 
-  # "Add once activity"
-  # addOnceActivity(name: String, service: ID!): ActivityMutation
+  "Add new code"
+  addCode(input: AddCodeInput): Code!
 
-  # "Add once service"
-  # addOnceService(name: String): ServiceMutation
+  "Update code"
+  updateCode(input: UpdateCodeInput): Code!
 
-  # "Delete service in cascade"
-  # deleteService(name: String): DeleteService
+  "Delete code"
+  deleteCode(id: ID!): Code!
 
-  
+  "Add new project"
+  addProject(input: AddProjectInput): Project!
+
+  "Update project"
+  updateProject(input: UpdateProjectInput): Project!
+
+  "Delete project"
+  deleteProject(id: ID!): Project!
+
+  "Add new project permission"
+  addProjectPermission(input: AddProjectInput): ProjectPermission!
+
+  "Update project permission"
+  updateProjectPermission(input: UpdateProjectInput): ProjectPermission!
+
+  "Delete project permission"
+  deleteProjectPermission(id: ID!): ProjectPermission!
 }
 
-type ActivityMutation {
-  status: String!
-  data: ID!
-}
-
-type Activity {
-  id: ID!
-  name: String!
-  service: String!
+type Code {
+  _id: ID!
+  project: String!
+  title: String!
+  code: String!
   createdAt: String!
   updatedAt: String!
 }
 
-type ActivityLogMutation {
-  status: String!
-}
-
-type ActivityLog {
-  id: ID!
-  user: ID!
-  activity: ID!
-}
-
-type ServiceMutation {
-  status: String!
-  data: ID!
-}
-
-type DeleteService {
-  status: String!
-}
-
-type Service {
-  id: ID!
+type Project {
+  _id: ID!
+  user: String!
   name: String!
+  description: String!
+  codes: [String!]!
+  collaborators: [String!]!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type ProjectPermission {
+  _id: ID!
+  write: Boolean!
+  create: Boolean!
+  delete: Boolean!
+  project: String!
+  user: String!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type Auth { 
+  user: ID!
+  token: String!
+}
+
+input UserInput {
+  username: String!
+  email: String!
+  password: String!
+}
+
+input AddCodeInput {
+  title: String!
+  code: String!
+  project: String!
+}
+
+input UpdateCodeInput {
+  id: ID!
+  title: String
+  code: String
+}
+
+input AddProjectInput {
+  name: String!
+  description: String!
+  user: String!
+}
+
+input UpdateProjectInput {
+  id: ID!
+  name: String
+  description: String
+}
+
+input ProjectPermissionInput {
+  user: String!
+  project: String!
+  write: Boolean
+  create: Boolean
+  delete: Boolean
 }

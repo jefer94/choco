@@ -1,6 +1,6 @@
 FROM node:alpine
 
-EXPOSE 4222 6222 8222
+EXPOSE 5000
 
 WORKDIR /usr/src
 COPY original-tsconfig.json tsconfig.json
