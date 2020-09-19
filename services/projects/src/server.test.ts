@@ -1,7 +1,7 @@
 /* eslint-disable no-await-in-loop */
 /* eslint-disable functional/no-loop-statement */
 /* eslint-disable no-restricted-syntax */
-import * as NATS from 'nats'
+import { connect, NatsConnection, JSONCodec, StringCodec } from 'nats'
 import { MongoMemoryServer } from 'mongodb-memory-server-core'
 import server, { host, requestRefs, notFound } from './server'
 import db, { clearCollections } from './db'
@@ -9,8 +9,8 @@ import db, { clearCollections } from './db'
 jest.setTimeout(600000)
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000
 
-const nc = NATS.connect({ json: true })
-const whoami = `${host}-test`
+let nc: NatsConnection
+const { decode, encode } = JSONCodec()
 
 // const mongod = new MongoMemoryServer()
 // process.env.MONGO_URI = await mongod.getUri()
@@ -18,6 +18,7 @@ const whoami = `${host}-test`
 beforeAll(async () => {
   const mongod = new MongoMemoryServer()
   await db(await mongod.getUri())
+  nc = await connect()
   await server()
 })
 
@@ -33,34 +34,45 @@ let projectId1: string
 let codeId1: string
 let permissionId1: string
 
-function subscribe<T>(whoami: string): Promise<T> {
-  return new Promise((resolve) => {
-    const id = nc.subscribe(whoami, (msg) => {
-      resolve(msg)
-      nc.unsubscribe(id)
-    })
-  })
+type Data = Record<string, unknown> & {
+  readonly _id?: string
+  readonly createdAt?: string
+  readonly updatedAt?: string
+  readonly service?: string
+  readonly activity?: string
+  readonly user?: string
+}
+type Request<T> = {
+  readonly data?: T
+  readonly error?: string
 }
 
+export async function SendCommand<T>(action: string, message?: Data):
+  Promise<T | Data> {
+  const obj = message || {}
+  const msg = nc.request(host, encode({ type: action, ...obj }), { timeout: 5000 })
+  const data: Request<T | Data> = decode((await msg).data)
+  return data
+}
 test('Not found', async () => {
-  nc.publish(host, 'Hello asdasdasd', whoami)
-  expect(await subscribe(whoami)).toEqual({ error: notFound })
+  const msg = nc.request(host, StringCodec().encode('Hello asdasdasd'))
+  expect(decode((await msg).data)).toEqual({ error: notFound })
 })
 
 test('fetch user1 without projects', async () => {
   const message = {
     user: userId1
   }
-  nc.publish(host, { type: requestRefs.fetchOwnProjects, ...message }, whoami)
-  expect(await subscribe(whoami)).toEqual({ data: [] })
+  const msg = await SendCommand(requestRefs.fetchOwnProjects, message)
+  expect(msg).toEqual({ data: [] })
 })
 
 test('fetch user1 without shared projects 1', async () => {
   const message = {
     user: userId1
   }
-  nc.publish(host, { type: requestRefs.fetchShareProjects, ...message }, whoami)
-  expect(await subscribe(whoami)).toEqual({ data: [] })
+  const msg = await SendCommand(requestRefs.fetchShareProjects, message)
+  expect(msg).toEqual({ data: [] })
 })
 
 test('Add project user1', async () => {
@@ -69,9 +81,7 @@ test('Add project user1', async () => {
     name: 'Algorithm',
     description: 'Algorithm project'
   }
-  nc.publish(host, { type: requestRefs.addProject, ...message }, whoami)
-
-  const { data, ...obj1 } = await subscribe(whoami)
+  const { data, ...obj1 } = await SendCommand(requestRefs.addProject, message)
   expect(obj1).toEqual({})
 
   const { _id, createdAt, updatedAt, ...obj2 } = data
@@ -92,9 +102,7 @@ test('fetch user1 with projects', async () => {
   const message = {
     user: userId1
   }
-  nc.publish(host, { type: requestRefs.fetchOwnProjects, ...message }, whoami)
-
-  const { data, ...obj1 } = await subscribe(whoami)
+  const { data, ...obj1 } = await SendCommand(requestRefs.fetchOwnProjects, message)
   expect(obj1).toEqual({})
 
   expect(data).toHaveLength(1)
@@ -115,9 +123,7 @@ test('get user1 project', async () => {
   const message = {
     id: projectId1
   }
-  nc.publish(host, { type: requestRefs.getProject, ...message }, whoami)
-
-  const { data, ...obj1 } = await subscribe(whoami)
+  const { data, ...obj1 } = await SendCommand(requestRefs.getProject, message)
   expect(obj1).toEqual({})
 
   const { _id, createdAt, updatedAt, ...obj2 } = data
@@ -137,24 +143,24 @@ test('fetch user1 without shared projects 2', async () => {
   const message = {
     user: userId1
   }
-  nc.publish(host, { type: requestRefs.fetchShareProjects, ...message }, whoami)
-  expect(await subscribe(whoami)).toEqual({ data: [] })
+  const msg = await SendCommand(requestRefs.fetchShareProjects, message)
+  expect(msg).toEqual({ data: [] })
 })
 
 test('fetch user1 without codes', async () => {
   const message = {
     project: projectId1
   }
-  nc.publish(host, { type: requestRefs.fetchOwnCodes, ...message }, whoami)
-  expect(await subscribe(whoami)).toEqual({ data: [] })
+  const msg = await SendCommand(requestRefs.fetchOwnCodes, message)
+  expect(msg).toEqual({ data: [] })
 })
 
 test('fetch user1 without share codes', async () => {
   const message = {
     project: projectId1
   }
-  nc.publish(host, { type: requestRefs.fetchShareCodes, ...message }, whoami)
-  expect(await subscribe(whoami)).toEqual({ data: [] })
+  const msg = await SendCommand(requestRefs.fetchShareCodes, message)
+  expect(msg).toEqual({ data: [] })
 })
 
 test('add user1 code', async () => {
@@ -163,9 +169,7 @@ test('add user1 code', async () => {
     code: 'import a from b',
     project: projectId1
   }
-  nc.publish(host, { type: requestRefs.addCode, ...message }, whoami)
-
-  const { data, ...obj1 } = await subscribe(whoami)
+  const { data, ...obj1 } = await SendCommand(requestRefs.addCode, message)
   expect(obj1).toEqual({})
 
   const { _id, createdAt, updatedAt, ...obj2 } = data
@@ -185,9 +189,7 @@ test('add permission user2', async () => {
     create: false,
     delete: true
   }
-  nc.publish(host, { type: requestRefs.addProjectPermission, ...message }, whoami)
-
-  const { data, ...obj1 } = await subscribe(whoami)
+  const { data, ...obj1 } = await SendCommand(requestRefs.addProjectPermission, message)
   expect(obj1).toEqual({})
 
   const { _id, createdAt, updatedAt, ...obj2 } = data
@@ -202,17 +204,15 @@ test('fetch user2 without projects', async () => {
   const message = {
     user: userId2
   }
-  nc.publish(host, { type: requestRefs.fetchOwnProjects, ...message }, whoami)
-  expect(await subscribe(whoami)).toEqual({ data: [] })
+  const msg = await SendCommand(requestRefs.fetchOwnProjects, message)
+  expect(msg).toEqual({ data: [] })
 })
 
 test('fetch user2 with shared projects', async () => {
   const message = {
     user: userId2
   }
-  nc.publish(host, { type: requestRefs.fetchShareProjects, ...message }, whoami)
-
-  const { data, ...obj1 } = await subscribe(whoami)
+  const { data, ...obj1 } = await SendCommand(requestRefs.fetchShareProjects, message)
   expect(obj1).toEqual({})
 
   expect(data).toHaveLength(1)
@@ -241,9 +241,7 @@ test('Update user1 project', async () => {
     name: 'New algorithm',
     description: 'New algorithm project'
   }
-  nc.publish(host, { type: requestRefs.updateProject, ...message }, whoami)
-
-  const { data, ...obj1 } = await subscribe(whoami)
+  const { data, ...obj1 } = await SendCommand(requestRefs.updateProject, message)
   expect(obj1).toEqual({})
 
   const { _id, createdAt, updatedAt, ...obj2 } = data
@@ -264,9 +262,7 @@ test('fetch user1 with projects updated', async () => {
   const message = {
     user: userId1
   }
-  nc.publish(host, { type: requestRefs.fetchOwnProjects, ...message }, whoami)
-
-  const { data, ...obj1 } = await subscribe(whoami)
+  const { data, ...obj1 } = await SendCommand(requestRefs.fetchOwnProjects, message)
   expect(obj1).toEqual({})
 
   expect(data).toHaveLength(1)
@@ -288,9 +284,7 @@ test('fetch user1 with codes', async () => {
     project: projectId1
     // user: userId1
   }
-  nc.publish(host, { type: requestRefs.fetchOwnCodes, ...message }, whoami)
-
-  const { data, ...obj1 } = await subscribe(whoami)
+  const { data, ...obj1 } = await SendCommand(requestRefs.fetchOwnCodes, message)
   expect(obj1).toEqual({})
 
   expect(data).toHaveLength(1)
@@ -311,9 +305,7 @@ test('update user1 with codes', async () => {
     title: 'Main.al',
     code: 'import a from b.al'
   }
-  nc.publish(host, { type: requestRefs.updateCode, ...message }, whoami)
-
-  const { data, ...obj1 } = await subscribe(whoami)
+  const { data, ...obj1 } = await SendCommand(requestRefs.updateCode, message)
   expect(obj1).toEqual({})
 
   const { _id, createdAt, updatedAt, ...obj2 } = data
@@ -331,9 +323,7 @@ test('get user1 code', async () => {
   const message = {
     id: codeId1
   }
-  nc.publish(host, { type: requestRefs.getCode, ...message }, whoami)
-
-  const { data, ...obj1 } = await subscribe(whoami)
+  const { data, ...obj1 } = await SendCommand(requestRefs.getCode, message)
   expect(obj1).toEqual({})
 
   const { _id, createdAt, updatedAt, ...obj2 } = data
@@ -355,9 +345,7 @@ test('update user1 permission', async () => {
     create: true,
     delete: false
   }
-  nc.publish(host, { type: requestRefs.updateProjectPermission, ...message }, whoami)
-
-  const { data, ...obj1 } = await subscribe(whoami)
+  const { data, ...obj1 } = await SendCommand(requestRefs.updateProjectPermission, message)
   expect(obj1).toEqual({})
 
   const { _id, createdAt, updatedAt, ...obj2 } = data
@@ -371,9 +359,7 @@ test('get user1 permission', async () => {
   const message = {
     id: permissionId1
   }
-  nc.publish(host, { type: requestRefs.getProjectPermission, ...message }, whoami)
-
-  const { data, ...obj1 } = await subscribe(whoami)
+  const { data, ...obj1 } = await SendCommand(requestRefs.getProjectPermission, message)
   expect(obj1).toEqual({})
 
   const { _id, createdAt, updatedAt, ...obj2 } = data
@@ -394,9 +380,7 @@ test('fetch user1 with shared codes', async () => {
     project: projectId1
     // user: userId1
   }
-  nc.publish(host, { type: requestRefs.fetchShareCodes, ...message }, whoami)
-
-  const { data, ...obj1 } = await subscribe(whoami)
+  const { data, ...obj1 } = await SendCommand(requestRefs.fetchShareCodes, message)
   expect(obj1).toEqual({})
 
   expect(data).toHaveLength(1)
@@ -416,9 +400,7 @@ test('delete user1 with shared codes', async () => {
     id: permissionId1
     // user: userId1
   }
-  nc.publish(host, { type: requestRefs.deleteProjectPermission, ...message }, whoami)
-
-  const { data, ...obj1 } = await subscribe(whoami)
+  const { data, ...obj1 } = await SendCommand(requestRefs.deleteProjectPermission, message)
   expect(obj1).toEqual({})
 
   const { _id, createdAt, updatedAt, ...obj2 } = data
@@ -439,8 +421,8 @@ test('delete user1 shared codes that not exist', async () => {
     id: permissionId1
     // user: userId1
   }
-  nc.publish(host, { type: requestRefs.deleteProjectPermission, ...message }, whoami)
-  expect(await subscribe(whoami)).toEqual({ data: null })
+  const msg = await SendCommand(requestRefs.deleteProjectPermission, message)
+  expect(msg).toEqual({ data: null })
 })
 
 test('get user1 shared codes that not exist', async () => {
@@ -448,8 +430,8 @@ test('get user1 shared codes that not exist', async () => {
     id: permissionId1
     // user: userId1
   }
-  nc.publish(host, { type: requestRefs.getProjectPermission, ...message }, whoami)
-  expect(await subscribe(whoami)).toEqual({ data: null })
+  const msg = await SendCommand(requestRefs.getProjectPermission, message)
+  expect(msg).toEqual({ data: null })
 })
 
 test('delete user1 with codes', async () => {
@@ -457,9 +439,7 @@ test('delete user1 with codes', async () => {
     id: codeId1
     // user: userId1
   }
-  nc.publish(host, { type: requestRefs.deleteCode, ...message }, whoami)
-
-  const { data, ...obj1 } = await subscribe(whoami)
+  const { data, ...obj1 } = await SendCommand(requestRefs.deleteCode, message)
   expect(obj1).toEqual({})
 
   const { _id, createdAt, updatedAt, ...obj2 } = data
@@ -478,16 +458,16 @@ test('delete user1 codes that not exist', async () => {
     id: codeId1
     // user: userId1
   }
-  nc.publish(host, { type: requestRefs.deleteProjectPermission, ...message }, whoami)
-  expect(await subscribe(whoami)).toEqual({ data: null })
+  const msg = await SendCommand(requestRefs.deleteProjectPermission, message)
+  expect(msg).toEqual({ data: null })
 })
 
 test('get user1 codes that not exist', async () => {
   const message = {
     id: codeId1
   }
-  nc.publish(host, { type: requestRefs.getProjectPermission, ...message }, whoami)
-  expect(await subscribe(whoami)).toEqual({ data: null })
+  const msg = await SendCommand(requestRefs.getProjectPermission, message)
+  expect(msg).toEqual({ data: null })
 })
 
 test('get user1 shared codes that not exist', async () => {
@@ -495,8 +475,8 @@ test('get user1 shared codes that not exist', async () => {
     id: permissionId1
     // user: userId1
   }
-  nc.publish(host, { type: requestRefs.getProjectPermission, ...message }, whoami)
-  expect(await subscribe(whoami)).toEqual({ data: null })
+  const msg = await SendCommand(requestRefs.getProjectPermission, message)
+  expect(msg).toEqual({ data: null })
 })
 
 test('delete user1 with project', async () => {
@@ -504,9 +484,7 @@ test('delete user1 with project', async () => {
     id: projectId1
     // user: userId1
   }
-  nc.publish(host, { type: requestRefs.deleteProject, ...message }, whoami)
-
-  const { data, ...obj1 } = await subscribe(whoami)
+  const { data, ...obj1 } = await SendCommand(requestRefs.deleteProject, message)
   expect(obj1).toEqual({})
 
   const { _id, createdAt, updatedAt, ...obj2 } = data
@@ -526,8 +504,8 @@ test('get user1 project that not exist', async () => {
   const message = {
     id: codeId1
   }
-  nc.publish(host, { type: requestRefs.getProjectPermission, ...message }, whoami)
-  expect(await subscribe(whoami)).toEqual({ data: null })
+  const msg = await SendCommand(requestRefs.getProjectPermission, message)
+  expect(msg).toEqual({ data: null })
 })
 
 test('get user1 project that not exist', async () => {
@@ -535,6 +513,6 @@ test('get user1 project that not exist', async () => {
     id: permissionId1
     // user: userId1
   }
-  nc.publish(host, { type: requestRefs.getProjectPermission, ...message }, whoami)
-  expect(await subscribe(whoami)).toEqual({ data: null })
+  const msg = await SendCommand(requestRefs.getProjectPermission, message)
+  expect(msg).toEqual({ data: null })
 })

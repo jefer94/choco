@@ -1,9 +1,13 @@
-import * as NATS from 'nats'
+import { connect, JSONCodec } from 'nats'
 import keychain from '@chocolab/keychain'
 import { Request } from './middlewares/authorization'
 
-const nc = NATS.connect(process.env.BROKER ?
-  { json: true, url: process.env.BROKER } : { json: true })
+const connection = connect(process.env.BROKER ?
+  { servers: process.env.BROKER } : {})
+
+// const nc = connect(process.env.BROKER ?
+//   { url: process.env.BROKER } : {})
+// { payload: Payload.JSON, url: process.env.BROKER } : { payload: 'json' })
 
 export enum activityRefs {
   addActivityLog = 'add activity log',
@@ -62,48 +66,76 @@ export enum serviceRefs {
   projects = 'projects',
 }
 
-export function subscribe<T>(service: string): Promise<T> {
-  return new Promise((resolve, reject) => {
-    const id = nc.subscribe(service, (msg) => {
-      if (msg.error) reject(msg.error)
-      resolve(msg.data)
-      nc.unsubscribe(id)
-    })
-  })
+type SubscribeRequest<T> = {
+  readonly data?: T
+  readonly error?: string
 }
 
-export function publish<T>(service: string, action: string, message: Record<string, T>): string {
+// export async function subscribe<T>(service: string): Promise<T> {
+//   const nc = await connection
+//   console.log('llll0', service)
+//   const msg = await nc.request(service)
+//   // const msg = await nc.subscribe(service, { max: 1 })
+//   // msg.
+//   console.log('llll1')
+//   const data: SubscribeRequest<T> = JSONCodec().decode(msg.data)
+//   console.log('llll2')
+
+//   if (data.error) throw data.error
+//   return data.data
+//   console.log('llll3')
+
+// }
+
+// export async function publish<T>(service: string, action: string, message: Record<string, T>):
+//   Promise<string> {
+//   const nc = await connection
+//   console.log('llll0', service)
+//   const msg = nc.request(service)
+//   const channel = keychain(service)
+//   nc.publish(service, JSONCodec().encode({ type: action, ...message }), { reply: channel })
+//   // nc.publishRequest()
+//   return channel
+// }
+
+export async function SendCommand<T>(service: string, action: string, message: Msg):
+  Promise<T> {
+  const nc = await connection
   const channel = keychain(service)
-  nc.publish(service, { type: action, ...message }, channel)
-  return channel
+  const msg = nc.request(service)
+  nc.publish(service, JSONCodec().encode({ type: action, ...message }), { reply: channel })
+  // nc.publishRequest()
+
+  console.log('llll1')
+  const data: SubscribeRequest<T> = JSONCodec().decode((await msg).data)
+  console.log('llll2', data)
+
+  if (data.error) throw data.error
+  return data.data
+  console.log('llll3')
 }
 
 type Msg = Record<string, unknown>
 type FetchMsg = (_: unknown, message: Msg, ctx: Request) => Promise<Msg>
 
 export function fetchMsgWithAuth(service: string, project: string): FetchMsg {
-  return (_, message, ctx) => {
+  return async (_, message: Msg, ctx) => {
     if (ctx.auth?.user) {
-      const channel = publish(service, project, message)
-      return subscribe(channel)
+      return SendCommand(service, project, message)
     }
     throw ctx.error
   }
 }
 
 export function fetchMsgWithAuthUser(service: string, project: string): FetchMsg {
-  return (_, message, ctx) => {
+  return async (_, message, ctx) => {
     if (ctx.auth?.user) {
-      const channel = publish(service, project, { ...message, user: ctx.auth.user })
-      return subscribe(channel)
+      return SendCommand(service, project, message)
     }
     throw ctx.error
   }
 }
 
 export function fetchMsg(service: string, project: string): FetchMsg {
-  return (_, message, ctx) => {
-    const channel = publish(service, project, message)
-    return subscribe(channel)
-  }
+  return async (_, message, ctx) => SendCommand(service, project, message)
 }

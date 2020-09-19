@@ -9,7 +9,7 @@
     "@types/node": "^14.10.1",
     "@types/redis": "^2.8.27",
     "mongoose": "^5.10.2",
-    "nats": "^1.4.12",
+    "nats": "^2.0.0-206",
     "redis": "^3.0.2"
   },
   "devDependencies": {

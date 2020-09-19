@@ -1,6 +1,6 @@
 /* eslint-disable functional/no-loop-statement */
 /* eslint-disable no-restricted-syntax */
-import * as NATS from 'nats'
+import { connect, JSONCodec } from 'nats'
 import addCode from './actions/addCode'
 import addProject from './actions/addProject'
 import addProjectPermission from './actions/addProjectPermission'
@@ -18,12 +18,9 @@ import updateCode from './actions/updateCode'
 import updateProject from './actions/updateProject'
 import updateProjectPermission from './actions/updateProjectPermission'
 
-const nc = NATS.connect(process.env.BROKER ?
-  { json: true, url: process.env.BROKER } : { json: true })
-
-let sid = 0
+// let sid = 0
 export function close(): void {
-  nc.unsubscribe(sid)
+  // nc.unsubscribe(sid)
 }
 
 export const host = 'projects'
@@ -50,43 +47,67 @@ export enum requestRefs {
 export const notFound = 'command not found'
 
 export default async function server(): Promise<void> {
-  sid = nc.subscribe(host, async (msg, reply) => {
-    if (reply) {
-      const { type, ...data } = msg
+  const nc = await connect(process.env.BROKER ?
+    { servers: process.env.BROKER } : {})
 
-      if (type === requestRefs.addCode) nc.publish(reply, await addCode(data))
-      else if (type === requestRefs.addProject) nc.publish(reply, await addProject(data))
-      else if (type === requestRefs.addProjectPermission) {
-        nc.publish(reply, await addProjectPermission(data))
+  nc.subscribe(host, { callback: async (error, msg) => {
+    const { decode, encode } = JSONCodec()
+    const { reply, data } = msg
+
+    if (reply) {
+      try {
+        const { type, ...request } = decode(data)
+
+        if (type === requestRefs.addCode) {
+          nc.publish(reply, encode(await addCode(request)))
+        }
+        else if (type === requestRefs.addProject) {
+          nc.publish(reply, encode(await addProject(request)))
+        }
+        else if (type === requestRefs.addProjectPermission) {
+          nc.publish(reply, encode(await addProjectPermission(request)))
+        }
+        else if (type === requestRefs.deleteCode) {
+          nc.publish(reply, encode(await deleteCode(request.id)))
+        }
+        else if (type === requestRefs.deleteProject) {
+          nc.publish(reply, encode(await deleteProject(request.id)))
+        }
+        else if (type === requestRefs.deleteProjectPermission) {
+          nc.publish(reply, encode(await deleteProjectPermission(request.id)))
+        }
+        else if (type === requestRefs.fetchOwnCodes) {
+          nc.publish(reply, encode(await fetchOwnCodes(request.project)))
+        }
+        else if (type === requestRefs.fetchOwnProjects) {
+          nc.publish(reply, encode(await fetchOwnProjects(request.user)))
+        }
+        else if (type === requestRefs.fetchShareCodes) {
+          nc.publish(reply, encode(await fetchShareCodes(request.project)))
+        }
+        else if (type === requestRefs.fetchShareProjects) {
+          nc.publish(reply, encode(await fetchShareProjects(request.user)))
+        }
+        else if (type === requestRefs.getCode) {
+          nc.publish(reply, encode(await getCode(request.id)))
+        }
+        else if (type === requestRefs.getProject) {
+          nc.publish(reply, encode(await getProject(request.id)))
+        }
+        else if (type === requestRefs.getProjectPermission) {
+          nc.publish(reply, encode(await getProjectPermission(request.id)))
+        }
+        else if (type === requestRefs.updateCode) {
+          nc.publish(reply, encode(await updateCode(request)))
+        }
+        else if (type === requestRefs.updateProject) {
+          nc.publish(reply, encode(await updateProject(request)))
+        }
+        else if (type === requestRefs.updateProjectPermission) {
+          nc.publish(reply, encode(await updateProjectPermission(request)))
+        }
       }
-      else if (type === requestRefs.deleteCode) nc.publish(reply, await deleteCode(data.id))
-      else if (type === requestRefs.deleteProject) nc.publish(reply, await deleteProject(data.id))
-      else if (type === requestRefs.deleteProjectPermission) {
-        nc.publish(reply, await deleteProjectPermission(data.id))
-      }
-      else if (type === requestRefs.fetchOwnCodes) {
-        nc.publish(reply, await fetchOwnCodes(data.project))
-      }
-      else if (type === requestRefs.fetchOwnProjects) {
-        nc.publish(reply, await fetchOwnProjects(data.user))
-      }
-      else if (type === requestRefs.fetchShareCodes) {
-        nc.publish(reply, await fetchShareCodes(data.project))
-      }
-      else if (type === requestRefs.fetchShareProjects) {
-        nc.publish(reply, await fetchShareProjects(data.user))
-      }
-      else if (type === requestRefs.getCode) nc.publish(reply, await getCode(data.id))
-      else if (type === requestRefs.getProject) nc.publish(reply, await getProject(data.id))
-      else if (type === requestRefs.getProjectPermission) {
-        nc.publish(reply, await getProjectPermission(data.id))
-      }
-      else if (type === requestRefs.updateCode) nc.publish(reply, await updateCode(data))
-      else if (type === requestRefs.updateProject) nc.publish(reply, await updateProject(data))
-      else if (type === requestRefs.updateProjectPermission) {
-        nc.publish(reply, await updateProjectPermission(data))
-      }
-      else nc.publish(reply, { error: notFound })
+      catch { nc.publish(reply, encode({ error: notFound })) }
     }
-  })
+  } })
 }

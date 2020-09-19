@@ -1,5 +1,6 @@
 import { Request as Rq, Response, NextFunction } from 'express'
-import { publish, subscribe } from '../nats'
+import { SendCommand } from '../nats'
+// import { publish, subscribe, SendCommand } from '../nats'
 
 export enum authenticatorRefs {
   checkToken = 'check token',
@@ -28,10 +29,15 @@ export default async function authorization(req: Request, res: Response, next: N
   Promise<void> {
   const token = stripToken(req.headers.authorization)
 
-  const channel = publish(service, authenticatorRefs.checkToken, { token })
+  console.log('asdasdas0')
+  // const channel = await publish(service, authenticatorRefs.checkToken, { token })
   try {
-    const data = await subscribe<Auth>(channel)
+    console.log('asdasdas')
+    // const data = await subscribe<Auth>(channel)
+    const data = await SendCommand<Auth>(service, authenticatorRefs.checkToken, { token })
+
     req.auth = data
+    console.log('asdasdas2', data)
   }
   catch (e) {
     req.error = e.message

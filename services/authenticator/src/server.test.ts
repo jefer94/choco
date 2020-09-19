@@ -1,40 +1,52 @@
 /* eslint-disable no-await-in-loop */
 /* eslint-disable functional/no-loop-statement */
 /* eslint-disable no-restricted-syntax */
-import * as NATS from 'nats'
+import { connect, NatsConnection, JSONCodec, StringCodec } from 'nats'
 import { MongoMemoryServer } from 'mongodb-memory-server-core'
-import server, { close, requestRefs, notFound } from './server'
+import server, { close, requestRefs, notFound, host } from './server'
 import db from './db'
 
 jest.setTimeout(600000)
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000
 
-const nc = NATS.connect({ json: true })
-const host = 'authenticator'
-const whoami = 'authenticator-test'
+let nc: NatsConnection
+const { decode, encode } = JSONCodec()
 
 beforeAll(async () => {
   process.env.SECRET = 'Konan'
   const mongod = new MongoMemoryServer()
   await db(await mongod.getUri())
+  nc = await connect()
   await server()
 })
 
 // afterAll(() => {})
 let currentToken: string
 
-function subscribe<T>(whoami: string): Promise<T> {
-  return new Promise((resolve) => {
-    const id = nc.subscribe(whoami, (msg) => {
-      resolve(msg)
-      nc.unsubscribe(id)
-    })
-  })
+type Data = Record<string, unknown> & {
+  readonly _id?: string
+  readonly createdAt?: string
+  readonly updatedAt?: string
+  readonly service?: string
+  readonly activity?: string
+  readonly user?: string
+}
+type Request<T> = {
+  readonly data?: T
+  readonly error?: string
+}
+
+export async function SendCommand<T>(action: string, message?: Data):
+  Promise<T | Data> {
+  const obj = message || {}
+  const msg = nc.request(host, encode({ type: action, ...obj }), { timeout: 5000 })
+  const data: Request<T | Data> = decode((await msg).data)
+  return data
 }
 
 test('Not found', async () => {
-  nc.publish(host, 'Hello asdasdasd', whoami)
-  expect(await subscribe(whoami)).toEqual({ error: notFound })
+  const msg = nc.request(host, StringCodec().encode('Hello asdasdasd'))
+  expect(decode((await msg).data)).toEqual({ error: notFound })
 })
 
 test('Invalid token request with username, password', async () => {
@@ -47,8 +59,8 @@ test('Invalid token request with username, password', async () => {
     password: 'pass'
   }]
   for (const message of messages) {
-    nc.publish(host, { type: requestRefs.generateToken, ...message }, whoami)
-    expect(await subscribe(whoami)).toEqual({ error: 'invalid credentials' })
+    const msg = await SendCommand(requestRefs.generateToken, message)
+    expect(msg).toEqual({ error: 'invalid credentials' })
   }
 })
 
@@ -64,8 +76,7 @@ test('Invalid register', async () => {
     email: 'pass'
   }]
   for (const message of messages) {
-    nc.publish(host, { type: requestRefs.register, ...message }, whoami)
-    const { error, ...res } = await subscribe(whoami)
+    const { error, ...res } = await SendCommand(requestRefs.register, message)
     expect(Object.keys(res)).toHaveLength(0)
 
     expect(/^AuthUser validation failed: (username|password|email): Path `(username|password|email)` is required\.$/.test(error))
@@ -80,8 +91,7 @@ test('Register', async () => {
     password: 'pass'
   }
 
-  nc.publish(host, { type: requestRefs.register, ...message }, whoami)
-  const { data, ...obj1 } = await subscribe(whoami)
+  const { data, ...obj1 } = await SendCommand(requestRefs.register, message)
   expect(Object.keys(obj1)).toHaveLength(0)
 
   const { token, user, ...obj2 } = data
@@ -96,8 +106,7 @@ test('generate token', async () => {
     password: 'pass'
   }
 
-  nc.publish(host, { type: requestRefs.generateToken, ...message }, whoami)
-  const { data, ...obj1 } = await subscribe(whoami)
+  const { data, ...obj1 } = await SendCommand(requestRefs.generateToken, message)
   expect(Object.keys(obj1)).toHaveLength(0)
 
   const { token, user, ...obj2 } = data
@@ -111,16 +120,12 @@ test('generate token', async () => {
 test('invalid token', async () => {
   const token = 'hahahaha!'
 
-  nc.publish(host, { type: requestRefs.checkToken, token }, whoami)
-
-  const obj = await subscribe(whoami)
-  expect(obj).toEqual({ error: 'jwt malformed' })
+  const msg = await SendCommand(requestRefs.checkToken, { token })
+  expect(msg).toEqual({ error: 'jwt malformed' })
 })
 
 test('check token', async () => {
-  nc.publish(host, { type: requestRefs.checkToken, token: currentToken }, whoami)
-
-  const { data, ...obj } = await subscribe(whoami)
+  const { data, ...obj } = await SendCommand(requestRefs.checkToken, { token: currentToken })
   expect(Object.keys(obj)).toHaveLength(0)
 
   const { exp, user, iat, ...res } = data
@@ -132,14 +137,12 @@ test('check token', async () => {
 })
 
 test('invalid delete scope', async () => {
-  nc.publish(host, { type: requestRefs.deleteScope, name: 'Can edit' }, whoami)
-  expect(await subscribe(whoami)).toEqual({ error: 'scope not exist' })
+  const msg = await SendCommand(requestRefs.deleteScope, { name: 'Can edit' })
+  expect(msg).toEqual({ error: 'scope not exist' })
 })
 
 test('add scope', async () => {
-  nc.publish(host, { type: requestRefs.addScope, name: 'Can edit' }, whoami)
-
-  const { data, ...obj1 } = await subscribe(whoami)
+  const { data, ...obj1 } = await SendCommand(requestRefs.addScope, { name: 'Can edit' })
   expect(Object.keys(obj1)).toHaveLength(0)
 
   const { _id, createdAt, updatedAt, ...obj2 } = data
@@ -154,15 +157,15 @@ test('add scope', async () => {
 })
 
 test('reject duplicate scope', async () => {
-  nc.publish(host, { type: requestRefs.addScope, name: 'Can edit' }, whoami)
-  expect(await subscribe(whoami)).toEqual({
+  const msg = await SendCommand(requestRefs.addScope, { name: 'Can edit' })
+  expect(msg).toEqual({
     error: 'E11000 duplicate key error dup key: { : "Can edit" }'
   })
 })
 
 test('delete scope', async () => {
-  nc.publish(host, { type: requestRefs.deleteScope, name: 'Can edit' }, whoami)
-  expect(await subscribe(whoami)).toEqual({
+  const msg = await SendCommand(requestRefs.deleteScope, { name: 'Can edit' })
+  expect(msg).toEqual({
     data: {
       name: 'Can edit'
     }

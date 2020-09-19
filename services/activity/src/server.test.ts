@@ -1,7 +1,7 @@
 /* eslint-disable no-await-in-loop */
 /* eslint-disable functional/no-loop-statement */
 /* eslint-disable no-restricted-syntax */
-import * as NATS from 'nats'
+import { connect, NatsConnection, JSONCodec, StringCodec } from 'nats'
 import { MongoMemoryServer } from 'mongodb-memory-server-core'
 import server, { host, requestRefs, notFound } from './server'
 import db from './db'
@@ -9,8 +9,8 @@ import db from './db'
 jest.setTimeout(600000)
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000
 
-const nc = NATS.connect({ json: true })
-const whoami = `${host}-test`
+let nc: NatsConnection
+const { decode, encode } = JSONCodec()
 
 // const mongod = new MongoMemoryServer()
 // process.env.MONGO_URI = await mongod.getUri()
@@ -18,6 +18,7 @@ const whoami = `${host}-test`
 beforeAll(async () => {
   const mongod = new MongoMemoryServer()
   await db(await mongod.getUri())
+  nc = await connect()
   await server()
 })
 
@@ -26,14 +27,25 @@ afterAll(() => {
   // mongod.close()
 })
 
-function subscribe<T>(whoami: string): Promise<T> {
-  return new Promise((resolve) => {
-    const id = nc.subscribe(whoami, (msg) => {
-      resolve(msg)
-      nc.unsubscribe(id)
-      // resolve(arg1, arg2, arg3, arg4)
-    })
-  })
+type Data = Record<string, unknown> & {
+  readonly _id?: string
+  readonly createdAt?: string
+  readonly updatedAt?: string
+  readonly service?: string
+  readonly activity?: string
+  readonly user?: string
+}
+type Request<T> = {
+  readonly data?: T
+  readonly error?: string
+}
+
+export async function SendCommand<T>(action: string, message?: Data):
+  Promise<T | Data> {
+  const obj = message || {}
+  const msg = nc.request(host, encode({ type: action, ...obj }), { timeout: 5000 })
+  const data: Request<T | Data> = decode((await msg).data)
+  return data
 }
 
 const henrietta = '5f40c309bd73600bcc1cd207'
@@ -47,23 +59,22 @@ let activityId1
 let activityLogId1
 
 test('Not found', async () => {
-  nc.publish(host, 'Hello asdasdasd', whoami)
-  expect(await subscribe(whoami)).toEqual({ error: notFound })
+  const msg = nc.request(host, StringCodec().encode('Hello asdasdasd'))
+  expect(decode((await msg).data)).toEqual({ error: notFound })
 })
 
 test('fetch nobody', async () => {
-  nc.publish(host, { type: requestRefs.fetchAllActivities }, whoami)
-  expect(await subscribe(whoami)).toEqual({ data: [] })
+  const msg = await SendCommand(requestRefs.fetchAllActivities)
+  expect(msg).toEqual({ data: [] })
 })
 
 test('fetch all nobody', async () => {
-  nc.publish(host, { type: requestRefs.fetchActivities, user: henrietta }, whoami)
-  expect(await subscribe(whoami)).toEqual({ data: [] })
+  const msg = await SendCommand(requestRefs.fetchActivities, { user: henrietta })
+  expect(msg).toEqual({ data: [] })
 })
 
 test('add once service', async () => {
-  nc.publish(host, { type: requestRefs.addOnceService, name: service1 }, whoami)
-  const { data, ...obj } = await subscribe(whoami)
+  const { data, ...obj } = await SendCommand(requestRefs.addOnceService, { name: service1 })
   expect(Object.keys(obj)).toHaveLength(0)
 
   const { _id, createdAt, updatedAt, ...rest } = data
@@ -76,8 +87,7 @@ test('add once service', async () => {
 })
 
 test('add once service again', async () => {
-  nc.publish(host, { type: requestRefs.addOnceService, name: service1 }, whoami)
-  const { data, ...obj } = await subscribe(whoami)
+  const { data, ...obj } = await SendCommand(requestRefs.addOnceService, { name: service1 })
   expect(Object.keys(obj)).toHaveLength(0)
 
   const { _id, createdAt, updatedAt, ...rest } = data
@@ -89,13 +99,13 @@ test('add once service again', async () => {
 })
 
 test('check that fetch nothing 1', async () => {
-  nc.publish(host, { type: requestRefs.fetchAllActivities }, whoami)
-  expect(await subscribe(whoami)).toEqual({ data: [] })
+  const msg = await SendCommand(requestRefs.fetchActivities)
+  expect(msg).toEqual({ data: [] })
 })
 
 test('check that fetch all nothing 1', async () => {
-  nc.publish(host, { type: requestRefs.fetchActivities, user: henrietta }, whoami)
-  expect(await subscribe(whoami)).toEqual({ data: [] })
+  const msg = await SendCommand(requestRefs.fetchAllActivities, { user: henrietta })
+  expect(msg).toEqual({ data: [] })
 })
 
 test('add once activity', async () => {
@@ -103,8 +113,7 @@ test('add once activity', async () => {
     name: 'Is henrietta',
     service: serviceId1
   }
-  nc.publish(host, { type: requestRefs.addOnceActivity, ...message }, whoami)
-  const { data, ...obj } = await subscribe(whoami)
+  const { data, ...obj } = await SendCommand(requestRefs.addOnceActivity, message)
 
   expect(Object.keys(obj)).toHaveLength(0)
   const { _id, createdAt, updatedAt, service, ...rest } = data
@@ -122,8 +131,7 @@ test('add once activity again', async () => {
     name: 'Is henrietta',
     service: serviceId1
   }
-  nc.publish(host, { type: requestRefs.addOnceActivity, ...message }, whoami)
-  const { data, ...obj } = await subscribe(whoami)
+  const { data, ...obj } = await SendCommand(requestRefs.addOnceActivity, message)
 
   expect(Object.keys(obj)).toHaveLength(0)
   const { _id, createdAt, updatedAt, service, ...rest } = data
@@ -136,13 +144,13 @@ test('add once activity again', async () => {
 })
 
 test('check that fetch nothing 2', async () => {
-  nc.publish(host, { type: requestRefs.fetchAllActivities }, whoami)
-  expect(await subscribe(whoami)).toEqual({ data: [] })
+  const msg = await SendCommand(requestRefs.fetchAllActivities)
+  expect(msg).toEqual({ data: [] })
 })
 
 test('check that fetch all nothing 2', async () => {
-  nc.publish(host, { type: requestRefs.fetchActivities, user: henrietta }, whoami)
-  expect(await subscribe(whoami)).toEqual({ data: [] })
+  const msg = await SendCommand(requestRefs.fetchActivities, { user: henrietta })
+  expect(msg).toEqual({ data: [] })
 })
 
 test('add one activity in log', async () => {
@@ -150,8 +158,7 @@ test('add one activity in log', async () => {
     user: henrietta,
     activity: activityId1
   }
-  nc.publish(host, { type: requestRefs.addActivityLog, ...message }, whoami)
-  const { data, ...obj } = await subscribe(whoami)
+  const { data, ...obj } = await SendCommand(requestRefs.addActivityLog, message)
 
   expect(Object.keys(obj)).toHaveLength(0)
   const { _id, createdAt, updatedAt, activity, user, ...rest } = data
@@ -175,9 +182,7 @@ function checkActivitySubsection(obj: Record<string, any>): void {
 }
 
 test('check fetch with content', async () => {
-  nc.publish(host, { type: requestRefs.fetchAllActivities }, whoami)
-
-  const { data, ...obj1 } = await subscribe(whoami)
+  const { data, ...obj1 } = await SendCommand(requestRefs.fetchAllActivities)
   const [current, ...less] = data
   const { id, createdAt, updatedAt, activity, user, ...obj2 } = current
 
@@ -195,9 +200,7 @@ test('check fetch with content', async () => {
 })
 
 test('check fetch all with content', async () => {
-  nc.publish(host, { type: requestRefs.fetchAllActivities }, whoami)
-
-  const { data, ...obj1 } = await subscribe(whoami)
+  const { data, ...obj1 } = await SendCommand(requestRefs.fetchAllActivities)
   const [current, ...less] = data
   const { id, createdAt, updatedAt, activity, user, ...obj2 } = current
 
@@ -213,8 +216,7 @@ test('check fetch all with content', async () => {
 })
 
 test('delete service', async () => {
-  nc.publish(host, { type: requestRefs.deleteService, name: service1 }, whoami)
-  const { data, ...obj } = await subscribe(whoami)
+  const { data, ...obj } = await SendCommand(requestRefs.deleteService, { name: service1 })
   expect(Object.keys(obj)).toHaveLength(0)
 
   const { _id, createdAt, updatedAt, ...rest } = data
@@ -226,11 +228,11 @@ test('delete service', async () => {
 })
 
 test('check that fetch nothing 3', async () => {
-  nc.publish(host, { type: requestRefs.fetchAllActivities }, whoami)
-  expect(await subscribe(whoami)).toEqual({ data: [] })
+  const msg = await SendCommand(requestRefs.fetchAllActivities)
+  expect(msg).toEqual({ data: [] })
 })
 
 test('check that fetch all nothing 3', async () => {
-  nc.publish(host, { type: requestRefs.fetchActivities, user: henrietta }, whoami)
-  expect(await subscribe(whoami)).toEqual({ data: [] })
+  const msg = await SendCommand(requestRefs.fetchActivities, { user: henrietta })
+  expect(msg).toEqual({ data: [] })
 })
