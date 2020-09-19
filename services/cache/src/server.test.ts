@@ -24,7 +24,7 @@ type Request = {
 
 export async function SendCommand(action: string, message: Data):
   Promise<Record<string, unknown>> {
-  const msg = nc.request(host, encode({ type: action, ...message }), { timeout: 5000 })
+  const msg = nc.request(host, encode({ type: action, ...message }))
   const data: Request = decode((await msg).data)
   return data
 }

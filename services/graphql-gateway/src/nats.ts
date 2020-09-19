@@ -2,7 +2,7 @@ import { connect, JSONCodec } from 'nats'
 import { Request } from './middlewares/authorization'
 
 const connection = connect(process.env.BROKER ?
-  { servers: process.env.BROKER, timeout: 10000 } : { timeout: 10000 })
+  { servers: process.env.BROKER } : {})
 
 // const nc = connect(process.env.BROKER ?
 //   { url: process.env.BROKER } : {})
@@ -73,8 +73,7 @@ type SubscribeRequest<T> = {
 export async function SendCommand<T>(service: string, action: string, message: Msg):
   Promise<T> {
   const nc = await connection
-  const msg = nc.request(service, JSONCodec().encode({ type: action, ...message }),
-    { timeout: 5000 })
+  const msg = nc.request(service, JSONCodec().encode({ type: action, ...message }))
 
   const data: SubscribeRequest<T> = JSONCodec().decode((await msg).data)
 

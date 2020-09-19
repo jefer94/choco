@@ -43,7 +43,7 @@ type Request<T> = {
 export async function SendCommand<T>(action: string, message?: Data):
   Promise<T | Data> {
   const obj = message || {}
-  const msg = nc.request(host, encode({ type: action, ...obj }), { timeout: 5000 })
+  const msg = nc.request(host, encode({ type: action, ...obj }))
   const data: Request<T | Data> = decode((await msg).data)
   return data
 }
