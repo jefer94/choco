@@ -29,15 +29,9 @@ export default async function authorization(req: Request, res: Response, next: N
   Promise<void> {
   const token = stripToken(req.headers.authorization)
 
-  console.log('asdasdas0')
-  // const channel = await publish(service, authenticatorRefs.checkToken, { token })
   try {
-    console.log('asdasdas')
-    // const data = await subscribe<Auth>(channel)
     const data = await SendCommand<Auth>(service, authenticatorRefs.checkToken, { token })
-
     req.auth = data
-    console.log('asdasdas2', data)
   }
   catch (e) {
     req.error = e.message

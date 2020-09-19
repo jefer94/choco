@@ -15,9 +15,10 @@ const schema = makeExecutableSchema({ typeDefs, resolvers })
 app.use('/', authorization, graphqlHTTP({
   schema,
   rootValue: resolvers,
-  // customFormatErrorFn: (err) => {
+  // customFormatErrorFn: (e) => {
+  //   console.log(e)
   //   // const error = getErrorCode(err.message)
-  //   return ({ message: 'error.message', statusCode: 'error.statusCode' })
+  //   return e
   // },
   graphiql: true
 }))

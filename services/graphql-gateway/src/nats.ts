@@ -1,9 +1,8 @@
 import { connect, JSONCodec } from 'nats'
-import keychain from '@chocolab/keychain'
 import { Request } from './middlewares/authorization'
 
 const connection = connect(process.env.BROKER ?
-  { servers: process.env.BROKER } : {})
+  { servers: process.env.BROKER, timeout: 10000 } : { timeout: 10000 })
 
 // const nc = connect(process.env.BROKER ?
 //   { url: process.env.BROKER } : {})
@@ -71,59 +70,37 @@ type SubscribeRequest<T> = {
   readonly error?: string
 }
 
-// export async function subscribe<T>(service: string): Promise<T> {
-//   const nc = await connection
-//   console.log('llll0', service)
-//   const msg = await nc.request(service)
-//   // const msg = await nc.subscribe(service, { max: 1 })
-//   // msg.
-//   console.log('llll1')
-//   const data: SubscribeRequest<T> = JSONCodec().decode(msg.data)
-//   console.log('llll2')
-
-//   if (data.error) throw data.error
-//   return data.data
-//   console.log('llll3')
-
-// }
-
-// export async function publish<T>(service: string, action: string, message: Record<string, T>):
-//   Promise<string> {
-//   const nc = await connection
-//   console.log('llll0', service)
-//   const msg = nc.request(service)
-//   const channel = keychain(service)
-//   nc.publish(service, JSONCodec().encode({ type: action, ...message }), { reply: channel })
-//   // nc.publishRequest()
-//   return channel
-// }
-
 export async function SendCommand<T>(service: string, action: string, message: Msg):
   Promise<T> {
   const nc = await connection
-  const channel = keychain(service)
-  const msg = nc.request(service)
-  nc.publish(service, JSONCodec().encode({ type: action, ...message }), { reply: channel })
-  // nc.publishRequest()
+  const msg = nc.request(service, JSONCodec().encode({ type: action, ...message }),
+    { timeout: 5000 })
 
-  console.log('llll1')
   const data: SubscribeRequest<T> = JSONCodec().decode((await msg).data)
-  console.log('llll2', data)
 
-  if (data.error) throw data.error
+  if (data.error) throw new Error(data.error)
   return data.data
-  console.log('llll3')
 }
 
 type Msg = Record<string, unknown>
 type FetchMsg = (_: unknown, message: Msg, ctx: Request) => Promise<Msg>
 
+type Input = {
+  readonly id?: string
+  readonly input?: Record<string, unknown>
+}
+type Mutate = (_: unknown, message: Input, ctx: Request) => Promise<Msg>
+
+export function fetchMsg(service: string, project: string): FetchMsg {
+  return async (_, message) => SendCommand(service, project, message)
+}
+
 export function fetchMsgWithAuth(service: string, project: string): FetchMsg {
-  return async (_, message: Msg, ctx) => {
+  return async (_, message, ctx) => {
     if (ctx.auth?.user) {
       return SendCommand(service, project, message)
     }
-    throw ctx.error
+    throw new Error(ctx.error)
   }
 }
 
@@ -132,10 +109,28 @@ export function fetchMsgWithAuthUser(service: string, project: string): FetchMsg
     if (ctx.auth?.user) {
       return SendCommand(service, project, message)
     }
-    throw ctx.error
+    throw new Error(ctx.error)
   }
 }
 
-export function fetchMsg(service: string, project: string): FetchMsg {
-  return async (_, message, ctx) => SendCommand(service, project, message)
+export function mutate(service: string, project: string): Mutate {
+  return async (_, message) => SendCommand(service, project, { ...message.input, id: message.id })
+}
+
+export function mutateWithAuth(service: string, project: string): Mutate {
+  return async (_, message, ctx) => {
+    if (ctx.auth?.user) {
+      return SendCommand(service, project, { ...message.input, id: message.id })
+    }
+    throw new Error(ctx.error)
+  }
+}
+
+export function mutateWithAuthUser(service: string, project: string): Mutate {
+  return async (_, message, ctx) => {
+    if (ctx.auth?.user) {
+      return SendCommand(service, project, { ...message.input, id: message.id })
+    }
+    throw new Error(ctx.error)
+  }
 }

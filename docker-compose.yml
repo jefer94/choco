@@ -30,6 +30,7 @@ services:
     environment:
       - MONGO=mongodb://mongo/choco
       - BROKER=nats://nats:4222
+      - SECRET=Konan
     links:
       - mongo
       - nats

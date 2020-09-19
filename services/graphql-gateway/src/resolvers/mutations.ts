@@ -1,20 +1,20 @@
-import { serviceRefs, authenticatorRefs, projectsRefs, fetchMsg, fetchMsgWithAuth } from '../nats'
+import { serviceRefs, authenticatorRefs, projectsRefs, mutateWithAuth, mutate } from '../nats'
 
 const authenticator = {
-  register: fetchMsg(serviceRefs.authenticator, authenticatorRefs.register)
+  register: mutate(serviceRefs.authenticator, authenticatorRefs.register)
 }
 
 const projects = {
-  addCode: fetchMsgWithAuth(serviceRefs.projects, projectsRefs.addCode),
-  addProject: fetchMsgWithAuth(serviceRefs.projects, projectsRefs.addProject),
-  addProjectPermission: fetchMsgWithAuth(serviceRefs.projects, projectsRefs.addProjectPermission),
-  deleteCode: fetchMsgWithAuth(serviceRefs.projects, projectsRefs.deleteCode),
-  deleteProject: fetchMsgWithAuth(serviceRefs.projects, projectsRefs.deleteProject),
-  deleteProjectPermission: fetchMsgWithAuth(serviceRefs.projects,
+  addCode: mutateWithAuth(serviceRefs.projects, projectsRefs.addCode),
+  addProject: mutateWithAuth(serviceRefs.projects, projectsRefs.addProject),
+  addProjectPermission: mutateWithAuth(serviceRefs.projects, projectsRefs.addProjectPermission),
+  deleteCode: mutateWithAuth(serviceRefs.projects, projectsRefs.deleteCode),
+  deleteProject: mutateWithAuth(serviceRefs.projects, projectsRefs.deleteProject),
+  deleteProjectPermission: mutateWithAuth(serviceRefs.projects,
     projectsRefs.deleteProjectPermission),
-  updateCode: fetchMsgWithAuth(serviceRefs.projects, projectsRefs.updateCode),
-  updateProject: fetchMsgWithAuth(serviceRefs.projects, projectsRefs.updateProject),
-  updateProjectPermission: fetchMsgWithAuth(serviceRefs.projects,
+  updateCode: mutateWithAuth(serviceRefs.projects, projectsRefs.updateCode),
+  updateProject: mutateWithAuth(serviceRefs.projects, projectsRefs.updateProject),
+  updateProjectPermission: mutateWithAuth(serviceRefs.projects,
     projectsRefs.updateProjectPermission)
 }
 
