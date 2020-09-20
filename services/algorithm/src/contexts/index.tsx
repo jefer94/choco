@@ -21,7 +21,6 @@ type ProviderProps = {
 
 /**
  * Contexts provider.
- *
  * @param {ProviderProps} Props - Props.
  * @returns {object} Contexts provider.
  */

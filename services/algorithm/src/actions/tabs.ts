@@ -4,7 +4,6 @@ type AddTabAction = {
 
 /**
  * Add tab action.
- *
  * @example
  * ```
  * addTabAction() // return { type: 'ADD_TAB' }
@@ -22,7 +21,6 @@ type RemoveTabAction = {
 
 /**
  * Remove tab action.
- *
  * @param id - Action id.
  * @example
  * ```
@@ -42,7 +40,6 @@ type ChangeTabAction = {
 
 /**
  * Change tab action.
- *
  * @param id - Action id.
  * @example
  * ```
@@ -63,7 +60,6 @@ type SaveTabAction = {
 
 /**
  * Save tab action.
- *
  * @param id - Action id.
  * @param content - Action content.
  * @example
@@ -84,7 +80,6 @@ type DefaultsTabsAction = {
 
 /**
  * Defaults Tabs Action.
- *
  * @example
  * ```
  * defaultsTabsAction() // return { type: 'DEFAULTS_TABS' }

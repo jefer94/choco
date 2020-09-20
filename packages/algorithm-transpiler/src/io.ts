@@ -109,7 +109,6 @@ export type WriteInput = string | number | VectorIO<string> | VectorIO<number> |
 
 /**
  * Print an array of elements.
- *
  * @param args - Array the elements.
  * @returns Write object.
  */

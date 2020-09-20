@@ -4,7 +4,6 @@ import { chocolabTokens } from '@chocolab/algorithm-transpiler'
 
 /**
  * Get height less navbar.
- *
  * @returns Height less navbar.
  */
 function windowHeight(): number {
@@ -14,7 +13,6 @@ function windowHeight(): number {
 
 /**
  * Get width less navbar.
- *
  * @returns Width less navbar.
  */
 function windowWidth(): number {
@@ -29,14 +27,12 @@ type Props = {
 
 /**
  * Editor wrapper.
- *
  * @param props - Editor props.
  * @example
  * ```
  * // returns <Editor ... />
  * import React from 'react'
  * import Editor from '/components/Editor'
- *
  * export default function () {
  *   return <Editor content="Content" onChange={value => console.log(value) } />
  * }

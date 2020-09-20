@@ -4,7 +4,6 @@ import NodemonPlugin from 'nodemon-webpack-plugin'
 
 /**
  * Webpack config.
- *
  * @param dirname - __dirname.
  * @example
  * ```

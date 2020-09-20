@@ -1,6 +1,5 @@
 /**
  * Stylelint config.
- *
  * @returns Stylelint config.
  */
 export function stylelint() {

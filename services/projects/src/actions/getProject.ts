@@ -6,7 +6,6 @@ type GetProject = {
 
 /**
  * Get project.
- *
  * @param id - Project id.
  * @returns Project object.
  */

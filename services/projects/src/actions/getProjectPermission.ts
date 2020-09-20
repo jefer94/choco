@@ -5,7 +5,6 @@ type GetProjectPermission = {
 }
 /**
  * Get project permission.
- *
  * @param id - ProjectPermission id.
  * @returns ProjectPermission object.
  */

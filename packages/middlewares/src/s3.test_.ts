@@ -25,7 +25,6 @@ const app = express()
 
 /**
  * Get path from current folder.
- *
  * @param dir - Path.
  * @example
  * fromRoot(__dirname, 'potato') // returns '/home/potato/project/potato'
@@ -93,7 +92,6 @@ test('upload multiple files', async () => {
 // eslint-disable-next-line jsdoc/require-example
 /**
  * Filter files by name and test.
- *
  * @param {string[]} arr - Array of files.
  * @param {string} name - Name of file.
  */

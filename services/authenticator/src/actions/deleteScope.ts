@@ -9,7 +9,6 @@ type DeleteScope = {
 
 /**
  * Delete scope.
- *
  * @param name - Scope name.
  * @returns Was deleted?.
  */

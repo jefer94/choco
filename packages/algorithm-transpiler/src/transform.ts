@@ -58,7 +58,6 @@ export default function transform(code: string): string {
 
 /**
  * Parse IO words.
- *
  * @param words - IO 2ords of line.
  * @param state - IO 2ords of line.
  * @returns Parsed IO words.
@@ -88,7 +87,6 @@ export function parseIO(words: readonly string[], state: string): string {
 
 /**
  * Parse words.
- *
  * @param words - Words of line.
  * @param state - Javascript state.
  * @returns Parsed words.
@@ -114,7 +112,6 @@ export function parser(words: readonly string[], state: string): string {
 
 /**
  * Generate for loop.
- *
  * @param lineArg - Line.
  * @returns Line with for loop.
  */
@@ -146,7 +143,6 @@ export function forLoopCondition(lineArg: string): string {
 
 /**
  * Generate white loop.
- *
  * @param line - Line of code.
  * @returns Line of code.
  */
@@ -164,7 +160,6 @@ export function doWhileLoopCondition(line: string): string {
 
 /**
  * Add assignment in Vector.
- *
  * @param lineArg - Line of code.
  * @example
  * ```
@@ -189,7 +184,6 @@ export function vectorAdd(lineArg: string): string {
 
 /**
  * Add space to prevent bad transpile, and transform array to class Vector.
- *
  * @param line - Line of code.
  * @example
  * ```
@@ -209,7 +203,6 @@ export function purgeLine(line: string): string {
 
 /**
  * Strip code.
- *
  * @param codeArg - Code to be striped.
  * @returns Code striped.
  */
@@ -225,7 +218,6 @@ export function stripCode(codeArg: string): readonly string[] {
 
 /**
  * Parse equal token from Algorithm to Javascript.
- *
  * @param lines - Line of code.
  * @example
  * ```

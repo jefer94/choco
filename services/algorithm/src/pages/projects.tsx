@@ -9,13 +9,13 @@ import { MenuContainer } from '../Containers/MenuContainer'
  * import React from 'react'
  * import Docs from '/containers/Docs'
  * const component = <Docs />
- * @returns {object} <Docs />
+ * @returns <Docs />
  */
 export default function Docs(): ReactElement {
   return (
     <>
       <Head>
-        <title>Algorithm - Docs</title>
+        <title>Algorithm - Projects</title>
       </Head>
       <MenuContainer>
         <DocsComponent />

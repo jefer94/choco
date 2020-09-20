@@ -4,7 +4,6 @@ type Obj = {
 
 /**
  * Filter a object.
- *
  * @param obj - Object.
  * @param rules - Array of properties.
  * @example

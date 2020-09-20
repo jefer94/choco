@@ -1,6 +1,5 @@
 /**
  * Generate random string.
- *
  * @param length - Length.
  * @example
  * random(5) // returns '1Ft%y'

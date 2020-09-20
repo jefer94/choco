@@ -4,7 +4,6 @@ import { LangOpenBracket, LangCloseBracket } from '../dist/lang/common'
 
 /**
  * Generate javascript brackets.
- *
  * @param keywords - Keywords.
  * @param currentJS - Current JS.
  * @returns Javascript brackets.
@@ -19,7 +18,6 @@ export default function brackets(keywords: readonly string[], currentJS: string)
 
 /**
  * Generate javascript brackets for line.
- *
  * @param keyword - Keyword.
  * @returns Javascript brackets for line.
  */

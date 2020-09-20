@@ -5,7 +5,6 @@ const cache = {}
 
 /**
  * Memoize by key.
- *
  * @param key - Memo key.
  * @param data - Memo data.
  * @example

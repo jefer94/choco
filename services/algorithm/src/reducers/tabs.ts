@@ -32,7 +32,6 @@ function getDefaults(): readonly Tab[] {
 
 /**
  * Set first letter to uppercase.
- *
  * @param string - Tab title.
  * @param id - Tab id.
  * @example
@@ -47,7 +46,6 @@ function title(string, id): string {
 
 /**
  * Add new tab.
- *
  * @param state - Data store in reducer.
  * @example
  * ```
@@ -67,7 +65,6 @@ function add(state: readonly Tab[]): readonly Tab[] {
 
 /**
  * Remove a tab by id.
- *
  * @param state - Data store in reducer.
  * @param action - Action dispathed.
  * @example
@@ -94,7 +91,6 @@ function remove(state: readonly Tab[], action: LazyActions): readonly Tab[] {
 
 /**
  * Functional store that mutate state of variables.
- *
  * @param state - Data store in reducer.
  * @param action - Action dispathed.
  * @example

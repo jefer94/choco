@@ -1,6 +1,5 @@
 /**
  * Capitalize first letter.
- *
  * @param text - Text.
  * @returns String with first letter capitalize.
  */

@@ -2,7 +2,6 @@ import * as path from 'path'
 
 /**
  * Generate url.
- *
  * @param host - Hostname.
  * @param paths - Paths.
  * @example

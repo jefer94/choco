@@ -32,7 +32,6 @@ type FetchShareProjects = {
 
 /**
  * Fetch share projects.
- *
  * @param user - User id.
  * @returns Share projects.
  */

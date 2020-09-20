@@ -5,20 +5,10 @@ import { homeRoute, docsRoute, consoleRoute } from '../globals/routes'
 import { ThemeContext } from '../contexts'
 
 /**
- * @typedef {object} MenuContainerProps
- * @property {object} children - Menu context provider children.
+ * Projects container.
+ * @returns Menu context provider.
  */
-
-type MenuContainerProps = {
-  readonly children: ReactNode
-}
-
-/**
- * Menu context provider.
- * @param {MenuContainerProps} Props - Props.
- * @returns {object} Menu context provider.
- */
-export function MenuContainer({ children }: MenuContainerProps): ReactElement {
+export function MenuContainer(): ReactElement {
   const { theme } = useContext(ThemeContext)
   const top = [
     menuItem(homeRoute, faEdit, true),

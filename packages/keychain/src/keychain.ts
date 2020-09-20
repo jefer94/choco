@@ -2,7 +2,6 @@ import { memo } from '@chocolab/functional'
 
 /**
  * Get a unique key from namespace.
- *
  * @param key - Namespace of counter.
  * @example
  * ```

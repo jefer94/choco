@@ -13,7 +13,6 @@ type MenuContextProviderProps = {
 
 /**
  * Menu context provider.
- *
  * @param Props - Props.
  * @returns Menu context provider.
  */

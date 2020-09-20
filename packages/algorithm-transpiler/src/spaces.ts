@@ -1,6 +1,5 @@
 /**
  * Remove spaces from code.
- *
  * @param code - Code to remove spaces.
  * @example
  * ```
@@ -20,7 +19,6 @@ type SpaceResult = {
 
 /**
  * Remove spaces from line.
- *
  * @param line - Line to remove spaces.
  * @example
  * spaces(' hello   ') // returns 'hello'

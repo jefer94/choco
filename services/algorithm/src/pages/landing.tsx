@@ -168,7 +168,6 @@ const FunctionalityBox = styled.div`
 
 /**
  * Login container.
- *
  * @returns {object} Login container.
  */
 export default function Landing(): ReactElement {

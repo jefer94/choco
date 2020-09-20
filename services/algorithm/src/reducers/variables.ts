@@ -3,7 +3,6 @@ import { ResetVarAction, AddVarAction } from '../actions'
 
 /**
  * Functional store that mutate state of variables.
- *
  * @param state - Data store in reducer.
  * @param action - Action dispathed.
  * @example

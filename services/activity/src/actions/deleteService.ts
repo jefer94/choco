@@ -10,7 +10,6 @@ type DeleteService = {
 
 /**
  * Delete service in cascade.
- *
  * @param name - Service name.
  */
 export default async function deleteService(name: string): Promise<DeleteService> {

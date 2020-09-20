@@ -38,7 +38,6 @@ function getActiveId(tabs) {
 
 /**
  * Index page.
- *
  * @returns {object} Index page.
  */
 export default function Index(): ReactElement {

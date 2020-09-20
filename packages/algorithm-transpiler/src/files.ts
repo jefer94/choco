@@ -4,7 +4,6 @@ export type Files = readonly [string, string]
 
 /**
  * Get name of algorithm.
- *
  * @param code - Algorithm lines.
  * @returns Algorithm name and lines but first line.
  */

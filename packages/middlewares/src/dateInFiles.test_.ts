@@ -9,7 +9,6 @@ const dateStringRegExp = '20[0-9]{2}-[0-1]{1}[1-9]{1}-[0-3]{1}[0-9]{1}T[0-2]{1}[
 
 /**
  * Get path from current folder.
- *
  * @param {string} dir - Path.
  * @example
  * fromRoot(__dirname, 'potato') // returns '/home/potato/project/potato'

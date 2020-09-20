@@ -6,7 +6,6 @@ type PasswordOptions = {
 
 /**
  * Encrypt password.
- *
  * @param password - Password.
  * @param opts - Password options.
  * @returns Hash.

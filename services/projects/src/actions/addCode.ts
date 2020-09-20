@@ -13,7 +13,6 @@ type CodeArgs = {
 
 /**
  * Add new code.
- *
  * @param arg - Code object.
  * @returns Was saved?.
  */

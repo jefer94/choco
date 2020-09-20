@@ -12,7 +12,6 @@ type GraphQlContextProviderProps = {
 
 /**
  * GraphQL context provider.
- *
  * @param Props - Props.
  * @returns Menu context provider.
  */

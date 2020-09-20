@@ -17,7 +17,6 @@ export default async function get(key: string): Promise<Get> {
 
 /**
  * Get value from key.
- *
  * @param key - Key.
  * @returns Value.
  */

@@ -9,7 +9,6 @@ type LinkProps = {
 
 /**
  * Link component.
- *
  * @param props - Link props.
  * @returns Link component.
  */

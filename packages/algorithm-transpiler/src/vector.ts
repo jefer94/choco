@@ -14,7 +14,6 @@ export class Vector<Type> {
 
   /**
    * Constructor.
-   *
    * @param size - Vector size.
    * @example
    * ```
@@ -33,7 +32,6 @@ export class Vector<Type> {
 
   /**
    * Assign value in vector.
-   *
    * @param value - Value to be added.
    * @param index - Index in vector.
    */
@@ -46,7 +44,6 @@ export class Vector<Type> {
 
   /**
    * Get a value of vector.
-   *
    * @param index - Index of vector.
    * @returns Value store in index argument.
    */
@@ -58,7 +55,6 @@ export class Vector<Type> {
 
   /**
    * Provide an alternative interface, used in libs/algorithm/transform.
-   *
    * @param index - Index of Vector.
    * @see {@link transform}
    * @returns Array IO interface.

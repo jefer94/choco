@@ -7,7 +7,6 @@ type DeleteProject = {
 
 /**
  * Delete project.
- *
  * @param id - Project id.
  * @returns Was delete.
  */

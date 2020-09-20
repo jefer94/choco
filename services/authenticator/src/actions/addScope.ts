@@ -7,7 +7,6 @@ type AddScope = {
 
 /**
  * Add scope.
- *
  * @param name - Scope name.
  * @returns Was added?.
  */

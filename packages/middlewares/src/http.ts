@@ -8,7 +8,6 @@ let server: http.Server
 
 /**
  * Listen Express app.
- *
  * @param app - Express app.
  * @example
  * ```

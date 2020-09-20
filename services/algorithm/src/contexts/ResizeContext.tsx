@@ -24,7 +24,6 @@ type ResizeContextProviderProps = {
 
 /**
  * Menu context provider.
- *
  * @param {ResizeContextProviderProps} Props - Props.
  * @returns {object} Menu context provider.
  */
@@ -34,8 +33,7 @@ export function ResizeContextProvider({ children }: ResizeContextProviderProps):
 
   /**
    * Is horizontal.
-   *
-   * @returns {boolean} Is horizontal.
+     * @returns {boolean} Is horizontal.
    */
   function isHorizontal(): boolean {
     return width >= height
@@ -43,8 +41,7 @@ export function ResizeContextProvider({ children }: ResizeContextProviderProps):
 
   /**
    * Is vertical.
-   *
-   * @returns {boolean} Is vertical.
+     * @returns {boolean} Is vertical.
    */
   function isVertical(): boolean {
     return width >= height
@@ -52,8 +49,7 @@ export function ResizeContextProvider({ children }: ResizeContextProviderProps):
 
   /**
    * Aspect ratio.
-   *
-   * @returns {[string, number]} Orientation, proportion.
+     * @returns {[string, number]} Orientation, proportion.
    */
   function aspectRatio(): readonly ['h' | 'v', number] {
     return isHorizontal() ? ['h', height / width] : ['v', width / height]

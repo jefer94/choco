@@ -51,7 +51,6 @@ export type MenuItemProps = {
 
 /**
  * Menu item config.
- *
  * @param url - Menu url.
  * @param icon - Menu url.
  * @param active - Menu url.
@@ -70,7 +69,6 @@ type MenuProps = {
 
 /**
  * App Menu.
- *
  * @param props - Link props.
  * @returns Menu element.
  */

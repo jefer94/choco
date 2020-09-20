@@ -13,7 +13,6 @@ type IconProps = {
 
 /**
  * Icon component.
- *
  * @param props - Icon props.
  * @example
  * ```

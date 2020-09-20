@@ -15,7 +15,6 @@ type ProjectPermissionArgs = {
 
 /**
  * Update permission project.
- *
  * @param arg - ProjectPermission object.
  */
 export default async function updateProjectPermission(arg: ProjectPermissionArgs):

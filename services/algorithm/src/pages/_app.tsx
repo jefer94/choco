@@ -13,7 +13,6 @@ const Provider = dynamic(() => import('../contexts'), { ssr: false })
 
 /**
  * Next app.
- *
  * @param {AppProps} Props - Props.
  * @returns {object} Next app.
  */

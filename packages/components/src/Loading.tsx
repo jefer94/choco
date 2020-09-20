@@ -11,7 +11,6 @@ type Props = {
 
 /**
  * Loading spinner component.
- *
  * @example
  * ```
  * <Loading />

@@ -45,13 +45,13 @@ type Props = {
 
 /**
  * Console component, base in C/C++ style.
- *
  * @param props - Console line props.
  * @example
+ * ```
  * import React from 'react'
  * import Console from 'components/Console'
- *
  * const Component = () => <Console />
+ * ```
  * @returns Doc.
  */
 export function ConsoleLine({ theme = {}, line, lineNumber }: Props): ReactElement {

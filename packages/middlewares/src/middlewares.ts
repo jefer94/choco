@@ -7,16 +7,13 @@ import methodOverride from 'method-override'
 
 /**
  * Inject common middlewares.
- *
  * @param app - Express app.
  * @param dir - Express static directory.
  * @example
  * ```
  * import express from 'express'
  * import common from '@chocolab/express-common'
- *
  * const app = express()
- *
  * common(app)
  * common(app, __dirname)
  * ```

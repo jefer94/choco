@@ -9,7 +9,6 @@ import { terser } from 'rollup-plugin-terser'
 
 /**
  * Rollup config.
- *
  * @param module - Module name.
  * @param opts - Rollup config.
  * @example
@@ -50,7 +49,6 @@ export function rollup(module, { debug, ignoreEslint, types } = {}) {
 
 /**
  * Last Rollup plugins.
- *
  * @param debug - Is debug.
  * @example
  * lastPlugins(true)
@@ -68,7 +66,6 @@ function lastPlugins(debug) {
 
 /**
  * Eslint config.
- *
  * @param ignore - Ignore eslint?.
  * @returns Eslint config.
  */

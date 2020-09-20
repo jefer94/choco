@@ -13,7 +13,6 @@ type CodeArgs = {
 
 /**
  * Update code.
- *
  * @param arg - Code object.
  */
 export default async function updateCode(arg: CodeArgs): Promise<UpdateCode> {

@@ -48,7 +48,6 @@ type CloseTabProps = {
 
 /**
  * Close tabs element.
- *
  * @param props - Close tab props.
  * @returns Close tab element.
  */
@@ -68,7 +67,6 @@ type TitleAndSelectTabProps = {
 
 /**
  * Close tabs element.
- *
  * @param props - Close tab props.
  * @returns Close tab element.
  */
@@ -95,7 +93,6 @@ type TabProps = {
 
 /**
  * Close tabs element.
- *
  * @param props - Close tab props.
  * @returns Close tab element.
  */

@@ -4,7 +4,6 @@ import { BrandSection } from '@chocolab/components'
 
 /**
  * Login container.
- *
  * @returns {object} Login container.
  */
 export default function Login(): ReactElement {

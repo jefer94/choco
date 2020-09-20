@@ -15,7 +15,6 @@ type ProjectPermissionArgs = {
 
 /**
  * Add new project permission.
- *
  * @param obj - Project permission object.
  * @returns Was saved?.
  */

@@ -6,7 +6,6 @@ type GetCode = {
 
 /**
  * Get code.
- *
  * @param id - Code id.
  * @returns Code object.
  */

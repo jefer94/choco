@@ -7,7 +7,6 @@ type AddOnceService = {
 
 /**
  * Add once service.
- *
  * @param name - Service name.
  * @returns Service id.
  */

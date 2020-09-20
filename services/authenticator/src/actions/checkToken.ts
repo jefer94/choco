@@ -8,7 +8,6 @@ type CheckToken = {
 
 /**
  * Check token.
- *
  * @param token - Token.
  * @returns Token is valid.
  */

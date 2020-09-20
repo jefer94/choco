@@ -9,19 +9,16 @@ type UseNextAuth = {
 
 /**
  * Auth redirections.
- *
  * @param key - The localStorage key.
  * @param redirectTo - Redirect to.
  * @param whereInLogin - Where in login.
  * @example
  * ```
  * import React from 'react'
- *
  * function InHome() {
  *   const { isAuth, setIsAuth } = useNextAuth('__AUTH_TOKEN__', '/login', true)
  *   return <></>
  * }
- *
  * function InLogin() {
  *   const { isAuth, setIsAuth } = useNextAuth('__AUTH_TOKEN__', '/')
  *   return <></>
@@ -45,8 +42,7 @@ export function useNextAuth(key: string, redirectTo: string, whereInLogin = fals
 
   /**
    * Set auth state.
-   *
-   * @param token - New auth state.
+     * @param token - New auth state.
    */
   function setToken(token: string): void {
     localStorage.setItem(key, token)

@@ -21,8 +21,7 @@ export default function Editor({ content, lang }: EditorProps): ReactElement {
 
   /**
    * On input handler.
-   *
-   * @param v - Input event.
+     * @param v - Input event.
    */
   function input(v: ChangeEvent<HTMLInputElement>): void {
     const current = v.target.innerText

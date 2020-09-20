@@ -7,7 +7,6 @@ type DeleteProjectPermission = {
 
 /**
  * Delete project permission.
- *
  * @param id - ProjectPermission id.
  * @returns Was delete.
  */

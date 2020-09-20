@@ -4,7 +4,6 @@ import { keys, externalKey } from './keys'
 
 /**
  * Prevent that one env key was replaced.
- *
  * @param key - Env key.
  * @returns Key prefixed.
  */
@@ -15,7 +14,6 @@ function envKeyPrefix(key: string): string {
 
 /**
  * Reset env.
- *
  * @example
  * resetEnv()
  */
@@ -27,7 +25,6 @@ export function resetEnv(): void {
 
 /**
  * Get/set env.
- *
  * @param key - Key.
  * @param value - Value.
  * @example

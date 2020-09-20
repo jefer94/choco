@@ -19,7 +19,6 @@ type TabButtonProps = {
 
 /**
  * Tab button element.
- *
  * @param props - Tab button props.
  * @returns Tab button element.
  */

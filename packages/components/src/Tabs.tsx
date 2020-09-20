@@ -52,7 +52,6 @@ type AddTabButtonProps = {
 
 /**
  * Tab button element.
- *
  * @param props - Tab button props.
  * @returns Tab button element.
  */
@@ -83,7 +82,6 @@ type Props = {
 
 /**
  * Tabs component.
- *
  * @param props - Tabs props.
  * @example
  * ```

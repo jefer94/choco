@@ -1,6 +1,5 @@
 /**
  * Eslint config.
- *
  * @param opts - Rollup config.
  * @returns Eslint config.
  */

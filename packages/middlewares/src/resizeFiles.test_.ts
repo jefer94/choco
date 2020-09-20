@@ -8,7 +8,6 @@ const app = express()
 
 /**
  * Get path from current folder.
- *
  * @param dir - Path.
  * @example
  * fromRoot(__dirname, 'potato') // returns '/home/potato/project/potato'
@@ -57,7 +56,6 @@ test('upload multiple files', async () => {
 // eslint-disable-next-line jsdoc/require-example
 /**
  * Test file against response.
- *
  * @param {string} name - Name of file.
  * @param {string} text - Content of file.
  */

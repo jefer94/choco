@@ -20,12 +20,10 @@ type useAxios<Response, Error> = {
 
 /**
  * Use axios hook.
- *
  * @param Props - Properties.
  * @example
  * ```
  * import React from 'react'
- *
  * function Component() {
  *   const { data, error, loaded } = useAxios({
  *     method: 'get',

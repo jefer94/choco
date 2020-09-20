@@ -7,7 +7,6 @@ type AddOnceActivity = {
 
 /**
  * Add once activity.
- *
  * @param name - Activity name.
  * @param service - Service id.
  * @returns Activity id.

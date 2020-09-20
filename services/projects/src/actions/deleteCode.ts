@@ -7,7 +7,6 @@ type DeleteScope = {
 
 /**
  * Delete code.
- *
  * @param id - Code id.
  * @returns Was delete.
  */

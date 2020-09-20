@@ -1,6 +1,5 @@
 /**
  * Transform case to snake case.
- *
  * @param key - Key to be transformed.
  * @returns Snake case.
  */

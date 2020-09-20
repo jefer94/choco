@@ -2,7 +2,7 @@ import locale from '@chocolab/i18n'
 
 const lang = 'en'
 
-export default function() {
+export default function en(): void {
   locale.set(lang, 'menu', 'Menu')
   locale.set(lang, 'addTab', 'Add tab')
   locale.set(lang, 'removeTab', 'Remove tab')

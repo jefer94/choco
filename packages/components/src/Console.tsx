@@ -16,13 +16,11 @@ const Base = styled.div`
 
 /**
  * Console component, base in C/C++ style.
- *
  * @param props - Console props.
  * @example
  * ```
  * import React from 'react'
  * import Console from 'components/Console'
- *
  * const Component = () => <Console />
  * ```
  * @returns Doc.

@@ -14,7 +14,6 @@ type FetchActivities = {
 
 /**
  * Fetch Activities by user id.
- *
  * @param user - User id.
  * @returns User activities.
  */

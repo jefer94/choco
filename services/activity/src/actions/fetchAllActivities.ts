@@ -14,7 +14,6 @@ type FetchActivities = {
 
 /**
  * Fetch all Activities in logs.
- *
  * @returns All activities.
  */
 export default async function fetchActivities(): Promise<FetchActivities> {

@@ -39,7 +39,6 @@ type ThemeContextProviderProps = {
 
 /**
  * Theme context provider.
- *
  * @param {ThemeContextProviderProps} Props - Props.
  * @returns {object} Theme context provider.
  */

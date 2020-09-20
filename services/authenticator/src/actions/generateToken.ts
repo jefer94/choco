@@ -16,7 +16,6 @@ type GenerateTokenArg = {
 
 /**
  * Generate token.
- *
  * @param arg - Token object
  * @returns Token.
  */

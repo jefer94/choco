@@ -22,7 +22,6 @@ export type MenuIconProps = {
 
 /**
  * Menu link element.
- *
  * @param props - Menu link props.
  * @returns Menu link.
  */
@@ -56,7 +55,6 @@ type MenuItemProps = {
 
 /**
  * Menu item component.
- *
  * @param Props - Props.
  * @returns Menu item component.
  */

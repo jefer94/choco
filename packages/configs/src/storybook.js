@@ -1,6 +1,5 @@
 /**
  * Storybook config.
- *
  * @example
  * storybook()
  * @returns Storybook config.

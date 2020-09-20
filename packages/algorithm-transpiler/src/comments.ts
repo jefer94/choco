@@ -1,11 +1,9 @@
 /**
  * Remove comments from line(s).
- *
  * @param code - Line(s) to be replaced.
  * @example
  * ```
  * import removeComments from '@chocolab/algorithm-transpiler'
- *
  * removeComments('hi //') // returns 'hi'
  * removeComments(['hi //', 'apple //']) // returns ['hi', 'apple']
  * ```

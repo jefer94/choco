@@ -4,7 +4,6 @@ import { keys, externalKey } from './keys'
 
 /**
  * Load env.
- *
  * @param externalEnv - Value.
  * @example
  * ```

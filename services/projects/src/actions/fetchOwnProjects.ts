@@ -6,7 +6,6 @@ type FetchOwnProjects = {
 
 /**
  * Fetch own projects.
- *
  * @param user - User id.
  * @returns Own projects.
  */

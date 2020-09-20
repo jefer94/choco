@@ -6,7 +6,6 @@ type FetchOwnCodes = {
 
 /**
  * Fetch own codes.
- *
  * @param project - User id.
  * @returns Own codes.
  */

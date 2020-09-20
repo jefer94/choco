@@ -42,7 +42,6 @@ export default async function authorization(req: Request, res: Response, next: N
 
 /**
  * Get token.
- *
  * @param token - Bearer token.
  * @returns Token.
  */

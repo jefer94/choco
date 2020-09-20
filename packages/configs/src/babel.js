@@ -1,6 +1,5 @@
 /**
  * Babel config.
- *
  * @param BabelConfig - Babel configs.
  * @example
  * ```
@@ -29,7 +28,6 @@ export function babel({ isServer = true, useTransformRuntime = true, types } = {
 
 /**
  * Babel Next.js config.
- *
  * @example
  * babelNextJS()
  * @returns {object} Babel Next.JS config.
@@ -45,7 +43,6 @@ export function babelNextJS() {
 
 /**
  * Babel preset Typescript config.
- *
  * @param {boolean} types - Accept types.
  * @returns {string[]} Babel preset Typescript config.
  */
@@ -56,7 +53,6 @@ function presetTypescript(types) {
 
 /**
  * Babel preset config.
- *
  * @param {boolean} isServer - Is server.
  * @example
  * presetEnv(true) // not use react
@@ -76,7 +72,6 @@ function presetEnv(isServer) {
 
 /**
  * Babel transform runtime config.
- *
  * @param {boolean} useTransformRuntime - Use transform runtime.
  * @example
  * transformRuntime(true) // use transform runtime

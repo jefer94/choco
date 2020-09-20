@@ -13,7 +13,6 @@ type ProjectArgs = {
 
 /**
  * Update project.
- *
  * @param arg - Project object.
  */
 export default async function updateProject(arg: ProjectArgs): Promise<UpdateProject> {

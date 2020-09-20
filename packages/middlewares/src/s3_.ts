@@ -69,7 +69,6 @@ export async function uploadToS3(req: Request, res: Response, next: NextFunction
 
 /**
  * Upload file to bucket.
- *
  * @param item - File.
  * @param s3bucket - Bucket name.
  * @param req - Request.

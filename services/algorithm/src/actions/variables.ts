@@ -8,7 +8,6 @@ export type AddVarAction = {
 
 /**
  * Add Var Action.
- *
  * @param text - Name of var.
  * @param key - Type of var.
  * @example
@@ -29,7 +28,6 @@ export type ResetVarAction = {
 
 /**
  * Reset Var Action.
- *
  * @example
  * ```
  * resetVarAction() // return { type: 'VAR_RESET' }

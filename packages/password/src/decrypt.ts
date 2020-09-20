@@ -2,7 +2,6 @@ import bcrypt from 'bcrypt'
 
 /**
  * Decrypt password.
- *
  * @param password - Password.
  * @param hash - Hash.
  * @returns Is the correct password.

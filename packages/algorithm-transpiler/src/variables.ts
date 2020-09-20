@@ -11,13 +11,11 @@ export type VariableStore = {
 
 /**
  * Transform Algorithm variables in Javascript variables.
- *
  * @param code - Algorithm code.
  * @param store - Store of variables.
  * @example
  * ```
  * import variables from 'libs/algorithm/variables'
- *
  * const store = {}
  * const code = [
  *   'algorithm easy',
@@ -54,7 +52,6 @@ export default function variables(code: string, store?: VariableStore): string {
 
 /**
  * Is this line the beginning of the variable area?.
- *
  * @param keyword - First word of line.
  * @param restOfVarLine - Rest of words.
  * @example
@@ -73,7 +70,6 @@ function isVarsZone(keyword: string, restOfVarLine: readonly string[]): boolean 
 
 /**
  * Purge variable name of tokens.
- *
  * @param word - Algorithm variable with token.
  * @example
  * ```
@@ -99,7 +95,6 @@ function purgeVarName(word: string): string {
 /**
  * Transform in var section, Algorithm equal, assign type, extra spaces or tabs, separators and
  * vectors to Javascript.
- *
  * @param word - A Algorithm word.
  * @example
  * ```
@@ -125,7 +120,6 @@ function prepareWord(word: string): string {
 
 /**
  * Reserve vars in the store.
- *
  * @param store - Store of variables.
  * @param isA - Variable type.
  * @param word - Variable name.
@@ -172,7 +166,6 @@ function reserveVars(store, isA: string, word: string): void {
 
 /**
  * Ignore algorithm body.
- *
  * @param code - Algorithm code.
  * @example
  * ```

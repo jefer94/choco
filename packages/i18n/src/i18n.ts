@@ -4,7 +4,6 @@ const langKey = '__I18N_LANG__'
 
 /**
  * Get key.
- *
  * @param key - Name of translation.
  * @param lang - Language of translation.
  * @returns Key.
@@ -37,7 +36,6 @@ type I18nDictionary = {
 
 /**
  * Get manually the locales.
- *
  * @example
  * ```
  * locale.getLang()
@@ -50,7 +48,6 @@ export function getLang(): string {
 
 /**
  * Set manually the locales.
- *
  * @param {string} lang -  Short locale.
  * @example
  * locale.setLang('en')
@@ -61,8 +58,7 @@ export function setLang(lang: string): void {
 
 // /**
 //  * Get all locales.
-//  *
-//  * @example
+// //  * @example
 //  * locale.all() // returns { ... }
 //  * @returns {object.<string, any>} All locales.
 //  */
@@ -72,7 +68,6 @@ export function setLang(lang: string): void {
 
 /**
  * Get one locales.
- *
  * @example
  * locale.one('dog') // returns VALUE
  * @returns {string|undefined} One locales.
@@ -83,7 +78,6 @@ export function one<Type>(key: string): Type {
 
 /**
  * Set a locale key.
- *
  * @example
  * locale.set('en', 'dog', 'potato')
  * @param {string} lang - Short locale.

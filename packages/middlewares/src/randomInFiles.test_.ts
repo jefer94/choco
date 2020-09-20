@@ -8,7 +8,6 @@ const app = express()
 
 /**
  * Get path from current folder.
- *
  * @param dir - Path.
  * @example
  * ```

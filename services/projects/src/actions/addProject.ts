@@ -13,7 +13,6 @@ type ProjectArgs = {
 
 /**
  * Add new project.
- *
  * @param obj - Projects object.
  * @returns Was added project.
  */

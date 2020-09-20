@@ -17,7 +17,6 @@ type RegisterArg = {
 
 /**
  * Register.
- *
  * @param arg - User object.
  * @returns Token.
  */

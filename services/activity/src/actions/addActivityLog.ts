@@ -7,7 +7,6 @@ type AddActivityLog = {
 
 /**
  * Log one activity of one user.
- *
  * @param user - User id.
  * @param activity - Activity id.
  * @returns Was added?.

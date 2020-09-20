@@ -6,7 +6,6 @@ type FetchShareCodes = {
 
 /**
  * Fetch share codes.
- *
  * @param project - User id.
  * @returns Share codes.
  */
