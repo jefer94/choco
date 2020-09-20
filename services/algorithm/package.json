@@ -9,6 +9,7 @@
     "prepare2222222": "node ../../scripts/development/prepare.js"
   },
   "dependencies": {
+    "@apollo/client": "^3.2.0",
     "@chocolab/algorithm-transpiler": "^1.0.2-alpha.0",
     "@chocolab/components": "^1.0.2-alpha.0",
     "@chocolab/editor": "^1.0.2-alpha.0",
@@ -22,6 +23,7 @@
     "@types/styled-system": "^5.1.10",
     "@zeit/next-css": "^1.0.1",
     "axios": "^0.20.0",
+    "graphql": "^15.3.0",
     "next": "9.5.3",
     "next-offline": "^5.0.2",
     "next-pwa": "^3.1.3",
