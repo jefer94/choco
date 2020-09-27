@@ -16,6 +16,8 @@ export default async function deleteService(name: string): Promise<DeleteService
   const service = await Service.findOne({ name }).exec()
   const activities = await Activity.find({ service: service._id }).exec()
 
+  service.populate('activities')
+
   for (const activity of activities) {
     const logs = await ActivityLog.find({ activity: activity._id }).exec()
 

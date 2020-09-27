@@ -6,6 +6,7 @@ import generateToken from './actions/generateToken'
 import addScope from './actions/addScope'
 import deleteScope from './actions/deleteScope'
 import register from './actions/register'
+import getUser from './actions/getUser'
 
 // let sid = 0
 export const host = 'authenticator'
@@ -13,12 +14,13 @@ export function close(): void {
   // nc.unsubscribe(sid)
 }
 
-export enum requestRefs {
+export enum actions {
   checkToken = 'check token',
   generateToken = 'generate token',
   register = 'register',
   addScope = 'add scope',
-  deleteScope = 'delete scope'
+  deleteScope = 'delete scope',
+  getUser = 'get user'
 }
 
 export const notFound = 'command not found'
@@ -36,23 +38,26 @@ export default async function server(): Promise<void> {
       try {
         const { type, ...request } = decode(data)
 
-        if (type === requestRefs.checkToken) {
+        if (type === actions.checkToken) {
           nc.publish(reply, encode(await checkToken(request.token)))
         }
-        else if (type === requestRefs.generateToken) {
+        else if (type === actions.generateToken) {
           nc.publish(reply, encode(await generateToken(request)))
         }
-        else if (type === requestRefs.addScope) {
+        else if (type === actions.addScope) {
           nc.publish(reply, encode(await addScope(request.name)))
         }
-        else if (type === requestRefs.deleteScope) {
+        else if (type === actions.deleteScope) {
           nc.publish(reply, encode(await deleteScope(request.name)))
         }
-        else if (type === requestRefs.register) {
+        else if (type === actions.register) {
           nc.publish(reply, encode(await register(request)))
         }
+        else if (type === actions.getUser) {
+          nc.publish(reply, encode(await getUser(request.id)))
+        }
       }
-      catch { nc.publish(reply, encode({ error: notFound })) }
+      catch (e) { console.log(e.message); nc.publish(reply, encode({ error: notFound })) }
     }
   } })
 }

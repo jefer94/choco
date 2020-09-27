@@ -2,6 +2,7 @@ import React, { ReactElement } from 'react'
 import Head from 'next/head'
 import { Docs as DocsComponent } from '@chocolab/components'
 import { MenuContainer } from '../Containers/MenuContainer'
+import ProjectsContainer from '../Containers/ProjectsContainer'
 
 /**
  * Get a Docs inside of Menu.
@@ -18,7 +19,7 @@ export default function Docs(): ReactElement {
         <title>Algorithm - Projects</title>
       </Head>
       <MenuContainer>
-        <DocsComponent />
+        <ProjectsContainer />
       </MenuContainer>
     </>
   )

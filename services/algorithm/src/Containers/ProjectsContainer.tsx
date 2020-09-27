@@ -8,21 +8,10 @@ import { ThemeContext } from '../contexts'
  * Projects container.
  * @returns Menu context provider.
  */
-export function MenuContainer(): ReactElement {
-  const { theme } = useContext(ThemeContext)
-  const top = [
-    menuItem(homeRoute, faEdit, true),
-    menuItem(consoleRoute, faFolder),
-    menuItem(consoleRoute, faTerminal)
-  ]
-  const bottom = [
-    menuItem(docsRoute, faQuestionCircle),
-    menuItem(docsRoute, faCog)
-  ]
-
+export default function ProjectsContainer(): ReactElement {
   return (
-    <Menu topItems={top} bottomItems={bottom} theme={theme}>
-      {children}
-    </Menu>
+    <>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae iusto unde consequatur perspiciatis, maxime sint doloribus at quisquam libero enim odio? Laboriosam dignissimos repellendus est perferendis beatae nisi consectetur quibusdam!
+    </>
   )
 }

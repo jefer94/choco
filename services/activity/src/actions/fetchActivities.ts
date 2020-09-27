@@ -1,15 +1,14 @@
-import { ActivityLog, ActivityLogDocument, ActivityLogFields } from '../models'
+import getUser from '../bindings/getUser'
+import { ActivityDocument, ActivityLog } from '../models'
 
-// type FA = readonly ActivityLogFields[]
-// type FA = readonly ActivityLogDocument[]
-type FA = {
-  readonly id?: any
-  readonly user: string
-  readonly activity: Pick<ActivityLogDocument, 'id'>
+export type ActivityWithUser = {
+  readonly user: Record<string, unknown>
+  readonly activity: Pick<ActivityDocument, '_id' | 'name' | 'service'>
 }
 
 type FetchActivities = {
-  readonly data: readonly FA[]
+  readonly data?: readonly ActivityWithUser[]
+  readonly error?: string
 }
 
 /**
@@ -19,23 +18,8 @@ type FetchActivities = {
  */
 export default async function fetchActivities(user: string): Promise<FetchActivities> {
   const activities = await ActivityLog.find({ user }).populate('activity').populate('service').lean()
-  // const activities2 = await ActivityLog.find({}).populate('activity').populate('service').lean()
-
-  // console.log('vv', activities)
-  // console.log('vv2', activities2)
-  return { data: activities.map((act) => {
-    const { activity, ...obj } = transformId(act)
-
-    return { ...obj, activity: transformActivityId(activity) }
-  }) }
-}
-
-function transformId(model: Pick<ActivityLogDocument, '_id' | '__v' | 'user' | 'activity'>): Pick<ActivityLogDocument, 'id' | 'user' | 'activity'> {
-  const { _id, __v, ...obj } = model
-  return { id: _id, ...obj }
-}
-
-function transformActivityId(model: Pick<ActivityLogDocument, '_id' | '__v'>): Pick<ActivityLogDocument, 'id'> {
-  const { _id, __v, ...obj } = model
-  return { id: _id, ...obj }
+  return { data: await Promise.all(activities.map(async ({ user, ...activity }) => ({
+    ...activity,
+    user: await getUser(user)
+  }))) }
 }

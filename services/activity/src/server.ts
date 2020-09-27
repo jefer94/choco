@@ -1,20 +1,15 @@
-/* eslint-disable functional/no-loop-statement */
-/* eslint-disable no-restricted-syntax */
-import { connect, JSONCodec } from 'nats'
+import { JSONCodec } from 'nats'
 import addActivityLog from './actions/addActivityLog'
 import addOnceActivity from './actions/addOnceActivity'
 import addOnceService from './actions/addOnceService'
 import deleteService from './actions/deleteService'
 import fetchActivities from './actions/fetchActivities'
 import fetchAllActivities from './actions/fetchAllActivities'
+import connection from './broker'
 
-// let sid = 0
 export const host = 'activity'
-export function close(): void {
-  // nc.unsubscribe(sid)
-}
-
-export enum requestRefs {
+export const notFound = 'command not found'
+export enum actions {
   addActivityLog = 'add activity log',
   addOnceActivity = 'add once activity',
   addOnceService = 'add once service',
@@ -23,11 +18,8 @@ export enum requestRefs {
   fetchAllActivities = 'fetch all activities'
 }
 
-export const notFound = 'command not found'
-
 export default async function server(): Promise<void> {
-  const nc = await connect(process.env.BROKER ?
-    { servers: process.env.BROKER } : {})
+  const nc = await connection()
 
   nc.subscribe(host, { callback: async (err, msg) => {
     const { decode, encode } = JSONCodec()
@@ -37,22 +29,22 @@ export default async function server(): Promise<void> {
       try {
         const { type, ...request } = decode(data)
 
-        if (type === requestRefs.addActivityLog) {
+        if (type === actions.addActivityLog) {
           nc.publish(reply, encode(await addActivityLog(request.user, request.activity)))
         }
-        else if (type === requestRefs.addOnceActivity) {
+        else if (type === actions.addOnceActivity) {
           nc.publish(reply, encode(await addOnceActivity(request.name, request.service)))
         }
-        else if (type === requestRefs.addOnceService) {
+        else if (type === actions.addOnceService) {
           nc.publish(reply, encode(await addOnceService(request.name)))
         }
-        else if (type === requestRefs.deleteService) {
+        else if (type === actions.deleteService) {
           nc.publish(reply, encode(await deleteService(request.name)))
         }
-        else if (type === requestRefs.fetchActivities) {
+        else if (type === actions.fetchActivities) {
           nc.publish(reply, encode(await fetchActivities(request.user)))
         }
-        else if (type === requestRefs.fetchAllActivities) {
+        else if (type === actions.fetchAllActivities) {
           nc.publish(reply, encode(await fetchAllActivities()))
         }
       }

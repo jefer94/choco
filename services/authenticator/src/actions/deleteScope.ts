@@ -13,7 +13,7 @@ type DeleteScope = {
  * @returns Was deleted?.
  */
 export default async function deleteScope(name: string): Promise<DeleteScope> {
-  const { deletedCount } = await Scope.deleteOne({ name })
-  if (deletedCount) return { data: { name } }
+  const scope = await Scope.findOneAndRemove({ name }).lean().populate('users', '-password')
+  if (scope) return { data: scope }
   return { error: 'scope not exist' }
 }

@@ -2,18 +2,14 @@ import React, { ReactElement, ReactNode } from 'react'
 import { algorithmTranspilerLang } from '@chocolab/algorithm-transpiler'
 import lang from '../lang'
 
-import { ThemeContextProvider } from './ThemeContext' // eslint-disable-line
-import { MenuContextProvider } from './MenuContext' // eslint-disable-line
-import { ResizeContextProvider } from './ResizeContext' // eslint-disable-line
+import { ThemeContextProvider } from './ThemeContext'
+import { MenuContextProvider } from './MenuContext'
+// import { ResizeContextProvider } from './ResizeContext'
+import { GraphQlContextProvider } from './GraphQlContext'
 
 // set locales
 algorithmTranspilerLang()
 lang()
-
-/**
- * @typedef {object} ProviderProps
- * @property {object} children - Provider children.
- */
 
 type ProviderProps = {
   readonly children: ReactNode
@@ -21,16 +17,18 @@ type ProviderProps = {
 
 /**
  * Contexts provider.
- * @param {ProviderProps} Props - Props.
- * @returns {object} Contexts provider.
+ * @param Props - Props.
+ * @returns Contexts provider.
  */
 function Provider({ children }: ProviderProps): ReactElement {
   return (
-    <ThemeContextProvider>
-      <MenuContextProvider>
-        {children}
-      </MenuContextProvider>
-    </ThemeContextProvider>
+    <GraphQlContextProvider>
+      <ThemeContextProvider>
+        <MenuContextProvider>
+          {children}
+        </MenuContextProvider>
+      </ThemeContextProvider>
+    </GraphQlContextProvider>
   )
 }
 

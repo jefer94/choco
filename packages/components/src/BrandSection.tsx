@@ -15,12 +15,12 @@ const Header = styled.header`
 
 const Aside = styled.aside`
   background-color: ${theme.dark};
-  display: flex;
   align-items: center;
   justify-content: center;
   width: 569px;
   height: 100vh;
   border-right: 6px solid ${theme.blue};
+  display: inline-flex;
 `
 
 const BrandCircle = styled.div`

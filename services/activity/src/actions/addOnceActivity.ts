@@ -2,7 +2,7 @@
 import { Activity, ActivityDocument } from '../models'
 
 type AddOnceActivity = {
-  readonly data: ActivityDocument
+  readonly data: Pick<ActivityDocument, '_id' | 'name' | 'service'>
 }
 
 /**
@@ -16,10 +16,17 @@ export default async function addOnceActivity(name: string, service: string):
   try {
     const activity = new Activity({ name, service })
     await activity.save()
+
+    activity.populate('service')
+    activity.populate('activityLogs')
+
     return { data: activity }
   }
   catch {
-    const activity = await Activity.findOne({ name, service }).exec()
+    const activity = await Activity.findOne({ name, service })
+      .populate('service')
+      .populate('activityLogs')
+      .lean()
     return { data: activity }
   }
 }

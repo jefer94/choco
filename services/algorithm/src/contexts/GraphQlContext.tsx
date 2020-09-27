@@ -15,7 +15,7 @@ type GraphQlContextProviderProps = {
  * @param Props - Props.
  * @returns Menu context provider.
  */
-export default function GraphQlContextProvider({ children }: GraphQlContextProviderProps):
+export function GraphQlContextProvider({ children }: GraphQlContextProviderProps):
   ReactElement {
   return (
     <ApolloProvider client={client}>

@@ -14,6 +14,7 @@ export default async function addScope(name: string): Promise<AddScope> {
   try {
     const scope = new Scope({ name })
     await scope.save()
+    scope.populate('users', '-password')
     return { data: scope }
   }
   catch (e) {

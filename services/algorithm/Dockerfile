@@ -10,7 +10,8 @@ COPY tsconfig.json tsconfig.json
 COPY package.json package.json
 
 RUN yarn install --production=true && \
-    yarn global add typescript
+    yarn global add typescript && \
+    yarn cache clean
 
 COPY src src
 RUN yarn build

@@ -1,9 +1,11 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable no-await-in-loop */
 /* eslint-disable functional/no-loop-statement */
 /* eslint-disable no-restricted-syntax */
 import { connect, NatsConnection, JSONCodec, StringCodec } from 'nats'
 import { MongoMemoryServer } from 'mongodb-memory-server-core'
-import server, { host, requestRefs, notFound } from './server'
+import server, { host, actions, notFound } from './server'
+import authenticatorMock from './authenticatorMock'
 import db from './db'
 
 jest.setTimeout(600000)
@@ -19,6 +21,7 @@ beforeAll(async () => {
   const mongod = new MongoMemoryServer()
   await db(await mongod.getUri())
   nc = await connect()
+  await authenticatorMock()
   await server()
 })
 
@@ -48,6 +51,13 @@ export async function SendCommand<T>(action: string, message?: Data):
   return data
 }
 
+const henriettaUser = {
+  _id: '5f40c309bd73600bcc1cd207',
+  username: 'Konan',
+  email: 'konan@at.dot.com',
+  scopes: []
+}
+
 const henrietta = '5f40c309bd73600bcc1cd207'
 const dayan = '5f40c36401ba680924cb0afb'
 const todd = '5f40c3705bea251f8289f4ed'
@@ -58,53 +68,87 @@ let serviceId1
 let activityId1
 let activityLogId1
 
+type Generic = {
+  readonly _id: string
+  readonly createdAt: string
+  readonly updatedAt: string
+}
+
+type Activity = Generic & {
+  readonly name: string
+  readonly activityLogs: readonly unknown[]
+  readonly service: Service
+}
+
+type Service = Generic & {
+  readonly name: string
+  readonly activities: readonly Activity[]
+}
+
+function genericTest(obj: Generic, id?: string): void {
+  const { _id, createdAt, updatedAt } = obj
+  if (id) expect(_id).toBe(id)
+  else expect(/^[^ ]+$/.test(_id)).toBeTruthy()
+  expect(Date.parse(createdAt)).toBeTruthy()
+  expect(Date.parse(updatedAt)).toBeTruthy()
+}
+
+function testService(obj: Service, id?: string): void {
+  const { _id, createdAt, updatedAt, ...res } = obj
+
+  genericTest({ _id, createdAt, updatedAt })
+  expect(res).toEqual({
+    activities: [],
+    name: 'algorithm'
+  })
+}
+
+function testActivity(obj: Activity, id?: string): void {
+  const { _id, createdAt, updatedAt, service, ...res } = obj
+
+  genericTest({ _id, createdAt, updatedAt })
+  testService(service)
+  expect(res).toEqual({
+    activityLogs: [],
+    name: 'Is henrietta'
+  })
+}
+
 test('Not found', async () => {
   const msg = nc.request(host, StringCodec().encode('Hello asdasdasd'))
   expect(decode((await msg).data)).toEqual({ error: notFound })
 })
 
 test('fetch nobody', async () => {
-  const msg = await SendCommand(requestRefs.fetchAllActivities)
+  const msg = await SendCommand(actions.fetchAllActivities)
   expect(msg).toEqual({ data: [] })
 })
 
 test('fetch all nobody', async () => {
-  const msg = await SendCommand(requestRefs.fetchActivities, { user: henrietta })
+  const msg = await SendCommand(actions.fetchActivities, { user: henrietta })
   expect(msg).toEqual({ data: [] })
 })
 
 test('add once service', async () => {
-  const { data, ...obj } = await SendCommand(requestRefs.addOnceService, { name: service1 })
+  const { data, ...obj } = await SendCommand(actions.addOnceService, { name: service1 })
   expect(Object.keys(obj)).toHaveLength(0)
-
-  const { _id, createdAt, updatedAt, ...rest } = data
-
-  expect(/^[^ ]+$/.test(_id)).toBeTruthy()
-  expect(Date.parse(createdAt)).toBeTruthy()
-  expect(Date.parse(updatedAt)).toBeTruthy()
-  expect(rest).toEqual({ name: 'algorithm' })
-  serviceId1 = _id
+  testService(data)
+  serviceId1 = data._id
 })
 
 test('add once service again', async () => {
-  const { data, ...obj } = await SendCommand(requestRefs.addOnceService, { name: service1 })
+  const { data, ...obj } = await SendCommand(actions.addOnceService, { name: service1 })
   expect(Object.keys(obj)).toHaveLength(0)
-
-  const { _id, createdAt, updatedAt, ...rest } = data
-
-  expect(/^[^ ]+$/.test(_id)).toBeTruthy()
-  expect(Date.parse(createdAt)).toBeTruthy()
-  expect(Date.parse(updatedAt)).toBeTruthy()
-  expect(rest).toEqual({ name: 'algorithm' })
+  testService(data)
 })
 
 test('check that fetch nothing 1', async () => {
-  const msg = await SendCommand(requestRefs.fetchActivities)
+  const msg = await SendCommand(actions.fetchActivities)
   expect(msg).toEqual({ data: [] })
 })
 
 test('check that fetch all nothing 1', async () => {
-  const msg = await SendCommand(requestRefs.fetchAllActivities, { user: henrietta })
+  const msg = await SendCommand(actions.fetchAllActivities, { user: henrietta })
   expect(msg).toEqual({ data: [] })
 })
 
@@ -113,7 +157,7 @@ test('add once activity', async () => {
     name: 'Is henrietta',
     service: serviceId1
   }
-  const { data, ...obj } = await SendCommand(requestRefs.addOnceActivity, message)
+  const { data, ...obj } = await SendCommand(actions.addOnceActivity, message)
 
   expect(Object.keys(obj)).toHaveLength(0)
   const { _id, createdAt, updatedAt, service, ...rest } = data
@@ -122,7 +166,7 @@ test('add once activity', async () => {
   expect(/^[^ ]+$/.test(service)).toBeTruthy()
   expect(Date.parse(createdAt)).toBeTruthy()
   expect(Date.parse(updatedAt)).toBeTruthy()
-  expect(rest).toEqual({ name: 'Is henrietta' })
+  expect(rest).toEqual({ name: 'Is henrietta', activityLogs: [] })
   activityId1 = _id
 })
 
@@ -131,25 +175,19 @@ test('add once activity again', async () => {
     name: 'Is henrietta',
     service: serviceId1
   }
-  const { data, ...obj } = await SendCommand(requestRefs.addOnceActivity, message)
+  const { data, ...obj } = await SendCommand(actions.addOnceActivity, message)
 
   expect(Object.keys(obj)).toHaveLength(0)
-  const { _id, createdAt, updatedAt, service, ...rest } = data
-
-  expect(/^[^ ]+$/.test(_id)).toBeTruthy()
-  expect(/^[^ ]+$/.test(service)).toBeTruthy()
-  expect(Date.parse(createdAt)).toBeTruthy()
-  expect(Date.parse(updatedAt)).toBeTruthy()
-  expect(rest).toEqual({ name: 'Is henrietta' })
+  testActivity(data)
 })
 
 test('check that fetch nothing 2', async () => {
-  const msg = await SendCommand(requestRefs.fetchAllActivities)
+  const msg = await SendCommand(actions.fetchAllActivities)
   expect(msg).toEqual({ data: [] })
 })
 
 test('check that fetch all nothing 2', async () => {
-  const msg = await SendCommand(requestRefs.fetchActivities, { user: henrietta })
+  const msg = await SendCommand(actions.fetchActivities, { user: henrietta })
   expect(msg).toEqual({ data: [] })
 })
 
@@ -158,7 +196,7 @@ test('add one activity in log', async () => {
     user: henrietta,
     activity: activityId1
   }
-  const { data, ...obj } = await SendCommand(requestRefs.addActivityLog, message)
+  const { data, ...obj } = await SendCommand(actions.addActivityLog, message)
 
   expect(Object.keys(obj)).toHaveLength(0)
   const { _id, createdAt, updatedAt, activity, user, ...rest } = data
@@ -166,48 +204,48 @@ test('add one activity in log', async () => {
   expect(Object.keys(rest)).toHaveLength(0)
   expect(/^[^ ]+$/.test(_id)).toBeTruthy()
   expect(/^[^ ]+$/.test(activity)).toBeTruthy()
-  expect(/^[^ ]+$/.test(user)).toBeTruthy()
+  expect(user).toEqual(henriettaUser)
   expect(Date.parse(createdAt)).toBeTruthy()
   expect(Date.parse(updatedAt)).toBeTruthy()
 })
 
 function checkActivitySubsection(obj: Record<string, any>): void {
-  const { id, createdAt, updatedAt, service, ...obj2 } = obj
+  const { _id, createdAt, updatedAt, service, ...obj2 } = obj
 
   expect(Date.parse(createdAt)).toBeTruthy()
   expect(Date.parse(updatedAt)).toBeTruthy()
-  expect(id).toBe(activityId1)
+  expect(_id).toBe(activityId1)
   expect(service).toBe(serviceId1)
-  expect(obj2).toEqual({ name: 'Is henrietta' })
+  expect(obj2).toEqual({ name: 'Is henrietta', activityLogs: [] })
 }
 
 test('check fetch with content', async () => {
-  const { data, ...obj1 } = await SendCommand(requestRefs.fetchAllActivities)
+  const { data, ...obj1 } = await SendCommand(actions.fetchAllActivities)
   const [current, ...less] = data
-  const { id, createdAt, updatedAt, activity, user, ...obj2 } = current
+  const { _id, createdAt, updatedAt, activity, user, ...obj2 } = current
 
   expect(Date.parse(createdAt)).toBeTruthy()
   expect(Date.parse(updatedAt)).toBeTruthy()
-  expect(/^[a-zA-Z0-9]+$/.test(id)).toBeTruthy()
-  expect(user).toBe(henrietta)
+  expect(/^[a-zA-Z0-9]+$/.test(_id)).toBeTruthy()
+  expect(user).toEqual(henriettaUser)
   expect(obj1).toEqual({})
   expect(obj2).toEqual({})
   expect(less).toEqual([])
 
-  activityLogId1 = id
+  activityLogId1 = _id
 
   checkActivitySubsection(activity)
 })
 
 test('check fetch all with content', async () => {
-  const { data, ...obj1 } = await SendCommand(requestRefs.fetchAllActivities)
+  const { data, ...obj1 } = await SendCommand(actions.fetchAllActivities)
   const [current, ...less] = data
-  const { id, createdAt, updatedAt, activity, user, ...obj2 } = current
+  const { _id, createdAt, updatedAt, activity, user, ...obj2 } = current
 
   expect(Date.parse(createdAt)).toBeTruthy()
   expect(Date.parse(updatedAt)).toBeTruthy()
-  expect(id).toBe(activityLogId1)
-  expect(user).toBe(henrietta)
+  expect(_id).toBe(activityLogId1)
+  expect(user).toEqual(henriettaUser)
   expect(obj1).toEqual({})
   expect(obj2).toEqual({})
   expect(less).toEqual([])
@@ -216,23 +254,17 @@ test('check fetch all with content', async () => {
 })
 
 test('delete service', async () => {
-  const { data, ...obj } = await SendCommand(requestRefs.deleteService, { name: service1 })
+  const { data, ...obj } = await SendCommand(actions.deleteService, { name: service1 })
   expect(Object.keys(obj)).toHaveLength(0)
-
-  const { _id, createdAt, updatedAt, ...rest } = data
-
-  expect(/^[^ ]+$/.test(_id)).toBeTruthy()
-  expect(Date.parse(createdAt)).toBeTruthy()
-  expect(Date.parse(updatedAt)).toBeTruthy()
-  expect(rest).toEqual({ name: 'algorithm' })
+  testService(data)
 })
 
 test('check that fetch nothing 3', async () => {
-  const msg = await SendCommand(requestRefs.fetchAllActivities)
+  const msg = await SendCommand(actions.fetchAllActivities)
   expect(msg).toEqual({ data: [] })
 })
 
 test('check that fetch all nothing 3', async () => {
-  const msg = await SendCommand(requestRefs.fetchActivities, { user: henrietta })
+  const msg = await SendCommand(actions.fetchActivities, { user: henrietta })
   expect(msg).toEqual({ data: [] })
 })

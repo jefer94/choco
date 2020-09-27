@@ -12,7 +12,7 @@ export function close(): void {
   // nc.unsubscribe(sid)
 }
 
-export enum requestRefs {
+export enum actions {
   get = 'get',
   set = 'set',
   getObject = 'get object',
@@ -33,14 +33,14 @@ export default async function server(): Promise<void> {
       try {
         const { type, key, value } = decode(data)
 
-        if (type === requestRefs.get) nc.publish(reply, encode(await get(key)))
-        else if (type === requestRefs.set) {
+        if (type === actions.get) nc.publish(reply, encode(await get(key)))
+        else if (type === actions.set) {
           nc.publish(reply, encode(await set(key, value)))
         }
-        else if (type === requestRefs.getObject) {
+        else if (type === actions.getObject) {
           nc.publish(reply, encode(await getObject(key)))
         }
-        else if (type === requestRefs.setObject) {
+        else if (type === actions.setObject) {
           nc.publish(reply, encode(await setObject(key, value)))
         }
       }

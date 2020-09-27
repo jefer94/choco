@@ -11,7 +11,7 @@ export type ProjectFields = {
 export type ProjectDocument = Document & ProjectFields
 
 const schema = new Schema({
-  user: { type: String, required: true, unique: true },
+  user: { type: Schema.Types.ObjectId, required: true, unique: true },
   name: { type: String, required: true },
   description: { type: String, required: true },
   codes: [{ ref: 'Code', type: Schema.Types.ObjectId }],

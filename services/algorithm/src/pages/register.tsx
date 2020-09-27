@@ -1,6 +1,8 @@
 import React, { ReactElement } from 'react'
 import Head from 'next/head'
 import { BrandSection } from '@chocolab/components'
+import RegisterContainer from '../Containers/RegisterContainer'
+import '../global-styles.css'
 
 /**
  * Login container.
@@ -13,9 +15,8 @@ export default function Login(): ReactElement {
       <Head>
         <title>Algorithm - Docs</title>
       </Head>
-      {/* <BrandSection type="Header" /> */}
       <BrandSection type="Aside" />
-      <input type="text" />
+      <RegisterContainer />
     </>
   )
 }

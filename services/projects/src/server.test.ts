@@ -3,7 +3,7 @@
 /* eslint-disable no-restricted-syntax */
 import { connect, NatsConnection, JSONCodec, StringCodec } from 'nats'
 import { MongoMemoryServer } from 'mongodb-memory-server-core'
-import server, { host, requestRefs, notFound } from './server'
+import server, { host, actions, notFound } from './server'
 import db, { clearCollections } from './db'
 
 jest.setTimeout(600000)
@@ -63,7 +63,7 @@ test('fetch user1 without projects', async () => {
   const message = {
     user: userId1
   }
-  const msg = await SendCommand(requestRefs.fetchOwnProjects, message)
+  const msg = await SendCommand(actions.fetchOwnProjects, message)
   expect(msg).toEqual({ data: [] })
 })
 
@@ -71,7 +71,7 @@ test('fetch user1 without shared projects 1', async () => {
   const message = {
     user: userId1
   }
-  const msg = await SendCommand(requestRefs.fetchShareProjects, message)
+  const msg = await SendCommand(actions.fetchShareProjects, message)
   expect(msg).toEqual({ data: [] })
 })
 
@@ -81,7 +81,7 @@ test('Add project user1', async () => {
     name: 'Algorithm',
     description: 'Algorithm project'
   }
-  const { data, ...obj1 } = await SendCommand(requestRefs.addProject, message)
+  const { data, ...obj1 } = await SendCommand(actions.addProject, message)
   expect(obj1).toEqual({})
 
   const { _id, createdAt, updatedAt, ...obj2 } = data
@@ -102,7 +102,7 @@ test('fetch user1 with projects', async () => {
   const message = {
     user: userId1
   }
-  const { data, ...obj1 } = await SendCommand(requestRefs.fetchOwnProjects, message)
+  const { data, ...obj1 } = await SendCommand(actions.fetchOwnProjects, message)
   expect(obj1).toEqual({})
 
   expect(data).toHaveLength(1)
@@ -123,7 +123,7 @@ test('get user1 project', async () => {
   const message = {
     id: projectId1
   }
-  const { data, ...obj1 } = await SendCommand(requestRefs.getProject, message)
+  const { data, ...obj1 } = await SendCommand(actions.getProject, message)
   expect(obj1).toEqual({})
 
   const { _id, createdAt, updatedAt, ...obj2 } = data
@@ -143,7 +143,7 @@ test('fetch user1 without shared projects 2', async () => {
   const message = {
     user: userId1
   }
-  const msg = await SendCommand(requestRefs.fetchShareProjects, message)
+  const msg = await SendCommand(actions.fetchShareProjects, message)
   expect(msg).toEqual({ data: [] })
 })
 
@@ -151,7 +151,7 @@ test('fetch user1 without codes', async () => {
   const message = {
     project: projectId1
   }
-  const msg = await SendCommand(requestRefs.fetchOwnCodes, message)
+  const msg = await SendCommand(actions.fetchOwnCodes, message)
   expect(msg).toEqual({ data: [] })
 })
 
@@ -159,7 +159,7 @@ test('fetch user1 without share codes', async () => {
   const message = {
     project: projectId1
   }
-  const msg = await SendCommand(requestRefs.fetchShareCodes, message)
+  const msg = await SendCommand(actions.fetchShareCodes, message)
   expect(msg).toEqual({ data: [] })
 })
 
@@ -169,7 +169,7 @@ test('add user1 code', async () => {
     code: 'import a from b',
     project: projectId1
   }
-  const { data, ...obj1 } = await SendCommand(requestRefs.addCode, message)
+  const { data, ...obj1 } = await SendCommand(actions.addCode, message)
   expect(obj1).toEqual({})
 
   const { _id, createdAt, updatedAt, ...obj2 } = data
@@ -189,7 +189,7 @@ test('add permission user2', async () => {
     create: false,
     delete: true
   }
-  const { data, ...obj1 } = await SendCommand(requestRefs.addProjectPermission, message)
+  const { data, ...obj1 } = await SendCommand(actions.addProjectPermission, message)
   expect(obj1).toEqual({})
 
   const { _id, createdAt, updatedAt, ...obj2 } = data
@@ -204,7 +204,7 @@ test('fetch user2 without projects', async () => {
   const message = {
     user: userId2
   }
-  const msg = await SendCommand(requestRefs.fetchOwnProjects, message)
+  const msg = await SendCommand(actions.fetchOwnProjects, message)
   expect(msg).toEqual({ data: [] })
 })
 
@@ -212,7 +212,7 @@ test('fetch user2 with shared projects', async () => {
   const message = {
     user: userId2
   }
-  const { data, ...obj1 } = await SendCommand(requestRefs.fetchShareProjects, message)
+  const { data, ...obj1 } = await SendCommand(actions.fetchShareProjects, message)
   expect(obj1).toEqual({})
 
   expect(data).toHaveLength(1)
@@ -241,7 +241,7 @@ test('Update user1 project', async () => {
     name: 'New algorithm',
     description: 'New algorithm project'
   }
-  const { data, ...obj1 } = await SendCommand(requestRefs.updateProject, message)
+  const { data, ...obj1 } = await SendCommand(actions.updateProject, message)
   expect(obj1).toEqual({})
 
   const { _id, createdAt, updatedAt, ...obj2 } = data
@@ -262,7 +262,7 @@ test('fetch user1 with projects updated', async () => {
   const message = {
     user: userId1
   }
-  const { data, ...obj1 } = await SendCommand(requestRefs.fetchOwnProjects, message)
+  const { data, ...obj1 } = await SendCommand(actions.fetchOwnProjects, message)
   expect(obj1).toEqual({})
 
   expect(data).toHaveLength(1)
@@ -284,7 +284,7 @@ test('fetch user1 with codes', async () => {
     project: projectId1
     // user: userId1
   }
-  const { data, ...obj1 } = await SendCommand(requestRefs.fetchOwnCodes, message)
+  const { data, ...obj1 } = await SendCommand(actions.fetchOwnCodes, message)
   expect(obj1).toEqual({})
 
   expect(data).toHaveLength(1)
@@ -305,7 +305,7 @@ test('update user1 with codes', async () => {
     title: 'Main.al',
     code: 'import a from b.al'
   }
-  const { data, ...obj1 } = await SendCommand(requestRefs.updateCode, message)
+  const { data, ...obj1 } = await SendCommand(actions.updateCode, message)
   expect(obj1).toEqual({})
 
   const { _id, createdAt, updatedAt, ...obj2 } = data
@@ -323,7 +323,7 @@ test('get user1 code', async () => {
   const message = {
     id: codeId1
   }
-  const { data, ...obj1 } = await SendCommand(requestRefs.getCode, message)
+  const { data, ...obj1 } = await SendCommand(actions.getCode, message)
   expect(obj1).toEqual({})
 
   const { _id, createdAt, updatedAt, ...obj2 } = data
@@ -345,7 +345,7 @@ test('update user1 permission', async () => {
     create: true,
     delete: false
   }
-  const { data, ...obj1 } = await SendCommand(requestRefs.updateProjectPermission, message)
+  const { data, ...obj1 } = await SendCommand(actions.updateProjectPermission, message)
   expect(obj1).toEqual({})
 
   const { _id, createdAt, updatedAt, ...obj2 } = data
@@ -359,7 +359,7 @@ test('get user1 permission', async () => {
   const message = {
     id: permissionId1
   }
-  const { data, ...obj1 } = await SendCommand(requestRefs.getProjectPermission, message)
+  const { data, ...obj1 } = await SendCommand(actions.getProjectPermission, message)
   expect(obj1).toEqual({})
 
   const { _id, createdAt, updatedAt, ...obj2 } = data
@@ -380,7 +380,7 @@ test('fetch user1 with shared codes', async () => {
     project: projectId1
     // user: userId1
   }
-  const { data, ...obj1 } = await SendCommand(requestRefs.fetchShareCodes, message)
+  const { data, ...obj1 } = await SendCommand(actions.fetchShareCodes, message)
   expect(obj1).toEqual({})
 
   expect(data).toHaveLength(1)
@@ -400,7 +400,7 @@ test('delete user1 with shared codes', async () => {
     id: permissionId1
     // user: userId1
   }
-  const { data, ...obj1 } = await SendCommand(requestRefs.deleteProjectPermission, message)
+  const { data, ...obj1 } = await SendCommand(actions.deleteProjectPermission, message)
   expect(obj1).toEqual({})
 
   const { _id, createdAt, updatedAt, ...obj2 } = data
@@ -421,7 +421,7 @@ test('delete user1 shared codes that not exist', async () => {
     id: permissionId1
     // user: userId1
   }
-  const msg = await SendCommand(requestRefs.deleteProjectPermission, message)
+  const msg = await SendCommand(actions.deleteProjectPermission, message)
   expect(msg).toEqual({ data: null })
 })
 
@@ -430,7 +430,7 @@ test('get user1 shared codes that not exist', async () => {
     id: permissionId1
     // user: userId1
   }
-  const msg = await SendCommand(requestRefs.getProjectPermission, message)
+  const msg = await SendCommand(actions.getProjectPermission, message)
   expect(msg).toEqual({ data: null })
 })
 
@@ -439,7 +439,7 @@ test('delete user1 with codes', async () => {
     id: codeId1
     // user: userId1
   }
-  const { data, ...obj1 } = await SendCommand(requestRefs.deleteCode, message)
+  const { data, ...obj1 } = await SendCommand(actions.deleteCode, message)
   expect(obj1).toEqual({})
 
   const { _id, createdAt, updatedAt, ...obj2 } = data
@@ -458,7 +458,7 @@ test('delete user1 codes that not exist', async () => {
     id: codeId1
     // user: userId1
   }
-  const msg = await SendCommand(requestRefs.deleteProjectPermission, message)
+  const msg = await SendCommand(actions.deleteProjectPermission, message)
   expect(msg).toEqual({ data: null })
 })
 
@@ -466,7 +466,7 @@ test('get user1 codes that not exist', async () => {
   const message = {
     id: codeId1
   }
-  const msg = await SendCommand(requestRefs.getProjectPermission, message)
+  const msg = await SendCommand(actions.getProjectPermission, message)
   expect(msg).toEqual({ data: null })
 })
 
@@ -475,7 +475,7 @@ test('get user1 shared codes that not exist', async () => {
     id: permissionId1
     // user: userId1
   }
-  const msg = await SendCommand(requestRefs.getProjectPermission, message)
+  const msg = await SendCommand(actions.getProjectPermission, message)
   expect(msg).toEqual({ data: null })
 })
 
@@ -484,7 +484,7 @@ test('delete user1 with project', async () => {
     id: projectId1
     // user: userId1
   }
-  const { data, ...obj1 } = await SendCommand(requestRefs.deleteProject, message)
+  const { data, ...obj1 } = await SendCommand(actions.deleteProject, message)
   expect(obj1).toEqual({})
 
   const { _id, createdAt, updatedAt, ...obj2 } = data
@@ -504,7 +504,7 @@ test('get user1 project that not exist', async () => {
   const message = {
     id: codeId1
   }
-  const msg = await SendCommand(requestRefs.getProjectPermission, message)
+  const msg = await SendCommand(actions.getProjectPermission, message)
   expect(msg).toEqual({ data: null })
 })
 
@@ -513,6 +513,6 @@ test('get user1 project that not exist', async () => {
     id: permissionId1
     // user: userId1
   }
-  const msg = await SendCommand(requestRefs.getProjectPermission, message)
+  const msg = await SendCommand(actions.getProjectPermission, message)
   expect(msg).toEqual({ data: null })
 })

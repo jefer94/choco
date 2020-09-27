@@ -3,7 +3,7 @@
 /* eslint-disable no-restricted-syntax */
 import { connect, NatsConnection, JSONCodec, StringCodec } from 'nats'
 import { MongoMemoryServer } from 'mongodb-memory-server-core'
-import server, { close, requestRefs, notFound, host } from './server'
+import server, { close, actions, notFound, host } from './server'
 import db from './db'
 
 jest.setTimeout(600000)
@@ -22,6 +22,7 @@ beforeAll(async () => {
 
 // afterAll(() => {})
 let currentToken: string
+let userId1: string
 
 type Data = Record<string, unknown> & {
   readonly _id?: string
@@ -44,6 +45,47 @@ export async function SendCommand<T>(action: string, message?: Data):
   return data
 }
 
+type GenericType = {
+  readonly _id: string
+  readonly createdAt: string
+  readonly updatedAt: string
+}
+
+type ActivityType = GenericType & {
+}
+
+type ServiceType = GenericType & {
+}
+
+function genericTest(obj: GenericType, id?: string): void {
+  const { _id, createdAt, updatedAt } = obj
+  if (id) expect(_id).toBe(id)
+  else expect(/^[^ ]+$/.test(_id)).toBeTruthy()
+  expect(Date.parse(createdAt)).toBeTruthy()
+  expect(Date.parse(updatedAt)).toBeTruthy()
+}
+
+async function testScope(data: ActivityType, id?: string): Promise<void> {
+  const { _id, createdAt, updatedAt, ...obj2 } = data
+  genericTest({ _id, createdAt, updatedAt })
+
+  expect(obj2).toEqual({
+    name: 'Can edit',
+    users: []
+  })
+}
+
+async function testUser(data: ActivityType, id?: string): Promise<void> {
+  const { _id, createdAt, updatedAt, ...obj2 } = data
+  genericTest({ _id, createdAt, updatedAt })
+
+  expect(obj2).toEqual({
+    username: 'user',
+    email: 'email',
+    scopes: []
+  })
+}
+
 test('Not found', async () => {
   const msg = nc.request(host, StringCodec().encode('Hello asdasdasd'))
   expect(decode((await msg).data)).toEqual({ error: notFound })
@@ -59,7 +101,7 @@ test('Invalid token request with username, password', async () => {
     password: 'pass'
   }]
   for (const message of messages) {
-    const msg = await SendCommand(requestRefs.generateToken, message)
+    const msg = await SendCommand(actions.generateToken, message)
     expect(msg).toEqual({ error: 'invalid credentials' })
   }
 })
@@ -76,12 +118,20 @@ test('Invalid register', async () => {
     email: 'pass'
   }]
   for (const message of messages) {
-    const { error, ...res } = await SendCommand(requestRefs.register, message)
+    const { error, ...res } = await SendCommand(actions.register, message)
     expect(Object.keys(res)).toHaveLength(0)
 
     expect(/^AuthUser validation failed: (username|password|email): Path `(username|password|email)` is required\.$/.test(error))
       .toBeTruthy()
   }
+})
+
+test('Get invalid user', async () => {
+  const message = {
+    id: '5f6a6a50aa5403d558a33edb'
+  }
+  const msg = await SendCommand(actions.getUser, message)
+  expect(msg).toEqual({ error: 'user not found' })
 })
 
 test('Register', async () => {
@@ -91,22 +141,23 @@ test('Register', async () => {
     password: 'pass'
   }
 
-  const { data, ...obj1 } = await SendCommand(requestRefs.register, message)
+  const { data, ...obj1 } = await SendCommand(actions.register, message)
   expect(Object.keys(obj1)).toHaveLength(0)
 
   const { token, user, ...obj2 } = data
   expect(Object.keys(obj2)).toHaveLength(0)
   expect(/^[^ ]+$/.test(token)).toBeTruthy()
   expect(/^[^ ]+$/.test(user)).toBeTruthy()
+  userId1 = user
 })
 
-test('generate token', async () => {
+test('Generate token', async () => {
   const message = {
     username: 'user',
     password: 'pass'
   }
 
-  const { data, ...obj1 } = await SendCommand(requestRefs.generateToken, message)
+  const { data, ...obj1 } = await SendCommand(actions.generateToken, message)
   expect(Object.keys(obj1)).toHaveLength(0)
 
   const { token, user, ...obj2 } = data
@@ -120,12 +171,12 @@ test('generate token', async () => {
 test('invalid token', async () => {
   const token = 'hahahaha!'
 
-  const msg = await SendCommand(requestRefs.checkToken, { token })
+  const msg = await SendCommand(actions.checkToken, { token })
   expect(msg).toEqual({ error: 'jwt malformed' })
 })
 
 test('check token', async () => {
-  const { data, ...obj } = await SendCommand(requestRefs.checkToken, { token: currentToken })
+  const { data, ...obj } = await SendCommand(actions.checkToken, { token: currentToken })
   expect(Object.keys(obj)).toHaveLength(0)
 
   const { exp, user, iat, ...res } = data
@@ -137,37 +188,34 @@ test('check token', async () => {
 })
 
 test('invalid delete scope', async () => {
-  const msg = await SendCommand(requestRefs.deleteScope, { name: 'Can edit' })
+  const msg = await SendCommand(actions.deleteScope, { name: 'Can edit' })
   expect(msg).toEqual({ error: 'scope not exist' })
 })
 
 test('add scope', async () => {
-  const { data, ...obj1 } = await SendCommand(requestRefs.addScope, { name: 'Can edit' })
+  const { data, ...obj1 } = await SendCommand(actions.addScope, { name: 'Can edit' })
   expect(Object.keys(obj1)).toHaveLength(0)
-
-  const { _id, createdAt, updatedAt, ...obj2 } = data
-  expect(/^[^ ]+$/.test(_id)).toBeTruthy()
-  expect(Date.parse(createdAt)).toBeTruthy()
-  expect(Date.parse(updatedAt)).toBeTruthy()
-
-  expect(obj2).toEqual({
-    name: 'Can edit',
-    users: []
-  })
+  testScope(data)
 })
 
 test('reject duplicate scope', async () => {
-  const msg = await SendCommand(requestRefs.addScope, { name: 'Can edit' })
+  const msg = await SendCommand(actions.addScope, { name: 'Can edit' })
   expect(msg).toEqual({
     error: 'E11000 duplicate key error dup key: { : "Can edit" }'
   })
 })
 
 test('delete scope', async () => {
-  const msg = await SendCommand(requestRefs.deleteScope, { name: 'Can edit' })
-  expect(msg).toEqual({
-    data: {
-      name: 'Can edit'
-    }
-  })
+  const { data, ...obj1 } = await SendCommand(actions.deleteScope, { name: 'Can edit' })
+  expect(Object.keys(obj1)).toHaveLength(0)
+  testScope(data)
+})
+
+test('Get user', async () => {
+  const message = {
+    id: userId1
+  }
+  const { data, ...obj1 } = await SendCommand(actions.getUser, message)
+  expect(Object.keys(obj1)).toHaveLength(0)
+  testUser(data)
 })

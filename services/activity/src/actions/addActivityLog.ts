@@ -1,4 +1,5 @@
 import { ActivityLog, ActivityLogDocument } from '../models'
+import getUser from '../bindings/getUser'
 
 type AddActivityLog = {
   readonly data?: ActivityLogDocument
@@ -16,7 +17,8 @@ export default async function addActivityLog(user: string, activity: string):
   try {
     const scope = new ActivityLog({ user, activity })
     await scope.save()
-    return { data: scope }
+    scope.populate('activity')
+    return { data: { ...scope.toObject(), user: await getUser(user) } }
   }
   catch (e) {
     return { error: e.message }

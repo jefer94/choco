@@ -16,7 +16,7 @@ const schema = new Schema({
   create: Boolean,
   delete: Boolean,
   project: { ref: 'Project', type: Schema.Types.ObjectId },
-  user: { type: String, required: true, unique: true }
+  user: { type: Schema.Types.ObjectId, required: true, unique: true }
 }, { timestamps: true, versionKey: false })
 
 function transform(): Record<string, unknown> {

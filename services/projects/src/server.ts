@@ -25,7 +25,7 @@ export function close(): void {
 
 export const host = 'projects'
 
-export enum requestRefs {
+export enum actions {
   addCode = 'add code',
   addProject = 'add project',
   addProjectPermission = 'add project permission',
@@ -58,52 +58,52 @@ export default async function server(): Promise<void> {
       try {
         const { type, ...request } = decode(data)
 
-        if (type === requestRefs.addCode) {
+        if (type === actions.addCode) {
           nc.publish(reply, encode(await addCode(request)))
         }
-        else if (type === requestRefs.addProject) {
+        else if (type === actions.addProject) {
           nc.publish(reply, encode(await addProject(request)))
         }
-        else if (type === requestRefs.addProjectPermission) {
+        else if (type === actions.addProjectPermission) {
           nc.publish(reply, encode(await addProjectPermission(request)))
         }
-        else if (type === requestRefs.deleteCode) {
+        else if (type === actions.deleteCode) {
           nc.publish(reply, encode(await deleteCode(request.id)))
         }
-        else if (type === requestRefs.deleteProject) {
+        else if (type === actions.deleteProject) {
           nc.publish(reply, encode(await deleteProject(request.id)))
         }
-        else if (type === requestRefs.deleteProjectPermission) {
+        else if (type === actions.deleteProjectPermission) {
           nc.publish(reply, encode(await deleteProjectPermission(request.id)))
         }
-        else if (type === requestRefs.fetchOwnCodes) {
+        else if (type === actions.fetchOwnCodes) {
           nc.publish(reply, encode(await fetchOwnCodes(request.project)))
         }
-        else if (type === requestRefs.fetchOwnProjects) {
+        else if (type === actions.fetchOwnProjects) {
           nc.publish(reply, encode(await fetchOwnProjects(request.user)))
         }
-        else if (type === requestRefs.fetchShareCodes) {
+        else if (type === actions.fetchShareCodes) {
           nc.publish(reply, encode(await fetchShareCodes(request.project)))
         }
-        else if (type === requestRefs.fetchShareProjects) {
+        else if (type === actions.fetchShareProjects) {
           nc.publish(reply, encode(await fetchShareProjects(request.user)))
         }
-        else if (type === requestRefs.getCode) {
+        else if (type === actions.getCode) {
           nc.publish(reply, encode(await getCode(request.id)))
         }
-        else if (type === requestRefs.getProject) {
+        else if (type === actions.getProject) {
           nc.publish(reply, encode(await getProject(request.id)))
         }
-        else if (type === requestRefs.getProjectPermission) {
+        else if (type === actions.getProjectPermission) {
           nc.publish(reply, encode(await getProjectPermission(request.id)))
         }
-        else if (type === requestRefs.updateCode) {
+        else if (type === actions.updateCode) {
           nc.publish(reply, encode(await updateCode(request)))
         }
-        else if (type === requestRefs.updateProject) {
+        else if (type === actions.updateProject) {
           nc.publish(reply, encode(await updateProject(request)))
         }
-        else if (type === requestRefs.updateProjectPermission) {
+        else if (type === actions.updateProjectPermission) {
           nc.publish(reply, encode(await updateProjectPermission(request)))
         }
       }
