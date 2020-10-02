@@ -1,3 +1,1 @@
-export type Dictionary = {
-  readonly [key: string]: string
-}
+export type Dictionary<T> = Record<string, T>

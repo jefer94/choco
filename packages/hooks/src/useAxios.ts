@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { Dictionary } from '@chocolab/types'
 import axios, { AxiosResponse } from 'axios'
 // axios.he
 type Methods = 'get' | 'post' | 'put' | 'delete' | 'patch' | 'head'
@@ -8,7 +7,7 @@ type Props<Type> = {
   readonly method: Methods
   readonly url: string
   readonly object?: Type
-  readonly headers?: Dictionary
+  readonly headers?: Record<string, string>
   readonly wait: boolean
 }
 

@@ -3,7 +3,7 @@
  * @param opts - Rollup config.
  * @returns Eslint config.
  */
-export function eslint({ next, types } = {}) {
+module.exports = function eslint({ next, types } = {}) {
   return {
     env: {
       browser: true,
@@ -110,7 +110,7 @@ export function eslint({ next, types } = {}) {
       'functional/no-class': 1,
       'functional/no-this-expression': 0,
       'functional/no-let': 0,
-      'functional/immutable-data': 1,
+      'functional/immutable-data': 0,
       'functional/no-return-void': 0,
       'functional/no-loop-statement': 2,
       'functional/no-expression-statement': 0,

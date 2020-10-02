@@ -1,13 +1,12 @@
 import React, { ReactElement } from 'react'
 // import './Console.sass'
-import { Dictionary } from '@chocolab/types'
 import styled from 'styled-components'
 import { ConsoleLine, ConsoleLineProp } from './ConsoleLine'
 // #393035
 
 type Props = {
   readonly lines: readonly ConsoleLineProp[]
-  readonly theme?: Dictionary
+  readonly theme?: Record<string, string>
 }
 
 const Base = styled.div`

@@ -1,5 +1,5 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": "@chocolab/configs/tsconfig.json",
   "compilerOptions": {
     "lib": [
       "es6",

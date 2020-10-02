@@ -1,7 +1,6 @@
 import React, { ReactElement, ReactNode } from 'react'
 import styled from 'styled-components'
 // import { faBars } from '@fortawesome/free-solid-svg-icons'
-import { Dictionary } from '@chocolab/types'
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core'
 import { MenuItem } from './MenuItem'
 import keychain from '@chocolab/keychain'
@@ -61,7 +60,7 @@ export function menuItem(url: string, icon: IconDefinition, active?: boolean): M
 }
 
 type MenuProps = {
-  readonly theme: Dictionary
+  readonly theme: Record<string, string>
   readonly children: ReactNode
   readonly topItems: readonly MenuItemProps[]
   readonly bottomItems: readonly MenuItemProps[]

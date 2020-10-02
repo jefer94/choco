@@ -1,5 +1,4 @@
 import React, { useState, ReactElement, useEffect } from 'react'
-import { Dictionary } from '@chocolab/types'
 import { ControlledEditor } from '@monaco-editor/react'
 // import { CodemirrorWrapper } from './CodemirrorWrapper'
 // import { editor as monaco } from 'monaco-editor/esm/vs/editor/editor.main'
@@ -32,7 +31,7 @@ function windowWidth(): number {
 type Props = {
   readonly content: string
   readonly onChange: (v: string) => void
-  readonly theme: Dictionary
+  readonly theme: Record<string, string>
 }
 
 /**

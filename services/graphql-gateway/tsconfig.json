@@ -1,5 +1,5 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": "@chocolab/configs/tsconfig.json",
   "compilerOptions": {
     "outDir": "./dist",
     "lib": ["ESNext"]

@@ -1,4 +1,5 @@
-import withCSS from '@zeit/next-css'
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const withCSS = require('@zeit/next-css')
 
 /**
  * Next.js config.
@@ -6,7 +7,7 @@ import withCSS from '@zeit/next-css'
  * next()
  * @returns Next.JS config.
  */
-export function next() {
+module.exports = function next() {
   return withCSS({
     /* config options here */
   })

@@ -1,7 +1,6 @@
 import React, { ReactElement } from 'react'
 // import './Console.sass'
 import styled from 'styled-components'
-import { Dictionary } from '@chocolab/types'
 // #393035
 
 const LineWrapper = styled.div`
@@ -38,7 +37,7 @@ export type ConsoleLineProp = {
 }
 
 type Props = {
-  readonly theme: Dictionary
+  readonly theme: Record<string, string>
   readonly line: ConsoleLineProp
   readonly lineNumber: number
 }

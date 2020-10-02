@@ -4,8 +4,8 @@
 /* eslint-disable no-restricted-syntax */
 import { connect, NatsConnection, JSONCodec, StringCodec } from 'nats'
 import { MongoMemoryServer } from 'mongodb-memory-server-core'
-import server, { host, actions, notFound } from './server'
-import authenticatorMock from './authenticatorMock'
+import server, { host, actions, notFound, close } from './server'
+import authenticatorMock, { closeAuthenticatorMock } from './mocks/authenticatorMock'
 import db from './db'
 
 jest.setTimeout(600000)
@@ -26,6 +26,8 @@ beforeAll(async () => {
 })
 
 afterAll(() => {
+  closeAuthenticatorMock()
+  close()
   // sock.close()
   // mongod.close()
 })

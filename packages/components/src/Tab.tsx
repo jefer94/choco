@@ -1,7 +1,6 @@
 import React, { ReactElement } from 'react'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import styled from 'styled-components' // eslint-disable-line
-import { Dictionary } from '@chocolab/types'
 import { TabButton } from './TabButton'
 import { Icon } from './Icon'
 import theme from './theme'
@@ -83,7 +82,7 @@ function TitleAndSelectTab({ theme, name, change }: TitleAndSelectTabProps): Rea
 }
 
 type TabProps = {
-  readonly theme: Dictionary
+  readonly theme: Record<string, string>
   readonly active: boolean
   readonly name: string
   readonly id: string

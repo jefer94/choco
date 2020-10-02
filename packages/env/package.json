@@ -18,8 +18,5 @@
     "@chocolab/functional": "^1.0.2-alpha.0",
     "dotenv": "^8.2.0"
   },
-  "devDependencies": {
-    "@babel/preset-react": "^7.10.4"
-  },
   "gitHead": "106f40a81398fce01084d5a47e528655f06283e4"
 }

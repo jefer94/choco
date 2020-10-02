@@ -4,7 +4,7 @@
  * storybook()
  * @returns Storybook config.
  */
-export function storybook() {
+module.exports = function storybook() {
   return {
     stories: ['../src/**/*.stories.[tj]s'],
     addons: ['@storybook/addon-storysource']

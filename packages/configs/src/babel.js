@@ -9,7 +9,7 @@
  * ```
  * @returns Babel config.
  */
-export function babel({ isServer = true, useTransformRuntime = true, types } = {}) {
+module.exports = function babel({ isServer = true, useTransformRuntime = true, types } = {}) {
   return {
     presets: [
       // next.js
@@ -26,20 +26,20 @@ export function babel({ isServer = true, useTransformRuntime = true, types } = {
   }
 }
 
-/**
- * Babel Next.js config.
- * @example
- * babelNextJS()
- * @returns {object} Babel Next.JS config.
- */
-export function babelNextJS() {
-  return {
-    plugins: [
-      ['styled-components', { ssr: true, displayName: true, preprocess: false }]
-    ],
-    presets: ['next/babel']
-  }
-}
+// /**
+//  * Babel Next.js config.
+//  * @example
+//  * babelNextJS()
+//  * @returns {object} Babel Next.JS config.
+//  */
+// module.exports = function babelNextJS() {
+//   return {
+//     plugins: [
+//       ['styled-components', { ssr: true, displayName: true, preprocess: false }]
+//     ],
+//     presets: ['next/babel']
+//   }
+// }
 
 /**
  * Babel preset Typescript config.

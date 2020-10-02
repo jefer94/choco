@@ -1,5 +1,4 @@
 import locale from '@chocolab/i18n'
-import { Dictionary } from '@chocolab/types'
 import { LangOpenBracket, LangCloseBracket } from '../dist/lang/common'
 
 /**
@@ -24,8 +23,8 @@ export default function brackets(keywords: readonly string[], currentJS: string)
 function bracketsLine(keyword: string): string {
   const openBracket = locale.one<LangOpenBracket>('openBracket')
   const closeBracket = locale.one<LangCloseBracket>('closeBracket')
-  const transpiler = locale.one<Dictionary>('transpiler')
-  const tokens = locale.one<Dictionary>('tokens')
+  const transpiler = locale.one<Record<string, string>>('transpiler')
+  const tokens = locale.one<Record<string, string>>('tokens')
   if (openBracket.indexOf(keyword) !== -1) return '{ '
   if (closeBracket.indexOf(keyword) !== -1) return '}'
   if (transpiler[keyword]) return `${transpiler[keyword]} `

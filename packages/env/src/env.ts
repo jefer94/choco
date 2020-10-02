@@ -1,4 +1,3 @@
-import { Dictionary } from '@chocolab/types'
 import { memo } from '@chocolab/functional'
 import { keys, externalKey } from './keys'
 
@@ -36,7 +35,7 @@ export function resetEnv(): void {
  * ```
  * @returns Env var.
  */
-export function env(key?: string, value?: string): string | Dictionary {
+export function env(key?: string, value?: string): string | Record<string, string> {
   const memokey = envKeyPrefix(key)
 
   if (!key && !value) {

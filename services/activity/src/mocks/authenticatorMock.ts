@@ -1,6 +1,7 @@
-import { JSONCodec } from 'nats'
-import connection from './broker'
+import { JSONCodec, Subscription } from 'nats'
+import connection from '../broker'
 
+let subscription: Subscription
 export const notFound = 'command not found'
 export enum authActions {
   getUser = 'get user'
@@ -15,6 +16,10 @@ const users = {
   }
 }
 
+export async function closeAuthenticatorMock(): Promise<void> {
+  await subscription.drain()
+}
+
 async function getUser(id?: string): Promise<Record<string, unknown>> {
   return { data: users[id] || null }
 }
@@ -23,7 +28,7 @@ export default async function authenticatorMock(): Promise<void> {
   const host = process.env.AUTHENTICATOR || 'authenticator'
   const nc = await connection()
 
-  nc.subscribe(host, { callback: async (err, msg) => {
+  subscription = await nc.subscribe(host, { callback: async (err, msg) => {
     const { decode, encode } = JSONCodec()
     const { reply, data } = msg
 

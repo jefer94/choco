@@ -2,7 +2,7 @@
  * Stylelint config.
  * @returns Stylelint config.
  */
-export function stylelint() {
+module.exports = function stylelint() {
   return {
     processors: [
       'stylelint-processor-styled-components'

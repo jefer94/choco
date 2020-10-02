@@ -1,4 +1,4 @@
-import { JSONCodec } from 'nats'
+import { JSONCodec, Subscription } from 'nats'
 import addActivityLog from './actions/addActivityLog'
 import addOnceActivity from './actions/addOnceActivity'
 import addOnceService from './actions/addOnceService'
@@ -7,6 +7,7 @@ import fetchActivities from './actions/fetchActivities'
 import fetchAllActivities from './actions/fetchAllActivities'
 import connection from './broker'
 
+let subscription: Subscription
 export const host = 'activity'
 export const notFound = 'command not found'
 export enum actions {
@@ -18,10 +19,14 @@ export enum actions {
   fetchAllActivities = 'fetch all activities'
 }
 
+export async function close(): Promise<void> {
+  await subscription.drain()
+}
+
 export default async function server(): Promise<void> {
   const nc = await connection()
 
-  nc.subscribe(host, { callback: async (err, msg) => {
+  subscription = await nc.subscribe(host, { callback: async (err, msg) => {
     const { decode, encode } = JSONCodec()
     const { reply, data } = msg
 

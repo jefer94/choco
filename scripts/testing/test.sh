@@ -2,7 +2,6 @@
 
 jest() {
   if ! yarn jest --forceExit --passWithNoTests --detectOpenHandles --notify --preset ts-jest --testEnvironment $1 ./ $2; then
-  # if ! yarn jest --forceExit --passWithNoTests --detectOpenHandles --notify --preset ts-jest @shelf/jest-mongodb --testEnvironment $1 ./ $2; then
     exit 1
   fi
 }
