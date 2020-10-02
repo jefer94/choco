@@ -36,13 +36,12 @@ const Label = styled.label`
   outline: 0;
 `
 
-interface OnChangeProps {
+type OnChangeProps = {
   readonly target: {
     readonly value?: string
     readonly files?: FileList
   }
-}
-
+};
 
 type FieldProps = {
   readonly type?: 'text' | 'password' | 'number' | 'email'

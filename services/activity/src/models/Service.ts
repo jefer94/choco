@@ -2,7 +2,7 @@ import { Document, Schema, model } from 'mongoose'
 
 export type ServiceFields = {
   readonly name: string
-};
+}
 
 export type ServiceDocument = Document & ServiceFields
 

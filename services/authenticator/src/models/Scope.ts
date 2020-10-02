@@ -3,7 +3,7 @@ import { Document, Schema, model } from 'mongoose'
 export type ScopeFields = {
   readonly name: string
   readonly users: readonly typeof Schema.Types.ObjectId[]
-};
+}
 
 export type ScopeDocument = Document & ScopeFields
 

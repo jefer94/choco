@@ -41,9 +41,9 @@ const exec = util.promisify(require('child_process').exec)
 // const unlink = util.promisify(fs.unlink)
 const writeFile = util.promisify(fs.writeFile)
 const copyFile = util.promisify(fs.copyFile)
-// const spawn = util.promisify(require('child_process').spawn);
+// const spawn = util.promisify(require('child_process').spawn)
 // const { spawn, exec } = require('child_process')
-// var isWin = require('os').platform().indexOf('ruby') > -1;
+// var isWin = require('os').platform().indexOf('ruby') > -1
 
 // function lockFileError() {
 //   console.log('E: Could not get lock prepare hook')

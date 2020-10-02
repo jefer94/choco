@@ -1,10 +1,10 @@
 import { Document, Schema, model } from 'mongoose'
-import { ServiceFields } from './Service';
+import { ServiceFields } from './Service'
 
 export type ActivityFields = {
   readonly name: string
   readonly service: ServiceFields | string
-};
+}
 
 export type ActivityDocument = Document & ActivityFields
 

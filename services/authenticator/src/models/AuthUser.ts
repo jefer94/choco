@@ -6,7 +6,7 @@ export type AuthUserFields = {
   readonly email: string
   readonly password: string
   readonly scopes: readonly typeof Schema.Types.ObjectId[]
-};
+}
 
 export type AuthUserDocument = Document & AuthUserFields
 

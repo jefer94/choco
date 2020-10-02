@@ -4,7 +4,7 @@ export type CodeFields = {
   readonly project: string
   readonly title: string
   readonly code: string
-};
+}
 
 export type CodeDocument = Document & CodeFields
 

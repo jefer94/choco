@@ -5,7 +5,7 @@ export type TokenFields = {
   readonly exp: number
   readonly active: boolean
   readonly user: typeof Schema.Types.ObjectId
-};
+}
 
 export type TokenDocument = Document & TokenFields
 

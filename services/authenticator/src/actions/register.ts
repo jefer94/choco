@@ -13,7 +13,7 @@ type RegisterArg = {
   readonly username: string
   readonly email: string
   readonly password: string
-};
+}
 
 /**
  * Register.

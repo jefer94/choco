@@ -6,7 +6,7 @@ export type ProjectFields = {
   readonly description: string
   readonly codes: readonly string[]
   readonly collaborators: readonly string[]
-};
+}
 
 export type ProjectDocument = Document & ProjectFields
 

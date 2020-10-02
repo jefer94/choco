@@ -1,5 +1,5 @@
-import reducer from './tabs'
 import locale, { setLang } from '@chocolab/i18n'
+import reducer from './tabs'
 import { addTabAction, removeTabAction, changeTabAction, saveTabAction, defaultsTabsAction } from '../actions/tabs'
 
 const algorithmWord = locale.one<string>('algorithmWord')
@@ -9,7 +9,14 @@ const tabName = algorithmWord
 
 let index = -1
 
-function addTabItem(name, content, active) {
+type AddTabItem = {
+  readonly id: number
+  readonly name: string
+  readonly content: string
+  readonly active: boolean
+}
+
+function addTabItem(name: string, content: string, active: boolean): AddTabItem {
   index += 1
   return { id: index, name, content, active }
 }
@@ -125,7 +132,7 @@ test('change tab', () => {
 
 test('save tab', () => {
   index = -1
-  
+
   const tabs = [
     addTabItem('Tab1', 'a', false),
     addTabItem('Tab2', 'b', true)
@@ -157,7 +164,7 @@ test('en locale default tabs', () => {
   }]
 
   index = -1
-  
+
   const tabs = [
     addTabItem('Tab1', 'a', false),
     addTabItem('Tab2', 'b', true)
@@ -181,7 +188,7 @@ test('es locale default tabs', () => {
   }]
 
   index = -1
-  
+
   const tabs = [
     addTabItem('Tab1', 'a', false),
     addTabItem('Tab2', 'b', true)
@@ -197,7 +204,7 @@ test('es locale default tabs', () => {
 
 test('not change', () => {
   index = -1
-  
+
   const tabs = [
     addTabItem('Tab1', 'a', false),
     addTabItem('Tab2', 'b', true)
