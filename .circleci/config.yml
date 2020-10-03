@@ -30,7 +30,7 @@ jobs:
     
 workflows:
   version: 2
-  Master:
+  Development:
     jobs:
       - Test:
           filters:
