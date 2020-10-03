@@ -6,6 +6,12 @@ jobs:
       - image: circleci/node:14
     steps:
       - checkout
+      - run: curl -L https://github.com/docker/compose/releases/download/1.25.3/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
+      - run: chmod +x ~/docker-compose
+      - run: sudo mv ~/docker-compose /usr/local/bin/docker-compose
+      - run: docker-compose up -d nats
+      - run: docker-compose up -d redis
+      - run: docker-compose up -d mongo
       - run: yarn install --frozen-lockfile
       - run: chmod +x scripts/*/*
       - run: yarn build
