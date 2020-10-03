@@ -1,0 +1,59 @@
+version: 2.1
+
+jobs:
+  Test:
+    docker:
+      - image: circleci/node:14
+    steps:
+      - checkout
+      - run: yarn install --frozen-lockfile
+      - run: chmod +x scripts/*/*
+      - run: yarn build:deps
+      - run: yarn build:deps --scope=@chocolab/i18n
+      - run: yarn build:deps --scope=@chocolab/algorithm-transpiler
+      - run: yarn build:deps --scope=@chocolab/editor
+      - run: yarn build
+      - run: yarn test
+
+  # Deploy To DockerHub:
+  #   machine: true
+  #   steps:
+  #     - checkout
+  #     - run: echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
+  #     - run: chmod +x scripts/*/*
+  #     - run: ./scripts/docker/docker-build.sh $TAG
+  #     - run: ./scripts/docker/docker-push.sh $TAG
+    
+workflows:
+  version: 2
+  Master:
+    jobs:
+      - Test:
+          filters:
+            branches:
+              only:
+                - master
+      # - Deploy To DockerHub:
+      #     context: ChocolabDockerhub
+      #     requires:
+      #       - Test
+      #     filters:
+      #       branches:
+      #         only:
+      #           - staging
+
+  Production:
+    jobs:
+      - Test:
+          filters:
+            branches:
+              only:
+                - production
+      # - Deploy To DockerHub:
+      #     context: ChocolabDockerhub
+      #     requires:
+      #       - Test
+      #     filters:
+      #       branches:
+      #         only:
+      #           - master 
