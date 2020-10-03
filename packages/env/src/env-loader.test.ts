@@ -1,17 +1,23 @@
-const mockConfig = jest.fn()
+import dotenv from 'dotenv'
 
-jest.mock('dotenv', () => ({ __esModule: true,
-  config: mockConfig }))
+jest.mock('dotenv')
+const mockedDotenv = dotenv as jest.Mocked<typeof dotenv>
+
+
+// const mockConfig = jest.fn()
+
+// jest.mock('dotenv', () => ({ __esModule: true,
+//   config: mockConfig }))
 
 test('dotenv has been called', async () => {
   const dep = await import('./env-loader')
   dep.loadEnv()
 
-  expect(mockConfig).toHaveBeenCalled()
-  expect(mockConfig.mock).toBeTruthy()
-  expect(typeof mockConfig.mock).toBe('object')
+  expect(mockedDotenv.config).toHaveBeenCalled()
+  expect(mockedDotenv.config.mock).toBeTruthy()
+  expect(typeof mockedDotenv.config.mock).toBe('object')
 
-  const [args, ...restOfCalls] = mockConfig.mock.calls[0]
+  const [args, ...restOfCalls] = mockedDotenv.config.mock.calls[0]
 
   expect(restOfCalls).toHaveLength(0)
   expect(typeof args).toBe('object')
@@ -28,11 +34,11 @@ test('dotenv has been called with arguments', async () => {
   const dep = await import('./env')
   loader.loadEnv({ CAT: '5' })
 
-  expect(mockConfig).toHaveBeenCalled()
-  expect(mockConfig.mock).toBeTruthy()
-  expect(typeof mockConfig.mock).toBe('object')
+  expect(mockedDotenv.config).toHaveBeenCalled()
+  expect(mockedDotenv.config.mock).toBeTruthy()
+  expect(typeof mockedDotenv.config.mock).toBe('object')
 
-  const [args, ...restOfCalls] = mockConfig.mock.calls[0]
+  const [args, ...restOfCalls] = mockedDotenv.config.mock.calls[0]
 
   expect(restOfCalls).toHaveLength(0)
   expect(typeof args).toBe('object')

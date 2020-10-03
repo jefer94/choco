@@ -10,7 +10,7 @@ import { keys, externalKey } from './keys'
  * loadEnv()
  * ```
  */
-export function loadEnv(externalEnv?: boolean): void {
+export function loadEnv(externalEnv?: Record<string, string>): void {
   if (externalEnv && typeof externalEnv === 'object') { memo(externalKey, externalEnv) }
   if (!memo(keys)) { memo(keys, []) }
   config({ path: '../../.env' })

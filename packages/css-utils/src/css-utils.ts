@@ -6,6 +6,7 @@
  */
 export function getVar(key: string, camelCaseMode?: boolean): string {
   const selector = camelCaseMode ? camelCaseToCssVariable(key) : key
+  // console.log('selector', selector)
   return getComputedStyle(document.documentElement)
     .getPropertyValue(selector)
 }
@@ -27,5 +28,5 @@ export function setVar(key: string, value: string, camelCaseMode?: boolean): voi
  * @returns CSS selector.
  */
 export function camelCaseToCssVariable(s: string): string {
-  return `-${s.replace(/([A-Z])/g, (v) => `-${v.toLowerCase()}`)}`
+  return `--${s.replace(/([A-Z])/g, (v) => `-${v.toLowerCase()}`)}`
 }
