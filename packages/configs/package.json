@@ -8,9 +8,6 @@
     "/dist",
     "/src"
   ],
-  "scripts": {
-    "prepare": "rollup -c"
-  },
   "dependencies": {
     "@storybook/addon-storysource": "^6.0.22",
     "@typescript-eslint/eslint-plugin": "^4.3.0",
