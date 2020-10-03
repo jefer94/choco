@@ -26,9 +26,5 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: yarn install --frozen-lockfile
     - run: chmod +x scripts/*/*
-    - run: yarn build:deps
-    - run: yarn build:deps --scope=@chocolab/i18n
-    - run: yarn build:deps --scope=@chocolab/algorithm-transpiler
-    - run: yarn build:deps --scope=@chocolab/editor
     - run: yarn build
     - run: yarn test
