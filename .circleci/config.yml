@@ -9,6 +9,7 @@ jobs:
       - run: curl -L https://github.com/docker/compose/releases/download/1.25.3/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
       - run: chmod +x ~/docker-compose
       - run: sudo mv ~/docker-compose /usr/local/bin/docker-compose
+      - setup_remote_docker
       - run: docker-compose up -d nats
       - run: docker-compose up -d redis
       - run: docker-compose up -d mongo
