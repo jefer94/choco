@@ -1,8 +1,8 @@
 import React, { ReactElement } from 'react'
-import Head from 'next/head'
 import { BrandSection } from '@chocolab/components'
-import RegisterContainer from '../Containers/RegisterContainer'
-import '../global-styles.css'
+import Head from '../components/Head'
+import RegisterContainer from '../containers/RegisterContainer'
+// import '../global-styles.css'
 
 /**
  * Login container.
@@ -12,9 +12,7 @@ export default function Login(): ReactElement {
   // router.prefetch('/dashboard')
   return (
     <>
-      <Head>
-        <title>Algorithm - Docs</title>
-      </Head>
+      <Head title="Algorithm - Register" />
       <BrandSection type="Aside" />
       <RegisterContainer />
     </>

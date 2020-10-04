@@ -1,17 +1,17 @@
 import React, { useReducer, useState, useEffect, useContext, ReactElement } from 'react'
-import Head from 'next/head'
 // import _ from 'lodash'
 import { setLang } from '@chocolab/i18n'
 import keychain from '@chocolab/keychain'
 import { WriteInput, setDispatch, setTabs, toJS, Vector as vector, io, write as writeInConsole, read as readInConsole } from '@chocolab/algorithm-transpiler'
 import { Console as ConsoleComponent } from '@chocolab/components'
+import Head from '../components/Head'
 import { addVarAction, resetVarAction } from '../actions'
 // import store from '../reducers'
 import varsReducer from '../reducers/variables'
 import useTabs from '../Hooks/useTabs'
 // import Menu from '../containers/Menu'
 import { ThemeContext } from '../contexts'
-import { MenuContainer } from '../Containers/MenuContainer'
+import { MenuContainer } from '../containers/MenuContainer'
 
 setLang('es')
 let cache = []
@@ -115,9 +115,7 @@ export default function Console(): ReactElement {
   // eval(literals + code)
   return (
     <>
-      <Head>
-        <title>Algorithm - Console</title>
-      </Head>
+      <Head title="Algorithm - Console" />
       <MenuContainer>
         <ConsoleComponent lines={lines} theme={theme} />
       </MenuContainer>

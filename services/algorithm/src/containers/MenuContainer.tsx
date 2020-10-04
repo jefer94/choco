@@ -1,13 +1,8 @@
 import React, { useContext, ReactElement, ReactNode } from 'react'
 import { faEdit, faTerminal, faFolder, faCog, faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
 import { Menu, menuItem } from '@chocolab/components'
-import { homeRoute, docsRoute, consoleRoute } from '../globals/routes'
+import { homeRoute, docsRoute, consoleRoute, projectsRoute } from '../globals/routes'
 import { ThemeContext } from '../contexts'
-
-/**
- * @typedef {object} MenuContainerProps
- * @property {object} children - Menu context provider children.
- */
 
 type MenuContainerProps = {
   readonly children: ReactNode
@@ -15,14 +10,14 @@ type MenuContainerProps = {
 
 /**
  * Menu context provider.
- * @param {MenuContainerProps} Props - Props.
- * @returns {object} Menu context provider.
+ * @param Props - Props.
+ * @returns Menu context provider.
  */
 export function MenuContainer({ children }: MenuContainerProps): ReactElement {
   const { theme } = useContext(ThemeContext)
   const top = [
     menuItem(homeRoute, faEdit, true),
-    menuItem(consoleRoute, faFolder),
+    menuItem(projectsRoute, faFolder),
     menuItem(consoleRoute, faTerminal)
   ]
   const bottom = [

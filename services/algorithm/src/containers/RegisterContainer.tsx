@@ -1,9 +1,9 @@
 import { ReactElement, useState } from 'react'
 // import axios from 'axios'
 import styled from 'styled-components'
-import Error from '../Components/FormError'
+import Error from '../components/FormError'
 // import setToken from '../Hooks/setToken'
-import Field from '../Components/Field'
+import Field from '../components/Field'
 
 const AuthContainer = styled.div`
   margin-top: 120px;

@@ -12,5 +12,8 @@ module.exports = withPWA({
   },
   cssLoaderOptions: {
     url: false
+  },
+  devIndicators: {
+    autoPrerender: false
   }
 })

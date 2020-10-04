@@ -1,23 +1,22 @@
 import React, { ReactElement } from 'react'
-import Head from 'next/head'
-import { Docs as DocsComponent } from '@chocolab/components'
-import { MenuContainer } from '../Containers/MenuContainer'
-import ProjectsContainer from '../Containers/ProjectsContainer'
+import Head from '../components/Head'
+import { MenuContainer } from '../containers/MenuContainer'
+import ProjectsContainer from '../containers/ProjectsContainer'
 
 /**
- * Get a Docs inside of Menu.
+ * Projects page.
  * @example
+ * ```
  * import React from 'react'
  * import Docs from '/containers/Docs'
  * const component = <Docs />
- * @returns <Docs />
+ * ```
+ * @returns Projects page.
  */
-export default function Docs(): ReactElement {
+export default function Projects(): ReactElement {
   return (
     <>
-      <Head>
-        <title>Algorithm - Projects</title>
-      </Head>
+      <Head title="Algorithm - Projects" />
       <MenuContainer>
         <ProjectsContainer />
       </MenuContainer>

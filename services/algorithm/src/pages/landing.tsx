@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
-import Head from 'next/head'
 import styled from 'styled-components'
-import Functionality from '../Components/Functionality'
+import Head from '../components/Head'
+import Functionality from '../components/Functionality'
 import theme from '../theme'
 
 const Navbar = styled.nav`
@@ -174,11 +174,7 @@ export default function Landing(): ReactElement {
   // router.prefetch('/dashboard')
   return (
     <>
-      <Head>
-        <title>Algorithm</title>
-      </Head>
-      <link href="https://fonts.googleapis.com/css2?family=Piedra&display=swap" rel="stylesheet" />
-      <link href="https://fonts.googleapis.com/css2?family=Poor+Story&display=swap" rel="stylesheet" />
+      <Head title="Algorithm" />
       <Container>
         <Navbar>
           <NavbarSection type="left">
