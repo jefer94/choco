@@ -13,19 +13,14 @@ export const ResizeContext = createContext<ResizeContextAttr>({
   height: window.innerHeight
 })
 
-/**
- * @typedef {object} ResizeContextProviderProps
- * @property {object} children - Menu context provider children.
- */
-
 type ResizeContextProviderProps = {
   readonly children: ReactNode
 }
 
 /**
  * Menu context provider.
- * @param {ResizeContextProviderProps} Props - Props.
- * @returns {object} Menu context provider.
+ * @param Props - Props.
+ * @returns Menu context provider.
  */
 export function ResizeContextProvider({ children }: ResizeContextProviderProps): ReactElement {
   const [width, setWidth] = useState<number>(window.innerWidth)
@@ -33,7 +28,7 @@ export function ResizeContextProvider({ children }: ResizeContextProviderProps):
 
   /**
    * Is horizontal.
-     * @returns {boolean} Is horizontal.
+     * @returns Is horizontal.
    */
   function isHorizontal(): boolean {
     return width >= height
@@ -41,7 +36,7 @@ export function ResizeContextProvider({ children }: ResizeContextProviderProps):
 
   /**
    * Is vertical.
-     * @returns {boolean} Is vertical.
+     * @returns Is vertical.
    */
   function isVertical(): boolean {
     return width >= height
@@ -49,7 +44,7 @@ export function ResizeContextProvider({ children }: ResizeContextProviderProps):
 
   /**
    * Aspect ratio.
-     * @returns {[string, number]} Orientation, proportion.
+     * @returns Orientation, proportion.
    */
   function aspectRatio(): readonly ['h' | 'v', number] {
     return isHorizontal() ? ['h', height / width] : ['v', width / height]

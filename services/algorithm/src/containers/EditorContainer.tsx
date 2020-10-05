@@ -8,10 +8,11 @@ import InternalTabs from '@material-ui/core/Tabs'
 import Typography from '@material-ui/core/Typography'
 import Box from '@material-ui/core/Box'
 import Grid from '@material-ui/core/Grid'
+import Divider from '@material-ui/core/Divider'
 import Tab from '../components/Tab'
-import useTabs from '../Hooks/useTabs'
+import useTabs from '../hooks/useTabs'
 import { Editor } from '../components'
-import { ThemeContext } from '../contexts'
+import FilesContainer from '../containers/FilesContainer'
 
 type TabPanelProps = {
   readonly children?: React.ReactNode
@@ -55,6 +56,7 @@ function TabPanel(props: TabPanelProps): ReactElement {
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     flexGrow: 1,
+    display: 'flex',
     width: '100%',
     backgroundColor: theme.palette.background.paper
   },
@@ -68,6 +70,10 @@ const useStyles = makeStyles((theme: Theme) => ({
   closeTab: {
     padding: '0 12px',
     color: indigo[500]
+  },
+  header: {
+    backgroundColor: theme.palette.background.paper,
+    boxShadow: '0 0 black'
   }
 }))
 
@@ -100,35 +106,40 @@ export default function Tabs(): ReactElement {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static" color="default">
-        <Grid container>
-          <InternalTabs
-            value={value}
-            className={classes.tabs}
-            onChange={handleChange}
-            indicatorColor="primary"
-            textColor="primary"
-            variant="scrollable"
-            scrollButtons="auto"
-            aria-label="scrollable auto tabs example"
-          >
-            {tabs.map(({ id, name }) => <Tab key={id} title={name} />)}
-          </InternalTabs>
-          <IconButton>
-            <AddRoundedIcon />
-          </IconButton>
-        </Grid>
-      </AppBar>
-      {tabs.map(({ id, content }, key) => (
-        <TabPanel value={value} index={key} key={id}>
-          <Editor
-            content={content || ''}
-            onChange={setContent}
-            theme={{}}
-          />
-          {content}
-        </TabPanel>
-      ))}
+      <FilesContainer />
+      <Divider orientation="vertical" flexItem />
+      <div>
+        <AppBar position="static" color="default" className={classes.header}>
+          <Grid container>
+            <InternalTabs
+              value={value}
+              className={classes.tabs}
+              onChange={handleChange}
+              indicatorColor="primary"
+              textColor="primary"
+              variant="scrollable"
+              scrollButtons="auto"
+              aria-label="scrollable auto tabs example"
+            >
+              {tabs.map(({ id, name }) => <Tab key={id} title={name} />)}
+            </InternalTabs>
+            <IconButton>
+              <AddRoundedIcon />
+            </IconButton>
+          </Grid>
+        </AppBar>
+        <Divider />
+        {tabs.map(({ id, content }, key) => (
+          <TabPanel value={value} index={key} key={id}>
+            <Editor
+              content={content || ''}
+              onChange={setContent}
+              theme={{}}
+            />
+            {content}
+          </TabPanel>
+        ))}
+      </div>
     </div>
   )
 }

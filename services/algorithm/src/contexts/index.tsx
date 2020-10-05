@@ -3,7 +3,6 @@ import { algorithmTranspilerLang } from '@chocolab/algorithm-transpiler'
 import lang from '../lang'
 
 import { ThemeContextProvider } from './ThemeContext'
-import { MenuContextProvider } from './MenuContext'
 // import { ResizeContextProvider } from './ResizeContext'
 import { GraphQlContextProvider } from './GraphQlContext'
 
@@ -24,14 +23,11 @@ function Provider({ children }: ProviderProps): ReactElement {
   return (
     <GraphQlContextProvider>
       <ThemeContextProvider>
-        <MenuContextProvider>
-          {children}
-        </MenuContextProvider>
+        {children}
       </ThemeContextProvider>
     </GraphQlContextProvider>
   )
 }
 
 export * from './ThemeContext'
-export * from './MenuContext'
 export default Provider

@@ -8,10 +8,10 @@ import Head from '../components/Head'
 import { addVarAction, resetVarAction } from '../actions'
 // import store from '../reducers'
 import varsReducer from '../reducers/variables'
-import useTabs from '../Hooks/useTabs'
+import useTabs from '../hooks/useTabs'
 // import Menu from '../containers/Menu'
 import { ThemeContext } from '../contexts'
-import { MenuContainer } from '../containers/MenuContainer'
+import MenuContainer from '../containers/MenuContainer'
 
 setLang('es')
 let cache = []

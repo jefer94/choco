@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import Head from '../components/Head'
-import { MenuContainer } from '../containers/MenuContainer'
+import MenuContainer from '../containers/MenuContainer'
 import ProjectsContainer from '../containers/ProjectsContainer'
 
 /**

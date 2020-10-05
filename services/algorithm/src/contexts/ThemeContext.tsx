@@ -28,19 +28,14 @@ type ThemeContextProps = {
 
 export const ThemeContext = createContext<ThemeContextProps>(null)
 
-/**
- * @typedef {object} ThemeContextProviderProps
- * @property {object} children - Theme context provider children.
- */
-
 type ThemeContextProviderProps = {
   readonly children: ReactNode
 }
 
 /**
  * Theme context provider.
- * @param {ThemeContextProviderProps} Props - Props.
- * @returns {object} Theme context provider.
+ * @param Props - Props.
+ * @returns Theme context provider.
  */
 export function ThemeContextProvider({ children }: ThemeContextProviderProps): ReactElement {
   const [mode, setMode] = useState(localStorage.getItem(key) || 'dark')

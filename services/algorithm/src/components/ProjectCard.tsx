@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: red[500]
     },
     content: {
-      height: 80
+      height: 112
     },
     rightButton: {
       marginLeft: 'auto'

@@ -1,8 +1,7 @@
 import React, { ReactElement } from 'react'
 import { Docs as DocsComponent } from '@chocolab/components'
 import Head from '../components/Head'
-import { MenuContainer } from '../containers/MenuContainer'
-import FilesContainer from '../containers/FilesContainer'
+import MenuContainer from '../containers/MenuContainer'
 
 /**
  * Projects page.
@@ -16,10 +15,9 @@ export default function Docs(): ReactElement {
   return (
     <>
       <Head title="Algorithm - Docs" />
-      {/* <MenuContainer> */}
-      <FilesContainer />
-      <DocsComponent />
-      {/* </MenuContainer> */}
+      <MenuContainer>
+        <DocsComponent />
+      </MenuContainer>
     </>
   )
 }

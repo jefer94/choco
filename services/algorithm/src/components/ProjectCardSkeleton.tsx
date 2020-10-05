@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme: Theme) =>
       marginLeft: theme.spacing(2)
     },
     content: {
-      height: 80
+      height: 112
     },
     rightButton: {
       marginLeft: 'auto'
