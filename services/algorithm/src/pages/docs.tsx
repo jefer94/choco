@@ -1,5 +1,4 @@
 import React, { ReactElement } from 'react'
-import { Docs as DocsComponent } from '@chocolab/components'
 import Head from '../components/Head'
 import MenuContainer from '../containers/MenuContainer'
 
@@ -16,7 +15,7 @@ export default function Docs(): ReactElement {
     <>
       <Head title="Algorithm - Docs" />
       <MenuContainer>
-        <DocsComponent />
+        <></>
       </MenuContainer>
     </>
   )
