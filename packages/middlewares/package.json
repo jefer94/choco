@@ -1,6 +1,6 @@
 {
   "name": "@chocolab/middlewares",
-  "version": "1.0.2-alpha.0",
+  "version": "1.0.3-alpha.0",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -14,8 +14,8 @@
     "prepare": "tsc --build ./tsconfig.json"
   },
   "dependencies": {
-    "@chocolab/configs": "^1.0.2-alpha.0",
-    "@chocolab/env": "^1.0.2-alpha.0",
+    "@chocolab/configs": "^1.0.3-alpha.0",
+    "@chocolab/env": "^1.0.3-alpha.0",
     "@types/cors": "^2.8.7",
     "@types/express": "^4.17.8",
     "@types/helmet": "^0.0.48",

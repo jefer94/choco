@@ -1,6 +1,6 @@
 {
   "name": "@chocolab/keychain",
-  "version": "1.0.2-alpha.0",
+  "version": "1.0.3-alpha.0",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -14,8 +14,8 @@
     "prepare": "tsc --build ./tsconfig.json"
   },
   "dependencies": {
-    "@chocolab/configs": "^1.0.2-alpha.0",
-    "@chocolab/functional": "^1.0.2-alpha.0"
+    "@chocolab/configs": "^1.0.3-alpha.0",
+    "@chocolab/functional": "^1.0.3-alpha.0"
   },
   "gitHead": "106f40a81398fce01084d5a47e528655f06283e4"
 }

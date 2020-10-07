@@ -1,6 +1,6 @@
 {
   "name": "@chocolab/hooks",
-  "version": "1.0.2-alpha.0",
+  "version": "1.0.3-alpha.0",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -14,7 +14,7 @@
     "prepare": "tsc --build ./tsconfig.json"
   },
   "dependencies": {
-    "@chocolab/configs": "^1.0.2-alpha.0",
+    "@chocolab/configs": "^1.0.3-alpha.0",
     "@types/react-dom": "^16.9.8",
     "axios": "^0.20.0",
     "js-cookie": "^2.2.1",

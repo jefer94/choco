@@ -1,6 +1,6 @@
 {
   "name": "@chocolab/components",
-  "version": "1.0.2-alpha.0",
+  "version": "1.0.3-alpha.0",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -26,9 +26,9 @@
     "webpack": "^4.44.2"
   },
   "dependencies": {
-    "@chocolab/configs": "^1.0.2-alpha.0",
-    "@chocolab/functional": "^1.0.2-alpha.0",
-    "@chocolab/keychain": "^1.0.2-alpha.0",
+    "@chocolab/configs": "^1.0.3-alpha.0",
+    "@chocolab/functional": "^1.0.3-alpha.0",
+    "@chocolab/keychain": "^1.0.3-alpha.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
     "@fortawesome/free-regular-svg-icons": "^5.15.1",
     "@fortawesome/free-solid-svg-icons": "^5.15.1",
