@@ -6,7 +6,8 @@
   "license": "MIT",
   "files": [
     "/dist",
-    "/src"
+    "/src",
+    "/tsconfig.json"
   ],
   "dependencies": {
     "@storybook/addon-storysource": "^6.0.26",
@@ -24,5 +25,5 @@
     "stylelint-config-styled-components": "^0.1.1",
     "stylelint-processor-styled-components": "^1.10.0"
   },
-  "gitHead": "106f40a81398fce01084d5a47e528655f06283e4"
+  "gitHead": "92e9c85ab319ee8d6b7efa081c7364458cb38b6e"
 }
