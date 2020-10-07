@@ -6,6 +6,7 @@ import PlayArrowRoundedIcon from '@material-ui/icons/PlayArrowRounded'
 import AddRoundedIcon from '@material-ui/icons/AddRounded'
 import ProjectCard from '../components/ProjectCard'
 import ProjectCardSkeleton from '../components/ProjectCardSkeleton'
+import { useFetchProjects } from '../hooks/useFetchProjects'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -27,6 +28,7 @@ const useStyles = makeStyles((theme: Theme) =>
  */
 export default function ProjectsContainer(): ReactElement {
   const classes = useStyles()
+  console.log(useFetchProjects())
 
   return (
     <>

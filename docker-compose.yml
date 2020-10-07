@@ -20,10 +20,10 @@ services:
       - mongo
       - nats
   
-  algorithm:
-    image: chocolab/algorithm
-    ports:
-      - 3000:3000
+  # algorithm:
+  #   image: chocolab/algorithm
+  #   ports:
+  #     - 3000:3000
 
   authenticator:
     image: chocolab/authenticator

@@ -3,9 +3,6 @@ FROM node:alpine
 EXPOSE 5000
 
 WORKDIR /usr/src
-COPY original-tsconfig.json tsconfig.json
-
-WORKDIR /usr/src/services/current
 COPY tsconfig.json tsconfig.json
 COPY package.json package.json
 
