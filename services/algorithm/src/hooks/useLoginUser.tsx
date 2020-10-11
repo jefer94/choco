@@ -1,9 +1,15 @@
-import { gql, useQuery, QueryResult } from '@apollo/client'
+import { gql, useLazyQuery, QueryTuple } from '@apollo/client'
 
-type Code = {
-  readonly _id: string
-  readonly title: string
-  readonly code: string
+type Auth = {
+  readonly generateToken: {
+    readonly token: string
+    readonly user: string
+  }
+}
+
+type AuthVariables = {
+  readonly username: string
+  readonly password: string
 }
 
 const query = gql`
@@ -14,6 +20,6 @@ const query = gql`
   }
 `
 
-export function useFetchCodes(username: string, password: string): QueryResult<Code> {
-  return useQuery(query, { variables: { username, password } })
+export function useLoginUser(): QueryTuple<Auth, AuthVariables> {
+  return useLazyQuery(query)
 }

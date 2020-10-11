@@ -8,6 +8,7 @@ COPY package.json package.json
 
 RUN yarn install --production=true && \
     yarn global add typescript && \
+    yarn add @chocolab/configs && \
     yarn cache clean
 
 COPY src src

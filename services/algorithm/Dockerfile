@@ -12,6 +12,7 @@ RUN yarn install --production=true && \
 COPY src src
 
 RUN yarn add typescript && \
+    yarn add @chocolab/configs && \
     yarn build && \
     yarn remove typescript && \
     yarn cache clean

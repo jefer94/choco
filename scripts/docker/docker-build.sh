@@ -5,8 +5,8 @@ cd ./services
 build() {
   echo ======================= $1 =======================
   docker build ./$1 \
-    --rm=false \
     -t chocolab/$1
+    # --rm=false \
 }
 
 if [ $1 ]; then

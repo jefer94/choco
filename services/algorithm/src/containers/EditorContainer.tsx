@@ -10,11 +10,11 @@ import Box from '@material-ui/core/Box'
 import Grid from '@material-ui/core/Grid'
 import Divider from '@material-ui/core/Divider'
 import PlayArrowRoundedIcon from '@material-ui/icons/PlayArrowRounded'
+import Fab from '@material-ui/core/Fab'
 import Tab from '../components/Tab'
 import useTabs from '../hooks/useTabs'
 import { Editor } from '../components'
 import FilesContainer from '../containers/FilesContainer'
-import Fab from '@material-ui/core/Fab'
 
 type TabPanelProps = {
   readonly children?: React.ReactNode

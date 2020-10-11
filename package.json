@@ -32,7 +32,7 @@
     "cypress:open": "./scripts/testing/cypress-open.sh"
   },
   "devDependencies": {
-    "@chocolab/configs": "^1.0.2-alpha.0",
+    "@chocolab/configs": "^1.0.4-alpha.0",
     "@types/jest": "^26.0.14",
     "eslint": "^7.10.0",
     "jest": "^26.5.0",

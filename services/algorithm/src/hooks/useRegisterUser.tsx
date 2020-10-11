@@ -1,17 +1,14 @@
 import { gql, useMutation, MutationTuple } from '@apollo/client'
 
 type Auth = {
-  readonly _id: string
-  readonly name: string
-  readonly description: string
+  readonly token: string
+  readonly user: string
 }
 
 type AuthVariables = {
-  readonly input: {
-    readonly username: string
-    readonly password: string
-    readonly email: string
-  }
+  readonly username: string
+  readonly password: string
+  readonly email: string
 }
 
 const query = gql`
@@ -22,6 +19,7 @@ const query = gql`
   }
 `
 
-export function useRegisterUser(): MutationTuple<Auth, AuthVariables> {
+export function useRegisterUser(): MutationTuple<{ readonly register: Auth }, {
+  readonly input: AuthVariables }> {
   return useMutation(query)
 }

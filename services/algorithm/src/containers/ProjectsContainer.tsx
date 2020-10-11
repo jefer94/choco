@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     projects: {
       alignContent: 'flex-start',
-      overflowY: 'scroll',
+      overflowY: 'auto',
       height: '100vh'
     },
     fab: {
@@ -22,13 +22,43 @@ const useStyles = makeStyles((theme: Theme) =>
     }
   }))
 
+function LoadingScreen(): ReactElement {
+  return (
+    <>
+      <ProjectCardSkeleton />
+      <ProjectCardSkeleton />
+      <ProjectCardSkeleton />
+      <ProjectCardSkeleton />
+      <ProjectCardSkeleton />
+
+      <ProjectCardSkeleton />
+      <ProjectCardSkeleton />
+      <ProjectCardSkeleton />
+      <ProjectCardSkeleton />
+      <ProjectCardSkeleton />
+
+      <ProjectCardSkeleton />
+      <ProjectCardSkeleton />
+      <ProjectCardSkeleton />
+      <ProjectCardSkeleton />
+      <ProjectCardSkeleton />
+    </>
+  )
+}
+
 /**
  * Projects container.
  * @returns Menu context provider.
  */
 export default function ProjectsContainer(): ReactElement {
   const classes = useStyles()
-  console.log(useFetchProjects())
+  const { data = [], error, loading } = useFetchProjects()
+  console.info(loading, data, error)
+
+  function Projects(): readonly ReactElement[] {
+    if (!(data instanceof Array)) return data?.projects.map(() => <ProjectCard />)
+    return []
+  }
 
   return (
     <>
@@ -39,23 +69,7 @@ export default function ProjectsContainer(): ReactElement {
         justify="center"
         alignItems="flex-start"
       >
-        <ProjectCard />
-        <ProjectCardSkeleton />
-        <ProjectCardSkeleton />
-        <ProjectCardSkeleton />
-        <ProjectCardSkeleton />
-
-        <ProjectCardSkeleton />
-        <ProjectCardSkeleton />
-        <ProjectCardSkeleton />
-        <ProjectCardSkeleton />
-        <ProjectCardSkeleton />
-
-        <ProjectCardSkeleton />
-        <ProjectCardSkeleton />
-        <ProjectCardSkeleton />
-        <ProjectCardSkeleton />
-        <ProjectCardSkeleton />
+        {loading && !(data instanceof Array) ? <LoadingScreen /> : Projects()}
       </Grid>
       <Fab color="primary" aria-label="add" className={classes.fab}>
         <AddRoundedIcon />

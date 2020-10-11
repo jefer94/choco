@@ -16,6 +16,6 @@ const query = gql`
   }
 `
 
-export function useFetchProjects(): QueryResult<readonly Project[]> {
+export function useFetchProjects(): QueryResult<{ readonly projects: readonly Project[] }> {
   return useQuery(query)
 }

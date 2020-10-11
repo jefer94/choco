@@ -1,40 +1,21 @@
 import { ReactElement } from 'react'
-import styled from 'styled-components'
+import Input from '@material-ui/core/Input'
+import FormControl from '@material-ui/core/FormControl'
+import InputAdornment from '@material-ui/core/InputAdornment'
+import FormHelperText from '@material-ui/core/FormHelperText'
+import InputLabel from '@material-ui/core/InputLabel'
+import { makeStyles } from '@material-ui/core'
 
-const Input = styled.input`
-  display: block;
-  border-left: 0;
-  border-right: 0;
-  border-top: 0;
-  border-radius: 0;
-  outline: 0;
-  height: 48px;
-  box-sizing: border-box;
-  background-color: transparent;
-  line-height: 1.5;
-  padding: 12px 6px;
-  width: 400px;
-
-  &:-internal-autofill-selected {
-    background-color: transparent !important;
+const useStyles = makeStyles((theme) => ({
+  fieldGroup: {
+    display: 'block',
+    marginBottom: 16
+  },
+  textField: {
+    marginRight: theme.spacing(1),
+    width: 400
   }
-
-  &:focus {
-    border-color: hsl(194deg 70% 52%);
-    color: hsl(194deg 70% 40%);
-  }
-`
-
-const Label = styled.label`
-  line-height: 1.5;
-  display: block;
-  padding-bottom: 8px;
-  border-left: 0;
-  border-right: 0;
-  border-top: 0;
-  border-radius: 0;
-  outline: 0;
-`
+}))
 
 type OnChangeProps = {
   readonly target: {
@@ -51,30 +32,27 @@ type FieldProps = {
   readonly onChange: (v: OnChangeProps) => void
   readonly placeholder?: string
   readonly autoComplete?: string
+  readonly error?: string
 }
 
-const FieldGroup = styled.div`
-  display: block;
-  margin-bottom: 16px;
-`
-
 export default function Field(props: FieldProps): ReactElement {
-  const { id, type, label, value, onChange, placeholder, autoComplete } = props
-  return (
-    <FieldGroup>
-      <Label>
-        {label}
-      </Label>
+  const { id, type, label, value, onChange, placeholder, autoComplete, error } = props
+  const classes = useStyles()
 
+  return (
+    <FormControl fullWidth className={classes.fieldGroup} error={!!error}>
+      <InputLabel htmlFor={id}>{label}</InputLabel>
       <Input
+        startAdornment={<InputAdornment position="start"> </InputAdornment>}
+        className={classes.textField}
         autoComplete={autoComplete}
         value={value}
         onChange={onChange}
         type={type || 'text'}
-        name={id}
-        id={id}
         placeholder={placeholder}
+        id={id}
       />
-    </FieldGroup>
+      {error ? <FormHelperText id={id}>{error}</FormHelperText> : <></>}
+    </FormControl>
   )
 }

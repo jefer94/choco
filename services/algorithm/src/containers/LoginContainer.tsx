@@ -8,7 +8,7 @@ import Link from '../components/Link'
 import Field from '../components/Field'
 import Backdrop from '../components/Backdrop'
 import Snackbar from '../components/Snackbar'
-import { useRegisterUser } from '../hooks/useRegisterUser'
+import { useLoginUser } from '../hooks/useLoginUser'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -48,21 +48,20 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-export default function Register(): ReactElement {
+export default function Login(): ReactElement {
+  if (localStorage.getItem('T__T__T')) Router.push('/')
   const classes = useStyles()
   // const [register, { loading, data }] = useRegister()
-  const [register, request] = useRegisterUser()
+  const [login, request] = useLoginUser()
   const [username, setUsername] = useState('')
-  const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [newPassword, setNewPassword] = useState('')
   const [error, setError] = useState<Record<string, string>>({})
 
   async function submit(): Promise<void> {
     const newError: Record<string, string> = {}
     setError(newError)
-    if (username && email && password && password === newPassword) {
-      register({ variables: { input: { username, email, password } } })
+    if (username && password) {
+      login({ variables: { username, password } })
       // const response = await axios.post(`${process.env.NEXT_PUBLIC_API
       // .replace(/\/$/, '')}/users`, { username, email, password })
       // const { token } = response.data
@@ -79,9 +78,7 @@ export default function Register(): ReactElement {
     }
     else {
       if (!username) newError.username = 'Nombre de usuario vacio'
-      if (!email) newError.email = 'Correo vacio'
       if (!password) newError.password = 'Contraseña vacia'
-      if (password !== newPassword) newError.newPassword = 'Contraseñas no coinciden'
       setError(newError)
     }
   }
@@ -95,7 +92,7 @@ export default function Register(): ReactElement {
   }
 
   useEffect(() => {
-    const token = request.data?.register?.token
+    const token = request.data?.generateToken?.token
     localStorage.setItem('T__T__T', token)
     Router.push('/')
   }, [request.data])
@@ -124,15 +121,6 @@ export default function Register(): ReactElement {
             error={error.username}
           />
           <Field
-            id="email"
-            label="Email"
-            value={email}
-            type="email"
-            placeholder="Konan@gmail.com"
-            onChange={(v) => setEmail(v.target.value)}
-            error={error.email}
-          />
-          <Field
             id="current-password"
             label="Password"
             value={password}
@@ -141,16 +129,6 @@ export default function Register(): ReactElement {
             placeholder="P4ssw0rd!"
             onChange={(v) => setPassword(v.target.value)}
             error={error.password}
-          />
-          <Field
-            id="new-password"
-            label="Repeat password"
-            value={newPassword}
-            autoComplete="new-password"
-            type="password"
-            placeholder="P4ssw0rd!"
-            onChange={(v) => setNewPassword(v.target.value)}
-            error={error.newPassword}
           />
 
           <div className={classes.alternative}>
