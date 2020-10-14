@@ -31,6 +31,7 @@ export default async function generateToken(arg: GenerateTokenArg): Promise<Gene
         token: jwt.sign({ user: user.id }, process.env.SECRET, {
           // expiresIn: 3600 * 24 * 7,
           expiresIn: '7d',
+          subject: user.id,
           algorithm: 'HS512'
         })
       }

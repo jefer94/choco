@@ -1,0 +1,16 @@
+{
+  "extends": "@chocolab/configs/tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "lib": ["ESNext"]
+  },
+  "include": [
+    "src/index.ts",
+    "src/client.ts"
+  ],
+  "exclude": [
+    "**/*.test.ts",
+    "**/*.test.tsx"
+  ]
+}
+  

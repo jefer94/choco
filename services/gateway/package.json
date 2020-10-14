@@ -1,0 +1,15 @@
+{
+  "name": "@chocolab/gateway",
+  "version": "0.0.1",
+  "private": true,
+  "main": "index.js",
+  "author": "Jeferson De Freitas",
+  "license": "MIT",
+  "dependencies": {
+    "@apollo/gateway": "^0.21.0",
+    "@types/express-jwt": "^0.0.42",
+    "apollo-server-express": "^2.18.2",
+    "express": "^4.17.1",
+    "express-jwt": "^6.0.0"
+  }
+}

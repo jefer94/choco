@@ -1,30 +1,55 @@
-import express from 'express'
+import express, { Request } from 'express'
+import http from 'http'
 import { makeExecutableSchema } from 'graphql-tools'
-import { graphqlHTTP } from 'express-graphql'
-import { readFileSync } from 'fs'
+import { ApolloServer } from 'apollo-server-express'
+import { applyMiddleware } from 'graphql-middleware'
+import expressJwt from 'express-jwt'
 import cors from 'cors'
-import * as path from 'path'
+import typeDefs from './schema'
 import resolvers from './resolvers'
-import authorization from './middlewares/authorization'
+import permissions from './permissions'
+// import authorization from './middlewares/authorization'
 
 export const app = express()
 
+type Auth = {
+  readonly user: string
+  readonly scopes: readonly string[]
+  readonly exp: number
+  readonly iat: number
+}
+
+type RequestWithAuth = Request & {
+  readonly auth?: Auth
+}
+
 // GraphQL.
-const typeDefs = readFileSync(path.resolve(__dirname, '..', 'src', 'schema.gql'), 'utf-8')
-const schema = makeExecutableSchema({ typeDefs, resolvers })
+const schema = applyMiddleware(makeExecutableSchema({ typeDefs, resolvers }), permissions)
+
+const apollo = new ApolloServer({
+  tracing: true,
+  context: ({ req }) => {
+    const currentReq = req as RequestWithAuth
+    const auth = currentReq.auth || null
+    return { auth }
+  },
+  typeDefs,
+  resolvers,
+  schema
+})
 
 app.use(cors())
-app.use('/', authorization, graphqlHTTP({
-  schema,
-  rootValue: resolvers,
-  // customFormatErrorFn: (e) => {
-  //   console.log(e)
-  //   // const error = getErrorCode(err.message)
-  //   return e
-  // },
-  graphiql: true
+app.use(expressJwt({
+  secret: process.env.SECRET,
+  algorithms: ['HS512'],
+  credentialsRequired: false
 }))
+// app.use(authorization)
+apollo.applyMiddleware({ app, path: '/' })
+
+const httpServer = http.createServer(app)
+apollo.installSubscriptionHandlers(httpServer)
 
 export function server(): void {
-  app.listen(process.env.PORT || 5000)
+  httpServer.listen(process.env.PORT || 5000)
 }

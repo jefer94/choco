@@ -106,6 +106,9 @@ export function fetchMsgWithAuth(service: string, project: string): FetchMsg {
 export function fetchMsgWithAuthUser(service: string, project: string): FetchMsg {
   return async (_, message, ctx) => {
     if (ctx.auth?.user) {
+      console.log('====================================')
+      console.log(SendCommand(service, project, message))
+      console.log(ctx.auth?.user)
       return SendCommand(service, project, message)
     }
     throw new Error(ctx.error)

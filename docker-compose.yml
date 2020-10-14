@@ -1,11 +1,30 @@
 version: "3"
 
 services:
+  # gateway:
+  #   image: chocolab/gateway
+  #   environment:
+  #     - ACCOUNTS=http://accounts:4001
+  #   ports:
+  #     - 4000:4000
+  #   links:
+  #     - accounts
+
+  # accounts:
+  #   image: chocolab/accounts
+  #   environment:
+  #     - MONGO=mongodb://mongo/choco
+  #   ports:
+  #     - 4001:4001
+  #   links:
+  #     - mongo
+  
   # api gateway
   graphql-gateway:
     image: chocolab/graphql-gateway
     environment:
       - BROKER=nats://nats:4222
+      - SECRET=Konan
     ports:
       - 5000:5000
     links:
@@ -53,12 +72,12 @@ services:
       - mongo
       - nats
 
-  world-cities-seed:
-    image: chocolab/world-cities-seed
-    environment:
-      - HOST=mongo
-    links:
-      - mongo
+  # world-cities-seed:
+  #   image: chocolab/world-cities-seed
+  #   environment:
+  #     - HOST=mongo
+  #   links:
+  #     - mongo
 
   mongo:
     image: mongo
