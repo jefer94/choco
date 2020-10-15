@@ -7,11 +7,12 @@
   "license": "MIT",
   "dependencies": {
     "@types/mongoose": "^5.7.36",
-    "@types/node": "^14.11.2",
-    "mongoose": "^5.10.7",
-    "nats": "^2.0.0-206"
+    "@types/node": "^14.11.8",
+    "mongoose": "^5.10.9",
+    "nats": "^2.0.0-206",
+    "redis": "^3.0.2"
   },
   "devDependencies": {
-    "mongodb-memory-server": "^6.9.0"
+    "mongodb-memory-server": "^6.9.2"
   }
 }

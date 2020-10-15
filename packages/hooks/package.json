@@ -18,7 +18,7 @@
     "@types/react-dom": "^16.9.8",
     "axios": "^0.20.0",
     "js-cookie": "^2.2.1",
-    "next": "^9.5.3",
+    "next": "^9.5.5",
     "react": "^16.13.1"
   },
   "gitHead": "92e9c85ab319ee8d6b7efa081c7364458cb38b6e"

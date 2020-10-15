@@ -6,8 +6,8 @@
   "author": "Jeferson De Freitas",
   "license": "MIT",
   "dependencies": {
-    "@types/cors": "^2.8.7",
-    "@types/node": "^14.11.2",
+    "@types/cors": "^2.8.8",
+    "@types/node": "^14.11.8",
     "apollo-server-express": "^2.18.2",
     "cors": "^2.8.5",
     "express": "^4.17.1",
@@ -20,7 +20,7 @@
     "nats": "^2.0.0-206"
   },
   "devDependencies": {
-    "mongodb-memory-server": "^6.9.0",
+    "mongodb-memory-server": "^6.9.2",
     "redis-mock": "^0.52.0",
     "supertest": "^5.0.0"
   }

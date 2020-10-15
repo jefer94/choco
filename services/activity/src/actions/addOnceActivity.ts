@@ -26,7 +26,8 @@ export default async function addOnceActivity(name: string, service: string):
     const activity = await Activity.findOne({ name, service })
       .populate('service')
       .populate('activityLogs')
-      .lean()
+      .exec()
+      // .lean()
     return { data: activity }
   }
 }

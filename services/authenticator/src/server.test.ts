@@ -201,7 +201,7 @@ test('add scope', async () => {
 test('reject duplicate scope', async () => {
   const msg = await SendCommand(actions.addScope, { name: 'Can edit' })
   expect(msg).toEqual({
-    error: 'E11000 duplicate key error dup key: { : "Can edit" }'
+    error: 'E11000 duplicate key error collection: choco.scopes index: name_1 dup key: { name: "Can edit" }'
   })
 })
 

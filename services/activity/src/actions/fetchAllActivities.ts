@@ -16,7 +16,7 @@ type FetchActivities = {
  * @returns All activities.
  */
 export default async function fetchActivities(): Promise<FetchActivities> {
-  const activities = await ActivityLog.find({}).populate('activity').populate('service').lean()
+  const activities = await ActivityLog.find({}).populate('activity').populate('service').exec()
   return { data: await Promise.all(activities.map(async ({ user, ...activity }) => ({
     ...activity,
     user: await getUser(user)

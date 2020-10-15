@@ -18,12 +18,12 @@
     "@babel/preset-react": "^7.10.4",
     "@storybook/react": "^6.0.26",
     "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.0.4",
+    "@testing-library/react": "^11.1.0",
     "@types/styled-system": "^5.1.10",
     "babel-plugin-styled-components": "^1.11.1",
     "jest-styled-components": "^7.0.3",
     "react-test-renderer": "^16.13.1",
-    "webpack": "^4.44.2"
+    "webpack": "^5.1.0"
   },
   "dependencies": {
     "@chocolab/configs": "^1.0.4-alpha.0",
@@ -33,8 +33,8 @@
     "@fortawesome/free-regular-svg-icons": "^5.15.1",
     "@fortawesome/free-solid-svg-icons": "^5.15.1",
     "@fortawesome/react-fontawesome": "^0.1.11",
-    "@types/styled-components": "^5.1.3",
-    "bootstrap": "^4.5.2",
+    "@types/styled-components": "^5.1.4",
+    "bootstrap": "^4.5.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-spinners": "^0.9.0",

@@ -23,6 +23,7 @@ services:
   graphql-gateway:
     image: chocolab/graphql-gateway
     environment:
+      - REDIS=redis://redis/
       - BROKER=nats://nats:4222
       - SECRET=Konan
     ports:
@@ -33,6 +34,7 @@ services:
   activity:
     image: chocolab/activity
     environment:
+      - REDIS=redis://redis/
       - MONGO=mongodb://mongo/choco
       - BROKER=nats://nats:4222
     links:
@@ -47,6 +49,7 @@ services:
   authenticator:
     image: chocolab/authenticator
     environment:
+      - REDIS=redis://redis/
       - MONGO=mongodb://mongo/choco
       - BROKER=nats://nats:4222
       - SECRET=Konan
@@ -66,6 +69,7 @@ services:
   projects:
     image: chocolab/projects
     environment:
+      - REDIS=redis://redis/
       - MONGO=mongodb://mongo/choco
       - BROKER=nats://nats:4222
     links:
