@@ -18,9 +18,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       width: 345,
-      height: 248,
-      marginTop: theme.spacing(2),
-      marginLeft: theme.spacing(2)
+      height: 248
     },
     avatar: {
       backgroundColor: red[500]

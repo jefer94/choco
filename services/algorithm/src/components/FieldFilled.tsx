@@ -1,10 +1,11 @@
-import { ReactElement } from 'react'
+import React, { ReactElement } from 'react'
 import Input from '@material-ui/core/Input'
 import FormControl from '@material-ui/core/FormControl'
 import InputAdornment from '@material-ui/core/InputAdornment'
 import FormHelperText from '@material-ui/core/FormHelperText'
 import InputLabel from '@material-ui/core/InputLabel'
 import { makeStyles } from '@material-ui/core'
+import TextField from '@material-ui/core/TextField/TextField'
 
 const useStyles = makeStyles((theme) => ({
   fieldGroup: {
@@ -41,20 +42,19 @@ export default function Field(props: FieldProps): ReactElement {
   const classes = useStyles()
 
   return (
-    <FormControl fullWidth className={classes.fieldGroup} error={!!error}>
-      <InputLabel htmlFor={id}>{label}</InputLabel>
-      <Input
-        startAdornment={<InputAdornment position="start"> </InputAdornment>}
-        className={classes.textField}
-        autoComplete={autoComplete}
-        value={value}
-        multiline={multiline}
-        onChange={onChange}
-        type={type || 'text'}
-        placeholder={placeholder}
-        id={id}
-      />
-      {error ? <FormHelperText id={id}>{error}</FormHelperText> : <></>}
-    </FormControl>
+    <TextField
+      variant="outlined"
+      label={label}
+      rows={4}
+      defaultValue="Default Value"
+      className={classes.textField}
+      autoComplete={autoComplete}
+      value={value}
+      multiline={multiline}
+      onChange={onChange}
+      type={type || 'text'}
+      placeholder={placeholder}
+      id={id}
+    />
   )
 }

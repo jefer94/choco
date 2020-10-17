@@ -15,6 +15,10 @@ const useStyles = makeStyles((theme: Theme) =>
       overflowY: 'auto',
       height: '100vh'
     },
+    project: {
+      marginTop: theme.spacing(2),
+      marginLeft: theme.spacing(2)
+    },
     fab: {
       position: 'absolute',
       bottom: theme.spacing(2),
@@ -23,25 +27,56 @@ const useStyles = makeStyles((theme: Theme) =>
   }))
 
 function LoadingScreen(): ReactElement {
+  const classes = useStyles()
   return (
     <>
-      <ProjectCardSkeleton />
-      <ProjectCardSkeleton />
-      <ProjectCardSkeleton />
-      <ProjectCardSkeleton />
-      <ProjectCardSkeleton />
+      <div className={classes.project}>
+        <ProjectCardSkeleton />
+      </div>
+      <div className={classes.project}>
+        <ProjectCardSkeleton />
+      </div>
+      <div className={classes.project}>
+        <ProjectCardSkeleton />
+      </div>
+      <div className={classes.project}>
+        <ProjectCardSkeleton />
+      </div>
+      <div className={classes.project}>
+        <ProjectCardSkeleton />
+      </div>
 
-      <ProjectCardSkeleton />
-      <ProjectCardSkeleton />
-      <ProjectCardSkeleton />
-      <ProjectCardSkeleton />
-      <ProjectCardSkeleton />
+      <div className={classes.project}>
+        <ProjectCardSkeleton />
+      </div>
+      <div className={classes.project}>
+        <ProjectCardSkeleton />
+      </div>
+      <div className={classes.project}>
+        <ProjectCardSkeleton />
+      </div>
+      <div className={classes.project}>
+        <ProjectCardSkeleton />
+      </div>
+      <div className={classes.project}>
+        <ProjectCardSkeleton />
+      </div>
 
-      <ProjectCardSkeleton />
-      <ProjectCardSkeleton />
-      <ProjectCardSkeleton />
-      <ProjectCardSkeleton />
-      <ProjectCardSkeleton />
+      <div className={classes.project}>
+        <ProjectCardSkeleton />
+      </div>
+      <div className={classes.project}>
+        <ProjectCardSkeleton />
+      </div>
+      <div className={classes.project}>
+        <ProjectCardSkeleton />
+      </div>
+      <div className={classes.project}>
+        <ProjectCardSkeleton />
+      </div>
+      <div className={classes.project}>
+        <ProjectCardSkeleton />
+      </div>
     </>
   )
 }
@@ -56,7 +91,13 @@ export default function ProjectsContainer(): ReactElement {
   console.info(loading, data, error)
 
   function Projects(): readonly ReactElement[] {
-    if (!(data instanceof Array)) return data?.projects.map(() => <ProjectCard />)
+    if (!(data instanceof Array)) {
+      return data?.projects.map(() => (
+        <div className={classes.project}>
+          <ProjectCard />
+        </div>
+      ))
+    }
     return []
   }
 

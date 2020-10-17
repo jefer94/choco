@@ -1,4 +1,4 @@
-import { connect, JSONCodec } from 'nats'
+import { connect, JSONCodec, Msg as NatsMsg } from 'nats'
 import { Request } from './middlewares/authorization'
 
 const connection = connect(process.env.BROKER ?
@@ -73,9 +73,19 @@ type SubscribeRequest<T> = {
 export async function SendCommand<T>(service: string, action: string, message: Msg):
   Promise<T> {
   const nc = await connection
-  const msg = nc.request(service, JSONCodec().encode({ type: action, ...message }))
+  let msg: NatsMsg
 
-  const data: SubscribeRequest<T> = JSONCodec().decode((await msg).data)
+  // eslint-disable-next-line functional/no-loop-statement
+  while (true) {
+    try {
+      // eslint-disable-next-line no-await-in-loop
+      msg = await nc.request(service, JSONCodec().encode({ type: action, ...message }))
+      break
+    }
+    catch {}
+  }
+
+  const data: SubscribeRequest<T> = JSONCodec().decode(msg.data)
 
   if (data.error) throw new Error(data.error)
   return data.data
